@@ -2,138 +2,287 @@
  * @provides phui-spacing-css
  */
 
-.pl {
+.f-pl {
   padding: 16px;
 }
 
-.pm {
+.f-pm {
   padding: 8px;
 }
 
-.ps {
+.f-ps {
   padding: 4px;
 }
 
-.ml {
+.f-ml {
   margin: 16px;
 }
 
-.mm {
+.f-mm {
   margin: 8px;
 }
 
-.ms {
+.f-ms {
   margin: 4px;
 }
 
 /* left */
 
-.pll {
+.f-pll {
   padding-left: 16px;
 }
 
-.pml {
+.f-pml {
   padding-left: 8px
 }
 
-.psl {
+.f-psl {
   padding-left: 4px;
 }
 
-.mll {
+.f-mll {
   margin-left: 16px;
 }
 
-.mml {
+.f-mml {
   margin-left: 8px;
 }
 
-.msl {
+.f-msl {
   margin-left: 4px;
 }
 
 /* Right */
 
-.plr {
+.f-plr {
   padding-right: 16px;
 }
 
-.pmr {
+.f-pmr {
   padding-right: 8px;
 }
 
-.psr {
+.f-psr {
   padding-right: 4px;
 }
 
-.mlr {
+.f-mlr {
   margin-right: 16px;
 }
 
-.mmr {
+.f-mmr {
   margin-right: 8px;
 }
 
-.msr {
+.f-msr {
   margin-right: 4px;
 }
 
 /* Bottom */
 
-.plb {
+.f-plb {
   padding-bottom: 16px;
 }
 
-.pmb {
+.f-pmb {
   padding-bottom: 8px;
 }
 
-.psb {
+.f-psb {
   padding-bottom: 4px;
 }
 
-.mlb {
+.f-mlb {
   margin-bottom: 16px;
 }
 
-.mmb {
+.f-mmb {
   margin-bottom: 8px;
 }
 
-.msb {
+.f-msb {
   margin-bottom: 4px;
 }
 
 /* Top */
 
-.plt {
+.f-plt {
   padding-top: 16px;
 }
 
-.pmt {
+.f-pmt {
   padding-top: 8px;
 }
 
-.pst {
+.f-pst {
   padding-top: 4px;
 }
 
-.mlt {
+.f-mlt {
   margin-top: 16px;
 }
 
-.mmt {
+.f-mmt {
   margin-top: 8px;
 }
 
-.mst {
+.f-mst {
   margin-top: 4px;
 }
 
-.text-uppercase {
+/* Text Styles */
+
+.f-txt-uppercase {
   text-transform: uppercase;
 }
 
-.text-strike {
+.f-txt-strike {
   text-decoration: line-through;
+}
+
+/* Clears */
+
+.f-clr-left {
+  clear: left;
+}
+
+.f-clr-right {
+  clear: right;
+}
+
+.f-clr-both {
+  clear: both;
+}
+
+.f-clr-none {
+  clear: none;
+}
+
+/* Colours */
+.f-red {
+  color: #c0392b;
+}
+
+.f-bg-red {
+  background-color: #c0392b;
+}
+
+.f-l-red {
+  color: #f4dddb;
+}
+
+.f-bg-l-red {
+  background-color: #f4dddb;
+}
+
+.f-orange {
+  color: #e67e22;
+}
+
+.f-bg-orange {
+  background-color: #e67e22;
+}
+
+.f-l-orange {
+  color: #f7e2d4;
+}
+
+.f-bg-l-orange {
+  background-color: #f7e2d4;
+}
+
+.f-yellow {
+  color: #f1c40f;
+}
+
+.f-bg-yellow {
+  background-color: #f1c40f;
+}
+
+.f-l-yellow {
+  color: #fdf5d4;
+}
+
+.f-bg-l-yellow {
+  background-color: #fdf5d4;
+}
+
+.f-green {
+  color: #139543;
+}
+
+.f-bg-green {
+  background-color: #139543;
+}
+
+.f-l-green {
+  color: #d7eddf;
+}
+
+.f-bg-l-green {
+  background-color: #d7eddf;
+}
+
+.f-blue {
+  color: #2980b9;
+}
+
+.f-bg-blue {
+  background-color: #2980b9;
+}
+
+.f-l-blue {
+  color: #daeaf3;
+}
+
+.f-bg-l-blue {
+  background-color: #daeaf3;
+}
+
+.f-sky {
+  color: #3498db;
+}
+
+.f-bg-sky {
+  background-color: #3498db;
+}
+
+.f-l-sky {
+  color: #ddeef9;
+}
+
+.f-bg-l-sky {
+  background-color: #ddeef9;
+}
+
+.f-indigo {
+  color: #6e5cb6;
+}
+
+.f-bg-indigo {
+  background-color: #6e5cb6;
+}
+
+.f-l-indigo {
+  color: #eae6f7;
+}
+
+.f-bg-l-indigo {
+  background-color: #eae6f7;
+}
+
+.f-pink {
+  color: #da49be;
+}
+
+.f-bg-pink {
+  background-color: #da49be;
+}
+
+.f-l-pink {
+  color: #fbeaf8;
+}
+
+.f-bg-l-pink {
+  background-color: #fbeaf8;
 }
