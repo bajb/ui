@@ -9,12 +9,8 @@ use Packaged\Glimpse\Core\ISafeHtmlProducer;
 use Packaged\Glimpse\Core\SafeHtml;
 use Packaged\Glimpse\Tags\Div;
 use Packaged\Glimpse\Tags\Link;
-use Packaged\Glimpse\Tags\Table\Table;
-use Packaged\Glimpse\Tags\Table\TableCell;
-use Packaged\Glimpse\Tags\Table\TableHeading;
-use Packaged\Glimpse\Tags\Table\TableRow;
 use Packaged\Glimpse\Tags\Text\HeadingFour;
-use Packaged\Glimpse\Tags\Text\HeadingThree;
+use Packaged\Glimpse\Tags\Text\HeadingOne;
 use Packaged\Glimpse\Tags\Text\Paragraph;
 use Packaged\Helpers\Strings;
 
@@ -56,37 +52,28 @@ abstract class AbstractUiExampleView extends ViewModel
     $groups = $this->getMethods();
     foreach($groups as $group => $methods)
     {
-      $output->appendContent(new HeadingThree(Strings::titleize($group)));
-      $table = new Table();
-      $table->addClass('table');
-      $table->setAttribute('style', 'table-layout:fixed');
-
-      $table->appendContent(
-        TableRow::create()->appendContent(
-          TableHeading::collection(['Type', 'Output', 'Code'])
-        )
+      $output->appendContent(
+        Div::create(new HeadingOne(Strings::titleize($group)))
+          ->addClass('content-container')
       );
 
       foreach($methods as $method)
       {
-        $elementContainer = new TableRow();
         $reflect = new \ReflectionMethod($this, $method);
         $parsed = DocBlockParser::fromMethod($this, $method);
         $code = $this->_getCode($reflect);
-        $elementContainer->appendContent(
-          TableCell::create(new HeadingFour(Strings::titleize($method)))
-            ->appendContent(new Paragraph($parsed->getSummary()))
-        );
-        $elementContainer->appendContent(new TableCell($this->$method()));
 
         $id = Strings::randomString(4);
         $toggledCode = new Div();
         $toggledCode->appendContent(
-          (new Link('#', 'Show Code'))->setAttribute(
-            'onclick',
-            '$(\'#code-' . $id . '\')
-            .removeClass(\'' . Ui::HIDE . '\');
-            $(this).hide(); return false;'
+          new HeadingFour(
+            (new Link('#', Strings::titleize($method)))
+              ->setAttribute(
+                'onclick',
+                '$(\'#code-' . $id . '\')'
+                . '.toggleClass(\'' . Ui::HIDE . '\');'
+                . 'return false;'
+              )
           )
         );
         $code = new SafeHtml(
@@ -103,13 +90,14 @@ abstract class AbstractUiExampleView extends ViewModel
             ->setId('code-' . $id)
         );
 
-        $elementContainer->appendContent(new TableCell($toggledCode));
+        $methRow = Div::create()->addClass('content-container');
+        $methRow->appendContent($toggledCode);
+        $methRow->appendContent(new Paragraph($parsed->getSummary()));
 
-        $table->appendContent($elementContainer);
+        $methRow->appendContent($this->$method());
+
+        $output->appendContent($methRow);
       }
-      $output->appendContent(
-        Div::create()->addClass(Ui::PADDING_MEDIUM_LEFT)->setContent($table)
-      );
     }
     return $output;
   }
