@@ -1,0 +1,113 @@
+<?php
+/**
+ * @var $this \Cubex\View\Layout
+ */
+?>
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"><![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
+  <base href="/">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="fragment" content="!">
+  <title><?= $this->getData('title', 'Fortifi UI Examples'); ?></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <?= \Packaged\Dispatch\AssetManager::generateHtmlIncludes(
+    \Packaged\Dispatch\AssetManager::TYPE_CSS
+  ); ?>
+  <style>
+    body {
+      text-align: center;
+    }
+
+    #wrapper {
+      text-align: left;
+      width:      1000px;
+      margin:     50px auto;
+      clear:      both;
+    }
+  </style>
+</head>
+<body>
+<!--[if lt IE 8]>
+<p class="browsehappy">
+  You are using an <strong>outdated</strong> browser.
+  Please <a href="http://browsehappy.com/?locale=en">upgrade your browser</a> to
+  improve your experience.</p>
+<![endif]-->
+
+<div id="title-bar">
+  <div class="content-container">
+    <ul class="menu--account title-bar-nav pull-right">
+      <li>
+        <a href="/settings/organisation" title="Settings">
+          <i class="fa fa-lg fa-cogs"></i></a>
+      </li>
+    </ul>
+
+    <div class="pull-left" style="margin-right:10px">
+      <a href="/" class="logo-brand">LOGO</a>
+    </div>
+
+    <ul class="title-bar-nav pull-left">
+      <li><a href="/headers">Headers</a></li>
+    </ul>
+
+    <form class="form-inline pull-left" action="/search"
+          role="form" method="get" id="top-search-form">
+      <div class="form-group">
+        <div class="input-group" style="line-height:5px;">
+          <input type="search" class="form-control input-sm"
+                 placeholder="Search..." name="s" id="top-search" value=""/>
+
+          <div class="input-group-addon input-sm">
+            <i class="fa fa-search"></i>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="wrapper">
+  <div id="page-content">
+    <div id="main-content">
+      <div>
+        <?= $this->content(); ?>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+  </div>
+
+  <div id="footer">
+    <div class="content-container">
+      <ul class="col-md-5 pull-right">
+        <li><a href="#">Footer Link</a></li>
+        <li><a href="#">Footer Link</a></li>
+        <li><a href="#">Footer Link</a></li>
+      </ul>
+
+      <a href="/" id="footer-home" class="col-md-1">
+        Fortifi Logo
+      </a>
+
+      <ul class="col-md-5 pull-left">
+        &copy; <?= date("Y"); ?> Fortifico Ltd.
+      </ul>
+    </div>
+  </div>
+</div>
+<?= \Packaged\Dispatch\AssetManager::generateHtmlIncludes(
+  \Packaged\Dispatch\AssetManager::TYPE_JS
+); ?>
+</body>
+</html>

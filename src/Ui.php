@@ -3,7 +3,7 @@ namespace Fortifi\Ui;
 
 use Packaged\Dispatch\AssetManager;
 
-final class UI
+final class Ui
 {
   /**
    * Floating Alignment
@@ -140,9 +140,12 @@ final class UI
   const TEXT_LIGHT_PINK = 'f-l-pink';
   const BG_LIGHT_PINK = 'f-bg-l-pink';
 
-  public static function boot()
+  public static function boot(AssetManager $am = null)
   {
-    $am = AssetManager::vendorType('fortifi', 'ui');
+    if($am === null)
+    {
+      $am = AssetManager::vendorType('fortifi', 'ui');
+    }
 
     //Require Base UI
     $am->requireCss('assets/css/ui-base');
