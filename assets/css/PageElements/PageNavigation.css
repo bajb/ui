@@ -1,0 +1,32 @@
+ul.f-page-navigation {
+  padding:       0;
+  border:        1px solid #d8d8d8;
+  margin-bottom: 0;
+  background:    #fff;
+}
+
+.f-page-navigation li {
+  border-top: 1px solid #e5e5e5;
+  margin:     0;
+  display:    block;
+  position:   relative;
+}
+
+.f-page-navigation li:first-child {
+  border-top: none;
+}
+
+.f-page-navigation li > * {
+  padding: 8px 15px;
+  display: block;
+}
+
+.f-page-navigation li.selected:before {
+  content:          "";
+  width:            2px;
+  position:         absolute;
+  top:              0;
+  left:             0;
+  bottom:           0;
+  background-color: #04BBDB;
+}

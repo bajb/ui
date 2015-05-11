@@ -2,6 +2,7 @@
 /**
  * @var $this \Cubex\View\Layout
  */
+$content = $this->content();
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>
@@ -334,6 +335,8 @@
 
     <ul class="title-bar-nav pull-left">
       <li><a href="/headers">Headers</a></li>
+      <li><a href="/colours">Colours</a></li>
+      <li><a href="/navigation">Navigation</a></li>
     </ul>
   </div>
 </div>
@@ -342,7 +345,7 @@
   <div id="page-content">
     <div id="main-content">
       <div>
-        <div class="content-container"><?= $this->content(); ?></div>
+        <div class="content-container"><?= $content; ?></div>
       </div>
     </div>
 

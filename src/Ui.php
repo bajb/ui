@@ -6,6 +6,11 @@ use Packaged\Dispatch\AssetManager;
 final class Ui
 {
   /**
+   * @var AssetManager
+   */
+  private static $assetManager;
+
+  /**
    * Floating Alignment
    */
   const CENTER_BLOCK = 'center-block';
@@ -140,22 +145,40 @@ final class Ui
   const TEXT_LIGHT_PINK = 'f-l-pink';
   const BG_LIGHT_PINK = 'f-bg-l-pink';
 
-  public static function boot(AssetManager $am = null)
+  public static function boot(
+    AssetManager $am = null, $bootstrap = true, $jquery = true
+  )
   {
     if($am === null)
     {
       $am = AssetManager::vendorType('fortifi', 'ui');
     }
 
+    static::$assetManager = $am;
+
     //Require Base UI
     $am->requireCss('assets/css/ui-base');
     $am->requireJs('assets/css/ui-base');
 
-    //Require JQuery
-    $am->requireJs('vendor_assets/jquery/2.1.4.min');
+    if($jquery)
+    {    //Require JQuery
+      $am->requireJs('vendor_assets/jquery/2.1.4.min');
+    }
 
-    //Require Bootstrap
-    $am->requireCss('vendor_assets/bootstrap/3.3.4.min');
-    $am->requireJs('vendor_assets/bootstrap/3.3.4.min');
+    if($bootstrap)
+    {   //Require Bootstrap
+      $am->requireCss('vendor_assets/bootstrap/3.3.4.min');
+      $am->requireJs('vendor_assets/bootstrap/3.3.4.min');
+    }
+  }
+
+  /**
+   * Obtain the asset manager for the fortifi Ui
+   *
+   * @return AssetManager
+   */
+  public static function getAssetManager()
+  {
+    return static::$assetManager;
   }
 }
