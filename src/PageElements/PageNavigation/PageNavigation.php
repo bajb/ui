@@ -14,14 +14,26 @@ class PageNavigation extends UiElement
   protected $_items;
   protected $_currentLink;
 
-  public function processIncludes(AssetManager $assetManager)
+  /**
+   * Require Assets
+   *
+   * @param AssetManager $assetManager
+   * @param bool         $vendor
+   */
+  public function processIncludes(AssetManager $assetManager, $vendor = false)
   {
-    $assetManager->requireCss('assets/css/PageElements/PageNavigation');
+    if($vendor)
+    {
+      $assetManager->requireCss('assets/css/PageElements');
+    }
+    else
+    {
+      $assetManager->requireCss('assets/css/PageElements/PageNavigation');
+    }
   }
 
   public function __construct($currentLink = null)
   {
-    parent::__construct();
     $this->_currentLink = $currentLink;
   }
 

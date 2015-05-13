@@ -3,20 +3,36 @@ namespace Fortifi\Ui;
 
 use Illuminate\Support\Contracts\RenderableInterface;
 use Packaged\Dispatch\AssetManager;
+use Packaged\Dispatch\DirectoryMapper;
 use Packaged\Glimpse\Core\ISafeHtmlProducer;
 
 abstract class UiElement implements ISafeHtmlProducer, RenderableInterface
 {
-  public function __construct()
+  protected $_processedIncludes = false;
+
+  /**
+   * @param bool $force Force process includes to be re-processed
+   */
+  protected function _processIncludes($force = false)
   {
-    $this->processIncludes(Ui::getAssetManager());
+    if(!$this->_processedIncludes || $force)
+    {
+      $am = Ui::getAssetManager();
+      $this->processIncludes(
+        $am,
+        $am->getMapType() == DirectoryMapper::MAP_VENDOR
+      );
+    }
+    $this->_processedIncludes = true;
   }
+
   /**
    * Require Assets
    *
    * @param AssetManager $assetManager
+   * @param bool         $vendor
    */
-  public function processIncludes(AssetManager $assetManager)
+  public function processIncludes(AssetManager $assetManager, $vendor = false)
   {
   }
 
@@ -27,7 +43,7 @@ abstract class UiElement implements ISafeHtmlProducer, RenderableInterface
    */
   public function render()
   {
-    $this->processIncludes(Ui::getAssetManager());
+    $this->_processIncludes();
     return (string)$this->produceSafeHTML();
   }
 
