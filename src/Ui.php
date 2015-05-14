@@ -158,7 +158,7 @@ final class Ui
 
     //Require Base UI
     $am->requireCss('assets/css/ui-base');
-    $am->requireJs('assets/css/ui-base');
+    $am->requireJs('assets/js/ui-base');
 
     if($jquery)
     {    //Require JQuery
