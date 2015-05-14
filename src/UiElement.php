@@ -5,6 +5,7 @@ use Illuminate\Support\Contracts\RenderableInterface;
 use Packaged\Dispatch\AssetManager;
 use Packaged\Dispatch\DirectoryMapper;
 use Packaged\Glimpse\Core\ISafeHtmlProducer;
+use Packaged\Glimpse\Core\SafeHtml;
 
 abstract class UiElement implements ISafeHtmlProducer, RenderableInterface
 {
@@ -13,7 +14,7 @@ abstract class UiElement implements ISafeHtmlProducer, RenderableInterface
   /**
    * @param bool $force Force process includes to be re-processed
    */
-  protected function _processIncludes($force = false)
+  final protected function _processIncludes($force = false)
   {
     if(!$this->_processedIncludes || $force)
     {
@@ -37,13 +38,26 @@ abstract class UiElement implements ISafeHtmlProducer, RenderableInterface
   }
 
   /**
+   * @return SafeHtml|SafeHtml[]
+   */
+  final public function produceSafeHTML()
+  {
+    $this->_processIncludes();
+    return $this->_produceHtml();
+  }
+
+  /**
+   * @return SafeHtml|SafeHtml[]
+   */
+  abstract protected function _produceHtml();
+
+  /**
    * Get the evaluated contents of the object.
    *
    * @return string
    */
-  public function render()
+  final public function render()
   {
-    $this->_processIncludes();
     return (string)$this->produceSafeHTML();
   }
 

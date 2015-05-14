@@ -2,7 +2,6 @@
 /**
  * @var $this \Cubex\View\Layout
  */
-$content = $this->content();
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>
@@ -344,7 +343,7 @@ $content = $this->content();
 <div id="wrapper">
   <div id="page-content">
     <div id="main-content">
-      <?= $content; ?>
+      <?= $this->content(); ?>
     </div>
 
     <div class="clearfix"></div>

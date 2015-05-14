@@ -53,7 +53,7 @@ class PageNavigation extends UiElement
   /**
    * @return SafeHtml|SafeHtml[]
    */
-  public function produceSafeHTML()
+  protected function _produceHtml()
   {
     $list = UnorderedList::create();
     $list->addClass('f-page-navigation');
