@@ -65,11 +65,17 @@
 .f-obj-lst-itm-cntr-col {
   display:        table-cell;
   vertical-align: top;
+  line-height:    30px;
+  padding:        0 8px;
+}
+
+.f-obj-lst-itm-cntr-col2 {
+  width:      160px;
+  text-align: right;
 }
 
 .f-obj-lst-itm-title {
   font-weight:   bold;
-  padding:       8px 8px 0;
   white-space:   nowrap;
   word-wrap:     break-word;
   overflow:      hidden;

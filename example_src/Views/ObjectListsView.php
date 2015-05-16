@@ -4,6 +4,7 @@ namespace Fortifi\UiExample\Views;
 use Fortifi\Ui\ContentElements\ObjectLists\ObjectList;
 use Fortifi\Ui\ContentElements\ObjectLists\ObjectListCard;
 use Fortifi\Ui\GlobalElements\Icons\Icon;
+use Fortifi\Ui\Ui;
 use Packaged\Glimpse\Elements\LineBreak;
 use Packaged\Glimpse\Tags\Link;
 
@@ -62,6 +63,24 @@ class ObjectListsView extends AbstractUiExampleView
     $card->addAction(new Link('#'), new Icon(Icon::EDIT));
     $card->addAction(new Link('#'), new Icon(Icon::DELETE));
     $card->addAction(new Link('#'), new Icon(Icon::LOCK), true);
+    $result[] = $card;
+
+    return $result;
+  }
+
+  /**
+   * @group RightContent
+   */
+  final public function rightContentCards()
+  {
+    $result = [];
+
+    $card = new ObjectListCard();
+    $card->setTitle('One Action');
+    $card->addAction(new Link('#'), new Icon(Icon::EDIT));
+    $card->setRightContent(
+      (new Icon(Icon::CURRENT_DEFAULT))->addClass(Ui::TEXT_ORANGE)
+    );
     $result[] = $card;
 
     return $result;

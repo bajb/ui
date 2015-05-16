@@ -34,6 +34,7 @@ class ObjectListCard extends UiElement
   protected $_title;
   protected $_image;
   protected $_state;
+  protected $_rightContent;
 
   public function processIncludes(AssetManager $assetManager, $vendor = false)
   {
@@ -86,6 +87,12 @@ class ObjectListCard extends UiElement
     return $this;
   }
 
+  public function setRightContent($content)
+  {
+    $this->_rightContent = $content;
+    return $this;
+  }
+
   /**
    * @return SafeHtml|SafeHtml[]
    */
@@ -132,6 +139,14 @@ class ObjectListCard extends UiElement
     $col1 = Div::create('');
     $col1->addClass('f-obj-lst-itm-cntr-col');
     $row->appendContent($col1);
+
+    if(!empty($this->_rightContent))
+    {
+      $col2 = Div::create($this->_rightContent);
+      $col2->addClass('f-obj-lst-itm-cntr-col');
+      $col2->addClass('f-obj-lst-itm-cntr-col2');
+      $row->appendContent($col2);
+    }
 
     $title = Div::create($this->_title);
     $title->addClass('f-obj-lst-itm-title');

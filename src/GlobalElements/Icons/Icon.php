@@ -12,9 +12,11 @@ class Icon extends UiElement
   const DELETE = 'fa-times';
   const LOCK = 'fa-lock';
   const UNLOCK = 'fa-unlock';
-  const MAKE_DEFAULT = 'fa-star-half-o';
+  const MAKE_DEFAULT = 'fa-star-o';
+  const CURRENT_DEFAULT = 'fa-star';
 
   protected $_icon;
+  protected $_classes = [];
 
   public function __construct($icon)
   {
@@ -33,6 +35,12 @@ class Icon extends UiElement
     }
   }
 
+  public function addClass($class)
+  {
+    $this->_classes[] = $class;
+    return $this;
+  }
+
   /**
    * @return SafeHtml|SafeHtml[]
    */
@@ -49,6 +57,10 @@ class Icon extends UiElement
       ]
     );
     $icon->addClass($this->_icon);
+    foreach($this->_classes as $class)
+    {
+      $icon->addClass($class);
+    }
     return $icon;
   }
 }
