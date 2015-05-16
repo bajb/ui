@@ -48,88 +48,165 @@ var QueryBuilderValueMode = {
     QueryBuilder.configuration = {};
     QueryBuilder.options = QueryBuilder.data = [];
     QueryBuilder.addOption(QueryBuilderOption);
-    console.log(QueryBuilder)
-    ;
+    console.log(QueryBuilder);
     console.log("Completed Query Builder Init");
   };
 
   $.fn.qb = function (command, data)
   {
     var $this = $(this);
-    switch(command){
-      case 'options':
-        $this.data('qb.options', data);
-        break;
-      case 'rules':
-        $this.data('qb.rules', data);
-        break;
-      case 'getData':
-        $('div',$this).each(function(){
-
-        });
-        break;
-    }
+    $this.addClass('qb-container');
 
     var options = $this.data('qb.options'),
       rules = $this.data('qb.rules');
 
-    if (options && rules)
+    switch (command)
     {
-//      addRule('', this);
-      $.each(
-        rules, function (idx)
-        {
-          addRule(idx, this);
-        }
-      );
+      case 'init':
+        $this.each(
+          function ()
+          {
+            var $qb = $(this),
+              opUrl = $qb.attr('data-qb-options'),
+              ruUrl = $qb.attr('data-qb-rules');
+            if (opUrl)
+            {
+              $.getJSON(
+                opUrl, {}, function (op)
+                {
+                  $qb.qb('options', op);
+                }
+              );
+            }
+            if (ruUrl)
+            {
+              $.getJSON(
+                ruUrl, {}, function (rules)
+                {
+                  $qb.qb('rules', rules);
+                }
+              );
+            }
+          }
+        );
+        return;
+      case 'options':
+        options = data;
+        $this.data('qb.options', options);
+        break;
+      case 'rules':
+        rules = data;
+        $this.data('qb.rules', rules);
+        break;
+      case 'addRule':
+        var args = Array.prototype.slice.call(arguments);
+        args.shift();
+        addRule.apply(this, args);
+        return;
+      case 'getRules':
+        var currentData = [];
+        $('.qb-rules .qb-rule', $this).each(
+          function ()
+          {
+            currentData.push(
+              {
+                key:        $('.qb-key', this).val(),
+                comparator: $('.qb-comparator', this).val(),
+                value:      $('.qb-value', this).val()
+              }
+            );
+          }
+        );
+        return currentData;
+        break;
+      default:
+        return;
     }
 
-    function addRule(key, ruleData)
+    if (options && rules)
     {
-      console.log(ruleData);
-      var $row = $('<div/>').appendTo($this),
-        $propertySel = $('<select/>').appendTo($row),
-        $comparatorSel = $('<select/>').appendTo($row),
-        def = options[key];
+      $('<div class="qb-rules"/>').appendTo($this);
+      $.each(
+        rules, function ()
+        {
+          addRule(this);
+        }
+      );
+      $('<button class="qb-addRule">+</button>').appendTo($this);
+    }
 
+    function addRule(ruleData, idx)
+    {
+      var $row = $('<div class="qb-rule"/>'),
+        $propertySel = $('<select class="qb-key"/>').appendTo($row),
+        ruleKey = ruleData ? ruleData.key : null,
+        def = ruleKey ? options[ruleKey] : null;
       $propertySel.append('<option/>');
+
       $.each(
         options, function (optionKey)
         {
-          var selected = key == optionKey;
+          var selected = ruleKey == optionKey;
           $propertySel.append('<option value="' + optionKey + '"' + (selected ? ' selected="selected"' : '') + '>' + this.display + '</option>');
         }
       );
 
-      console.log(options[key]);
-      $comparatorSel.append('<option/>');
-      $.each(
-        options[key]['comparators'], function (comparatorKey)
-        {
-          var selected = ruleData.comparator == comparatorKey;
-          $comparatorSel.append('<option value="' + comparatorKey + '"' + (selected ? ' selected="selected"' : '') + '>' + this + '</option>');
-        }
-      );
+      if (def)
+      {
+        var $comparatorSel = $('<select class="qb-comparator"/>').appendTo($row);
+        $.each(
+          def['comparators'], function (comparatorKey)
+          {
+            var selected = ruleData.comparator == comparatorKey;
+            $comparatorSel.append('<option value="' + comparatorKey + '"' + (selected ? ' selected="selected"' : '') + '>' + this + '</option>');
+          }
+        );
 
-      $('<input type="text" value="'+ruleData.value+'"/>').appendTo($row);
+        $('<input class="qb-value" type="text" value="' + (ruleData.value ? ruleData.value : '') + '"/>').appendTo($row);
+      }
+      $('<button class="qb-delRule"><i class="fa fa-trash"></i></button>').appendTo($row);
+
+      if (typeof idx !== 'undefined')
+      {
+        $('.qb-rule:eq(' + idx + ')', $this).replaceWith($row);
+      }
+      else
+      {
+        $row.appendTo($('.qb-rules', $this));
+      }
     }
   };
 
-  //$(QueryBuilder.init); //Document Load
-  //$(document).on('pagelet.load', QueryBuilder.init); //Pagelet Load
-
+  $(document).on(
+    'change', '.qb-rule .qb-key', function ()
+    {
+      $(this).closest('.qb-container').qb(
+        'addRule', {key: $(this).val()}, $(this).parent().index()
+      );
+    }
+  );
+  $(document).on(
+    'click', 'button.qb-delRule', function ()
+    {
+      $(this).closest('.qb-rules.qb-rule').remove();
+    }
+  );
+  $(document).on(
+    'click', 'button.qb-addRule', function ()
+    {
+      $(this).closest('.qb-container').qb('addRule');
+    }
+  );
 }(jQuery);
 
-$.getJSON(
-  '/querybuilder/policy', {}, function (data)
-  {
-    $('#policyQuery').qb('rules', data);
-  }
-);
-
-$.getJSON(
-  '/querybuilder/options', {}, function (options)
-  {
-    $('#policyQuery').qb('options', options);
-  }
-);
+function initExample()
+{
+  $('.query-builder').qb('init');
+  $('.getData').on(
+    'click', function ()
+    {
+      console.table($(this).prev('.qb-container').qb('getRules'));
+    }
+  );
+}
+$(initExample); //Document Load

@@ -3,12 +3,15 @@ namespace Fortifi\UiExample\Controllers;
 
 use Cubex\Http\Response;
 use Cubex\View\LayoutController;
+use Cubex\View\Renderable;
 use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilder;
 use Fortifi\Ui\ProjectSupport\FortifiUiLayout;
 use Fortifi\UiExample\Views\ColoursView;
 use Fortifi\UiExample\Views\ObjectListsView;
 use Fortifi\UiExample\Views\PageNavigationView;
 use Fortifi\UiExample\Views\TextView;
+use Packaged\Glimpse\Core\HtmlTag;
+use Packaged\Glimpse\Tags\Div;
 
 class ExampleController extends LayoutController
 {
@@ -31,7 +34,32 @@ class ExampleController extends LayoutController
       case 'objectlist':
         return new ObjectListsView();
       case 'querybuilder':
-        return new QueryBuilder();
+        return new Renderable(
+          Div::create(
+            [
+              Div::create(
+                [
+                  new QueryBuilder(
+                    '/querybuilder/options',
+                    '/querybuilder/policy'
+                  ),
+                  HtmlTag::createTag('button')
+                    ->addClass('getData')->setContent('Get Values')
+                ]
+              ),
+              Div::create(
+                [
+                  new QueryBuilder(
+                    '/querybuilder/options',
+                    '/querybuilder/policy'
+                  ),
+                  HtmlTag::createTag('button')
+                    ->addClass('getData')->setContent('Get Values')
+                ]
+              )
+            ]
+          )
+        );
       default:
         return 'Coming Soon';
     }
@@ -53,12 +81,12 @@ class ExampleController extends LayoutController
         'mode'        => 'text'
       ],
       'company'       => [
-        'display' => 'Company',
-        'comparators'=>['eq' => 'Equals', 'in' => 'IN'],
+        'display'     => 'Company',
+        'comparators' => ['eq' => 'Equals', 'in' => 'IN'],
       ],
       'affiliateType' => [
-        'display' => 'Affilaite Type',
-        'comparators'=>['eq' => 'Equals', 'in' => 'IN'],
+        'display'     => 'Affilaite Type',
+        'comparators' => ['eq' => 'Equals', 'in' => 'IN'],
       ]
     ];
     return new Response(json_encode($response));
@@ -67,9 +95,9 @@ class ExampleController extends LayoutController
   public function qbPolicyData()
   {
     $policy = [
-      'browser'       => ['comparator' => 'eq', 'value' => 'chrome'],
-      'company'       => ['comparator' => 'in', 'value' => ['x', 'y']],
-      'affiliateType' => ['comparator' => 'eq', 'value' => 'a'],
+      ['key' => 'browser', 'comparator' => 'eq', 'value' => 'chrome'],
+      ['key' => 'company', 'comparator' => 'in', 'value' => ['x', 'y']],
+      ['key' => 'affiliateType', 'comparator' => 'eq', 'value' => 'a'],
     ];
     return new Response(json_encode($policy));
   }
