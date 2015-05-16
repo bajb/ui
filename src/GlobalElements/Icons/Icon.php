@@ -12,6 +12,7 @@ class Icon extends UiElement
   const DELETE = 'fa-times';
   const LOCK = 'fa-lock';
   const UNLOCK = 'fa-unlock';
+  const MAKE_DEFAULT = 'fa-star-half-o';
 
   protected $_icon;
 
