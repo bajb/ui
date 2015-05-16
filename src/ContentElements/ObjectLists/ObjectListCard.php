@@ -158,7 +158,7 @@ class ObjectListCard extends UiElement
     {
       $col2 = Div::create($this->_rightContent);
       $col2->addClass('f-obj-lst-itm-cntr-col');
-      $col2->addClass('f-obj-lst-itm-cntr-col2');
+      $col2->addClass('f-obj-lst-itm-cntr-right');
       $row->appendContent($col2);
     }
 

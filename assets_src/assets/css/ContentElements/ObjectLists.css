@@ -69,7 +69,7 @@
   padding:        0 8px;
 }
 
-.f-obj-lst-itm-cntr-col2 {
+.f-obj-lst-itm-cntr-right {
   width:          160px;
   text-align:     right;
   vertical-align: middle;
@@ -81,6 +81,11 @@
   word-wrap:     break-word;
   overflow:      hidden;
   text-overflow: ellipsis;
+  color:         #333333;
+}
+
+.f-obj-lst-itm-sub-title {
+  line-height: 24px;
 }
 
 /** Actions **/
@@ -93,6 +98,7 @@
   vertical-align: middle;
   text-align:     right;
   border-left:    1px solid #C7CCD9;
+  background:     #FEFEFA;
 }
 
 .f-obj-lst-itm-act li {
