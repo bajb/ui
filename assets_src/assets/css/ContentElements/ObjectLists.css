@@ -70,8 +70,9 @@
 }
 
 .f-obj-lst-itm-cntr-col2 {
-  width:      160px;
-  text-align: right;
+  width:          160px;
+  text-align:     right;
+  vertical-align: middle;
 }
 
 .f-obj-lst-itm-title {

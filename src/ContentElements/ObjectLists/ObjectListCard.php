@@ -34,6 +34,7 @@ class ObjectListCard extends UiElement
   protected $_title;
   protected $_image;
   protected $_state;
+  protected $_subTitle;
   protected $_rightContent;
 
   public function processIncludes(AssetManager $assetManager, $vendor = false)
@@ -71,6 +72,19 @@ class ObjectListCard extends UiElement
   public function setTitle($title)
   {
     $this->_title = $title;
+    return $this;
+  }
+
+  /**
+   * Set the card sub title
+   *
+   * @param $subTitle
+   *
+   * @return $this
+   */
+  public function setSubTitle($subTitle)
+  {
+    $this->_subTitle = $subTitle;
     return $this;
   }
 
@@ -151,6 +165,13 @@ class ObjectListCard extends UiElement
     $title = Div::create($this->_title);
     $title->addClass('f-obj-lst-itm-title');
     $col1->appendContent($title);
+
+    if(!empty($this->_subTitle))
+    {
+      $subTitle = Div::create($this->_subTitle);
+      $subTitle->addClass('f-obj-lst-itm-sub-title');
+      $col1->appendContent($subTitle);
+    }
 
     return $card;
   }
