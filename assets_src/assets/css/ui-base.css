@@ -1,6 +1,12 @@
-/**
- * @provides phui-spacing-css
- */
+/** RESET **/
+
+body ul, body ol {
+  list-style: none;
+  margin:     0;
+  padding:    0;
+}
+
+/** Spacing **/
 
 .f-pl {
   padding: 16px;
@@ -285,4 +291,20 @@
 
 .f-bg-l-pink {
   background-color: #fbeaf8;
+}
+
+.f-grey {
+  color: #bdc3c7;
+}
+
+.f-bg-grey {
+  background-color: #bdc3c7;
+}
+
+.f-black {
+  color: #333333;
+}
+
+.f-bg-black {
+  background-color: #333333;
 }

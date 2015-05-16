@@ -144,9 +144,14 @@ final class Ui
   const BG_PINK = 'f-bg-pink';
   const TEXT_LIGHT_PINK = 'f-l-pink';
   const BG_LIGHT_PINK = 'f-bg-l-pink';
+  const TEXT_GREY = 'f-grey';
+  const BG_GREY = 'f-bg-grey';
+  const TEXT_BLACK = 'f-black';
+  const BG_BLACK = 'f-bg-black';
 
   public static function boot(
-    AssetManager $am = null, $bootstrap = true, $jquery = true
+    AssetManager $am = null, $bootstrap = true, $jquery = true,
+    $fontAwesome = true
   )
   {
     if($am === null)
@@ -169,6 +174,13 @@ final class Ui
     {   //Require Bootstrap
       $am->requireCss('assets/vendor/bootstrap/3.3.4.min');
       $am->requireJs('assets/vendor/bootstrap/3.3.4.min');
+    }
+
+    if($fontAwesome)
+    {
+      $am->requireCss(
+        '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'
+      );
     }
   }
 

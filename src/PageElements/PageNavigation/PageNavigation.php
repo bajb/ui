@@ -1,13 +1,13 @@
 <?php
 namespace Fortifi\Ui\PageElements\PageNavigation;
 
+use Fortifi\Ui\ContentElements\ObjectLists\ObjectList;
+use Fortifi\Ui\ContentElements\ObjectLists\ObjectListCard;
 use Fortifi\Ui\UiElement;
 use Packaged\Dispatch\AssetManager;
 use Packaged\Glimpse\Core\HtmlTag;
 use Packaged\Glimpse\Core\ISafeHtmlProducer;
 use Packaged\Glimpse\Core\SafeHtml;
-use Packaged\Glimpse\Tags\Lists\ListItem;
-use Packaged\Glimpse\Tags\Lists\UnorderedList;
 
 class PageNavigation extends UiElement
 {
@@ -55,16 +55,17 @@ class PageNavigation extends UiElement
    */
   protected function _produceHtml()
   {
-    $list = UnorderedList::create();
-    $list->addClass('f-page-navigation');
+    $list = new ObjectList();
+    $list->setStacked(true, false);
     foreach($this->_items as $item)
     {
-      $listItem = ListItem::create($item[0]);
+      $card = new ObjectListCard();
+      $card->setTitle($item[0]);
       if($item[1])
       {
-        $listItem->addClass('selected');
+        $card->setColour(ObjectListCard::COLOUR_SKY);
       }
-      $list->addItem($listItem);
+      $list->addCard($card);
     }
     return $list;
   }
