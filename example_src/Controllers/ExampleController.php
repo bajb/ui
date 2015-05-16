@@ -1,7 +1,9 @@
 <?php
 namespace Fortifi\UiExample\Controllers;
 
+use Cubex\Http\Response;
 use Cubex\View\LayoutController;
+use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilder;
 use Fortifi\Ui\ProjectSupport\FortifiUiLayout;
 use Fortifi\UiExample\Views\ColoursView;
 use Fortifi\UiExample\Views\ObjectListsView;
@@ -28,13 +30,56 @@ class ExampleController extends LayoutController
         return new TextView();
       case 'objectlist':
         return new ObjectListsView();
+      case 'querybuilder':
+        return new QueryBuilder();
       default:
         return 'Coming Soon';
     }
   }
 
+  public function qbOptions()
+  {
+    $response = [
+      'browser'       => [
+        'display'     => 'Browser Name',
+        'comparators' => ['eq' => 'Equals', 'in' => 'IN'],
+        // QueryBuilderComparators.IN],
+        'values'      => [
+          'chrome'  => 'Chrome',
+          'firefox' => 'Firefox',
+          'safari'  => 'Safari'
+        ],
+        'ajaxUrl'     => '',
+        'mode'        => 'text'
+      ],
+      'company'       => [
+        'display' => 'Company',
+        'comparators'=>['eq' => 'Equals', 'in' => 'IN'],
+      ],
+      'affiliateType' => [
+        'display' => 'Affilaite Type',
+        'comparators'=>['eq' => 'Equals', 'in' => 'IN'],
+      ]
+    ];
+    return new Response(json_encode($response));
+  }
+
+  public function qbPolicyData()
+  {
+    $policy = [
+      'browser'       => ['comparator' => 'eq', 'value' => 'chrome'],
+      'company'       => ['comparator' => 'in', 'value' => ['x', 'y']],
+      'affiliateType' => ['comparator' => 'eq', 'value' => 'a'],
+    ];
+    return new Response(json_encode($policy));
+  }
+
   public function getRoutes()
   {
-    return [':page' => 'defaultAction'];
+    return [
+      'querybuilder/options' => 'qbOptions',
+      'querybuilder/policy'  => 'qbPolicyData',
+      ':page'                => 'defaultAction',
+    ];
   }
 }
