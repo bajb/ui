@@ -1,51 +1,9 @@
-var QueryBuilderComparators = {
-  BETWEEN:           'between',
-  IN:                'in',
-  IN_CASE_SENSITIVE: 'in_sensitive',
-  EQUAL:             'equal',
-  EXACT:             'exact',
-  LIKE:              'like',
-  STARTS:            'starts',
-  ENDS:              'ends',
-  IPRANGE:           'iprange',
-  RANGE:             'range',
-  GREATER:           'greater',
-  LESS:              'less'
-};
-
-var QueryBuilderValueMode = {
-  TEXT:   'text',
-  SELECT: 'select',
-  TOKEN:  'token',
-  SELEXT: 'selext'
-};
+/*
+ * Query Builder
+ */
 
 (function ($)
 {
-  var QueryBuilderOption = {
-    'key':         '',
-    'display':     '',
-    'comparators': [QueryBuilderComparators.EQUAL],// QueryBuilderComparators.IN],
-    'values':      ['UK', 'US', 'AU'],
-    'ajaxUrl':     '',
-    'mode':        QueryBuilderValueMode.TEXT
-  };
-
-  QueryBuilder.addOption = function (option)
-  {
-    this.data.push(option);
-  };
-
-  QueryBuilder.init = function ()
-  {
-    console.log("Starting Query Builder");
-    QueryBuilder.configuration = {};
-    QueryBuilder.options = QueryBuilder.data = [];
-    QueryBuilder.addOption(QueryBuilderOption);
-    console.log(QueryBuilder);
-    console.log("Completed Query Builder Init");
-  };
-
   $.fn.qb = function (command, data)
   {
     if (typeof QueryBuilder.prototype[command] !== 'function')
@@ -220,15 +178,3 @@ var QueryBuilderValueMode = {
     }
   };
 })(jQuery);
-
-function initExample()
-{
-  $('.query-builder').qb('init');
-  $('.getData').on(
-    'click', function ()
-    {
-      console.table($(this).prev('.qb-container').qb('rules'));
-    }
-  );
-}
-$(initExample); //Document Load
