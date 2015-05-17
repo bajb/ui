@@ -48,6 +48,20 @@
     }
   );
   $(document).on(
+    'change', '.qb-rule .qb-comparator', function ()
+    {
+      var $rule = $(this).closest('.qb-rules .qb-rule');
+      $(this).closest('.qb-container').qb(
+        'addRule', {
+          key:        $('.qb-key', $rule).val(),
+          comparator: $(this).val(),
+          value:      $('.qb-value', $rule).val()
+        },
+        $rule.index()
+      );
+    }
+  );
+  $(document).on(
     'click', 'button.qb-remove-rule', function ()
     {
       $(this).closest('.qb-container').qb(
