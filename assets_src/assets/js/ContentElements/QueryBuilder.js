@@ -42,7 +42,7 @@
     'change', '.qb-rule .qb-key', function ()
     {
       $(this).closest('.qb-container').qb(
-        'add-rule', {key: $(this).val()}, $(this).parent().index()
+        'addRule', {key: $(this).val()}, $(this).parent().index()
       );
     }
   );
@@ -55,7 +55,7 @@
   $(document).on(
     'click', 'button.qb-add-rule', function ()
     {
-      $(this).closest('.qb-container').qb('add-rule');
+      $(this).closest('.qb-container').qb('addRule');
     }
   );
 

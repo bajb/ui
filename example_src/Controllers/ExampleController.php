@@ -9,6 +9,7 @@ use Fortifi\Ui\ProjectSupport\FortifiUiLayout;
 use Fortifi\UiExample\Views\ColoursView;
 use Fortifi\UiExample\Views\ObjectListsView;
 use Fortifi\UiExample\Views\PageNavigationView;
+use Fortifi\UiExample\Views\QueryBuilderView;
 use Fortifi\UiExample\Views\TextView;
 use Packaged\Dispatch\AssetManager;
 use Packaged\Glimpse\Tags\Div;
@@ -33,19 +34,7 @@ class ExampleController extends LayoutController
       case 'objectlist':
         return new ObjectListsView();
       case 'querybuilder':
-        $div = Div::create(
-          [
-            QueryBuilder::create(
-              '/querybuilder/options',
-              '/querybuilder/policy'
-            ),
-            QueryBuilder::create('/querybuilder/options', 'query'),
-          ]
-        );
-        AssetManager::sourceType()->requireInlineJs(
-          "$('.query-builder').qb();"
-        );
-        return new Renderable($div);
+        return new QueryBuilderView();
       default:
         return 'Coming Soon';
     }

@@ -38,10 +38,12 @@ class QueryBuilder extends UiElement
     if($vendor)
     {
       $assetManager->requireJs('assets/js/ContentElements');
+      $assetManager->requireCss('assets/css/ContentElements');
     }
     else
     {
       $assetManager->requireJs('assets/js/ContentElements/QueryBuilder');
+      $assetManager->requireCss('assets/css/ContentElements/QueryBuilder');
     }
   }
 
