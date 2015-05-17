@@ -133,7 +133,7 @@
     {
       if (data === 'query')
       {
-        var rules = [], params = $.parseParams(window.location.search);
+        var rules = [], params = $.parseParams(window.location.search.substring(1));
         $.each(
           params, function (key, v)
           {
