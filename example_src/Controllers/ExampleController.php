@@ -48,7 +48,7 @@ class ExampleController extends LayoutController
             ),
             Div::create(
               [
-                QueryBuilder::create('/querybuilder/options','query'),
+                QueryBuilder::create('/querybuilder/options', 'query'),
                 HtmlTag::createTag('button')
                   ->addClass('getData')->setContent('Get Values')
               ]

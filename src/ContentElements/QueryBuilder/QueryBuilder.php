@@ -10,6 +10,7 @@ class QueryBuilder extends UiElement
 {
   protected $_optionsUrl;
   protected $_rulesUrl;
+  protected $_classes = ['query-builder'];
 
   public static function create($optionsUrl = null, $rulesUrl = null)
   {
@@ -17,6 +18,18 @@ class QueryBuilder extends UiElement
     $qb->_optionsUrl = $optionsUrl;
     $qb->_rulesUrl = $rulesUrl;
     return $qb;
+  }
+
+  public function addClass(...$class)
+  {
+    $this->_classes = array_unique(array_merge($this->_classes, $class));
+    return $this;
+  }
+
+  public function removeClass(...$class)
+  {
+    $this->_classes = array_diff($this->_classes, $class);
+    return $this;
   }
 
   public function processIncludes(AssetManager $assetManager, $vendor = false)
@@ -37,7 +50,11 @@ class QueryBuilder extends UiElement
    */
   protected function _produceHtml()
   {
-    $div = Div::create('Query Builder Placeholder')->addClass('query-builder');
+    $div = Div::create('Query Builder Placeholder');
+    if($this->_classes)
+    {
+      $div->addClass(...$this->_classes);
+    }
     if($this->_optionsUrl)
     {
       $div->setAttribute('data-qb-options', $this->_optionsUrl);
