@@ -233,7 +233,10 @@
       $propertySel = $('<select class="qb-key"/>').appendTo($row),
       ruleKey = ruleData ? ruleData.key : null,
       definition = ruleKey ? this._definitions[ruleKey] : null;
-    $propertySel.append('<option> - SELECT -</option>');
+    if (!ruleKey)
+    {
+      $propertySel.append('<option> - SELECT -</option>');
+    }
     if (ruleKey && !definition)
     {
       return;
