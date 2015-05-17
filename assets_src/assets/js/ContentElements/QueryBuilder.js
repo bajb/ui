@@ -168,9 +168,16 @@
   QueryBuilder.prototype.redraw = function ()
   {
     var self = this;
-    $(this._ele).addClass('qb-container')
-      .html($('<div class="qb-rules"/>'))
-      .append($('<button class="qb-addRule">+</button>'));
+    if (!$(this._ele).hasClass('qb-container'))
+    {
+      $(this._ele).addClass('qb-container')
+        .html($('<div class="qb-rules"/>'))
+        .append($('<button class="qb-addRule">+</button>'));
+    }
+    else
+    {
+      $('.qb-rules', this._ele).empty();
+    }
     if (self._options && self._rules)
     {
       $.each(
