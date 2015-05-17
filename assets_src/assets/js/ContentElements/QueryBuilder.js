@@ -28,7 +28,11 @@
           $this.data('qb', new QueryBuilder(this));
           instance = $this.data('qb');
         }
-        retVal = instance[command].apply(instance, args);
+        var result = instance[command].apply(instance, args);
+        if (result)
+        {
+          retVal = result;
+        }
       }
     );
     return retVal;
