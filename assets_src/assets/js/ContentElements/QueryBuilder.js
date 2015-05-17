@@ -54,88 +54,116 @@ var QueryBuilderValueMode = {
 
   $.fn.qb = function (command, data)
   {
-    var $this = $(this);
-    $this.addClass('qb-container');
+    var $this = $(this),
+      commands = {
+        init:     cmd_init,
+        options:  cmd_options,
+        rules:    cmd_rules,
+        redraw:   cmd_redraw,
+        getRules: cmd_getRules,
+        addRule:  cmd_addRule
+      },
+      cmd = eval(commands[command]);
 
     var options = $this.data('qb.options'),
       rules = $this.data('qb.rules');
 
-    switch (command)
+    if (typeof cmd !== 'function')
     {
-      case 'init':
-        $this.each(
-          function ()
+      console.error('QueryBuilder command \'' + command + '\' not found');
+      return;
+    }
+    var args = Array.prototype.slice.call(arguments);
+    args.shift();
+    return cmd.apply(this, args);
+
+    /*
+     * Public commands are below here
+     */
+
+    function cmd_init()
+    {
+      $this.each(
+        function ()
+        {
+          var $qb = $(this),
+            opUrl = $qb.attr('data-qb-options'),
+            ruUrl = $qb.attr('data-qb-rules');
+          if (opUrl)
           {
-            var $qb = $(this),
-              opUrl = $qb.attr('data-qb-options'),
-              ruUrl = $qb.attr('data-qb-rules');
-            if (opUrl)
-            {
-              $.getJSON(
-                opUrl, {}, function (op)
-                {
-                  $qb.qb('options', op);
-                }
-              );
-            }
-            if (ruUrl)
-            {
-              $.getJSON(
-                ruUrl, {}, function (rules)
-                {
-                  $qb.qb('rules', rules);
-                }
-              );
-            }
+            $.getJSON(
+              opUrl, {}, function (op)
+              {
+                $qb.qb('options', op);
+              }
+            );
+          }
+          if (ruUrl)
+          {
+            $.getJSON(
+              ruUrl, {}, function (rules)
+              {
+                $qb.qb('rules', rules);
+              }
+            );
+          }
+        }
+      );
+    }
+
+    function cmd_options()
+    {
+      options = data;
+      $this.data('qb.options', options);
+      cmd_redraw();
+    }
+
+    function cmd_rules()
+    {
+      rules = data;
+      $this.data('qb.rules', rules);
+      cmd_redraw();
+    }
+
+    function cmd_redraw()
+    {
+      $this.addClass('qb-container')
+        .html($('<div class="qb-rules"/>'))
+        .append($('<button class="qb-addRule">+</button>'));
+      if (options && rules)
+      {
+        $.each(
+          rules, function ()
+          {
+            cmd_addRule(this);
           }
         );
-        return;
-      case 'options':
-        options = data;
-        $this.data('qb.options', options);
-        break;
-      case 'rules':
-        rules = data;
-        $this.data('qb.rules', rules);
-        break;
-      case 'addRule':
-        var args = Array.prototype.slice.call(arguments);
-        args.shift();
-        addRule.apply(this, args);
-        return;
-      case 'getRules':
-        var currentData = [];
-        $('.qb-rules .qb-rule', $this).each(
-          function ()
+      }
+    }
+
+    function cmd_getRules()
+    {
+      var currentData = [];
+      $('.qb-rules .qb-rule', $this).each(
+        function ()
+        {
+          var key = $('.qb-key', this).val();
+          if (key)
           {
             currentData.push(
               {
-                key:        $('.qb-key', this).val(),
+                key:        key,
                 comparator: $('.qb-comparator', this).val(),
                 value:      $('.qb-value', this).val()
               }
             );
           }
-        );
-        return currentData;
-        break;
-      default:
-        return;
-    }
-
-    if (options && rules)
-    {
-      $('<div class="qb-rules"/>').appendTo($this);
-      $.each(
-        rules, function ()
-        {
-          addRule(this);
         }
       );
-      $('<button class="qb-addRule">+</button>').appendTo($this);
+      return currentData;
     }
 
-    function addRule(ruleData, idx)
+    function cmd_addRule(ruleData, idx)
     {
       var $row = $('<div class="qb-rule"/>'),
         $propertySel = $('<select class="qb-key"/>').appendTo($row),
@@ -188,7 +216,7 @@ var QueryBuilderValueMode = {
   $(document).on(
     'click', 'button.qb-delRule', function ()
     {
-      $(this).closest('.qb-rules.qb-rule').remove();
+      $(this).closest('.qb-rules .qb-rule').remove();
     }
   );
   $(document).on(
