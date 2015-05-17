@@ -11,7 +11,6 @@ use Fortifi\UiExample\Views\ObjectListsView;
 use Fortifi\UiExample\Views\PageNavigationView;
 use Fortifi\UiExample\Views\TextView;
 use Packaged\Dispatch\AssetManager;
-use Packaged\Glimpse\Core\HtmlTag;
 use Packaged\Glimpse\Tags\Div;
 
 class ExampleController extends LayoutController
@@ -36,23 +35,11 @@ class ExampleController extends LayoutController
       case 'querybuilder':
         $div = Div::create(
           [
-            Div::create(
-              [
-                QueryBuilder::create(
-                  '/querybuilder/options',
-                  '/querybuilder/policy'
-                ),
-                HtmlTag::createTag('button')
-                  ->addClass('getData')->setContent('Get Values')
-              ]
+            QueryBuilder::create(
+              '/querybuilder/options',
+              '/querybuilder/policy'
             ),
-            Div::create(
-              [
-                QueryBuilder::create('/querybuilder/options', 'query'),
-                HtmlTag::createTag('button')
-                  ->addClass('getData')->setContent('Get Values')
-              ]
-            )
+            QueryBuilder::create('/querybuilder/options', 'query'),
           ]
         );
         AssetManager::sourceType()->requireInlineJs(
