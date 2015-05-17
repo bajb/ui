@@ -66,7 +66,6 @@ var QueryBuilderValueMode = {
           $this.data('qb', new QueryBuilder(this));
           instance = $this.data('qb');
         }
-        console.log('running', command, instance);
         retVal = instance[command].apply(instance, args);
       }
     );
@@ -174,7 +173,6 @@ var QueryBuilderValueMode = {
       $.each(
         self._rules, function ()
         {
-          console.log(this);
           self.addRule(this);
         }
       );
