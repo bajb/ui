@@ -42,14 +42,17 @@
     'change', '.qb-rule .qb-key', function ()
     {
       $(this).closest('.qb-container').qb(
-        'addRule', {key: $(this).val()}, $(this).parent().index()
+        'addRule', {key: $(this).val()},
+        $(this).closest('.qb-rules .qb-rule').index()
       );
     }
   );
   $(document).on(
-    'click', 'button.qb-del-rule', function ()
+    'click', 'button.qb-remove-rule', function ()
     {
-      $(this).closest('.qb-rules .qb-rule').remove();
+      $(this).closest('.qb-container').qb(
+        'removeRule', $(this).closest('.qb-rules .qb-rule').index()
+      );
     }
   );
   $(document).on(
@@ -202,36 +205,35 @@
     }
   };
 
+  var types = {
+    'eq':  {string: 'text', number: 'number', date: 'date'},
+    'neq': {string: 'text', number: 'number', date: 'date'},
+    'in':  {string: 'token', number: 'token'},
+    'nin': {string: 'token', number: 'token'},
+    'gt':  {number: 'number', date: 'date', decimal: 'decimal'},
+    'gte': {number: 'number', date: 'date', decimal: 'decimal'},
+    'lt':  {number: 'number', date: 'date', decimal: 'decimal'},
+    'lte': {number: 'number', date: 'date', decimal: 'decimal'},
+    'bet': {number: 'number', date: 'date', decimal: 'decimal'},
+    'age': {date: 'age'}
+  };
+
+  QueryBuilder.prototype.removeRule = function (idx)
+  {
+    $('.qb-rules .qb-rule', this._ele).get(idx).remove();
+    if (!$('.qb-rule', this._ele).length)
+    {
+      this.addRule();
+    }
+  };
+
   QueryBuilder.prototype.addRule = function (ruleData, idx)
   {
-    function getInput()
-    {
-      var $input;
-      switch (definition.type)
-      {
-        case 'select':
-          $input = $('<select/>');
-          $.each(
-            definition.values, function (idx)
-            {
-              $input.append('<option value="' + idx + '">' + this + '</option>');
-            }
-          );
-          break;
-        case 'text':
-        default:
-          $input = $('<input type="text" value="' + (ruleData.value ? ruleData.value : '') + '"/>');
-      }
-
-      $input.addClass('qb-value');
-      return $input;
-    }
-
     var $row = $('<div class="qb-rule"/>'),
       $propertySel = $('<select class="qb-key"/>').appendTo($row),
       ruleKey = ruleData ? ruleData.key : null,
       definition = ruleKey ? this._definitions[ruleKey] : null;
-    $propertySel.append('<option/>');
+    $propertySel.append('<option> - SELECT -</option>');
     if (ruleKey && !definition)
     {
       return;
@@ -246,18 +248,28 @@
 
     if (definition)
     {
-      var $comparatorSel = $('<select class="qb-comparator"/>').appendTo($row);
-      $.each(
-        definition['comparators'], function (comparatorKey)
-        {
-          var selected = ruleData.comparator == comparatorKey;
-          $comparatorSel.append('<option value="' + comparatorKey + '"' + (selected ? ' selected="selected"' : '') + '>' + this + '</option>');
-        }
-      );
-
+      if (!definition.dataType)
+      {
+        definition.dataType = 'string';
+      }
+      if (definition['comparators'])
+      {
+        var $comparatorSel = $('<select class="qb-comparator"/>').appendTo($row);
+        $.each(
+          definition['comparators'], function (comparatorKey)
+          {
+            if (!ruleData.comparator)
+            {
+              ruleData.comparator = comparatorKey;
+            }
+            var selected = ruleData.comparator == comparatorKey;
+            $comparatorSel.append('<option value="' + comparatorKey + '"' + (selected ? ' selected="selected"' : '') + '>' + this + '</option>');
+          }
+        );
+      }
       getInput().appendTo($row);
     }
-    $('<button class="qb-button qb-del-rule">x</button>').appendTo($row);
+    $('<button class="qb-button qb-remove-rule">x</button>').appendTo($row);
 
     if (typeof idx !== 'undefined')
     {
@@ -266,6 +278,59 @@
     else
     {
       $row.appendTo($('.qb-rules', this._ele));
+    }
+
+    function getInput()
+    {
+      var $input, inputType;
+      if (!ruleData.comparator && definition.dataType == 'bool')
+      {
+        inputType = 'bool'
+      }
+      else
+      {
+        inputType = types[ruleData.comparator][definition.dataType];
+      }
+      if (inputType == 'text' && definition.values && (!definition.ajaxUrl))
+      {
+        inputType = 'select';
+      }
+      if (!inputType)
+      {
+        console.error('Input type not found for ' + ruleData.comparator + ' ' + definition.dataType);
+        return;
+      }
+      switch (inputType)
+      {
+        case 'text':
+          // if ajaxUrl this should be typeahed
+          $input = $('<input type="text" value="' + (ruleData.value ? ruleData.value : '') + '"/>');
+          break;
+        case 'number':
+          $input = $('<input type="number" value="' + (ruleData.value ? ruleData.value : '') + '"/>');
+          break;
+        case 'bool':
+          $input = $('<select><option value="1">True</option><option value="0">False</option></select>');
+          break;
+        case 'select':
+          $input = $('<select/>');
+          $.each(
+            definition.values, function (idx)
+            {
+              $input.append('<option value="' + idx + '">' + this + '</option>');
+            }
+          );
+          break;
+        case 'token':
+          $input = $('<input type="text" value="' + (ruleData.value ? ruleData.value : '') + '"/>');
+          break;
+        default:
+          console.error('Input type not found for ' + inputType);
+          return;
+      }
+
+      $input.addClass('qb-value');
+      return $input;
     }
   };
 

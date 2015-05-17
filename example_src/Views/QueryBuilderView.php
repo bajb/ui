@@ -16,7 +16,7 @@ class QueryBuilderView extends AbstractUiExampleView
     $div = Div::create(
       [
         QueryBuilder::create(
-          '/querybuilder/options',
+          '/querybuilder/definition',
           '/querybuilder/policy'
         )
       ]

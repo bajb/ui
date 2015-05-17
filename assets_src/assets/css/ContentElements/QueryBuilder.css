@@ -46,7 +46,7 @@
   color: #1470FF;
 }
 
-.qb-del-rule {
+.qb-remove-rule {
   position:   absolute;
   right:      0;
   border:     0;
@@ -54,7 +54,7 @@
   color:      #949494;
 }
 
-.qb-del-rule:hover {
+.qb-remove-rule:hover {
   color: #B20000;
 }
 

@@ -36,7 +36,7 @@ class ExampleController extends LayoutController
     }
   }
 
-  public function qbOptions()
+  public function qbDefinition()
   {
     $response = [
       'browser'       => [
@@ -47,12 +47,15 @@ class ExampleController extends LayoutController
           'firefox' => 'Firefox',
           'safari'  => 'Safari'
         ],
-        'ajaxUrl'     => '',
-        'type'        => 'select'
+        'ajaxUrl'     => ''
       ],
       'company'       => [
         'display'     => 'Company',
         'comparators' => ['eq' => 'Equals', 'in' => 'IN'],
+      ],
+      'hasOrders'     => [
+        'display'  => 'Has Orders',
+        'dataType' => 'bool'
       ],
       'affiliateType' => [
         'display'     => 'Affilaite Type',
@@ -75,9 +78,9 @@ class ExampleController extends LayoutController
   public function getRoutes()
   {
     return [
-      'querybuilder/options' => 'qbOptions',
-      'querybuilder/policy'  => 'qbPolicyData',
-      ':page'                => 'defaultAction',
+      'querybuilder/definition' => 'qbDefinition',
+      'querybuilder/policy'     => 'qbPolicyData',
+      ':page'                   => 'defaultAction',
     ];
   }
 }
