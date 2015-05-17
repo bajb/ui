@@ -13,7 +13,22 @@ abstract class UiElement implements ISafeHtmlProducer, RenderableInterface
 
   final public function __construct()
   {
+    $this->_construct();
     $this->_processIncludes();
+  }
+
+  protected function _construct()
+  {
+  }
+
+  /**
+   * Create a new instance of this UI Element
+   * @return static
+   */
+  public static function i()
+  {
+    $i = new static;
+    return $i;
   }
 
   /**
