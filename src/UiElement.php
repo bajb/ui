@@ -11,7 +11,7 @@ abstract class UiElement implements ISafeHtmlProducer, RenderableInterface
 {
   protected $_processedIncludes = false;
 
-  final public function __construct()
+  final protected function __construct()
   {
     $this->_construct();
     $this->_processIncludes();
