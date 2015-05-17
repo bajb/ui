@@ -42,20 +42,20 @@
     'change', '.qb-rule .qb-key', function ()
     {
       $(this).closest('.qb-container').qb(
-        'addRule', {key: $(this).val()}, $(this).parent().index()
+        'add-rule', {key: $(this).val()}, $(this).parent().index()
       );
     }
   );
   $(document).on(
-    'click', 'button.qb-delRule', function ()
+    'click', 'button.qb-del-rule', function ()
     {
       $(this).closest('.qb-rules .qb-rule').remove();
     }
   );
   $(document).on(
-    'click', 'button.qb-addRule', function ()
+    'click', 'button.qb-add-rule', function ()
     {
-      $(this).closest('.qb-container').qb('addRule');
+      $(this).closest('.qb-container').qb('add-rule');
     }
   );
 
@@ -172,7 +172,7 @@
     {
       $(this._ele).addClass('qb-container')
         .html($('<div class="qb-rules"/>'))
-        .append($('<button class="qb-addRule">+</button>'));
+        .append($('<button class="qb-add-rule">+</button>'));
     }
     else
     {
@@ -221,7 +221,7 @@
 
       $('<input class="qb-value" type="text" value="' + (ruleData.value ? ruleData.value : '') + '"/>').appendTo($row);
     }
-    $('<button class="qb-delRule"><i class="fa fa-trash"></i></button>').appendTo($row);
+    $('<button class="qb-del-rule"><i class="fa fa-trash"></i></button>').appendTo($row);
 
     if (typeof idx !== 'undefined')
     {
