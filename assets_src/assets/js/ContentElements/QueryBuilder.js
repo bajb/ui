@@ -303,13 +303,21 @@
     $.each(
       this._definitions, function (optionKey)
       {
-        var selected = ruleKey == optionKey;
-        $propertySel.append('<option value="' + optionKey + '"' + (selected ? ' selected="selected"' : '') + '>' + this.display + '</option>');
+        if (this.required && ruleKey !== optionKey)
+        {
+          return;
+        }
+        var selected = (ruleKey == optionKey) ? ' selected="selected"' : '';
+        $propertySel.append('<option' + selected + ' value="' + optionKey + '">' + this.display + '</option>');
       }
     );
 
     if (definition)
     {
+      if (definition.required)
+      {
+        $propertySel.attr('disabled', 'disabled');
+      }
       if (!definition.dataType)
       {
         definition.dataType = 'string';
@@ -324,14 +332,17 @@
             {
               ruleData.comparator = this;
             }
-            var selected = ruleData.comparator == this;
-            $comparatorSel.append('<option value="' + this + '"' + (selected ? ' selected="selected"' : '') + '>' + typeNames[this] + '</option>');
+            var selected = (ruleData.comparator == this) ? ' selected="selected"' : '';
+            $comparatorSel.append('<option' + selected + ' value="' + this + '">' + typeNames[this] + '</option>');
           }
         );
       }
       getInput().appendTo($row);
     }
-    $('<button class="qb-button qb-remove-rule">x</button>').appendTo($row);
+    if (definition && !definition.required)
+    {
+      $('<button class="qb-button qb-remove-rule">x</button>').appendTo($row);
+    }
 
     if (typeof idx !== 'undefined')
     {
@@ -379,7 +390,8 @@
           $.each(
             definition.values, function (idx)
             {
-              $input.append('<option value="' + idx + '">' + this + '</option>');
+              var selected = (idx == ruleData.value) ? ' selected="selected"' : '';
+              $input.append('<option' + selected + ' value="' + idx + '">' + this + '</option>');
             }
           );
           break;

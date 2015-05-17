@@ -64,6 +64,9 @@ class ExampleController extends LayoutController
     $actionDefinition = new QBD('action', 'Action', 'string');
     $actionDefinition->setComparators([QBD::COMPARATOR_EQUALS]);
     $actionDefinition->setRequired(true);
+    $actionDefinition->setValues(
+      ['click' => 'Click', 'lead' => 'Lead', 'acquisition' => 'Acquisition']
+    );
     $definitions->addDefinition($actionDefinition);
     return new Response(json_encode($definitions->forOutput()));
   }
@@ -74,6 +77,7 @@ class ExampleController extends LayoutController
       ['key' => 'browser', 'comparator' => 'eq', 'value' => 'chrome'],
       ['key' => 'company', 'comparator' => 'in', 'value' => ['x', 'y']],
       ['key' => 'affiliateType', 'comparator' => 'eq', 'value' => 'a'],
+      ['key' => 'action', 'comparator' => 'eq', 'value' => 'lead'],
     ];
     return new Response(json_encode($policy));
   }
