@@ -20,6 +20,7 @@ class QueryBuilderDefinition
   protected $_comparators;
   protected $_values;
   protected $_ajaxUrl;
+  protected $_required = false;
 
   public function __construct($key, $display, $dataType = null)
   {
@@ -63,6 +64,12 @@ class QueryBuilderDefinition
     return $this->_key;
   }
 
+  public function setRequired($required)
+  {
+    $this->_required = $required;
+    return $this;
+  }
+
   public function toArray()
   {
     return [
@@ -70,7 +77,8 @@ class QueryBuilderDefinition
       'comparators' => $this->_comparators,
       'values'      => $this->_values,
       'ajaxUrl'     => $this->_ajaxUrl,
-      'dataType'    => $this->_dataType
+      'dataType'    => $this->_dataType,
+      'required'    => $this->_required,
     ];
   }
 }

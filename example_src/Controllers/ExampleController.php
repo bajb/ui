@@ -3,7 +3,7 @@ namespace Fortifi\UiExample\Controllers;
 
 use Cubex\Http\Response;
 use Cubex\View\LayoutController;
-use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDefinition AS QBD;
+use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDefinition as QBD;
 use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDefinitions;
 use Fortifi\Ui\ProjectSupport\FortifiUiLayout;
 use Fortifi\UiExample\Views\ColoursView;
@@ -60,6 +60,11 @@ class ExampleController extends LayoutController
 
     $hasOrdersDefinition = new QBD('hasOrders', 'Has Orders', 'bool');
     $definitions->addDefinition($hasOrdersDefinition);
+
+    $actionDefinition = new QBD('action', 'Action', 'string');
+    $actionDefinition->setComparators([QBD::COMPARATOR_EQUALS]);
+    $actionDefinition->setRequired(true);
+    $definitions->addDefinition($actionDefinition);
     return new Response(json_encode($definitions->forOutput()));
   }
 

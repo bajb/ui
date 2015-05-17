@@ -210,6 +210,7 @@
     }
     if (self._definitions)
     {
+      // add rules
       if (self._rules.length)
       {
         $.each(
@@ -219,7 +220,32 @@
           }
         );
       }
-      else
+      // add any required fields which are not already added
+      $.each(
+        self._definitions, function (defKey)
+        {
+          if (this.required)
+          {
+            var found = false;
+            $.each(
+              self._rules, function ()
+              {
+                if (this.key == defKey)
+                {
+                  found = true;
+                }
+              }
+            );
+            if (!found)
+            {
+              self.addRule({key: defKey});
+            }
+          }
+        }
+      );
+
+      // if no rules, add an empty one
+      if (!$('.qb-rules', this._ele).length)
       {
         self.addRule();
       }
@@ -237,6 +263,18 @@
     'lte': {number: 'number', date: 'date', decimal: 'decimal'},
     'bet': {number: 'number', date: 'date', decimal: 'decimal'},
     'age': {date: 'age'}
+  };
+  var typeNames = {
+    'eq':  'Equals',
+    'neq': 'Does Not Equal',
+    'in':  'In',
+    'nin': 'Not In',
+    'gt':  'Greater Than',
+    'gte': 'Greater Than or Equal to',
+    'lt':  'Less Than',
+    'lte': 'Less Than or Equal to',
+    'bet': 'Between',
+    'age': 'was'
   };
 
   QueryBuilder.prototype.removeRule = function (idx)
@@ -280,14 +318,14 @@
       {
         var $comparatorSel = $('<select class="qb-comparator"/>').appendTo($row);
         $.each(
-          definition['comparators'], function (comparatorKey)
+          definition['comparators'], function ()
           {
             if (!ruleData.comparator)
             {
-              ruleData.comparator = comparatorKey;
+              ruleData.comparator = this;
             }
-            var selected = ruleData.comparator == comparatorKey;
-            $comparatorSel.append('<option value="' + comparatorKey + '"' + (selected ? ' selected="selected"' : '') + '>' + this + '</option>');
+            var selected = ruleData.comparator == this;
+            $comparatorSel.append('<option value="' + this + '"' + (selected ? ' selected="selected"' : '') + '>' + typeNames[this] + '</option>');
           }
         );
       }
