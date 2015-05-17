@@ -17,7 +17,7 @@
     }
     var args = Array.prototype.slice.call(arguments);
     args.shift();
-    var retVal = null;
+    var retVal = $(this);
     $(this).each(
       function ()
       {
