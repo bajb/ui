@@ -208,14 +208,21 @@
     {
       $('.qb-rules', this._ele).empty();
     }
-    if (self._definitions && self._rules)
+    if (self._definitions)
     {
-      $.each(
-        self._rules, function ()
-        {
-          self.addRule(this);
-        }
-      );
+      if (self._rules.length)
+      {
+        $.each(
+          self._rules, function ()
+          {
+            self.addRule(this);
+          }
+        );
+      }
+      else
+      {
+        self.addRule();
+      }
     }
   };
 
