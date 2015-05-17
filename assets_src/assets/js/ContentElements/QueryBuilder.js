@@ -189,7 +189,7 @@
       ruleKey = ruleData ? ruleData.key : null,
       def = ruleKey ? this._options[ruleKey] : null;
     $propertySel.append('<option/>');
-    if (!def)
+    if (ruleKey && !def)
     {
       return;
     }
