@@ -26,24 +26,36 @@
 }
 
 .qb-button {
-  border-radius: 15px;
-  font-size:     18px;
-  border:        1px solid #d6d6d6;
-  background:    #FFF;
-  height:        30px;
-  width:         30px;
-  font-weight:   bold;
-  color:         #333;
-  padding-top:   0;
+  border-radius:    15px;
+  font-size:        18px;
+  border:           1px solid #d7dada;
+  height:           30px;
+  width:            30px;
+  font-weight:      bold;
+  color:            #333;
+  padding-top:      0;
+  background-color: #f4f5f5; background-image: -webkit-gradient(linear, left top, left bottom, from(#f4f5f5), to(#dfdddd));
+  background-image: -webkit-linear-gradient(top, #f4f5f5, #dfdddd);
+  background-image: -moz-linear-gradient(top, #f4f5f5, #dfdddd);
+  background-image: -ms-linear-gradient(top, #f4f5f5, #dfdddd);
+  background-image: -o-linear-gradient(top, #f4f5f5, #dfdddd);
+  background-image: linear-gradient(to bottom, #f4f5f5, #dfdddd); filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f4f5f5, endColorstr=#dfdddd);
 }
 
 .qb-button:hover {
-  color: dodgerblue;
+  color: #1470FF;
 }
 
 .qb-del-rule {
-  position: absolute;
-  right:    0;
+  position:   absolute;
+  right:      0;
+  border:     0;
+  background: transparent;
+  color:      #949494;
+}
+
+.qb-del-rule:hover {
+  color: #B20000;
 }
 
 .qb-add-rule {
