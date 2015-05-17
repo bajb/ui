@@ -207,9 +207,9 @@
     var $row = $('<div class="qb-rule"/>'),
       $propertySel = $('<select class="qb-key"/>').appendTo($row),
       ruleKey = ruleData ? ruleData.key : null,
-      def = ruleKey ? this._definitions[ruleKey] : null;
+      definition = ruleKey ? this._definitions[ruleKey] : null;
     $propertySel.append('<option/>');
-    if (ruleKey && !def)
+    if (ruleKey && !definition)
     {
       return;
     }
@@ -221,11 +221,11 @@
       }
     );
 
-    if (def)
+    if (definition)
     {
       var $comparatorSel = $('<select class="qb-comparator"/>').appendTo($row);
       $.each(
-        def['comparators'], function (comparatorKey)
+        definition['comparators'], function (comparatorKey)
         {
           var selected = ruleData.comparator == comparatorKey;
           $comparatorSel.append('<option value="' + comparatorKey + '"' + (selected ? ' selected="selected"' : '') + '>' + this + '</option>');
