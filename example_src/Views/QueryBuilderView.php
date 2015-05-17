@@ -1,7 +1,6 @@
 <?php
 namespace Fortifi\UiExample\Views;
 
-use Cubex\View\Renderable;
 use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilder;
 use Fortifi\Ui\Ui;
 use Packaged\Dispatch\AssetManager;

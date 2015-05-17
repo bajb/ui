@@ -31,7 +31,7 @@ class ObjectListsView extends AbstractUiExampleView
     $result = [];
     foreach($colours as $colour)
     {
-      $card = new ObjectListCard();
+      $card = ObjectListCard::i();
       $card->setColour($colour);
       $card->setTitle(ucfirst($colour));
       $result[] = $card;
@@ -46,23 +46,23 @@ class ObjectListsView extends AbstractUiExampleView
   {
     $result = [];
 
-    $card = new ObjectListCard();
+    $card = ObjectListCard::i();
     $card->setTitle('One Action');
-    $card->addAction(new Link('#'), new Icon(Icon::EDIT));
+    $card->addAction(new Link('#'), Icon::create(Icon::EDIT));
     $result[] = $card;
 
-    $card = new ObjectListCard();
+    $card = ObjectListCard::i();
     $card->setTitle('Two Actions');
-    $card->addAction(new Link('#'), new Icon(Icon::EDIT));
-    $card->addAction(new Link('#'), new Icon(Icon::DELETE));
+    $card->addAction(new Link('#'), Icon::create(Icon::EDIT));
+    $card->addAction(new Link('#'), Icon::create(Icon::DELETE));
     $result[] = $card;
 
-    $card = new ObjectListCard();
+    $card = ObjectListCard::i();
     $card->setTitle('Three Actions');
     $card->setColour(ObjectListCard::COLOUR_RED);
-    $card->addAction(new Link('#'), new Icon(Icon::EDIT));
-    $card->addAction(new Link('#'), new Icon(Icon::DELETE));
-    $card->addAction(new Link('#'), new Icon(Icon::LOCK), true);
+    $card->addAction(new Link('#'), Icon::create(Icon::EDIT));
+    $card->addAction(new Link('#'), Icon::create(Icon::DELETE));
+    $card->addAction(new Link('#'), Icon::create(Icon::LOCK), true);
     $result[] = $card;
 
     return $result;
@@ -75,11 +75,11 @@ class ObjectListsView extends AbstractUiExampleView
   {
     $result = [];
 
-    $card = new ObjectListCard();
+    $card = ObjectListCard::i();
     $card->setTitle('One Action');
-    $card->addAction(new Link('#'), new Icon(Icon::EDIT));
+    $card->addAction(new Link('#'), Icon::create(Icon::EDIT));
     $card->setRightContent(
-      (new Icon(Icon::CURRENT_DEFAULT))->addClass(Ui::TEXT_ORANGE)
+      Icon::create(Icon::CURRENT_DEFAULT)->addClass(Ui::TEXT_ORANGE)
     );
     $result[] = $card;
 
@@ -93,12 +93,12 @@ class ObjectListsView extends AbstractUiExampleView
   {
     $result = [];
 
-    $card = new ObjectListCard();
+    $card = ObjectListCard::i();
     $card->setTitle('One Action');
     $card->setSubTitle('Secondary Title');
-    $card->addAction(new Link('#'), new Icon(Icon::EDIT));
+    $card->addAction(new Link('#'), Icon::create(Icon::EDIT));
     $card->setRightContent(
-      (new Icon(Icon::CURRENT_DEFAULT))->addClass(Ui::TEXT_ORANGE)
+      Icon::create(Icon::CURRENT_DEFAULT)->addClass(Ui::TEXT_ORANGE)
     );
     $result[] = $card;
 
@@ -112,9 +112,9 @@ class ObjectListsView extends AbstractUiExampleView
   {
     $result = [];
 
-    $list = new ObjectList();
+    $list = ObjectList::i();
     $list->setStacked(true);
-    $card = new ObjectListCard();
+    $card = ObjectListCard::i();
     $card->setTitle('Stacked Card');
     $list->addCard($card);
     $list->addCard($card);
@@ -125,9 +125,9 @@ class ObjectListsView extends AbstractUiExampleView
 
     $result[] = LineBreak::create();
 
-    $list = new ObjectList();
+    $list = ObjectList::i();
     $list->setStacked(true, false);
-    $card = new ObjectListCard();
+    $card = ObjectListCard::i();
     $card->setTitle('Stacked Card');
     $list->addCard($card);
     $list->addCard($card);
