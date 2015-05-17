@@ -3,6 +3,8 @@ namespace Fortifi\UiExample\Controllers;
 
 use Cubex\Http\Response;
 use Cubex\View\LayoutController;
+use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDefinition AS QBD;
+use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDefinitions;
 use Fortifi\Ui\ProjectSupport\FortifiUiLayout;
 use Fortifi\UiExample\Views\ColoursView;
 use Fortifi\UiExample\Views\ObjectListsView;
@@ -38,31 +40,27 @@ class ExampleController extends LayoutController
 
   public function qbDefinition()
   {
-    $response = [
-      'browser'       => [
-        'display'     => 'Browser Name',
-        'comparators' => ['eq' => 'Equals', 'in' => 'IN'],
-        'values'      => [
-          'chrome'  => 'Chrome',
-          'firefox' => 'Firefox',
-          'safari'  => 'Safari'
-        ],
-        'ajaxUrl'     => ''
-      ],
-      'company'       => [
-        'display'     => 'Company',
-        'comparators' => ['eq' => 'Equals', 'in' => 'IN'],
-      ],
-      'hasOrders'     => [
-        'display'  => 'Has Orders',
-        'dataType' => 'bool'
-      ],
-      'affiliateType' => [
-        'display'     => 'Affilaite Type',
-        'comparators' => ['eq' => 'Equals', 'in' => 'IN'],
+    $definitions = new QueryBuilderDefinitions();
+    $browserDefinition = new QBD(
+      'browser',
+      'Browser',
+      'string'
+    );
+    $browserDefinition->setValues(
+      [
+        'chrome'  => 'Chrome',
+        'firefox' => 'Firefox',
+        'safari'  => 'Safari'
       ]
-    ];
-    return new Response(json_encode($response));
+    );
+    $browserDefinition->setComparators(
+      [QBD::COMPARATOR_EQUALS, QBD::COMPARATOR_IN]
+    );
+    $definitions->addDefinition($browserDefinition);
+
+    $hasOrdersDefinition = new QBD('hasOrders', 'Has Orders', 'bool');
+    $definitions->addDefinition($hasOrdersDefinition);
+    return new Response(json_encode($definitions->forOutput()));
   }
 
   public function qbPolicyData()
