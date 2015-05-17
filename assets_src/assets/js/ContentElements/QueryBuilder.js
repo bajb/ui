@@ -48,6 +48,20 @@
     }
   );
   $(document).on(
+    'change', '.qb-rule .qb-comparator', function ()
+    {
+      var $rule = $(this).closest('.qb-rules .qb-rule');
+      $(this).closest('.qb-container').qb(
+        'addRule', {
+          key:        $('.qb-key', $rule).val(),
+          comparator: $(this).val(),
+          value:      $('.qb-value', $rule).val()
+        },
+        $rule.index()
+      );
+    }
+  );
+  $(document).on(
     'click', 'button.qb-remove-rule', function ()
     {
       $(this).closest('.qb-container').qb(
@@ -194,14 +208,21 @@
     {
       $('.qb-rules', this._ele).empty();
     }
-    if (self._definitions && self._rules)
+    if (self._definitions)
     {
-      $.each(
-        self._rules, function ()
-        {
-          self.addRule(this);
-        }
-      );
+      if (self._rules.length)
+      {
+        $.each(
+          self._rules, function ()
+          {
+            self.addRule(this);
+          }
+        );
+      }
+      else
+      {
+        self.addRule();
+      }
     }
   };
 
@@ -233,7 +254,10 @@
       $propertySel = $('<select class="qb-key"/>').appendTo($row),
       ruleKey = ruleData ? ruleData.key : null,
       definition = ruleKey ? this._definitions[ruleKey] : null;
-    $propertySel.append('<option> - SELECT -</option>');
+    if (!ruleKey)
+    {
+      $propertySel.append('<option> - SELECT -</option>');
+    }
     if (ruleKey && !definition)
     {
       return;
