@@ -181,4 +181,6 @@
       $row.appendTo($('.qb-rules', this._ele));
     }
   };
+
+  $(document).trigger('qb.ready');
 })(jQuery);
