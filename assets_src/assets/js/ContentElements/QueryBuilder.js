@@ -6,6 +6,10 @@
 {
   $.fn.qb = function (command, data)
   {
+    if (!command)
+    {
+      command = 'init';
+    }
     if (typeof QueryBuilder.prototype[command] !== 'function')
     {
       console.error('QueryBuilder command \'' + command + '\' not found');
