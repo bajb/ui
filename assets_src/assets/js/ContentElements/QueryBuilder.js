@@ -204,6 +204,29 @@
 
   QueryBuilder.prototype.addRule = function (ruleData, idx)
   {
+    function getInput()
+    {
+      var $input;
+      switch (definition.type)
+      {
+        case 'select':
+          $input = $('<select/>');
+          $.each(
+            definition.values, function (idx)
+            {
+              $input.append('<option value="' + idx + '">' + this + '</option>');
+            }
+          );
+          break;
+        case 'text':
+        default:
+          $input = $('<input type="text" value="' + (ruleData.value ? ruleData.value : '') + '"/>');
+      }
+
+      $input.addClass('qb-value');
+      return $input;
+    }
+
     var $row = $('<div class="qb-rule"/>'),
       $propertySel = $('<select class="qb-key"/>').appendTo($row),
       ruleKey = ruleData ? ruleData.key : null,
@@ -232,7 +255,7 @@
         }
       );
 
-      $('<input class="qb-value" type="text" value="' + (ruleData.value ? ruleData.value : '') + '"/>').appendTo($row);
+      getInput().appendTo($row);
     }
     $('<button class="qb-del-rule"><i class="fa fa-trash"></i></button>').appendTo($row);
 

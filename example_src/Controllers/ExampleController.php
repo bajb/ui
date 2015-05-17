@@ -3,16 +3,12 @@ namespace Fortifi\UiExample\Controllers;
 
 use Cubex\Http\Response;
 use Cubex\View\LayoutController;
-use Cubex\View\Renderable;
-use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilder;
 use Fortifi\Ui\ProjectSupport\FortifiUiLayout;
 use Fortifi\UiExample\Views\ColoursView;
 use Fortifi\UiExample\Views\ObjectListsView;
 use Fortifi\UiExample\Views\PageNavigationView;
 use Fortifi\UiExample\Views\QueryBuilderView;
 use Fortifi\UiExample\Views\TextView;
-use Packaged\Dispatch\AssetManager;
-use Packaged\Glimpse\Tags\Div;
 
 class ExampleController extends LayoutController
 {
@@ -46,14 +42,13 @@ class ExampleController extends LayoutController
       'browser'       => [
         'display'     => 'Browser Name',
         'comparators' => ['eq' => 'Equals', 'in' => 'IN'],
-        // QueryBuilderComparators.IN],
         'values'      => [
           'chrome'  => 'Chrome',
           'firefox' => 'Firefox',
           'safari'  => 'Safari'
         ],
         'ajaxUrl'     => '',
-        'mode'        => 'text'
+        'type'        => 'select'
       ],
       'company'       => [
         'display'     => 'Company',
