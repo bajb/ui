@@ -11,6 +11,11 @@ abstract class UiElement implements ISafeHtmlProducer, RenderableInterface
 {
   protected $_processedIncludes = false;
 
+  final public function __construct()
+  {
+    $this->_processIncludes();
+  }
+
   /**
    * @param bool $force Force process includes to be re-processed
    */

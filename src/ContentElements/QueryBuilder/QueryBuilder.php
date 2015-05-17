@@ -11,10 +11,12 @@ class QueryBuilder extends UiElement
   protected $_optionsUrl;
   protected $_rulesUrl;
 
-  function __construct($optionsUrl = null, $rulesUrl = null)
+  public static function create($optionsUrl = null, $rulesUrl = null)
   {
-    $this->_optionsUrl = $optionsUrl;
-    $this->_rulesUrl = $rulesUrl;
+    $qb = new static;
+    $qb->_optionsUrl = $optionsUrl;
+    $qb->_rulesUrl = $rulesUrl;
+    return $qb;
   }
 
   public function processIncludes(AssetManager $assetManager, $vendor = false)

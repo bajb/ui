@@ -32,9 +32,11 @@ class PageNavigation extends UiElement
     }
   }
 
-  public function __construct($currentLink = null)
+  public static function create($currentLink = null)
   {
-    $this->_currentLink = $currentLink;
+    $nav = new static;
+    $nav->_currentLink = $currentLink;
+    return $nav;
   }
 
   public function addItem(ISafeHtmlProducer $content, $selected = false)

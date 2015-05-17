@@ -28,9 +28,11 @@ class Icon extends UiElement
   protected $_icon;
   protected $_classes = [];
 
-  public function __construct($icon)
+  public static function create($icon)
   {
-    $this->_icon = $icon;
+    $icn = new static;
+    $icn->_icon = $icon;
+    return $icn;
   }
 
   public function processIncludes(AssetManager $assetManager, $vendor = false)
