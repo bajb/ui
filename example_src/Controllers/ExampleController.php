@@ -10,12 +10,12 @@ use Fortifi\UiExample\Views\ColoursView;
 use Fortifi\UiExample\Views\ObjectListsView;
 use Fortifi\UiExample\Views\PageNavigationView;
 use Fortifi\UiExample\Views\TextView;
+use Packaged\Dispatch\AssetManager;
 use Packaged\Glimpse\Core\HtmlTag;
 use Packaged\Glimpse\Tags\Div;
 
 class ExampleController extends LayoutController
 {
-
   protected function _init()
   {
     $this->setLayout(new FortifiUiLayout($this));
@@ -34,31 +34,31 @@ class ExampleController extends LayoutController
       case 'objectlist':
         return new ObjectListsView();
       case 'querybuilder':
-        return new Renderable(
-          Div::create(
-            [
-              Div::create(
-                [
-                  new QueryBuilder(
-                    '/querybuilder/options',
-                    '/querybuilder/policy'
-                  ),
-                  HtmlTag::createTag('button')
-                    ->addClass('getData')->setContent('Get Values')
-                ]
-              ),
-              Div::create(
-                [
-                  new QueryBuilder(
-                    '/querybuilder/options'
-                  ),
-                  HtmlTag::createTag('button')
-                    ->addClass('getData')->setContent('Get Values')
-                ]
-              )
-            ]
-          )
+        $div = Div::create(
+          [
+            Div::create(
+              [
+                QueryBuilder::create(
+                  '/querybuilder/options',
+                  '/querybuilder/policy'
+                ),
+                HtmlTag::createTag('button')
+                  ->addClass('getData')->setContent('Get Values')
+              ]
+            ),
+            Div::create(
+              [
+                QueryBuilder::create('/querybuilder/options','query'),
+                HtmlTag::createTag('button')
+                  ->addClass('getData')->setContent('Get Values')
+              ]
+            )
+          ]
         );
+        AssetManager::sourceType()->requireInlineJs(
+          "$('.query-builder').qb();"
+        );
+        return new Renderable($div);
       default:
         return 'Coming Soon';
     }

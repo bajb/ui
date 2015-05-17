@@ -21,6 +21,7 @@ class QueryBuilder extends UiElement
 
   public function processIncludes(AssetManager $assetManager, $vendor = false)
   {
+    $assetManager->requireJs('assets/vendor/params/params');
     if($vendor)
     {
       $assetManager->requireJs('assets/js/ContentElements');

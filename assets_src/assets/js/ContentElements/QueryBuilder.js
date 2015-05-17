@@ -68,37 +68,42 @@
 
   QueryBuilder.prototype.init = function ()
   {
-    var self = this,
-      opUrl = $(this._ele).attr('data-qb-options'),
-      ruUrl = $(this._ele).attr('data-qb-rules');
-    if (opUrl)
+    var $ele = $(this._ele);
+    if ($ele.attr('data-qb-options'))
     {
-      $.getJSON(
-        opUrl, {}, function (data)
-        {
-          self.options(data);
-        }
-      );
+      this.options($ele.attr('data-qb-options'));
     }
-    if (ruUrl)
+    if ($ele.attr('data-qb-rules'))
     {
-      $.getJSON(
-        ruUrl, {}, function (data)
-        {
-          self.rules(data);
-        }
-      );
+      this.rules($ele.attr('data-qb-rules'));
     }
   };
 
   QueryBuilder.prototype.options = function (data)
   {
+    var self = this;
+    if (typeof data === 'undefined')
+    {
+      return this._options;
+    }
+    else if (typeof data === 'string')
+    {
+      $.getJSON(
+        data, {}, function (options)
+        {
+          self._options = options;
+          self.redraw();
+        }
+      );
+      return;
+    }
     this._options = data;
     this.redraw();
   };
 
   QueryBuilder.prototype.rules = function (data)
   {
+    var self = this;
     if (typeof data == 'undefined')
     {
       var currentData = [];
@@ -119,6 +124,38 @@
         }
       );
       return currentData;
+    }
+    else if (typeof data === 'string')
+    {
+      if (data === 'query')
+      {
+        var rules = [], params = $.parseParams(window.location.search);
+        $.each(
+          params, function (key, v)
+          {
+            if (typeof v === 'object')
+            {
+              rules.push({key: key, comparator: 'in', value: this});
+            }
+            else
+            {
+              rules.push({key: key, comparator: 'eq', value: this});
+            }
+          }
+        );
+        data = rules;
+      }
+      else
+      {
+        $.getJSON(
+          data, {}, function (rules)
+          {
+            self._rules = rules;
+            self.redraw();
+          }
+        );
+        return;
+      }
     }
     this._rules = data;
     this.redraw();
