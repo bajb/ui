@@ -185,7 +185,10 @@
       ruleKey = ruleData ? ruleData.key : null,
       def = ruleKey ? this._options[ruleKey] : null;
     $propertySel.append('<option/>');
-
+    if (!def)
+    {
+      return;
+    }
     $.each(
       this._options, function (optionKey)
       {
