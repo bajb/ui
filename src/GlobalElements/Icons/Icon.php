@@ -15,6 +15,16 @@ class Icon extends UiElement
   const MAKE_DEFAULT = 'fa-star-o';
   const CURRENT_DEFAULT = 'fa-star';
 
+  /**
+   * Policies
+   */
+  const COMMISSION = 'fa-money';
+  const TRAFFIC_BLOCKS = 'fa-shield';
+  const ACTION_VISIBILITY = 'fa-child';
+  const REVERSALS = 'fa-undo';
+  const TQP = 'fa-random';
+  const AUTO_TQP = 'fa-line-chart';
+
   protected $_icon;
   protected $_classes = [];
 
