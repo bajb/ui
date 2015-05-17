@@ -25,10 +25,39 @@
 .qb-value {
 }
 
+.qb-button {
+  border-radius: 15px;
+  font-size:     18px;
+  border:        1px solid #d6d6d6;
+  background:    #FFF;
+  height:        30px;
+  width:         30px;
+  font-weight:   bold;
+  color:         #333;
+  padding-top:   0;
+}
+
+.qb-button:hover {
+  color: dodgerblue;
+}
+
 .qb-del-rule {
   position: absolute;
   right:    0;
 }
 
 .qb-add-rule {
+  margin:   11px 0 0 15px;
+  position: relative;
+}
+
+.qb-add-rule:before {
+  content:     " ";
+  font-weight: normal;
+  position:    absolute;
+  top:         -16px;
+  left:        13px;
+  border-left: 1px solid #9B9999;
+  height:      16px;
+  width:       10px;
 }

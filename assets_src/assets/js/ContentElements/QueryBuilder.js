@@ -185,7 +185,7 @@
     {
       $(this._ele).addClass('qb-container')
         .html($('<div class="qb-rules"/>'))
-        .append($('<button class="qb-add-rule">+</button>'));
+        .append($('<button class="qb-button qb-add-rule">+</button>'));
     }
     else
     {
@@ -257,7 +257,7 @@
 
       getInput().appendTo($row);
     }
-    $('<button class="qb-del-rule"><i class="fa fa-trash"></i></button>').appendTo($row);
+    $('<button class="qb-button qb-del-rule">x</button>').appendTo($row);
 
     if (typeof idx !== 'undefined')
     {
