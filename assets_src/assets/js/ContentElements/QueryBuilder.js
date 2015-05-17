@@ -67,15 +67,18 @@
   {
     this._ele = ele;
     this._options = [];
+    this._definitions = [];
     this._rules = [];
   }
 
-  QueryBuilder.prototype.init = function ()
+  QueryBuilder.prototype.init = function (options)
   {
+    this.options(options);
+
     var $ele = $(this._ele);
-    if ($ele.attr('data-qb-options'))
+    if ($ele.attr('data-qb-definitions'))
     {
-      this.options($ele.attr('data-qb-options'));
+      this.definitions($ele.attr('data-qb-definitions'));
     }
     if ($ele.attr('data-qb-rules'))
     {
@@ -85,23 +88,33 @@
 
   QueryBuilder.prototype.options = function (data)
   {
-    var self = this;
     if (typeof data === 'undefined')
     {
       return this._options;
     }
+    this._options = data;
+    this.redraw();
+  };
+
+  QueryBuilder.prototype.definitions = function (data)
+  {
+    var self = this;
+    if (typeof data === 'undefined')
+    {
+      return this._definitions;
+    }
     else if (typeof data === 'string')
     {
       $.getJSON(
-        data, {}, function (options)
+        data, {}, function (defs)
         {
-          self._options = options;
+          self._definitions = defs;
           self.redraw();
         }
       );
       return;
     }
-    this._options = data;
+    this._definitions = data;
     this.redraw();
   };
 
@@ -178,7 +191,7 @@
     {
       $('.qb-rules', this._ele).empty();
     }
-    if (self._options && self._rules)
+    if (self._definitions && self._rules)
     {
       $.each(
         self._rules, function ()
@@ -194,14 +207,14 @@
     var $row = $('<div class="qb-rule"/>'),
       $propertySel = $('<select class="qb-key"/>').appendTo($row),
       ruleKey = ruleData ? ruleData.key : null,
-      def = ruleKey ? this._options[ruleKey] : null;
+      def = ruleKey ? this._definitions[ruleKey] : null;
     $propertySel.append('<option/>');
     if (ruleKey && !def)
     {
       return;
     }
     $.each(
-      this._options, function (optionKey)
+      this._definitions, function (optionKey)
       {
         var selected = ruleKey == optionKey;
         $propertySel.append('<option value="' + optionKey + '"' + (selected ? ' selected="selected"' : '') + '>' + this.display + '</option>');

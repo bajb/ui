@@ -8,14 +8,14 @@ use Packaged\Glimpse\Tags\Div;
 
 class QueryBuilder extends UiElement
 {
-  protected $_optionsUrl;
+  protected $_definitionsUrl;
   protected $_rulesUrl;
   protected $_classes = ['query-builder'];
 
-  public static function create($optionsUrl = null, $rulesUrl = null)
+  public static function create($definitionsUrl = null, $rulesUrl = null)
   {
     $qb = new static;
-    $qb->_optionsUrl = $optionsUrl;
+    $qb->_definitionsUrl = $definitionsUrl;
     $qb->_rulesUrl = $rulesUrl;
     return $qb;
   }
@@ -57,9 +57,9 @@ class QueryBuilder extends UiElement
     {
       $div->addClass(...$this->_classes);
     }
-    if($this->_optionsUrl)
+    if($this->_definitionsUrl)
     {
-      $div->setAttribute('data-qb-options', $this->_optionsUrl);
+      $div->setAttribute('data-qb-definitions', $this->_definitionsUrl);
     }
     if($this->_rulesUrl)
     {
