@@ -139,7 +139,7 @@
   {
     var params = {};
     $.each(
-      this._rules, function ()
+      this.rules(), function ()
       {
         if (params[this.key] || this.comparator == 'in')
         {
