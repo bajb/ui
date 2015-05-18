@@ -276,6 +276,21 @@
       {
         self.addRule();
       }
+
+      var count = 0;
+      $.each(
+        this._definitions, function ()
+        {
+          if (!this.required)
+          {
+            count++;
+          }
+        }
+      );
+      if (!count)
+      {
+        $('.qb-add-rule').hide();
+      }
     }
   };
 
