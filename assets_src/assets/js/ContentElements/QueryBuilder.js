@@ -135,6 +135,33 @@
     this.redraw();
   };
 
+  QueryBuilder.prototype.getQueryString = function ()
+  {
+    var params = {};
+    $.each(
+      this._rules, function ()
+      {
+        if (params[this.key] || this.comparator == 'in')
+        {
+          if (!params[this.key])
+          {
+            params[this.key] = [];
+          }
+          if (typeof params[this.key] == 'string')
+          {
+            params[this.key] = [params[this.key]];
+          }
+          params[this.key].push(this.value);
+        }
+        else
+        {
+          params[this.key] = this.value;
+        }
+      }
+    );
+    return $.param(params);
+  };
+
   QueryBuilder.prototype.rules = function (data)
   {
     var self = this;
