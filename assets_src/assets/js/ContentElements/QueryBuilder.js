@@ -245,7 +245,7 @@
       );
 
       // if no rules, add an empty one
-      if (!$('.qb-rules', this._ele).length)
+      if (!$('.qb-rules .qb-rule', this._ele).length)
       {
         self.addRule();
       }
