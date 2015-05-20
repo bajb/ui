@@ -7,6 +7,7 @@ use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDefinition as QBD;
 use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDefinitions;
 use Fortifi\Ui\ProjectSupport\FortifiUiLayout;
 use Fortifi\UiExample\Views\ColoursView;
+use Fortifi\UiExample\Views\IconsView;
 use Fortifi\UiExample\Views\ObjectListsView;
 use Fortifi\UiExample\Views\PageNavigationView;
 use Fortifi\UiExample\Views\QueryBuilderView;
@@ -33,6 +34,8 @@ class ExampleController extends LayoutController
         return new ObjectListsView();
       case 'querybuilder':
         return new QueryBuilderView();
+      case 'icons':
+        return new IconsView();
       default:
         return 'Coming Soon';
     }

@@ -1,0 +1,318 @@
+[class*="f-browser-"] {
+  display: inline-block;
+  background-repeat: no-repeat;
+}
+
+[class*="f-browser-16-"] {
+  width: 16px;
+  height: 16px;
+  background-image: url('../../../img/GlobalElements/Browsers/browsers_16.png');
+}
+
+.f-browser-16-360-secure {
+  background-position: -5px -5px;
+}
+
+.f-browser-16-airweb {
+  background-position: -31px -5px;
+}
+
+.f-browser-16-android-webview-beta {
+  background-position: -57px -5px;
+}
+
+.f-browser-16-android {
+  background-position: -83px -5px;
+}
+
+.f-browser-16-avant {
+  background-position: -109px -5px;
+}
+
+.f-browser-16-aviator {
+  background-position: -135px -5px;
+}
+
+.f-browser-16-baidu {
+  background-position: -161px -5px;
+}
+
+.f-browser-16-boat {
+  background-position: -187px -5px;
+}
+
+.f-browser-16-chrome-android {
+  background-position: -213px -5px;
+}
+
+.f-browser-16-chrome-beta-android {
+  background-position: -239px -5px;
+}
+
+.f-browser-16-chrome-canary {
+  background-position: -265px -5px;
+}
+
+.f-browser-16-chrome-dev-android {
+  background-position: -291px -5px;
+}
+
+.f-browser-16-chrome {
+  background-position: -317px -5px;
+}
+
+.f-browser-16-chromium {
+  background-position: -343px -5px;
+}
+
+.f-browser-16-cm {
+  background-position: -369px -5px;
+}
+
+.f-browser-16-coast {
+  background-position: -395px -5px;
+}
+
+.f-browser-16-diigo {
+  background-position: -421px -5px;
+}
+
+.f-browser-16-docler {
+  background-position: -447px -5px;
+}
+
+.f-browser-16-dolphin-zero {
+  background-position: -473px -5px;
+}
+
+.f-browser-16-dolphin {
+  background-position: -499px -5px;
+}
+
+.f-browser-16-dooble {
+  background-position: -525px -5px;
+}
+
+.f-browser-16-edge {
+  background-position: -551px -5px;
+}
+
+.f-browser-16-epic {
+  background-position: -577px -5px;
+}
+
+.f-browser-16-firefox-beta {
+  background-position: -603px -5px;
+}
+
+.f-browser-16-firefox-developer-edition {
+  background-position: -629px -5px;
+}
+
+.f-browser-16-firefox-nightly {
+  background-position: -655px -5px;
+}
+
+.f-browser-16-firefox {
+  background-position: -681px -5px;
+}
+
+.f-browser-16-icab-mobile {
+  background-position: -707px -5px;
+}
+
+.f-browser-16-icecat {
+  background-position: -733px -5px;
+}
+
+.f-browser-16-iceweasel {
+  background-position: -759px -5px;
+}
+
+.f-browser-16-internet-explorer-developer-channel {
+  background-position: -785px -5px;
+}
+
+.f-browser-16-internet-explorer-tile {
+  background-position: -811px -5px;
+}
+
+.f-browser-16-internet-explorer {
+  background-position: -837px -5px;
+}
+
+.f-browser-16-k-meleon {
+  background-position: -863px -5px;
+}
+
+.f-browser-16-konqueror {
+  background-position: -889px -5px;
+}
+
+.f-browser-16-lightning {
+  background-position: -915px -5px;
+}
+
+.f-browser-16-link-bubble {
+  background-position: -941px -5px;
+}
+
+.f-browser-16-maxthon-beta {
+  background-position: -967px -5px;
+}
+
+.f-browser-16-maxthon {
+  background-position: -993px -5px;
+}
+
+.f-browser-16-mercury {
+  background-position: -1019px -5px;
+}
+
+.f-browser-16-metacert {
+  background-position: -1045px -5px;
+}
+
+.f-browser-16-midori {
+  background-position: -1071px -5px;
+}
+
+.f-browser-16-mihtool {
+  background-position: -1097px -5px;
+}
+
+.f-browser-16-netsurf {
+  background-position: -1123px -5px;
+}
+
+.f-browser-16-ninesky {
+  background-position: -1149px -5px;
+}
+
+.f-browser-16-omega {
+  background-position: -1175px -5px;
+}
+
+.f-browser-16-omniweb-test-build {
+  background-position: -1201px -5px;
+}
+
+.f-browser-16-omniweb {
+  background-position: -1227px -5px;
+}
+
+.f-browser-16-onion {
+  background-position: -1253px -5px;
+}
+
+.f-browser-16-opera-beta {
+  background-position: -1279px -5px;
+}
+
+.f-browser-16-opera-developer {
+  background-position: -1305px -5px;
+}
+
+.f-browser-16-opera-mini-beta {
+  background-position: -1331px -5px;
+}
+
+.f-browser-16-opera-mini {
+  background-position: -1357px -5px;
+}
+
+.f-browser-16-opera {
+  background-position: -1383px -5px;
+}
+
+.f-browser-16-orbitum {
+  background-position: -1409px -5px;
+}
+
+.f-browser-16-pale-moon {
+  background-position: -1435px -5px;
+}
+
+.f-browser-16-puffin {
+  background-position: -1461px -5px;
+}
+
+.f-browser-16-qq {
+  background-position: -1487px -5px;
+}
+
+.f-browser-16-rekonq {
+  background-position: -1513px -5px;
+}
+
+.f-browser-16-safari-ios {
+  background-position: -1539px -5px;
+}
+
+.f-browser-16-safari {
+  background-position: -1565px -5px;
+}
+
+.f-browser-16-seamonkey {
+  background-position: -1591px -5px;
+}
+
+.f-browser-16-silk {
+  background-position: -1617px -5px;
+}
+
+.f-browser-16-sleipnir-mac {
+  background-position: -1643px -5px;
+}
+
+.f-browser-16-sleipnir-mobile {
+  background-position: -1669px -5px;
+}
+
+.f-browser-16-sleipnir-windows {
+  background-position: -1695px -5px;
+}
+
+.f-browser-16-slimboat {
+  background-position: -1721px -5px;
+}
+
+.f-browser-16-sogou-mobile {
+  background-position: -1747px -5px;
+}
+
+.f-browser-16-tor {
+  background-position: -1773px -5px;
+}
+
+.f-browser-16-torch {
+  background-position: -1799px -5px;
+}
+
+.f-browser-16-uc {
+  background-position: -1825px -5px;
+}
+
+.f-browser-16-vivaldi {
+  background-position: -1851px -5px;
+}
+
+.f-browser-16-waterfox {
+  background-position: -1877px -5px;
+}
+
+.f-browser-16-web {
+  background-position: -1903px -5px;
+}
+
+.f-browser-16-webkit {
+  background-position: -1929px -5px;
+}
+
+.f-browser-16-yandex-alpha {
+  background-position: -1955px -5px;
+}
+
+.f-browser-16-yandex {
+  background-position: -1981px -5px;
+}

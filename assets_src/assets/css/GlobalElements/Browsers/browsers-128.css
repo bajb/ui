@@ -1,0 +1,318 @@
+[class*="f-browser-"] {
+  display: inline-block;
+  background-repeat: no-repeat;
+}
+
+[class*="f-browser-128-"] {
+  width: 128px;
+  height: 128px;
+  background-image: url('../../../img/GlobalElements/Browsers/browsers_128.png');
+}
+
+.f-browser-128-360-secure {
+  background-position: -5px -5px;
+}
+
+.f-browser-128-airweb {
+  background-position: -143px -5px;
+}
+
+.f-browser-128-android-webview-beta {
+  background-position: -281px -5px;
+}
+
+.f-browser-128-android {
+  background-position: -419px -5px;
+}
+
+.f-browser-128-avant {
+  background-position: -557px -5px;
+}
+
+.f-browser-128-aviator {
+  background-position: -695px -5px;
+}
+
+.f-browser-128-baidu {
+  background-position: -833px -5px;
+}
+
+.f-browser-128-boat {
+  background-position: -971px -5px;
+}
+
+.f-browser-128-chrome-android {
+  background-position: -5px -143px;
+}
+
+.f-browser-128-chrome-beta-android {
+  background-position: -143px -143px;
+}
+
+.f-browser-128-chrome-canary {
+  background-position: -281px -143px;
+}
+
+.f-browser-128-chrome-dev-android {
+  background-position: -419px -143px;
+}
+
+.f-browser-128-chrome {
+  background-position: -557px -143px;
+}
+
+.f-browser-128-chromium {
+  background-position: -695px -143px;
+}
+
+.f-browser-128-cm {
+  background-position: -833px -143px;
+}
+
+.f-browser-128-coast {
+  background-position: -971px -143px;
+}
+
+.f-browser-128-diigo {
+  background-position: -5px -281px;
+}
+
+.f-browser-128-docler {
+  background-position: -143px -281px;
+}
+
+.f-browser-128-dolphin-zero {
+  background-position: -281px -281px;
+}
+
+.f-browser-128-dolphin {
+  background-position: -419px -281px;
+}
+
+.f-browser-128-dooble {
+  background-position: -557px -281px;
+}
+
+.f-browser-128-edge {
+  background-position: -695px -281px;
+}
+
+.f-browser-128-epic {
+  background-position: -833px -281px;
+}
+
+.f-browser-128-firefox-beta {
+  background-position: -971px -281px;
+}
+
+.f-browser-128-firefox-developer-edition {
+  background-position: -5px -419px;
+}
+
+.f-browser-128-firefox-nightly {
+  background-position: -143px -419px;
+}
+
+.f-browser-128-firefox {
+  background-position: -281px -419px;
+}
+
+.f-browser-128-icab-mobile {
+  background-position: -419px -419px;
+}
+
+.f-browser-128-icecat {
+  background-position: -557px -419px;
+}
+
+.f-browser-128-iceweasel {
+  background-position: -695px -419px;
+}
+
+.f-browser-128-internet-explorer-developer-channel {
+  background-position: -833px -419px;
+}
+
+.f-browser-128-internet-explorer-tile {
+  background-position: -971px -419px;
+}
+
+.f-browser-128-internet-explorer {
+  background-position: -5px -557px;
+}
+
+.f-browser-128-k-meleon {
+  background-position: -143px -557px;
+}
+
+.f-browser-128-konqueror {
+  background-position: -281px -557px;
+}
+
+.f-browser-128-lightning {
+  background-position: -419px -557px;
+}
+
+.f-browser-128-link-bubble {
+  background-position: -557px -557px;
+}
+
+.f-browser-128-maxthon-beta {
+  background-position: -695px -557px;
+}
+
+.f-browser-128-maxthon {
+  background-position: -833px -557px;
+}
+
+.f-browser-128-mercury {
+  background-position: -971px -557px;
+}
+
+.f-browser-128-metacert {
+  background-position: -5px -695px;
+}
+
+.f-browser-128-midori {
+  background-position: -143px -695px;
+}
+
+.f-browser-128-mihtool {
+  background-position: -281px -695px;
+}
+
+.f-browser-128-netsurf {
+  background-position: -419px -695px;
+}
+
+.f-browser-128-ninesky {
+  background-position: -557px -695px;
+}
+
+.f-browser-128-omega {
+  background-position: -695px -695px;
+}
+
+.f-browser-128-omniweb-test-build {
+  background-position: -833px -695px;
+}
+
+.f-browser-128-omniweb {
+  background-position: -971px -695px;
+}
+
+.f-browser-128-onion {
+  background-position: -5px -833px;
+}
+
+.f-browser-128-opera-beta {
+  background-position: -143px -833px;
+}
+
+.f-browser-128-opera-developer {
+  background-position: -281px -833px;
+}
+
+.f-browser-128-opera-mini-beta {
+  background-position: -419px -833px;
+}
+
+.f-browser-128-opera-mini {
+  background-position: -557px -833px;
+}
+
+.f-browser-128-opera {
+  background-position: -695px -833px;
+}
+
+.f-browser-128-orbitum {
+  background-position: -833px -833px;
+}
+
+.f-browser-128-pale-moon {
+  background-position: -971px -833px;
+}
+
+.f-browser-128-puffin {
+  background-position: -5px -971px;
+}
+
+.f-browser-128-qq {
+  background-position: -143px -971px;
+}
+
+.f-browser-128-rekonq {
+  background-position: -281px -971px;
+}
+
+.f-browser-128-safari-ios {
+  background-position: -419px -971px;
+}
+
+.f-browser-128-safari {
+  background-position: -557px -971px;
+}
+
+.f-browser-128-seamonkey {
+  background-position: -695px -971px;
+}
+
+.f-browser-128-silk {
+  background-position: -833px -971px;
+}
+
+.f-browser-128-sleipnir-mac {
+  background-position: -971px -971px;
+}
+
+.f-browser-128-sleipnir-mobile {
+  background-position: -1109px -5px;
+}
+
+.f-browser-128-sleipnir-windows {
+  background-position: -1109px -143px;
+}
+
+.f-browser-128-slimboat {
+  background-position: -1109px -281px;
+}
+
+.f-browser-128-sogou-mobile {
+  background-position: -1109px -419px;
+}
+
+.f-browser-128-tor {
+  background-position: -1109px -557px;
+}
+
+.f-browser-128-torch {
+  background-position: -1109px -695px;
+}
+
+.f-browser-128-uc {
+  background-position: -1109px -833px;
+}
+
+.f-browser-128-vivaldi {
+  background-position: -1109px -971px;
+}
+
+.f-browser-128-waterfox {
+  background-position: -5px -1109px;
+}
+
+.f-browser-128-web {
+  background-position: -143px -1109px;
+}
+
+.f-browser-128-webkit {
+  background-position: -281px -1109px;
+}
+
+.f-browser-128-yandex-alpha {
+  background-position: -419px -1109px;
+}
+
+.f-browser-128-yandex {
+  background-position: -557px -1109px;
+}
