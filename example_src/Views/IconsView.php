@@ -8,6 +8,45 @@ class IconsView extends AbstractUiExampleView
 {
 
   /**
+   * @group country flags
+   */
+  final public function AllCountryFlags()
+  {
+    $countries = CountryFlags::$countries;
+
+    $result = [];
+    foreach($countries as $countryCode => $flag)
+    {
+      $country = CountryFlags::i();
+      $country->addClass(strtolower($countryCode));
+
+      $result[] = $country;
+    }
+
+    return $result;
+  }
+
+  /**
+   * @group country flags
+   */
+  final public function EnglishSpeakingFlags()
+  {
+    $countries = [
+      'gb', 'ie', 'us', 'au'
+    ];
+
+    $result = [];
+    foreach($countries as $code)
+    {
+      $flag = CountryFlags::i();
+      $flag->addClass($code);
+      $result[] = $flag;
+    }
+
+    return $result;
+  }
+
+  /**
    * @group icons
    */
   final public function CommonBrowserIcons()
@@ -25,7 +64,6 @@ class IconsView extends AbstractUiExampleView
     {
       $icon = BrowserIcon::i();
       $icon->addClass($client);
-
       $result[] = $icon;
     }
 
@@ -45,7 +83,6 @@ class IconsView extends AbstractUiExampleView
     {
       $icon = BrowserIcon::i();
       $icon->addClass($client);
-
       $result[] = $icon;
     }
 
@@ -66,7 +103,6 @@ class IconsView extends AbstractUiExampleView
       $icon = BrowserIcon::i();
       $icon->addClass($client);
       $icon->setSize(32);
-
       $result[] = $icon;
     }
 
@@ -87,7 +123,6 @@ class IconsView extends AbstractUiExampleView
       $icon = BrowserIcon::i();
       $icon->addClass($client);
       $icon->setSize(64);
-
       $result[] = $icon;
     }
 
@@ -108,7 +143,6 @@ class IconsView extends AbstractUiExampleView
       $icon = BrowserIcon::i();
       $icon->addClass($client);
       $icon->setSize(128);
-
       $result[] = $icon;
     }
 
