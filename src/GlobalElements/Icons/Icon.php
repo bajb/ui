@@ -27,6 +27,18 @@ class Icon extends UiElement
     else
     {
       $assetManager->requireCss('assets/css/GlobalElements/Icons');
+      $assetManager->requireCss(
+        'assets/css/GlobalElements/Browsers/browsers16'
+      );
+      $assetManager->requireCss(
+        'assets/css/GlobalElements/Browsers/browsers32'
+      );
+      $assetManager->requireCss(
+        'assets/css/GlobalElements/Browsers/browsers64'
+      );
+      $assetManager->requireCss(
+        'assets/css/GlobalElements/Browsers/browsers128'
+      );
     }
   }
 
@@ -37,22 +49,12 @@ class Icon extends UiElement
   }
 
   /**
-   * @return SafeHtml|SafeHtml[]
+   * @return HtmlTag
    */
   protected function _produceHtml()
   {
-    $icon = HtmlTag::createTag(
-      'i',
-      [
-        'class' => [
-          'f-icon' => 'f-icon',
-          'fa'     => 'fa',
-          'fa-fw'  => 'fa-fw',
-        ]
-      ]
-    );
+    $icon = HtmlTag::createTag('i');
     $icon->addClass($this->_icon);
-    $icon->setAttribute('title', $this->_icon);
 
     foreach($this->_classes as $class)
     {

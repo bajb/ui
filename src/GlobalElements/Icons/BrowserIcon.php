@@ -1,16 +1,14 @@
 <?php
 namespace Fortifi\Ui\GlobalElements\Icons;
 
-use Fortifi\Ui\Ui;
 use Packaged\Glimpse\Core\HtmlTag;
-use Packaged\Glimpse\Core\SafeHtml;
 
 class BrowserIcon extends Icon
 {
   const BROWSER_360_SECURE = '360-secure';
   const BROWSER_AIRWEB = 'airweb';
   const BROWSER_ANDROID = 'android';
-  const BROWSER_WEBVIEW_BETA = 'android-webview-beta';
+  const BROWSER_ANDROID_WEBVIEW_BETA = 'android-webview-beta';
   const BROWSER_AVANT = 'avant';
   const BROWSER_AVIATOR = 'aviator';
   const BROWSER_BAIDU = 'baidu';
@@ -19,7 +17,7 @@ class BrowserIcon extends Icon
   const BROWSER_CHROME_ANDROID = 'chrome-android';
   const BROWSER_CHROME_BETA_ANDROID = 'chrome-beta-android';
   const BROWSER_CHROME_CANARY = 'chrome-canary';
-  const BROWSER_DEV_ANDROID = 'chrome-dev-android';
+  const BROWSER_CHROME_DEV_ANDROID = 'chrome-dev-android';
   const BROWSER_CHROMIUM = 'chromium';
   const BROWSER_CM = 'cm';
   const BROWSER_COAST = 'coast';
@@ -89,22 +87,27 @@ class BrowserIcon extends Icon
 
   public static function create($browser)
   {
-    if(!isset($browser))
+    $icn = new static;
+
+    if(!defined('self::BROWSER_' . strtoupper(str_replace('-', '_', $browser))))
     {
-      throw new \Exception('Browser not set');
+      throw new \Exception(
+        'The browser "' . $browser . '" is not supported by BrowserIcon'
+      );
     }
 
-    $icn = new static;
     $icn->_browser = $browser;
-
-    Ui::getAssetManager()->requireCss('assets/css/GlobalElements/Browsers/browsers16');
-    Ui::getAssetManager()->requireCss('assets/css/GlobalElements/Browsers/browsers32');
-    Ui::getAssetManager()->requireCss('assets/css/GlobalElements/Browsers/browsers64');
-    Ui::getAssetManager()->requireCss('assets/css/GlobalElements/Browsers/browsers128');
 
     return $icn;
   }
 
+  /**
+   * Define size of BrowserIcon
+   *
+   * @param $size
+   *
+   * @return $this
+   */
   public function setSize($size)
   {
     $this->_size = $size;
@@ -112,12 +115,15 @@ class BrowserIcon extends Icon
   }
 
   /**
-   * @return SafeHtml|SafeHtml[]
+   * @return HtmlTag
    */
   protected function _produceHtml()
   {
-    $icon = HtmlTag::createTag('i');
-    $icon->addClass('f-browser', 'f-browser-' . $this->_size . '-' . $this->_browser);
+    $icon = parent::_produceHtml();
+    $icon->addClass(
+      'f-browser',
+      'f-browser-' . $this->_size . '-' . $this->_browser
+    );
     $icon->setAttribute('title', $this->_browser);
 
     return $icon;

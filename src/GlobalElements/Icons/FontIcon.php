@@ -24,4 +24,29 @@ class FontIcon extends Icon
   const REVERSALS = 'fa-undo';
   const TQP = 'fa-random';
   const AUTO_TQP = 'fa-line-chart';
+
+  /**
+   * @return SafeHtml|SafeHtml[]
+   */
+  protected function _produceHtml()
+  {
+    $icon = HtmlTag::createTag(
+      'i',
+      [
+        'class' => [
+          'f-icon' => 'f-icon',
+          'fa'     => 'fa',
+          'fa-fw'  => 'fa-fw',
+        ]
+      ]
+    );
+    $icon->addClass($this->_icon);
+    $icon->setAttribute('title', $this->_icon);
+
+    foreach($this->_classes as $class)
+    {
+      $icon->addClass($class);
+    }
+    return $icon;
+  }
 }
