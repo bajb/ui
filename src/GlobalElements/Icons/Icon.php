@@ -29,18 +29,6 @@ abstract class Icon extends UiElement
     else
     {
       $assetManager->requireCss('assets/css/GlobalElements/Icons');
-      $assetManager->requireCss(
-        'assets/css/GlobalElements/Browsers/browsers16'
-      );
-      $assetManager->requireCss(
-        'assets/css/GlobalElements/Browsers/browsers32'
-      );
-      $assetManager->requireCss(
-        'assets/css/GlobalElements/Browsers/browsers64'
-      );
-      $assetManager->requireCss(
-        'assets/css/GlobalElements/Browsers/browsers128'
-      );
       $this->_processIconIncludes($assetManager);
     }
   }

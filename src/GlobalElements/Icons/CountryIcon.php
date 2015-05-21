@@ -3,7 +3,6 @@ namespace Fortifi\Ui\GlobalElements\Icons;
 
 use Packaged\Dispatch\AssetManager;
 use Packaged\Glimpse\Core\HtmlTag;
-use Packaged\Glimpse\Core\SafeHtml;
 
 class CountryIcon extends Icon
 {

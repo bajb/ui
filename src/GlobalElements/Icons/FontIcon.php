@@ -1,10 +1,8 @@
 <?php
 namespace Fortifi\Ui\GlobalElements\Icons;
 
-use Fortifi\Ui\UiElement;
 use Packaged\Dispatch\AssetManager;
 use Packaged\Glimpse\Core\HtmlTag;
-use Packaged\Glimpse\Core\SafeHtml;
 
 class FontIcon extends Icon
 {
@@ -26,27 +24,15 @@ class FontIcon extends Icon
   const AUTO_TQP = 'fa-line-chart';
 
   /**
-   * @return SafeHtml|SafeHtml[]
+   * @return HtmlTag
    */
   protected function _produceHtml()
   {
-    $icon = HtmlTag::createTag(
-      'i',
-      [
-        'class' => [
-          'f-icon' => 'f-icon',
-          'fa'     => 'fa',
-          'fa-fw'  => 'fa-fw',
-        ]
-      ]
-    );
-    $icon->addClass($this->_icon);
-    $icon->setAttribute('title', $this->_icon);
-
-    foreach($this->_classes as $class)
-    {
-      $icon->addClass($class);
-    }
+    $icon = parent::_produceHtml();
+    $icon->addClass('fa', 'fa-fw', 'f-icon', $this->_icon);
     return $icon;
   }
+
+  protected function _processIconIncludes(AssetManager $assetManager)
+  {}
 }

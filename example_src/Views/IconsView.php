@@ -9,6 +9,22 @@ class IconsView extends AbstractUiExampleView
 {
 
   /**
+   * @group Font Icons
+   */
+  final public function AllFontIcons()
+  {
+    $icons = (new \ReflectionClass(FontIcon::class))->getConstants();
+
+    $fontIcons = [];
+    foreach($icons as $icon)
+    {
+      $fontIcons[] = FontIcon::create($icon);
+    }
+
+    return $fontIcons;
+  }
+
+  /**
    * @group country flags
    */
   final public function AllCountryFlags()
@@ -41,24 +57,7 @@ class IconsView extends AbstractUiExampleView
   }
 
   /**
-   * @group icons
-   */
-  final public function AllFontIcons()
-  {
-    $reflection = new \ReflectionClass(FontIcon::class);
-    $icons = $reflection->getConstants();
-
-    $fontIcons = [];
-    foreach($icons as $icon)
-    {
-      $fontIcons[] = FontIcon::create($icon);
-    }
-
-    return $fontIcons;
-  }
-
-  /**
-   * @group icons
+   * @group Browser Icons
    */
   final public function CommonBrowserIcons()
   {
@@ -80,12 +79,11 @@ class IconsView extends AbstractUiExampleView
   }
 
   /**
-   * @group icons
+   * @group Browser Icons
    */
   final public function AllBrowserIcons()
   {
-    $clients = (new \ReflectionClass(BrowserIcon::class))
-      ->getConstants();
+    $clients = (new \ReflectionClass(BrowserIcon::class))->getConstants();
 
     $browsers = [];
     foreach($clients as $client)
@@ -97,7 +95,7 @@ class IconsView extends AbstractUiExampleView
   }
 
   /**
-   * @group icons
+   * @group Browser Icons
    */
   final public function BrowserIcons32()
   {
@@ -113,7 +111,7 @@ class IconsView extends AbstractUiExampleView
   }
 
   /**
-   * @group icons
+   * @group Browser Icons
    */
   final public function BrowserIcons64()
   {
@@ -129,7 +127,7 @@ class IconsView extends AbstractUiExampleView
   }
 
   /**
-   * @group icons
+   * @group Browser Icons
    */
   final public function BrowserIcons128()
   {

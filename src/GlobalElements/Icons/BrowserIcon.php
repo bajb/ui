@@ -1,6 +1,7 @@
 <?php
 namespace Fortifi\Ui\GlobalElements\Icons;
 
+use Packaged\Dispatch\AssetManager;
 use Packaged\Glimpse\Core\HtmlTag;
 
 class BrowserIcon extends Icon
@@ -87,8 +88,6 @@ class BrowserIcon extends Icon
 
   public static function create($browser)
   {
-    $icn = new static;
-
     if(!defined('self::BROWSER_' . strtoupper(str_replace('-', '_', $browser))))
     {
       throw new \Exception(
@@ -96,9 +95,26 @@ class BrowserIcon extends Icon
       );
     }
 
+    $icn = new static;
     $icn->_browser = $browser;
 
     return $icn;
+  }
+
+  protected function _processIconIncludes(AssetManager $assetManager)
+  {
+    $assetManager->requireCss(
+      'assets/css/GlobalElements/Browsers/browsers16'
+    );
+    $assetManager->requireCss(
+      'assets/css/GlobalElements/Browsers/browsers32'
+    );
+    $assetManager->requireCss(
+      'assets/css/GlobalElements/Browsers/browsers64'
+    );
+    $assetManager->requireCss(
+      'assets/css/GlobalElements/Browsers/browsers128'
+    );
   }
 
   /**
@@ -120,12 +136,7 @@ class BrowserIcon extends Icon
   protected function _produceHtml()
   {
     $icon = parent::_produceHtml();
-    $icon->addClass(
-      'f-browser',
-      'f-browser-' . $this->_size . '-' . $this->_browser
-    );
-    $icon->setAttribute('title', $this->_browser);
-
+    $icon->addClass('f-browser-' . $this->_size . '-' . $this->_browser);
     return $icon;
   }
 }
