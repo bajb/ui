@@ -5,7 +5,7 @@ use Packaged\Dispatch\AssetManager;
 use Packaged\Glimpse\Core\HtmlTag;
 use Packaged\Glimpse\Core\SafeHtml;
 
-class CountryFlags extends Icon
+class CountryIcon extends Icon
 {
   public static $countries = [
     'a1' => 'Anonymous Proxy',
@@ -259,32 +259,17 @@ class CountryFlags extends Icon
   ];
 
   protected $_country;
-  protected $_classes = [];
 
   public static function create($country)
   {
     if(!isset(static::$countries[strtolower($country)]))
     {
-      throw new \Exception('Country not set');
+      throw new \Exception('Country code "'. $country .'" is not supported by Icon');
     }
 
     $icn = new static;
     $icn->_country = $country;
     return $icn;
-  }
-
-  public function processIncludes(AssetManager $assetManager, $vendor = false)
-  {
-    if($vendor)
-    {
-      $assetManager->requireCss('assets/css/GlobalElements');
-    }
-    else
-    {
-      $assetManager->requireCss(
-        'assets/css/GlobalElements/flags'
-      );
-    }
   }
 
   /**

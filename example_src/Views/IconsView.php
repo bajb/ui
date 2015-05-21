@@ -2,7 +2,7 @@
 namespace Fortifi\UiExample\Views;
 
 use Fortifi\Ui\GlobalElements\Icons\BrowserIcon;
-use Fortifi\Ui\GlobalElements\Icons\CountryFlags;
+use Fortifi\Ui\GlobalElements\Icons\CountryIcon;
 
 class IconsView extends AbstractUiExampleView
 {
@@ -12,12 +12,12 @@ class IconsView extends AbstractUiExampleView
    */
   final public function AllCountryFlags()
   {
-    $countries = CountryFlags::$countries;
+    $countries = CountryIcon::$countries;
 
     $flags = [];
     foreach($countries as $countryCode => $country)
     {
-      $flag = CountryFlags::create($countryCode);
+      $flag = CountryIcon::create($countryCode);
       $flags[] = $flag;
     }
 
@@ -36,7 +36,7 @@ class IconsView extends AbstractUiExampleView
     $flags = [];
     foreach($countries as $countryCode)
     {
-      $flag = CountryFlags::create($countryCode);
+      $flag = CountryIcon::create($countryCode);
       $flags[] = $flag;
     }
 
@@ -59,8 +59,7 @@ class IconsView extends AbstractUiExampleView
     $result = [];
     foreach($browsers as $client)
     {
-      $icon = BrowserIcon::i();
-      $icon->addClass($client);
+      $icon = BrowserIcon::create($client);
       $result[] = $icon;
     }
 
@@ -78,8 +77,7 @@ class IconsView extends AbstractUiExampleView
     $result = [];
     foreach($browsers as $client)
     {
-      $icon = BrowserIcon::i();
-      $icon->addClass($client);
+      $icon = BrowserIcon::create($client);
       $result[] = $icon;
     }
 
@@ -97,8 +95,7 @@ class IconsView extends AbstractUiExampleView
     $result = [];
     foreach($browsers as $client)
     {
-      $icon = BrowserIcon::i();
-      $icon->addClass($client);
+      $icon = BrowserIcon::create($client);
       $icon->setSize(32);
       $result[] = $icon;
     }
@@ -117,8 +114,7 @@ class IconsView extends AbstractUiExampleView
     $result = [];
     foreach($browsers as $client)
     {
-      $icon = BrowserIcon::i();
-      $icon->addClass($client);
+      $icon = BrowserIcon::create($client);
       $icon->setSize(64);
       $result[] = $icon;
     }
@@ -137,8 +133,7 @@ class IconsView extends AbstractUiExampleView
     $result = [];
     foreach($browsers as $client)
     {
-      $icon = BrowserIcon::i();
-      $icon->addClass($client);
+      $icon = BrowserIcon::create($client);
       $icon->setSize(128);
       $result[] = $icon;
     }

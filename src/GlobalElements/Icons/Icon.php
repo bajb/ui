@@ -44,6 +44,7 @@ class Icon extends UiElement
     else
     {
       $assetManager->requireCss('assets/css/GlobalElements/Icons');
+      $assetManager->requireCss('assets/css/GlobalElements/flags');
     }
   }
 
