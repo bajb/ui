@@ -6,7 +6,7 @@ use Packaged\Dispatch\AssetManager;
 use Packaged\Glimpse\Core\HtmlTag;
 use Packaged\Glimpse\Core\SafeHtml;
 
-class Icon extends UiElement
+abstract class Icon extends UiElement
 {
   protected $_icon;
   protected $_classes = [];
@@ -17,6 +17,8 @@ class Icon extends UiElement
     $icn->_icon = $icon;
     return $icn;
   }
+
+  abstract protected function _processIconIncludes(AssetManager $assetManager);
 
   public function processIncludes(AssetManager $assetManager, $vendor = false)
   {
@@ -39,6 +41,7 @@ class Icon extends UiElement
       $assetManager->requireCss(
         'assets/css/GlobalElements/Browsers/browsers128'
       );
+      $this->_processIconIncludes($assetManager);
     }
   }
 
