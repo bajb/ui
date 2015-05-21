@@ -1,12 +1,11 @@
 <?php
 namespace Fortifi\Ui\GlobalElements\Icons;
 
-use Fortifi\Ui\UiElement;
-use Packaged\Dispatch\AssetManager;
+use Fortifi\Ui\Ui;
 use Packaged\Glimpse\Core\HtmlTag;
 use Packaged\Glimpse\Core\SafeHtml;
 
-class BrowserIcon extends UiElement
+class BrowserIcon extends Icon
 {
   const BROWSER_360_SECURE = '360-secure';
   const BROWSER_AIRWEB = 'airweb';
@@ -84,44 +83,26 @@ class BrowserIcon extends UiElement
   const BROWSER_YANDEX_ALPHA = 'yandex-alpha';
   const BROWSER_YANDEX = 'yandex';
 
-  protected $_icon;
+  protected $_browser;
+  protected $_assetManager;
   protected $_size = 16;
-  protected $_classes = [];
 
-  public static function create($icon)
+  public static function create($browser)
   {
+    if(!isset($browser))
+    {
+      throw new \Exception('Browser not set');
+    }
+
     $icn = new static;
-    $icn->_icon = $icon;
+    $icn->_browser = $browser;
+
+    Ui::getAssetManager()->requireCss('assets/css/GlobalElements/Browsers/browsers16');
+    Ui::getAssetManager()->requireCss('assets/css/GlobalElements/Browsers/browsers32');
+    Ui::getAssetManager()->requireCss('assets/css/GlobalElements/Browsers/browsers64');
+    Ui::getAssetManager()->requireCss('assets/css/GlobalElements/Browsers/browsers128');
+
     return $icn;
-  }
-
-  public function processIncludes(AssetManager $assetManager, $vendor = false)
-  {
-    if($vendor)
-    {
-      $assetManager->requireCss('assets/css/GlobalElements');
-    }
-    else
-    {
-      $assetManager->requireCss(
-        'assets/css/GlobalElements/Browsers/browsers-16'
-      );
-      $assetManager->requireCss(
-        'assets/css/GlobalElements/Browsers/browsers-32'
-      );
-      $assetManager->requireCss(
-        'assets/css/GlobalElements/Browsers/browsers-64'
-      );
-      $assetManager->requireCss(
-        'assets/css/GlobalElements/Browsers/browsers-128'
-      );
-    }
-  }
-
-  public function addClass($class)
-  {
-    $this->_classes[] = $class;
-    return $this;
   }
 
   public function setSize($size)
@@ -136,13 +117,8 @@ class BrowserIcon extends UiElement
   protected function _produceHtml()
   {
     $icon = HtmlTag::createTag('i');
-    $icon->addClass($this->_icon);
-
-    foreach($this->_classes as $class)
-    {
-      $icon->addClass('f-browser-' . $this->_size . '-' . $class);
-      $icon->setAttribute('title', $class);
-    }
+    $icon->addClass('f-browser', 'f-browser-' . $this->_size . '-' . $this->_browser);
+    $icon->setAttribute('title', $this->_browser);
 
     return $icon;
   }

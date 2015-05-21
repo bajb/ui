@@ -8,23 +8,6 @@ use Packaged\Glimpse\Core\SafeHtml;
 
 class Icon extends UiElement
 {
-  const EDIT = 'fa-pencil';
-  const DELETE = 'fa-times';
-  const LOCK = 'fa-lock';
-  const UNLOCK = 'fa-unlock';
-  const MAKE_DEFAULT = 'fa-star-o';
-  const CURRENT_DEFAULT = 'fa-star';
-
-  /**
-   * Policies
-   */
-  const COMMISSION = 'fa-money';
-  const TRAFFIC_BLOCKS = 'fa-shield';
-  const ACTION_VISIBILITY = 'fa-child';
-  const REVERSALS = 'fa-undo';
-  const TQP = 'fa-random';
-  const AUTO_TQP = 'fa-line-chart';
-
   protected $_icon;
   protected $_classes = [];
 
@@ -69,6 +52,8 @@ class Icon extends UiElement
       ]
     );
     $icon->addClass($this->_icon);
+    $icon->setAttribute('title', $this->_icon);
+
     foreach($this->_classes as $class)
     {
       $icon->addClass($class);

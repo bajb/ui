@@ -2,7 +2,7 @@
 namespace Fortifi\UiExample\Views;
 
 use Fortifi\Ui\GlobalElements\Icons\BrowserIcon;
-use Fortifi\Ui\GlobalElements\Icons\CountryFlags;
+use Fortifi\Ui\GlobalElements\Icons\FontIcon;
 
 class IconsView extends AbstractUiExampleView
 {
@@ -10,9 +10,26 @@ class IconsView extends AbstractUiExampleView
   /**
    * @group icons
    */
+  final public function AllFontIcons()
+  {
+    $reflection = new \ReflectionClass(FontIcon::class);
+    $icons = $reflection->getConstants();
+
+    $fontIcons = [];
+    foreach($icons as $icon)
+    {
+      $fontIcons[] = FontIcon::create($icon);
+    }
+
+    return $fontIcons;
+  }
+
+  /**
+   * @group icons
+   */
   final public function CommonBrowserIcons()
   {
-    $browsers = [
+    $clients = [
       BrowserIcon::BROWSER_CHROME,
       BrowserIcon::BROWSER_FIREFOX,
       BrowserIcon::BROWSER_SAFARI,
@@ -20,16 +37,13 @@ class IconsView extends AbstractUiExampleView
       BrowserIcon::BROWSER_INTERNET_EXPLORER,
     ];
 
-    $result = [];
-    foreach($browsers as $client)
+    $browsers = [];
+    foreach($clients as $client)
     {
-      $icon = BrowserIcon::i();
-      $icon->addClass($client);
-
-      $result[] = $icon;
+      $browsers[] = BrowserIcon::create($client);
     }
 
-    return $result;
+    return $browsers;
   }
 
   /**
@@ -38,18 +52,15 @@ class IconsView extends AbstractUiExampleView
   final public function AllBrowserIcons()
   {
     $reflection = new \ReflectionClass(BrowserIcon::class);
-    $browsers = $reflection->getConstants();
+    $clients = $reflection->getConstants();
 
-    $result = [];
-    foreach($browsers as $client)
+    $browsers = [];
+    foreach($clients as $client)
     {
-      $icon = BrowserIcon::i();
-      $icon->addClass($client);
-
-      $result[] = $icon;
+      $browsers[] = BrowserIcon::create($client);
     }
 
-    return $result;
+    return $browsers;
   }
 
   /**
@@ -58,19 +69,17 @@ class IconsView extends AbstractUiExampleView
   final public function BrowserIcons32()
   {
     $reflection = new \ReflectionClass(BrowserIcon::class);
-    $browsers = $reflection->getConstants();
+    $clients = $reflection->getConstants();
 
-    $result = [];
-    foreach($browsers as $client)
+    $browsers = [];
+    foreach($clients as $client)
     {
-      $icon = BrowserIcon::i();
-      $icon->addClass($client);
-      $icon->setSize(32);
-
-      $result[] = $icon;
+      $browser = BrowserIcon::create($client);
+      $browser->setSize(32);
+      $browsers[] = $browser;
     }
 
-    return $result;
+    return $browsers;
   }
 
   /**
@@ -79,19 +88,17 @@ class IconsView extends AbstractUiExampleView
   final public function BrowserIcons64()
   {
     $reflection = new \ReflectionClass(BrowserIcon::class);
-    $browsers = $reflection->getConstants();
+    $clients = $reflection->getConstants();
 
-    $result = [];
-    foreach($browsers as $client)
+    $browsers = [];
+    foreach($clients as $client)
     {
-      $icon = BrowserIcon::i();
-      $icon->addClass($client);
-      $icon->setSize(64);
-
-      $result[] = $icon;
+      $browser = BrowserIcon::create($client);
+      $browser->setSize(64);
+      $browsers[] = $browser;
     }
 
-    return $result;
+    return $browsers;
   }
 
   /**
@@ -100,18 +107,16 @@ class IconsView extends AbstractUiExampleView
   final public function BrowserIcons128()
   {
     $reflection = new \ReflectionClass(BrowserIcon::class);
-    $browsers = $reflection->getConstants();
+    $clients = $reflection->getConstants();
 
-    $result = [];
-    foreach($browsers as $client)
+    $browsers = [];
+    foreach($clients as $client)
     {
-      $icon = BrowserIcon::i();
-      $icon->addClass($client);
-      $icon->setSize(128);
-
-      $result[] = $icon;
+      $browser = BrowserIcon::create($client);
+      $browser->setSize(128);
+      $browsers[] = $browser;
     }
 
-    return $result;
+    return $browsers;
   }
 }
