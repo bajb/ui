@@ -14,16 +14,14 @@ class IconsView extends AbstractUiExampleView
   {
     $countries = CountryFlags::$countries;
 
-    $result = [];
-    foreach($countries as $countryCode => $flag)
+    $flags = [];
+    foreach($countries as $countryCode => $country)
     {
-      $country = CountryFlags::i();
-      $country->addClass(strtolower($countryCode));
-
-      $result[] = $country;
+      $flag = CountryFlags::create($countryCode);
+      $flags[] = $flag;
     }
 
-    return $result;
+    return $flags;
   }
 
   /**
@@ -35,15 +33,14 @@ class IconsView extends AbstractUiExampleView
       'gb', 'ie', 'us', 'au'
     ];
 
-    $result = [];
-    foreach($countries as $code)
+    $flags = [];
+    foreach($countries as $countryCode)
     {
-      $flag = CountryFlags::i();
-      $flag->addClass($code);
-      $result[] = $flag;
+      $flag = CountryFlags::create($countryCode);
+      $flags[] = $flag;
     }
 
-    return $result;
+    return $flags;
   }
 
   /**
