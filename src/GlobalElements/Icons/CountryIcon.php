@@ -273,11 +273,11 @@ class CountryIcon extends Icon
   }
 
   /**
-   * @return SafeHtml|SafeHtml[]
+   * @return HtmlTag
    */
   protected function _produceHtml()
   {
-    $icon = HtmlTag::createTag('i');
+    $icon = parent::_produceHtml();
     $icon->addClass('flag', 'flag-' . $this->_country);
     $icon->setAttribute('title', static::$countries[$this->_country]);
 

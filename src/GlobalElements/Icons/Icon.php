@@ -55,7 +55,7 @@ class Icon extends UiElement
   }
 
   /**
-   * @return SafeHtml|SafeHtml[]
+   * @return HtmlTag
    */
   protected function _produceHtml()
   {
