@@ -6,7 +6,7 @@ use Packaged\Dispatch\AssetManager;
 use Packaged\Glimpse\Core\HtmlTag;
 use Packaged\Glimpse\Core\SafeHtml;
 
-class Icon extends UiElement
+abstract class Icon extends UiElement
 {
   const EDIT = 'fa-pencil';
   const DELETE = 'fa-times';
@@ -35,6 +35,8 @@ class Icon extends UiElement
     return $icn;
   }
 
+  abstract protected function _processIconIncludes(AssetManager $assetManager);
+
   public function processIncludes(AssetManager $assetManager, $vendor = false)
   {
     if($vendor)
@@ -44,7 +46,7 @@ class Icon extends UiElement
     else
     {
       $assetManager->requireCss('assets/css/GlobalElements/Icons');
-      $assetManager->requireCss('assets/css/GlobalElements/flags');
+      $this->_processIconIncludes($assetManager);
     }
   }
 

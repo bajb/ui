@@ -262,14 +262,21 @@ class CountryIcon extends Icon
 
   public static function create($country)
   {
-    if(!isset(static::$countries[strtolower($country)]))
+    if(!isset(static::$countries[$country]))
     {
-      throw new \Exception('Country code "'. $country .'" is not supported by Icon');
+      throw new \Exception(
+        'Country code "' . $country . '" is not supported by CountryIcon'
+      );
     }
 
     $icn = new static;
     $icn->_country = $country;
     return $icn;
+  }
+
+  protected function _processIconIncludes(AssetManager $assetManager)
+  {
+    $assetManager->requireCss('assets/css/GlobalElements/flags');
   }
 
   /**
@@ -278,14 +285,8 @@ class CountryIcon extends Icon
   protected function _produceHtml()
   {
     $icon = parent::_produceHtml();
-    $icon->addClass('flag', 'flag-' . $this->_country);
-    $icon->setAttribute('title', static::$countries[$this->_country]);
-
-    foreach($this->_classes as $class)
-    {
-      $icon->addClass($class);
-    }
-
+    $icon->addClass('flag', 'flag-' . $this->_country)
+      ->setAttribute('title', static::$countries[$this->_country]);
     return $icon;
   }
 }

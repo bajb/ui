@@ -12,13 +12,10 @@ class IconsView extends AbstractUiExampleView
    */
   final public function AllCountryFlags()
   {
-    $countries = CountryIcon::$countries;
-
     $flags = [];
-    foreach($countries as $countryCode => $country)
+    foreach(CountryIcon::$countries as $countryCode => $country)
     {
-      $flag = CountryIcon::create($countryCode);
-      $flags[] = $flag;
+      $flags[] = CountryIcon::create($countryCode);
     }
 
     return $flags;
@@ -36,8 +33,7 @@ class IconsView extends AbstractUiExampleView
     $flags = [];
     foreach($countries as $countryCode)
     {
-      $flag = CountryIcon::create($countryCode);
-      $flags[] = $flag;
+      $flags[] = CountryIcon::create($countryCode);
     }
 
     return $flags;
