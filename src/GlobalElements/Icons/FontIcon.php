@@ -34,5 +34,7 @@ class FontIcon extends Icon
   }
 
   protected function _processIconIncludes(AssetManager $assetManager)
-  {}
+  {
+    $assetManager->requireCss('assets/css/GlobalElements/FontIcons');
+  }
 }

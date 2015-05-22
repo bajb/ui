@@ -275,7 +275,7 @@ class CountryIcon extends Icon
 
   protected function _processIconIncludes(AssetManager $assetManager)
   {
-    $assetManager->requireCss('assets/css/GlobalElements/flags');
+    $assetManager->requireCss('assets/css/GlobalElements/CountryIcons');
   }
 
   /**

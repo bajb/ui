@@ -28,7 +28,6 @@ abstract class Icon extends UiElement
     }
     else
     {
-      $assetManager->requireCss('assets/css/GlobalElements/Icons');
       $this->_processIconIncludes($assetManager);
     }
   }
