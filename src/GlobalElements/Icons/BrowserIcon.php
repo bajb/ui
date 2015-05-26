@@ -6,7 +6,7 @@ use Packaged\Glimpse\Core\HtmlTag;
 
 class BrowserIcon extends Icon
 {
-  const _360_SECURE = '360-secure';
+  const SECURE_360 = 'secure-360';
   const AIRWEB = 'airweb';
   const ANDROID = 'android';
   const ANDROID_WEBVIEW_BETA = 'android-webview-beta';
@@ -88,22 +88,15 @@ class BrowserIcon extends Icon
 
   public static function create($browser)
   {
-    $browser = strtoupper($browser);
-
-    if(ctype_digit((string)substr($browser, 0, 1)))
-    {
-      $browser = '_'. $browser;
-    }
-
-    if(!defined('self::' . str_replace('-', '_', $browser)))
+    if(!defined('self::' . str_replace('-', '_', strtoupper($browser))))
     {
       throw new \Exception(
-        'The browser "' . $browser . '" is not supported by BrowserIcon'
+        'The browser "'. $browser .'" is not supported by BrowserIcon'
       );
     }
 
     $icn = new static;
-    $icn->_browser = str_replace('_', '', strtolower($browser));
+    $icn->_browser = $browser;
 
     return $icn;
   }
