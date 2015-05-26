@@ -88,7 +88,14 @@ class BrowserIcon extends Icon
 
   public static function create($browser)
   {
-    if(!defined('self::BROWSER_' . strtoupper(str_replace('-', '_', $browser))))
+    $browser = strtoupper($browser);
+
+    if(ctype_digit((string)substr($browser, 0, 1)))
+    {
+      $browser = '_'. $browser;
+    }
+
+    if(!defined('self::' . str_replace('-', '_', $browser)))
     {
       throw new \Exception(
         'The browser "' . $browser . '" is not supported by BrowserIcon'
@@ -96,7 +103,7 @@ class BrowserIcon extends Icon
     }
 
     $icn = new static;
-    $icn->_browser = $browser;
+    $icn->_browser = str_replace('_', '', strtolower($browser));
 
     return $icn;
   }

@@ -62,11 +62,11 @@ class IconsView extends AbstractUiExampleView
   final public function CommonBrowserIcons()
   {
     $clients = [
-      BrowserIcon::BROWSER_CHROME,
-      BrowserIcon::BROWSER_FIREFOX,
-      BrowserIcon::BROWSER_SAFARI,
-      BrowserIcon::BROWSER_OPERA,
-      BrowserIcon::BROWSER_INTERNET_EXPLORER,
+      BrowserIcon::CHROME,
+      BrowserIcon::FIREFOX,
+      BrowserIcon::SAFARI,
+      BrowserIcon::OPERA,
+      BrowserIcon::INTERNET_EXPLORER,
     ];
 
     $browsers = [];
