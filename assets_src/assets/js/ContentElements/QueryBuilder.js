@@ -198,9 +198,8 @@
             currentData.push(
               {
                 key:        key,
-                comparator: $(
-                  '.qb-comparator', this
-                ).val() ? $('.qb-comparator', this).val() : 'eq',
+                comparator: $('.qb-comparator', this).val()
+                              ? $('.qb-comparator', this).val() : 'eq',
                 value:      $('.qb-value', this).val()
               }
             );
