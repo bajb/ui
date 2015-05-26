@@ -57,15 +57,15 @@ class PageNavigation extends UiElement
    */
   protected function _produceHtml()
   {
-    $list = new ObjectList();
+    $list = ObjectList::i();
     $list->setStacked(true, false);
     foreach($this->_items as $item)
     {
-      $card = new ObjectListCard();
+      $card = ObjectListCard::i();
       $card->setTitle($item[0]);
       if($item[1])
       {
-        $card->setColour(ObjectListCard::COLOUR_SKY);
+        $card->setColour($card::COLOUR_SKY);
       }
       $list->addCard($card);
     }
