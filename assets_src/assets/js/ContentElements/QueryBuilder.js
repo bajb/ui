@@ -4,29 +4,34 @@
 
 (function ($)
 {
-  $.fn.qb = function (command, data)
+  $.fn.QueryBuilder = function (command)
   {
+    var args = Array.prototype.slice.call(arguments);
     if (!command)
     {
       command = 'init';
+    }
+    else if (typeof command === 'object')
+    {
+      command = 'init';
+      args.unshift('init');
     }
     if (typeof QueryBuilder.prototype[command] !== 'function')
     {
       console.error('QueryBuilder command \'' + command + '\' not found');
       return;
     }
-    var args = Array.prototype.slice.call(arguments);
     args.shift();
     var retVal = $(this);
     $(this).each(
       function ()
       {
         var $this = $(this),
-          instance = $this.data('qb');
+          instance = $this.data('QueryBuilder');
         if (!instance)
         {
-          $this.data('qb', new QueryBuilder(this));
-          instance = $this.data('qb');
+          $this.data('QueryBuilder', new QueryBuilder(this));
+          instance = $this.data('QueryBuilder');
         }
         var result = instance[command].apply(instance, args);
         if (result)
@@ -41,38 +46,44 @@
   $(document).on(
     'change', '.qb-rule .qb-key', function ()
     {
-      $(this).closest('.qb-container').qb(
+      $(this).closest('.qb-container').QueryBuilder(
         'addRule', {key: $(this).val()},
         $(this).closest('.qb-rules .qb-rule').index()
-      );
+      ).trigger('change.querybuilder');
     }
   );
   $(document).on(
     'change', '.qb-rule .qb-comparator', function ()
     {
       var $rule = $(this).closest('.qb-rules .qb-rule');
-      $(this).closest('.qb-container').qb(
+      $(this).closest('.qb-container').QueryBuilder(
         'addRule', {
           key:        $('.qb-key', $rule).val(),
           comparator: $(this).val(),
           value:      $('.qb-value', $rule).val()
         },
         $rule.index()
-      );
+      ).trigger('change.querybuilder');
+    }
+  );
+  $(document).on(
+    'change', '.qb-container .qb-value', function ()
+    {
+      $(this).closest('.qb-container').trigger('change.querybuilder');
     }
   );
   $(document).on(
     'click', 'button.qb-remove-rule', function ()
     {
-      $(this).closest('.qb-container').qb(
+      $(this).closest('.qb-container').QueryBuilder(
         'removeRule', $(this).closest('.qb-rules .qb-rule').index()
-      );
+      ).trigger('change.querybuilder');
     }
   );
   $(document).on(
     'click', 'button.qb-add-rule', function ()
     {
-      $(this).closest('.qb-container').qb('addRule');
+      $(this).closest('.qb-container').QueryBuilder('addRule');
     }
   );
 
@@ -93,13 +104,22 @@
     this.options(options);
 
     var $ele = $(this._ele);
-    if ($ele.attr('data-qb-definitions'))
+    if (options && 'definitions' in options)
     {
-      this.definitions($ele.attr('data-qb-definitions'));
+      this.definitions(options.definitions);
     }
-    if ($ele.attr('data-qb-rules'))
+    else if ($ele.data('qb-definitions'))
     {
-      this.rules($ele.attr('data-qb-rules'));
+      this.definitions($ele.data('qb-definitions'));
+    }
+
+    if (options && 'rules' in options)
+    {
+      this.rules(options.rules);
+    }
+    else if ($ele.data('qb-rules'))
+    {
+      this.rules($ele.data('qb-rules'));
     }
   };
 
@@ -167,6 +187,7 @@
     var self = this;
     if (typeof data == 'undefined')
     {
+      // no data - return object of all rules
       var currentData = [];
       $('.qb-rules .qb-rule', $(this._ele)).each(
         function ()
@@ -177,7 +198,9 @@
             currentData.push(
               {
                 key:        key,
-                comparator: $('.qb-comparator', this).val(),
+                comparator: $(
+                  '.qb-comparator', this
+                ).val() ? $('.qb-comparator', this).val() : 'eq',
                 value:      $('.qb-value', this).val()
               }
             );
@@ -186,11 +209,32 @@
       );
       return currentData;
     }
+    // if data is object, read it into rules
+    else if (typeof data === 'object')
+    {
+      $.each(
+        data, function (key)
+        {
+          if (typeof this == 'object')
+          {
+            rules.push(this);
+          }
+          else
+          {
+            rules.push({key: key, comparator: 'eq', value: this});
+          }
+        }
+      );
+    }
     else if (typeof data === 'string')
     {
       if (data === 'query')
       {
-        var rules = [], params = $.parseParams(window.location.search.substring(1));
+        // string 'query' specified - set data based on query string
+        var rules = [], params = $.parseParams(window.location.search);
+        /* TODO: iterate definitions and find param, not blindly add all params
+         * NOTE: we may not have the definitions yet....
+         */
         $.each(
           params, function (key, v)
           {
@@ -246,6 +290,7 @@
             self.addRule(this);
           }
         );
+        $(self._ele).trigger('init.querybuilder');
       }
       // add any required fields which are not already added
       $.each(
@@ -339,7 +384,7 @@
       definition = ruleKey ? this._definitions[ruleKey] : null;
     if (!ruleKey)
     {
-      $propertySel.append('<option> - SELECT -</option>');
+      $propertySel.append('<option value=""> - SELECT -</option>');
     }
     if (ruleKey && !definition)
     {
@@ -413,6 +458,10 @@
       {
         inputType = 'select';
       }
+      if (inputType == 'select' && ruleData.value && (!(ruleData.value in definition.values)))
+      {
+        inputType = 'text';
+      }
       if (!inputType)
       {
         console.error('Input type not found for ' + ruleData.comparator + ' ' + definition.dataType);
@@ -453,5 +502,5 @@
     }
   };
 
-  $(document).trigger('qb.ready');
+  $(document).trigger('ready.querybuilder');
 })(jQuery);
