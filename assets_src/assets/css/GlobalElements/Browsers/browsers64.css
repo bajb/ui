@@ -6,10 +6,10 @@
 [class*="f-browser-64-"] {
   width: 64px;
   height: 64px;
-  background-image: url('../../../img/GlobalElements/Browsers/browsers_64.png');
+  background-image: url('../../../img/GlobalElements/Browsers/browsers64.png');
 }
 
-.f-browser-64-360-secure {
+.f-browser-64-secure-360 {
   background-position: -5px -5px;
 }
 

@@ -3,7 +3,7 @@ namespace Fortifi\UiExample\Views;
 
 use Fortifi\Ui\ContentElements\ObjectLists\ObjectList;
 use Fortifi\Ui\ContentElements\ObjectLists\ObjectListCard;
-use Fortifi\Ui\GlobalElements\Icons\Icon;
+use Fortifi\Ui\GlobalElements\Icons\FontIcon;
 use Fortifi\Ui\Ui;
 use Packaged\Glimpse\Elements\LineBreak;
 use Packaged\Glimpse\Tags\Link;
@@ -48,21 +48,21 @@ class ObjectListsView extends AbstractUiExampleView
 
     $card = ObjectListCard::i();
     $card->setTitle('One Action');
-    $card->addAction(new Link('#'), Icon::create(Icon::EDIT));
+    $card->addAction(new Link('#'), FontIcon::create(FontIcon::EDIT));
     $result[] = $card;
 
     $card = ObjectListCard::i();
     $card->setTitle('Two Actions');
-    $card->addAction(new Link('#'), Icon::create(Icon::EDIT));
-    $card->addAction(new Link('#'), Icon::create(Icon::DELETE));
+    $card->addAction(new Link('#'), FontIcon::create(FontIcon::EDIT));
+    $card->addAction(new Link('#'), FontIcon::create(FontIcon::DELETE));
     $result[] = $card;
 
     $card = ObjectListCard::i();
     $card->setTitle('Three Actions');
     $card->setColour(ObjectListCard::COLOUR_RED);
-    $card->addAction(new Link('#'), Icon::create(Icon::EDIT));
-    $card->addAction(new Link('#'), Icon::create(Icon::DELETE));
-    $card->addAction(new Link('#'), Icon::create(Icon::LOCK), true);
+    $card->addAction(new Link('#'), FontIcon::create(FontIcon::EDIT));
+    $card->addAction(new Link('#'), FontIcon::create(FontIcon::DELETE));
+    $card->addAction(new Link('#'), FontIcon::create(FontIcon::LOCK), true);
     $result[] = $card;
 
     return $result;
@@ -77,9 +77,9 @@ class ObjectListsView extends AbstractUiExampleView
 
     $card = ObjectListCard::i();
     $card->setTitle('One Action');
-    $card->addAction(new Link('#'), Icon::create(Icon::EDIT));
+    $card->addAction(new Link('#'), FontIcon::create(FontIcon::EDIT));
     $card->setRightContent(
-      Icon::create(Icon::CURRENT_DEFAULT)->addClass(Ui::TEXT_ORANGE)
+      FontIcon::create(FontIcon::CURRENT_DEFAULT)->addClass(Ui::TEXT_ORANGE)
     );
     $result[] = $card;
 
@@ -96,9 +96,9 @@ class ObjectListsView extends AbstractUiExampleView
     $card = ObjectListCard::i();
     $card->setTitle('One Action');
     $card->setSubTitle('Secondary Title');
-    $card->addAction(new Link('#'), Icon::create(Icon::EDIT));
+    $card->addAction(new Link('#'), FontIcon::create(FontIcon::EDIT));
     $card->setRightContent(
-      Icon::create(Icon::CURRENT_DEFAULT)->addClass(Ui::TEXT_ORANGE)
+      FontIcon::create(FontIcon::CURRENT_DEFAULT)->addClass(Ui::TEXT_ORANGE)
     );
     $result[] = $card;
 

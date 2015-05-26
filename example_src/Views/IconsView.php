@@ -2,116 +2,143 @@
 namespace Fortifi\UiExample\Views;
 
 use Fortifi\Ui\GlobalElements\Icons\BrowserIcon;
-use Fortifi\Ui\GlobalElements\Icons\CountryFlags;
+use Fortifi\Ui\GlobalElements\Icons\CountryIcon;
+use Fortifi\Ui\GlobalElements\Icons\FontIcon;
 
 class IconsView extends AbstractUiExampleView
 {
 
   /**
-   * @group icons
+   * @group Font Icons
+   */
+  final public function AllFontIcons()
+  {
+    $icons = (new \ReflectionClass(FontIcon::class))->getConstants();
+
+    $fontIcons = [];
+    foreach($icons as $icon)
+    {
+      $fontIcons[] = FontIcon::create($icon);
+    }
+
+    return $fontIcons;
+  }
+
+  /**
+   * @group country flags
+   */
+  final public function AllCountryFlags()
+  {
+    $flags = [];
+    foreach(CountryIcon::$countries as $countryCode => $country)
+    {
+      $flags[] = CountryIcon::create($countryCode);
+    }
+
+    return $flags;
+  }
+
+  /**
+   * @group country flags
+   */
+  final public function EnglishSpeakingFlags()
+  {
+    $countries = [
+      'gb', 'ie', 'us', 'au'
+    ];
+
+    $flags = [];
+    foreach($countries as $countryCode)
+    {
+      $flags[] = CountryIcon::create($countryCode);
+    }
+
+    return $flags;
+  }
+
+  /**
+   * @group Browser Icons
    */
   final public function CommonBrowserIcons()
   {
-    $browsers = [
-      BrowserIcon::BROWSER_CHROME,
-      BrowserIcon::BROWSER_FIREFOX,
-      BrowserIcon::BROWSER_SAFARI,
-      BrowserIcon::BROWSER_OPERA,
-      BrowserIcon::BROWSER_INTERNET_EXPLORER,
+    $clients = [
+      BrowserIcon::CHROME,
+      BrowserIcon::FIREFOX,
+      BrowserIcon::SAFARI,
+      BrowserIcon::OPERA,
+      BrowserIcon::INTERNET_EXPLORER,
     ];
 
-    $result = [];
-    foreach($browsers as $client)
+    $browsers = [];
+    foreach($clients as $client)
     {
-      $icon = BrowserIcon::i();
-      $icon->addClass($client);
-
-      $result[] = $icon;
+      $browsers[] = BrowserIcon::create($client);
     }
 
-    return $result;
+    return $browsers;
   }
 
   /**
-   * @group icons
+   * @group Browser Icons
    */
   final public function AllBrowserIcons()
   {
-    $reflection = new \ReflectionClass(BrowserIcon::class);
-    $browsers = $reflection->getConstants();
+    $clients = (new \ReflectionClass(BrowserIcon::class))->getConstants();
 
-    $result = [];
-    foreach($browsers as $client)
+    $browsers = [];
+    foreach($clients as $client)
     {
-      $icon = BrowserIcon::i();
-      $icon->addClass($client);
-
-      $result[] = $icon;
+      $browsers[] = BrowserIcon::create($client);
     }
 
-    return $result;
+    return $browsers;
   }
 
   /**
-   * @group icons
+   * @group Browser Icons
    */
   final public function BrowserIcons32()
   {
-    $reflection = new \ReflectionClass(BrowserIcon::class);
-    $browsers = $reflection->getConstants();
+    $clients = (new \ReflectionClass(BrowserIcon::class))->getConstants();
 
-    $result = [];
-    foreach($browsers as $client)
+    $browsers = [];
+    foreach($clients as $client)
     {
-      $icon = BrowserIcon::i();
-      $icon->addClass($client);
-      $icon->setSize(32);
-
-      $result[] = $icon;
+      $browsers[] = BrowserIcon::create($client)->setSize(32);
     }
 
-    return $result;
+    return $browsers;
   }
 
   /**
-   * @group icons
+   * @group Browser Icons
    */
   final public function BrowserIcons64()
   {
-    $reflection = new \ReflectionClass(BrowserIcon::class);
-    $browsers = $reflection->getConstants();
+    $clients = (new \ReflectionClass(BrowserIcon::class))->getConstants();
 
-    $result = [];
-    foreach($browsers as $client)
+    $browsers = [];
+    foreach($clients as $client)
     {
-      $icon = BrowserIcon::i();
-      $icon->addClass($client);
-      $icon->setSize(64);
-
-      $result[] = $icon;
+      $browsers[] = BrowserIcon::create($client)->setSize(64);
     }
 
-    return $result;
+    return $browsers;
   }
 
   /**
-   * @group icons
+   * @group Browser Icons
    */
   final public function BrowserIcons128()
   {
-    $reflection = new \ReflectionClass(BrowserIcon::class);
-    $browsers = $reflection->getConstants();
+    $clients = (new \ReflectionClass(BrowserIcon::class))->getConstants();
 
-    $result = [];
-    foreach($browsers as $client)
+    $browsers = [];
+    foreach($clients as $client)
     {
-      $icon = BrowserIcon::i();
-      $icon->addClass($client);
-      $icon->setSize(128);
-
-      $result[] = $icon;
+      $browsers[] = BrowserIcon::create($client)->setSize(128);
     }
 
-    return $result;
+    return $browsers;
   }
 }
