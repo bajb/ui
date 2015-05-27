@@ -6,11 +6,14 @@ use Cubex\View\LayoutController;
 use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDefinition as QBD;
 use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDefinitions;
 use Fortifi\Ui\ProjectSupport\FortifiUiLayout;
+use Fortifi\UiExample\Views\AsideView;
+use Fortifi\UiExample\Views\ButtonsView;
 use Fortifi\UiExample\Views\ColoursView;
 use Fortifi\UiExample\Views\HeadersView;
 use Fortifi\UiExample\Views\IconsView;
 use Fortifi\UiExample\Views\ObjectListsView;
 use Fortifi\UiExample\Views\PageNavigationView;
+use Fortifi\UiExample\Views\PanelsView;
 use Fortifi\UiExample\Views\QueryBuilderView;
 use Fortifi\UiExample\Views\TextView;
 
@@ -25,8 +28,10 @@ class ExampleController extends LayoutController
   {
     switch($page)
     {
-      case 'headers':
-        return new HeadersView();
+      case 'panels':
+        return new PanelsView();
+      case 'buttons':
+        return new ButtonsView();
       case 'colours':
         return new ColoursView();
       case 'navigation':
