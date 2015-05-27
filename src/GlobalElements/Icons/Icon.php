@@ -4,7 +4,6 @@ namespace Fortifi\Ui\GlobalElements\Icons;
 use Fortifi\Ui\UiElement;
 use Packaged\Dispatch\AssetManager;
 use Packaged\Glimpse\Core\HtmlTag;
-use Packaged\Glimpse\Core\SafeHtml;
 
 abstract class Icon extends UiElement
 {
@@ -45,7 +44,6 @@ abstract class Icon extends UiElement
   {
     $icon = HtmlTag::createTag('i');
     $icon->addClass($this->_icon);
-
     foreach($this->_classes as $class)
     {
       $icon->addClass($class);
