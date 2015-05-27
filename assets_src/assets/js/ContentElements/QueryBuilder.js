@@ -491,6 +491,4 @@
       return $input;
     }
   };
-
-  $(document).trigger('ready.querybuilder');
 })(jQuery);
