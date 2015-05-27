@@ -4,6 +4,11 @@
 
 (function ($)
 {
+  var defaultOptions = {
+    rules:       null,
+    definitions: null
+  };
+
   $.fn.QueryBuilder = function (command)
   {
     var args = Array.prototype.slice.call(arguments);
@@ -90,7 +95,6 @@
   /*
    * Public commands are below here
    */
-
   function QueryBuilder(ele)
   {
     this._ele = ele;
@@ -101,25 +105,16 @@
 
   QueryBuilder.prototype.init = function (options)
   {
-    this.options(options);
-
     var $ele = $(this._ele);
-    if (options && 'definitions' in options)
+    options = $.extend({}, defaultOptions, $ele.data(), options);
+    this.options(options);
+    if (this._options && 'definitions' in this._options)
     {
-      this.definitions(options.definitions);
+      this.definitions(this._options.definitions);
     }
-    else if ($ele.data('qb-definitions'))
+    if (this._options && 'rules' in this._options)
     {
-      this.definitions($ele.data('qb-definitions'));
-    }
-
-    if (options && 'rules' in options)
-    {
-      this.rules(options.rules);
-    }
-    else if ($ele.data('qb-rules'))
-    {
-      this.rules($ele.data('qb-rules'));
+      this.rules(this._options.rules);
     }
   };
 
@@ -153,33 +148,6 @@
     }
     this._definitions = data;
     this.redraw();
-  };
-
-  QueryBuilder.prototype.getQueryString = function ()
-  {
-    var params = {};
-    $.each(
-      this.rules(), function ()
-      {
-        if (params[this.key] || this.comparator == 'in')
-        {
-          if (!params[this.key])
-          {
-            params[this.key] = [];
-          }
-          if (typeof params[this.key] == 'string')
-          {
-            params[this.key] = [params[this.key]];
-          }
-          params[this.key].push(this.value);
-        }
-        else
-        {
-          params[this.key] = this.value;
-        }
-      }
-    );
-    return $.param(params);
   };
 
   QueryBuilder.prototype.rules = function (data)
@@ -216,7 +184,14 @@
         {
           if (typeof this == 'object')
           {
-            rules.push(this);
+            if ('key' in this && 'comparator' in this && 'value' in this)
+            {
+              rules.push(this);
+            }
+            else
+            {
+              rules.push({key: key, comparator: 'in', value: this});
+            }
           }
           else
           {
@@ -227,39 +202,14 @@
     }
     else if (typeof data === 'string')
     {
-      if (data === 'query')
-      {
-        // string 'query' specified - set data based on query string
-        var rules = [], params = $.parseParams(window.location.search);
-        /* TODO: iterate definitions and find param, not blindly add all params
-         * NOTE: we may not have the definitions yet....
-         */
-        $.each(
-          params, function (key, v)
-          {
-            if (typeof v === 'object')
-            {
-              rules.push({key: key, comparator: 'in', value: this});
-            }
-            else
-            {
-              rules.push({key: key, comparator: 'eq', value: this});
-            }
-          }
-        );
-        data = rules;
-      }
-      else
-      {
-        $.getJSON(
-          data, {}, function (rules)
-          {
-            self._rules = rules;
-            self.redraw();
-          }
-        );
-        return;
-      }
+      $.getJSON(
+        data, {}, function (rules)
+        {
+          self._rules = rules;
+          self.redraw();
+        }
+      );
+      return;
     }
     this._rules = data;
     this.redraw();
