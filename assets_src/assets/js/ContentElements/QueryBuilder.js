@@ -23,8 +23,7 @@
     }
     if (typeof QueryBuilder.prototype[command] !== 'function')
     {
-      console.error('QueryBuilder command \'' + command + '\' not found');
-      return;
+      throw 'QueryBuilder command \'' + command + '\' not found';
     }
     args.shift();
     var retVal = $(this);
@@ -179,18 +178,26 @@
     // if data is object, read it into rules
     else if (typeof data === 'object')
     {
+      var rules = [];
       $.each(
         data, function (key)
         {
           if (typeof this == 'object')
           {
-            if ('key' in this && 'comparator' in this && 'value' in this)
+            if (this instanceof String)
             {
-              rules.push(this);
+              rules.push({key: key, comparator: 'eq', value: this});
             }
             else
             {
-              rules.push({key: key, comparator: 'in', value: this});
+              if ('key' in this && 'comparator' in this && 'value' in this)
+              {
+                rules.push(this);
+              }
+              else
+              {
+                rules.push({key: key, comparator: 'in', value: this});
+              }
             }
           }
           else
@@ -199,6 +206,15 @@
           }
         }
       );
+      this._rules = rules;
+      this.redraw();
+      return;
+    }
+    else if (typeof data === 'function')
+    {
+      this._rules = data();
+      this.redraw();
+      return;
     }
     else if (typeof data === 'string')
     {
@@ -211,8 +227,7 @@
       );
       return;
     }
-    this._rules = data;
-    this.redraw();
+    throw 'Unknown data format for rules';
   };
 
   QueryBuilder.prototype.redraw = function ()
