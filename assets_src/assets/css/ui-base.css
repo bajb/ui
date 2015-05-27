@@ -12,7 +12,6 @@ body ul, body ol {
 }
 
 /** Spacing **/
-
 .f-pl {
   padding: 16px;
 }
@@ -37,8 +36,11 @@ body ul, body ol {
   margin: 4px;
 }
 
-/* left */
+.f-mn {
+  margin: 0;
+}
 
+/* left */
 .f-pll {
   padding-left: 16px;
 }
@@ -49,6 +51,10 @@ body ul, body ol {
 
 .f-psl {
   padding-left: 4px;
+}
+
+.f-pnl {
+  padding-left: 0;
 }
 
 .f-mll {
@@ -63,8 +69,11 @@ body ul, body ol {
   margin-left: 4px;
 }
 
-/* Right */
+.f-mnl {
+  margin-left: 0;
+}
 
+/* Right */
 .f-plr {
   padding-right: 16px;
 }
@@ -75,6 +84,10 @@ body ul, body ol {
 
 .f-psr {
   padding-right: 4px;
+}
+
+.f-pnr {
+  padding-right: 0;
 }
 
 .f-mlr {
@@ -89,8 +102,11 @@ body ul, body ol {
   margin-right: 4px;
 }
 
-/* Bottom */
+.f-mnr {
+  margin-right: 0;
+}
 
+/* Bottom */
 .f-plb {
   padding-bottom: 16px;
 }
@@ -101,6 +117,10 @@ body ul, body ol {
 
 .f-psb {
   padding-bottom: 4px;
+}
+
+.f-pnb {
+  padding-bottom: 0;
 }
 
 .f-mlb {
@@ -115,8 +135,11 @@ body ul, body ol {
   margin-bottom: 4px;
 }
 
-/* Top */
+.f-mnb {
+  margin-bottom: 0;
+}
 
+/* Top */
 .f-plt {
   padding-top: 16px;
 }
@@ -129,6 +152,10 @@ body ul, body ol {
   padding-top: 4px;
 }
 
+.f-pnt {
+  padding-top: 0;
+}
+
 .f-mlt {
   margin-top: 16px;
 }
@@ -139,6 +166,10 @@ body ul, body ol {
 
 .f-mst {
   margin-top: 4px;
+}
+
+.f-mnt {
+  margin-top: 0;
 }
 
 /* Text Styles */

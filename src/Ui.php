@@ -38,18 +38,23 @@ final class Ui
   const MARGIN_SMALL = 'f-ms';
   const MARGIN_MEDIUM = 'f-mm';
   const MARGIN_LARGE = 'f-ml';
+  const MARGIN_NONE = 'f-mn';
   const MARGIN_SMALL_LEFT = 'f-msl';
   const MARGIN_MEDIUM_LEFT = 'f-mml';
   const MARGIN_LARGE_LEFT = 'f-mll';
+  const MARGIN_NONE_LEFT = 'f-mnl';
   const MARGIN_SMALL_RIGHT = 'f-msr';
   const MARGIN_MEDIUM_RIGHT = 'f-mmr';
   const MARGIN_LARGE_RIGHT = 'f-mlr';
+  const MARGIN_NONE_RIGHT = 'f-mnr';
   const MARGIN_SMALL_BOTTOM = 'f-msb';
   const MARGIN_MEDIUM_BOTTOM = 'f-mmb';
   const MARGIN_LARGE_BOTTOM = 'f-mlb';
+  const MARGIN_NONE_BOTTOM = 'f-mnb';
   const MARGIN_SMALL_TOP = 'f-mst';
   const MARGIN_MEDIUM_TOP = 'f-mmt';
   const MARGIN_LARGE_TOP = 'f-mlt';
+  const MARGIN_NONE_TOP = 'f-mnt';
 
   /**
    * Border None
@@ -110,18 +115,23 @@ final class Ui
   const PADDING_SMALL = 'f-ps';
   const PADDING_MEDIUM = 'f-pm';
   const PADDING_LARGE = 'f-pl';
+  const PADDING_NONE = 'f-pn';
   const PADDING_SMALL_LEFT = 'f-psl';
   const PADDING_MEDIUM_LEFT = 'f-pml';
   const PADDING_LARGE_LEFT = 'f-pll';
+  const PADDING_NONE_LEFT = 'f-pnl';
   const PADDING_SMALL_RIGHT = 'f-psr';
   const PADDING_MEDIUM_RIGHT = 'f-pmr';
   const PADDING_LARGE_RIGHT = 'f-plr';
+  const PADDING_NONE_RIGHT = 'f-pnr';
   const PADDING_SMALL_BOTTOM = 'f-psb';
   const PADDING_MEDIUM_BOTTOM = 'f-pmb';
   const PADDING_LARGE_BOTTOM = 'f-plb';
+  const PADDING_NONE_BOTTOM = 'f-pnb';
   const PADDING_SMALL_TOP = 'f-pst';
   const PADDING_MEDIUM_TOP = 'f-pmt';
   const PADDING_LARGE_TOP = 'f-plt';
+  const PADDING_NONE_TOP = 'f-pnt';
 
   /**
    * Text Styles
