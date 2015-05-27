@@ -313,3 +313,103 @@ body ul, body ol {
 .f-bg-black {
   background-color: #333333 !important;
 }
+
+.f-white {
+  color: #fff !important;
+}
+
+.f-bg-white {
+  background-color: #fff !important;
+}
+
+/**/
+.f-brl {
+  border-radius: 5px !important;
+}
+.f-brm {
+  border-radius: 3px !important;
+}
+.f-brs {
+  border-radius: 2px !important;
+}
+.f-brn {
+  border-radius: 0 !important;
+}
+
+.f-brl-t {
+  border-top-left-radius: 5px !important;
+  border-top-right-radius: 5px !important;
+}
+.f-brm-t {
+  border-top-left-radius: 3px !important;
+  border-top-right-radius: 3px !important;
+}
+.f-brs-t {
+  border-top-left-radius: 2px !important;
+  border-top-right-radius: 2px !important;
+}
+.f-brn-t {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+.f-brl-tl {
+  border-top-left-radius: 5px !important;
+}
+.f-brm-tl {
+  border-top-left-radius: 3px !important;
+}
+.f-brs-tl {
+  border-top-left-radius: 2px !important;
+}
+.f-brn-tl {
+  border-top-left-radius: 0 !important;
+}
+
+.f-brl-tr {
+  border-top-right-radius: 5px !important;
+}
+.f-brm-tr {
+  border-top-right-radius: 3px !important;
+}
+.f-brs-tr {
+  border-top-right-radius: 2px !important;
+}
+.f-brn-tr {
+  border-top-right-radius: 0 !important;
+}
+
+.f-brl-bl {
+  border-bottom-left-radius: 5px !important;
+}
+.f-brm-bl {
+  border-bottom-left-radius: 3px !important;
+}
+.f-brs-bl {
+  border-bottom-left-radius: 2px !important;
+}
+.f-brn-bl {
+  border-bottom-left-radius: 0 !important;
+}
+
+.f-brl-br {
+  border-bottom-right-radius: 5px !important;
+}
+.f-brm-br {
+  border-bottom-right-radius: 3px !important;
+}
+.f-brs-br {
+  border-bottom-right-radius: 2px !important;
+}
+.f-brn-br {
+  border-bottom-right-radius: 0 !important;
+}
+
+.f-brn-l {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+.f-brn-r {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}

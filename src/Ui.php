@@ -52,6 +52,63 @@ final class Ui
   const MARGIN_LARGE_TOP = 'f-mlt';
 
   /**
+   * Border Radius
+   */
+
+  const BORDER_TOP = 'f-bt';
+  const BORDER_RIGHT = 'f-b-r';
+  const BORDER_BOTTOM = 'f-bb';
+  const BORDER_LEFT = 'f-bl';
+
+  const BORDER_NONE = 'f-bn';
+  const BORDER_TOP_NONE = 'f-bt-n';
+  const BORDER_RIGHT_NONE = 'f-br-n';
+  const BORDER_BOTTOM_NONE = 'f-bb-n';
+  const BORDER_LEFT_NONE = 'f-bl-n';
+
+  /**
+   * Border Radius
+   */
+
+  const BORDER_RADIUS_SMALL = 'f-brs';
+  const BORDER_RADIUS_MEDIUM = 'f-brm';
+  const BORDER_RADIUS_LARGE = 'f-brl';
+  const BORDER_RADIUS_NONE = 'f-brn';
+
+  const BORDER_RADIUS_TOP_SMALL = 'f-brs-t';
+  const BORDER_RADIUS_TOP_MEDIUM = 'f-brm-t';
+  const BORDER_RADIUS_TOP_LARGE = 'f-brl-t';
+  const BORDER_RADIUS_TOP_NONE = 'f-brn-t';
+
+  const BORDER_RADIUS_TOP_LEFT_SMALL = 'f-brs-tl';
+  const BORDER_RADIUS_TOP_LEFT_MEDIUM = 'f-brm-tl';
+  const BORDER_RADIUS_TOP_LEFT_LARGE = 'f-brl-tl';
+  const BORDER_RADIUS_TOP_LEFT_NONE = 'f-brn-tl';
+
+  const BORDER_RADIUS_TOP_RIGHT_SMALL = 'f-brs-tr';
+  const BORDER_RADIUS_TOP_RIGHT_MEDIUM = 'f-brm-tr';
+  const BORDER_RADIUS_TOP_RIGHT_LARGE = 'f-brl-tr';
+  const BORDER_RADIUS_TOP_RIGHT_NONE = 'f-brn-tr';
+
+  const BORDER_RADIUS_BOTTOM_SMALL = 'f-brs-b';
+  const BORDER_RADIUS_BOTTOM_MEDIUM = 'f-brm-b';
+  const BORDER_RADIUS_BOTTOM_LARGE = 'f-brl-b';
+  const BORDER_RADIUS_BOTTOM_NONE = 'f-brn-b';
+
+  const BORDER_RADIUS_BOTTOM_RIGHT_SMALL = 'f-brs-br';
+  const BORDER_RADIUS_BOTTOM_RIGHT_MEDIUM = 'f-brm-br';
+  const BORDER_RADIUS_BOTTOM_RIGHT_LARGE = 'f-brl-br';
+  const BORDER_RADIUS_BOTTOM_RIGHT_NONE = 'f-brn-br';
+
+  const BORDER_RADIUS_BOTTOM_LEFT_SMALL = 'f-brs-bl';
+  const BORDER_RADIUS_BOTTOM_LEFT_MEDIUM = 'f-brm-bl';
+  const BORDER_RADIUS_BOTTOM_LEFT_LARGE = 'f-brl-bl';
+  const BORDER_RADIUS_BOTTOM_LEFT_NONE = 'f-brn-bl';
+
+  const BORDER_RADIUS_LEFT_NONE = 'f-brn-l';
+  const BORDER_RADIUS_RIGHT_NONE = 'f-brn-r';
+
+  /**
    * Padding
    */
 
@@ -148,6 +205,8 @@ final class Ui
   const BG_GREY = 'f-bg-grey';
   const TEXT_BLACK = 'f-black';
   const BG_BLACK = 'f-bg-black';
+  const TEXT_WHITE = 'f-white';
+  const BG_WHITE = 'f-bg-white';
 
   public static function boot(
     AssetManager $am = null, $bootstrap = true, $jquery = true,
