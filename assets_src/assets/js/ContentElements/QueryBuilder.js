@@ -126,11 +126,11 @@
     var $ele = $(this._ele);
     options = $.extend({}, defaultOptions, $ele.data(), options);
     this.options(options);
-    if (this._options && 'definitions' in this._options)
+    if (this._options && 'definitions' in this._options && this._options.definitions)
     {
       this.definitions(this._options.definitions);
     }
-    if (this._options && 'rules' in this._options)
+    if (this._options && 'rules' in this._options && this._options.rules)
     {
       this.rules(this._options.rules);
     }
@@ -138,7 +138,7 @@
 
   QueryBuilder.prototype.options = function (data)
   {
-    if (typeof data === 'undefined')
+    if (data === undefined)
     {
       return this._options;
     }
@@ -149,7 +149,7 @@
   QueryBuilder.prototype.definitions = function (data)
   {
     var self = this;
-    if (typeof data === 'undefined')
+    if (data === undefined)
     {
       return this._definitions;
     }
@@ -171,7 +171,7 @@
   QueryBuilder.prototype.rules = function (data)
   {
     var self = this;
-    if (typeof data == 'undefined')
+    if (data === undefined)
     {
       // no data - return object of all rules
       var currentData = [];
@@ -198,33 +198,36 @@
     else if (typeof data === 'object')
     {
       var rules = [];
-      $.each(
-        data, function (key)
-        {
-          if (typeof this == 'object')
+      if (data)
+      {
+        $.each(
+          data, function (key)
           {
-            if (this instanceof String)
+            if (typeof this == 'object')
             {
-              rules.push({key: key, comparator: 'eq', value: this});
-            }
-            else
-            {
-              if ('key' in this && 'comparator' in this && 'value' in this)
+              if (this instanceof String)
               {
-                rules.push(this);
+                rules.push({key: key, comparator: 'eq', value: this});
               }
               else
               {
-                rules.push({key: key, comparator: 'in', value: this});
+                if ('key' in this && 'comparator' in this && 'value' in this)
+                {
+                  rules.push(this);
+                }
+                else
+                {
+                  rules.push({key: key, comparator: 'in', value: this});
+                }
               }
             }
+            else
+            {
+              rules.push({key: key, comparator: 'eq', value: this});
+            }
           }
-          else
-          {
-            rules.push({key: key, comparator: 'eq', value: this});
-          }
-        }
-      );
+        );
+      }
       this._rules = rules;
       this.redraw();
       return;
@@ -421,7 +424,7 @@
       $('<button class="qb-button qb-remove-rule">x</button>').appendTo($row);
     }
 
-    if (typeof idx !== 'undefined')
+    if (idx !== undefined)
     {
       $('.qb-rule:eq(' + idx + ')', this._ele).replaceWith($row);
     }
