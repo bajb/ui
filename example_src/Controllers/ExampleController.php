@@ -7,6 +7,7 @@ use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDefinition as QBD;
 use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDefinitions;
 use Fortifi\Ui\ProjectSupport\FortifiUiLayout;
 use Fortifi\UiExample\Views\ColoursView;
+use Fortifi\UiExample\Views\HeadersView;
 use Fortifi\UiExample\Views\IconsView;
 use Fortifi\UiExample\Views\ObjectListsView;
 use Fortifi\UiExample\Views\PageNavigationView;
@@ -24,6 +25,8 @@ class ExampleController extends LayoutController
   {
     switch($page)
     {
+      case 'headers':
+        return new HeadersView();
       case 'colours':
         return new ColoursView();
       case 'navigation':
