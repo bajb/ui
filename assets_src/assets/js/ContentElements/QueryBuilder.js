@@ -4,6 +4,16 @@
 
 (function ($)
 {
+  /**
+   * @typedef {{}} QueryBuilderDefinition
+   * @property {String} display
+   * @property {String} comparators
+   * @property {String} values
+   * @property {String} ajaxUrl
+   * @property {String} dataType
+   * @property {String} required
+   */
+
   var defaultOptions = {
     rules:       null,
     definitions: null
@@ -94,10 +104,19 @@
   /*
    * Public commands are below here
    */
+  /**
+   *
+   * @param ele
+   * @constructor
+   *
+   * @private {Object.<String, String>} _options
+   * @private {QueryBuilderDefinition[]} _definitions
+   * @private {Object[]} _rules
+   */
   function QueryBuilder(ele)
   {
     this._ele = ele;
-    this._options = [];
+    this._options = {};
     this._definitions = [];
     this._rules = [];
   }
@@ -344,8 +363,12 @@
   {
     var $row = $('<div class="qb-rule"/>'),
       $propertySel = $('<select class="qb-key"/>').appendTo($row),
-      ruleKey = ruleData ? ruleData.key : null,
-      definition = ruleKey ? this._definitions[ruleKey] : null;
+      ruleKey = ruleData ? ruleData.key : null;
+    /**
+     * @type {QueryBuilderDefinition}
+     */
+    var definition = ruleKey ? this._definitions[ruleKey] : null;
+
     if (!ruleKey)
     {
       $propertySel.append('<option value=""> - SELECT -</option>');
