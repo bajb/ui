@@ -322,7 +322,7 @@ body ul, body ol {
   background-color: #fff !important;
 }
 
-/**/
+/* Border Radius */
 .f-brl {
   border-radius: 5px !important;
 }
@@ -412,4 +412,18 @@ body ul, body ol {
 .f-brn-r {
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
+}
+
+/* Borders */
+.f-bn-l {
+  border-left: none !important;
+}
+.f-bn-r {
+  border-right: none !important;
+}
+.f-bn-t {
+  border-top: none !important;
+}
+.f-bn-b {
+  border-bottom: none !important;
 }

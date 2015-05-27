@@ -52,19 +52,14 @@ final class Ui
   const MARGIN_LARGE_TOP = 'f-mlt';
 
   /**
-   * Border Radius
+   * Border None
    */
 
-  const BORDER_TOP = 'f-bt';
-  const BORDER_RIGHT = 'f-b-r';
-  const BORDER_BOTTOM = 'f-bb';
-  const BORDER_LEFT = 'f-bl';
-
   const BORDER_NONE = 'f-bn';
-  const BORDER_TOP_NONE = 'f-bt-n';
-  const BORDER_RIGHT_NONE = 'f-br-n';
-  const BORDER_BOTTOM_NONE = 'f-bb-n';
-  const BORDER_LEFT_NONE = 'f-bl-n';
+  const BORDER_TOP_NONE = 'f-bn-t';
+  const BORDER_RIGHT_NONE = 'f-bn-r';
+  const BORDER_BOTTOM_NONE = 'f-bn-b';
+  const BORDER_LEFT_NONE = 'f-bn-l';
 
   /**
    * Border Radius
