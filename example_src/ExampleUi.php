@@ -11,6 +11,7 @@ class ExampleUi extends CubexKernel
   public function __construct()
   {
     UI::boot(AssetManager::aliasType('root'));
+    AssetManager::aliasType('esrc')->requireCss('css/theme');
   }
 
   public function defaultAction()
