@@ -26,7 +26,7 @@ class QueryBuilderView extends AbstractUiExampleView
     AssetManager::sourceType()->requireInlineJs(
       "
         $('.query-builder').QueryBuilder();
-        $(document).on('change.querybuilder init.querybuilder', function(e) {
+        $(document).on('change.querybuilder', function(e) {
           $('#values').text(
             JSON.stringify($(this).QueryBuilder('rules'), null, 2)
           );
