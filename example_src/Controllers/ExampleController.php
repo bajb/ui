@@ -30,8 +30,6 @@ class ExampleController extends LayoutController
     {
       case 'panels':
         return new PanelsView();
-      case 'buttons':
-        return new ButtonsView();
       case 'colours':
         return new ColoursView();
       case 'navigation':

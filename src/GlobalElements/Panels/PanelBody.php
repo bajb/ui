@@ -24,7 +24,8 @@ class PanelBody extends PanelBase
   protected function _produceHtml()
   {
     $panelBody = parent::_produceHtml();
-    return $panelBody->addClass('panel-body', Ui::BG_WHITE, Ui::BORDER_RADIUS_BOTTOM_MEDIUM)
+    return $panelBody->addClass(
+      'panel-body', $this->_bgColour, Ui::BORDER_RADIUS_BOTTOM_MEDIUM)
       ->setAttribute('style', $this->_border);
   }
 }
