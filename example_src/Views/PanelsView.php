@@ -14,7 +14,7 @@ class PanelsView extends AbstractUiExampleView
    */
   final public function PanelBodyOnly()
   {
-    $content = PanelBody::create('panel content');
+    $content = PanelBody::create('panel content')->setBorderRadius();
     return Panel::create($content);
   }
 
@@ -24,7 +24,8 @@ class PanelsView extends AbstractUiExampleView
   final public function PanelWithHeading()
   {
     $heading = PanelHeading::create('Panel Heading');
-    $content = PanelBody::create('panel content');
+    $content = PanelBody::create('panel content - Background colour removed');
+    $content->removeBgColour();
     return Panel::create([$heading, $content]);
   }
 

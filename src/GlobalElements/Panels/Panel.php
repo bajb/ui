@@ -1,14 +1,15 @@
 <?php
 namespace Fortifi\Ui\GlobalElements\Panels;
 
-use Fortifi\Ui\UiElement;
-use Packaged\Glimpse\Core\SafeHtml;
+use Fortifi\Ui\Ui;
 use Packaged\Glimpse\Tags\Div;
 
-class Panel extends UiElement
+class Panel extends PanelBase
 {
   protected $_content;
+  protected $_bgColour = Ui::BG_WHITE;
   protected $_classes = [];
+  protected $_attributes = [];
 
   public static function create($content)
   {
@@ -17,22 +18,12 @@ class Panel extends UiElement
     return $panel;
   }
 
-  public function addClass($class)
-  {
-    $this->_classes[] = $class;
-    return $this;
-  }
-
   /**
-   * @return SafeHtml|SafeHtml[]
+   * @return Div
    */
   protected function _produceHtml()
   {
-    $panel = new Div($this->_content);
-    foreach($this->_classes as $class)
-    {
-      $panel->addClass($class);
-    }
+    $panel = parent::_produceHtml();
     return $panel->addClass('f-panel');
   }
 }

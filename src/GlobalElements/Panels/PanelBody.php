@@ -2,12 +2,14 @@
 namespace Fortifi\Ui\GlobalElements\Panels;
 
 use Fortifi\Ui\Ui;
-use Fortifi\Ui\UiElement;
 use Packaged\Glimpse\Tags\Div;
 
-class PanelBody extends UiElement
+class PanelBody extends PanelBase
 {
   protected $_content;
+  protected $_classes = [];
+  protected $_attributes = [];
+  protected $_bgColour = Ui::BG_WHITE;
 
   public static function create($content)
   {
@@ -17,15 +19,12 @@ class PanelBody extends UiElement
   }
 
   /**
-   * @var $panel Div
-   *
    * @return Div
    */
   protected function _produceHtml()
   {
-    return Div::create($this->_content)->addClass(
-      'panel-body',
-      Ui::BG_WHITE
-    );
+    $panelBody = parent::_produceHtml();
+    return $panelBody->addClass('panel-body', Ui::BG_WHITE, Ui::BORDER_RADIUS_BOTTOM_MEDIUM)
+      ->setAttribute('style', $this->_border);
   }
 }

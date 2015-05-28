@@ -384,6 +384,23 @@ body ul, body ol {
   border-top-right-radius: 0 !important;
 }
 
+.f-brl-b {
+  border-bottom-left-radius: 5px !important;
+  border-bottom-right-radius: 5px !important;
+}
+.f-brm-b {
+  border-bottom-left-radius: 3px !important;
+  border-bottom-right-radius: 3px !important;
+}
+.f-brs-b {
+  border-bottom-left-radius: 2px !important;
+  border-bottom-right-radius: 2px !important;
+}
+.f-brn-b {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
 .f-brl-tl {
   border-top-left-radius: 5px !important;
 }

@@ -3,16 +3,13 @@ namespace Fortifi\Ui\GlobalElements\Panels;
 
 use Fortifi\Ui\GlobalElements\Icons\FontIcon;
 use Fortifi\Ui\Ui;
-use Fortifi\Ui\UiElement;
 use Packaged\Glimpse\Tags\Div;
 use Packaged\Glimpse\Tags\Link;
 use Packaged\Glimpse\Tags\Span;
 use Packaged\Glimpse\Tags\Text\HeadingTwo;
 
-class PanelHeading extends UiElement
+class PanelHeading extends PanelBase
 {
-  const ICON_PENCIL = 'fa-pencil';
-
   const STATUS_SUCCESS = 'success';
   const STATUS_PRIMARY = 'primary';
   const STATUS_INFO = 'info';
@@ -21,6 +18,7 @@ class PanelHeading extends UiElement
   const STATUS_DEFAULT = 'default';
 
   protected $_text;
+  protected $_bgColour = '#EEF0F4;';
   protected $_icon;
   protected $_status;
   protected $_actions = [];
@@ -35,6 +33,12 @@ class PanelHeading extends UiElement
       Ui::MARGIN_NONE
     );
     return $panelHeading;
+  }
+
+  public function setHeadingText($text)
+  {
+    $this->_text = $text;
+    return $this;
   }
 
   public function setStatus($text = '', $url = null)
@@ -83,17 +87,26 @@ class PanelHeading extends UiElement
   }
 
   /**
+   * @var
    * @return Div
    */
   protected function _produceHtml()
   {
-    return Div::create(
+    $panelHeading = parent::_produceHtml();
+    return $panelHeading->addClass(
+      'panel-heading',
+      Ui::CLEARFIX,
+      Ui::BORDER_BOTTOM_NONE
+    )->setContent(
       [
         $this->_icon,
         $this->_text,
         $this->_actions,
         $this->_status
       ]
-    )->addClass('panel-heading', Ui::CLEARFIX);
+    )->setAttribute(
+      'style',
+      'background-color:' . $this->_bgColour . $this->_border
+    );
   }
 }
