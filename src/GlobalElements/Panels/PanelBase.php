@@ -3,10 +3,9 @@ namespace Fortifi\Ui\GlobalElements\Panels;
 
 use Fortifi\Ui\Ui;
 use Fortifi\Ui\UiElement;
-use Packaged\Glimpse\Core\SafeHtml;
 use Packaged\Glimpse\Tags\Div;
 
-class PanelBase extends UiElement
+abstract class PanelBase extends UiElement
 {
   const BORDER_RAD_TOP = 'top';
   const BORDER_RAD_BOTTOM = 'bottom';

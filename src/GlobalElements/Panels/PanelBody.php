@@ -6,18 +6,6 @@ use Packaged\Glimpse\Tags\Div;
 
 class PanelBody extends PanelBase
 {
-  protected $_content;
-  protected $_classes = [];
-  protected $_attributes = [];
-  protected $_bgColour = Ui::BG_WHITE;
-
-  public static function create($content)
-  {
-    $panel = new static;
-    $panel->_content = $content;
-    return $panel;
-  }
-
   /**
    * @return Div
    */

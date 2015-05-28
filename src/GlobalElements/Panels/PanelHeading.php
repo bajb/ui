@@ -10,19 +10,11 @@ use Packaged\Glimpse\Tags\Text\HeadingTwo;
 
 class PanelHeading extends PanelBase
 {
-  const STATUS_SUCCESS = 'success';
-  const STATUS_PRIMARY = 'primary';
-  const STATUS_INFO = 'info';
-  const STATUS_WARNING = 'warning';
-  const STATUS_DANGER = 'danger';
-  const STATUS_DEFAULT = 'default';
-
   protected $_text;
   protected $_bgColour = '#EEF0F4;';
   protected $_icon;
   protected $_status;
   protected $_actions = [];
-  protected $_content = [];
 
   public static function create($title = '')
   {
