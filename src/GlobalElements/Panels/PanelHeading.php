@@ -45,7 +45,7 @@ class PanelHeading extends PanelBase
   {
     if($url !== null)
     {
-      $status = new Link('#', $text);
+      $status = new Link($url, $text);
     }
     else
     {
