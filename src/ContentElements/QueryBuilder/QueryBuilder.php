@@ -59,11 +59,11 @@ class QueryBuilder extends UiElement
     }
     if($this->_definitionsUrl)
     {
-      $div->setAttribute('data-qb-definitions', $this->_definitionsUrl);
+      $div->setAttribute('data-definitions', $this->_definitionsUrl);
     }
     if($this->_rulesUrl)
     {
-      $div->setAttribute('data-qb-rules', $this->_rulesUrl);
+      $div->setAttribute('data-rules', $this->_rulesUrl);
     }
     return $div;
   }
