@@ -33,8 +33,7 @@ class PanelsView extends AbstractUiExampleView
    */
   final public function PanelWithIcon()
   {
-    $heading = PanelHeading::create('Panel Heading');
-    $heading->addIcon();
+    $heading = PanelHeading::create('Panel Heading')->addIcon();
     $content = PanelBody::create('panel content');
     return Panel::create([$heading, $content]);
   }
@@ -44,8 +43,7 @@ class PanelsView extends AbstractUiExampleView
    */
   final public function PanelWithStatus()
   {
-    $heading = PanelHeading::create('Panel Heading');
-    $heading->setStatus('status tag');
+    $heading = PanelHeading::create('Panel Heading')->setStatus('status tag');
     $content = PanelBody::create('panel content');
     return Panel::create([$heading, $content]);
   }
@@ -55,9 +53,8 @@ class PanelsView extends AbstractUiExampleView
    */
   final public function PanelWithAction()
   {
-    $action = new Link('#', 'Action 1');
-    $heading = PanelHeading::create('Panel Heading');
-    $heading->addAction($action);
+    $heading = PanelHeading::create('Panel Heading')
+      ->addAction(new Link('#', 'Action 1'));
     $content = PanelBody::create('panel content');
     return Panel::create([$heading, $content]);
   }
@@ -67,11 +64,10 @@ class PanelsView extends AbstractUiExampleView
    */
   final public function PanelFullMonty()
   {
-    $action = new Link('#', 'Action 1');
-    $heading = PanelHeading::create('Panel Heading');
-    $heading->addAction($action);
-    $heading->setStatus('status tag');
-    $heading->addIcon();
+    $heading = PanelHeading::create('Panel Heading')
+      ->addAction(new Link('#', 'Action 1'))
+      ->setStatus('status tag')
+      ->addIcon();
     $content = PanelBody::create('panel content');
     return Panel::create([$heading, $content]);
   }
