@@ -6,6 +6,7 @@ use Fortifi\Ui\GlobalElements\Panels\PanelBody;
 use Fortifi\Ui\GlobalElements\Panels\PanelHeading;
 use Fortifi\Ui\Ui;
 use Packaged\Glimpse\Tags\Link;
+use Packaged\Glimpse\Tags\Text\Paragraph;
 
 class PanelsView extends AbstractUiExampleView
 {
@@ -13,21 +14,31 @@ class PanelsView extends AbstractUiExampleView
   /**
    * @group Panels
    */
-  final public function PanelBodyOnly()
+  final public function PlainPanel()
   {
-    $content = PanelBody::create('panel content')->setBorderRadius();
-    return Panel::create($content);
+    return Panel::create(
+      Paragraph::create('Panel only, with no panel-body div, thus no padding.'),
+      null, false
+    );
   }
 
   /**
    * @group Panels
    */
-  final public function PanelWithHeading()
+  final public function DefaultPanel()
   {
-    $heading = PanelHeading::create('Panel Heading');
-    $content = PanelBody::create('panel content - Background colour removed');
-    $content->removeBgColour();
-    return Panel::create([$heading, $content]);
+    $content[] = Paragraph::create('Default panel with panel-body only.');
+    $content[] = Paragraph::create('The panel-body adds the padding and BG colour.');
+    return Panel::create($content)->setBorderRadius();
+  }
+
+  /**
+   * @group Panels
+   */
+  final public function DefaultPanelWithHeading()
+  {
+    $content = Paragraph::create('Default panel with heading');
+    return Panel::create($content, 'Panel Heading');
   }
 
   /**
@@ -35,9 +46,8 @@ class PanelsView extends AbstractUiExampleView
    */
   final public function PanelWithIcon()
   {
-    $heading = PanelHeading::create('Panel Heading')->addIcon();
-    $content = PanelBody::create('panel content');
-    return Panel::create([$heading, $content]);
+    $content = Paragraph::create('Default panel with icon');
+    return Panel::create($content, 'Panel heading with icon')->addIcon();
   }
 
   /**
@@ -45,9 +55,9 @@ class PanelsView extends AbstractUiExampleView
    */
   final public function PanelWithStatus()
   {
-    $heading = PanelHeading::create('Panel Heading')->setStatus('status tag');
-    $content = PanelBody::create('panel content');
-    return Panel::create([$heading, $content]);
+    $content = Paragraph::create('Default panel with status');
+    return Panel::create($content, 'Panel heading with status')
+      ->addStatus('Status', '#');
   }
 
   /**
@@ -55,10 +65,14 @@ class PanelsView extends AbstractUiExampleView
    */
   final public function PanelWithAction()
   {
-    $heading = PanelHeading::create('Panel Heading')
-      ->addAction(new Link('#', 'Action 1'));
-    $content = PanelBody::create('panel content');
-    return Panel::create([$heading, $content]);
+    $actions = [
+      new Link('#', 'action 1'),
+      new Link('#', 'action 2'),
+      new Link('#', 'action 3'),
+    ];
+    $content = Paragraph::create('Default panel with action(s)');
+    return Panel::create($content, 'Panel heading with action(s)')
+      ->addAction($actions);
   }
 
   /**
@@ -66,11 +80,13 @@ class PanelsView extends AbstractUiExampleView
    */
   final public function PanelFullMonty()
   {
-    $heading = PanelHeading::create('Panel Heading')
-      ->addAction(new Link('#', 'Action 1'))
-      ->setStatus('status tag')
-      ->addIcon();
-    $content = PanelBody::create('panel content');
-    return Panel::create([$heading, $content]);
+    $actions = [
+      new Link('#', 'action 1'),
+      new Link('#', 'action 2'),
+      new Link('#', 'action 3'),
+    ];
+    $content = Paragraph::create('Default panel with full monty');
+    $panel = Panel::create($content, 'Panel heading with action(s)');
+    return $panel->addAction($actions)->addStatus('Status');
   }
 }
