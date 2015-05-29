@@ -108,7 +108,7 @@ class Panel extends UiElement
     return $this;
   }
 
-  public function addStatus($text = '', $style = Ui::BADGE_SUCCESS, $url = null)
+  public function addStatus($text = '', $url = null, $style = Ui::LABEL_SUCCESS)
   {
     if($url !== null)
     {
@@ -123,7 +123,7 @@ class Panel extends UiElement
       'heading-status',
       Ui::FLOAT_RIGHT,
       Ui::MARGIN_MEDIUM_LEFT,
-      'badge ' . $style
+      'label ' . $style . ' '. Ui::LABEL_AS_BADGE
     );
     $this->_status = $status;
     return $this;

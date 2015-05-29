@@ -170,12 +170,7 @@ final class Ui
   const LABEL_DANGER = 'label-danger';
   const LABEL_PRIMARY = 'label-primary';
 
-  const BADGE_DEFAULT = 'badge-default';
-  const BADGE_SUCCESS = 'badge-success';
-  const BADGE_INFO = 'badge-info';
-  const BADGE_WARNING = 'badge-warning';
-  const BADGE_DANGER = 'badge-danger';
-  const BADGE_PRIMARY = 'badge-primary';
+  const LABEL_AS_BADGE = 'label-as-badge';
 
   /**
    * Box Shadow
