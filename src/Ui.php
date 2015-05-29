@@ -24,12 +24,34 @@ final class Ui
   const CLEAR_FLOAT_NONE = 'f-clr-none';
 
   /**
+   * Text Alignment
+   */
+  const TEXT_ALIGN_CENTER = 'f-align-center';
+  const TEXT_ALIGN_LEFT = 'f-align-left';
+  const TEXT_ALIGN_RIGHT = 'f-align-right';
+  const TEXT_ALIGN_TOP = 'f-align-top';
+  const TEXT_ALIGN_BOTTOM = 'f-align-bottom';
+  const TEXT_ALIGN_MIDDLE = 'f-align-middle';
+
+  /**
    * Visibility
    */
   const INVISIBLE = 'invisible';
   const HIDE = 'hidden';
   const HIDE_TEXT = 'text-hide';
   const SHOW = 'show';
+
+  /**
+   * Display Options
+   */
+
+  const DISPLAY_INLINE = 'f-di';
+  const DISPLAY_INLINE_BLOCK = 'f-dib';
+  const DISPLAY_BLOCK = 'f-db';
+  const DISPLAY_NONE = 'f-dn';
+  const DISPLAY_TABLE = 'f-dt';
+  const DISPLAY_TABLE_ROW = 'f-dtr';
+  const DISPLAY_TABLE_CELL = 'f-dtc';
 
   /**
    * Margins

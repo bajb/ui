@@ -143,6 +143,12 @@ class Panel extends UiElement
     return $this;
   }
 
+  public function removeBodyPadding()
+  {
+    $this->_bodyPadding = false;
+    return $this;
+  }
+
   protected function _buildHeading()
   {
     if(!$this->_title)
@@ -207,6 +213,11 @@ class Panel extends UiElement
     if($this->_style === self::STYLE_PLAIN)
     {
       $panel->addClass(Ui::BG_NONE, Ui::BORDER_NONE, Ui::BOX_SHADOW_NONE);
+    }
+
+    foreach($this->_classes as $class)
+    {
+      $panel->addClass($class);
     }
 
     return $panel;
