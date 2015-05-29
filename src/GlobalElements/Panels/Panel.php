@@ -11,6 +11,16 @@ use Packaged\Glimpse\Tags\Text\HeadingTwo;
 
 class Panel extends UiElement
 {
+  const STYLE_DEFAULT = 'panel-default';
+  const STYLE_PLAIN = 'panel-plain';
+  const STYLE_PRIMARY = 'panel-primary';
+  const STYLE_INFO = 'panel-info';
+  const STYLE_SUCCESS = 'panel-success';
+  const STYLE_WARNING = 'panel-warning';
+  const STYLE_DANGER = 'panel-danger';
+
+  protected $_style = self::STYLE_DEFAULT;
+
   protected $_heading;
   protected $_headingBg = '#EEF0F4';
   protected $_headingBorder = 'border: 1px solid #d8d8d8';
@@ -23,9 +33,11 @@ class Panel extends UiElement
   protected $_bodyPadding;
   protected $_bgColour = Ui::BG_WHITE;
   protected $_border = 'border: 1px solid #ddd';
-  protected $_borderRadius;
+  protected $_borderRadius = Ui::BORDER_RADIUS_BOTTOM_MEDIUM;
   protected $_classes = [];
   protected $_attributes = [];
+
+  protected $_footer;
 
   public static function create($content, $title = null, $bodyPadding = true)
   {
@@ -34,50 +46,6 @@ class Panel extends UiElement
     $panel->_title = $title;
     $panel->_bodyPadding = $bodyPadding;
     return $panel;
-  }
-
-  protected function _buildBody()
-  {
-    if($this->_bodyPadding)
-    {
-      return Div::create($this->_content)
-        ->addClass(
-          'panel-body',
-          $this->_bgColour,
-          Ui::BORDER_RADIUS_BOTTOM_MEDIUM
-        )
-        ->setAttribute('style', $this->_border);
-    }
-
-    return $this->_content;
-  }
-
-  protected function _buildHeading()
-  {
-    if($this->_title)
-    {
-      return Div::create(
-        [
-          $this->_icon,
-          HeadingTwo::create($this->_title)->addClass(
-            'heading-text',
-            Ui::FLOAT_LEFT,
-            Ui::MARGIN_NONE
-          ),
-          $this->_actions,
-          $this->_status
-        ]
-      )->addClass(
-        'panel-heading',
-        Ui::CLEARFIX,
-        Ui::BORDER_BOTTOM_NONE
-      )->setAttribute(
-        'style',
-        $this->_headingBg . '; ' . $this->_headingBorder
-      );
-    }
-
-    return false;
   }
 
   public function addClass($class)
@@ -98,6 +66,12 @@ class Panel extends UiElement
     return $this;
   }
 
+  public function setStyle($style = self::STYLE_DEFAULT)
+  {
+    $this->_style = $style;
+    return $this;
+  }
+
   /**
    * @param $obj
    *
@@ -106,17 +80,18 @@ class Panel extends UiElement
   public function addAction($obj)
   {
     $actions = [];
-    if(is_array($obj))
+    if(!is_array($obj))
+    {
+      $actions = $obj;
+    }
+    else
     {
       foreach($obj as $action)
       {
         $actions[] = Span::create($action)->addClass(Ui::MARGIN_MEDIUM_LEFT);
       }
     }
-    else
-    {
-      $actions = $obj;
-    }
+
     $this->_actions = Div::create($actions)->addClass(
       'heading-action',
       Ui::FLOAT_RIGHT
@@ -133,7 +108,7 @@ class Panel extends UiElement
     return $this;
   }
 
-  public function addStatus($text = '', $url = null)
+  public function addStatus($text = '', $style = Ui::BADGE_SUCCESS, $url = null)
   {
     if($url !== null)
     {
@@ -147,9 +122,16 @@ class Panel extends UiElement
     $status->addClass(
       'heading-status',
       Ui::FLOAT_RIGHT,
-      Ui::MARGIN_MEDIUM_LEFT
+      Ui::MARGIN_MEDIUM_LEFT,
+      'badge ' . $style
     );
     $this->_status = $status;
+    return $this;
+  }
+
+  public function addFooter($content)
+  {
+    $this->_footer = $content;
     return $this;
   }
 
@@ -165,29 +147,56 @@ class Panel extends UiElement
     return $this;
   }
 
-  /**
-   * Set border radius on panels with no heading
-   *
-   * @param string $borderRadius
-   *
-   * @return $this
-   */
-  public function setBorderRadius($borderRadius = Ui::BORDER_RADIUS_TOP_MEDIUM)
+  protected function _buildHeading()
   {
-    $this->addClass($borderRadius);
-    return $this;
+    if(!$this->_title)
+    {
+      return false;
+    }
+
+    return Div::create(
+      [
+        $this->_icon,
+        HeadingTwo::create($this->_title)->addClass(
+          'heading-text',
+          Ui::FLOAT_LEFT,
+          Ui::MARGIN_NONE
+        ),
+        $this->_actions,
+        $this->_status
+      ]
+    )->addClass(
+      'panel-heading',
+      Ui::CLEARFIX
+    );
   }
 
-  public function removeBgColour()
+  protected function _buildBody()
   {
-    $this->_bgColour = null;
-    return $this;
+    if(!$this->_bodyPadding)
+    {
+      return $this->_content;
+    }
+
+    return Div::create($this->_content)->addClass(
+      'panel-body'
+    );
   }
 
-  public function removeBorder()
+  protected function _buildFooter()
   {
-    $this->_border = null;
-    return $this;
+    $class = 'f-panel-footer';
+    if(!$this->_footer)
+    {
+      return false;
+    }
+
+    if($this->_bodyPadding)
+    {
+      $class = 'panel-footer';
+    }
+
+    return Div::create($this->_footer)->addClass($class);
   }
 
   /**
@@ -195,7 +204,15 @@ class Panel extends UiElement
    */
   protected function _produceHtml()
   {
-    $panel = Div::create([$this->_buildHeading(), $this->_buildBody()]);
-    return $panel->addClass('f-panel');
+    $panel = Div::create(
+      [$this->_buildHeading(), $this->_buildBody(), $this->_buildFooter()]
+    )->addClass('panel', $this->_style);
+
+    if($this->_style === self::STYLE_PLAIN)
+    {
+      $panel->addClass(Ui::BG_NONE, Ui::BORDER_NONE, Ui::BOX_SHADOW_NONE);
+    }
+
+    return $panel;
   }
 }

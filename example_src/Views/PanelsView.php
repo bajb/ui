@@ -19,7 +19,7 @@ class PanelsView extends AbstractUiExampleView
     return Panel::create(
       Paragraph::create('Panel only, with no panel-body div, thus no padding.'),
       null, false
-    );
+    )->addFooter('Footer')->setStyle(Panel::STYLE_PLAIN);
   }
 
   /**
@@ -29,7 +29,15 @@ class PanelsView extends AbstractUiExampleView
   {
     $content[] = Paragraph::create('Default panel with panel-body only.');
     $content[] = Paragraph::create('The panel-body adds the padding and BG colour.');
-    return Panel::create($content)->setBorderRadius();
+    return Panel::create($content);
+  }
+
+  /**
+   * @group Panels
+   */
+  final public function DefaultPanelWithFooter()
+  {
+    return Panel::create('Default panel with footer.')->addFooter('panel footer');
   }
 
   /**
@@ -65,12 +73,7 @@ class PanelsView extends AbstractUiExampleView
    */
   final public function PanelWithAction()
   {
-    $actions = [
-      new Link('#', 'action 1'),
-      new Link('#', 'action 2'),
-      new Link('#', 'action 3'),
-    ];
-    $content = Paragraph::create('Default panel with action(s)');
+    $content = Paragraph::create('Default panel with action');
     return Panel::create($content, 'Panel heading with action(s)')
       ->addAction(new Link('#', 'action 1'));
   }
@@ -85,8 +88,10 @@ class PanelsView extends AbstractUiExampleView
       new Link('#', 'action 2'),
       new Link('#', 'action 3'),
     ];
+
     $content = Paragraph::create('Default panel with full monty');
-    $panel = Panel::create($content, 'Panel heading with action(s)');
-    return $panel->addAction($actions)->addStatus('Status');
+
+    return Panel::create($content, 'Panel heading with icon, status and actions')
+      ->addAction($actions)->addStatus('Status')->addFooter('Panel Footer')->addIcon();
   }
 }

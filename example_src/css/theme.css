@@ -673,16 +673,16 @@ img[class*="preview-"], [class*="preview-"] img {
 }
 
 /**/
-body .aside > .avatar {
+.aside > .avatar {
   margin-bottom: 20px;
 }
 
-body .aside .property-list-item > span {
+.aside .property-list-item > span {
   position: relative;
   top:      6px;
 }
 
-body .aside .property-list-item input.js-selectText {
+.aside .property-list-item input.js-selectText {
   height:     auto;
   padding:    0;
   border:     none;
@@ -692,72 +692,72 @@ body .aside .property-list-item input.js-selectText {
   background: transparent;
 }
 
-body .aside .panel-heading,
-body .aside .panel-title {
+.aside .panel-heading,
+.aside .panel-title {
   border:     1px solid #d8d8d8;
   color:      #333;
   background: #fff;
 }
 
-body .aside .panel-heading a,
-body .aside .panel-title a {
+.aside .panel-heading a,
+.aside .panel-title a {
   color: #333;
 }
 
-body .aside .panel-heading ~ .menu-panel-items {
+.aside .panel-heading ~ .menu-panel-items {
   border-top: none;
 }
 
-body .aside .panel-body {
+.aside .panel-body {
   border:     1px solid #d8d8d8;
   border-top: none;
 }
 
-body .aside .panel-body > ul {
+.aside .panel-body > ul {
   padding-left:  0;
   margin-bottom: 0;
   list-style:    none;
 }
 
-body .aside .panel-body > a .avatar {
+.aside .panel-body > a .avatar {
   border:        1px solid #d8d8d8;
   margin-right:  5px;
   margin-bottom: 5px;
 }
 
-body .aside .panel-body > a .avatar:nth-child(4n+4) {
+.aside .panel-body > a .avatar:nth-child(4n+4) {
   margin-right: 0;
 }
 
-body .aside .fortifi.contactDetails .panel-body > ul > li {
+.aside .fortifi.contactDetails .panel-body > ul > li {
   padding-top: 12px;
   border-top:  1px solid #d8d8d8;
   margin-top:  12px;
 }
 
-body .aside .fortifi.contactDetails .panel-body > ul > li:first-child {
+.aside .fortifi.contactDetails .panel-body > ul > li:first-child {
   padding-top: 0;
   border-top:  none;
   margin-top:  0;
 }
 
-body .aside .fortifi.contactDetails .panel-body > ul > li > .fa {
+.aside .fortifi.contactDetails .panel-body > ul > li > .fa {
   width:         22px;
   padding-right: 4px;
   text-align:    center;
 }
 
-body .aside .fortifi.stats li {
+.aside .fortifi.stats li {
   padding-top: 4px;
   margin-top:  4px;
 }
 
-body .aside .fortifi.stats li:first-child {
+.aside .fortifi.stats li:first-child {
   padding-top: 0;
   margin-top:  0;
 }
 
-body .aside .fortifi.stats small {
+.aside .fortifi.stats small {
   float: right;
 }
 

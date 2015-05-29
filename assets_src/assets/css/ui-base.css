@@ -353,6 +353,10 @@ body ul, body ol {
   background-color: #fff !important;
 }
 
+.f-bg-none {
+  background-color: transparent !important;
+}
+
 /* Border Radius */
 .f-brl {
   border-radius: 5px !important;
@@ -474,4 +478,9 @@ body ul, body ol {
 }
 .f-bn-b {
   border-bottom: none !important;
+}
+
+/**/
+.box-shadow-none {
+  box-shadow: none !important;
 }

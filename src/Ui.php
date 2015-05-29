@@ -170,6 +170,19 @@ final class Ui
   const LABEL_DANGER = 'label-danger';
   const LABEL_PRIMARY = 'label-primary';
 
+  const BADGE_DEFAULT = 'badge-default';
+  const BADGE_SUCCESS = 'badge-success';
+  const BADGE_INFO = 'badge-info';
+  const BADGE_WARNING = 'badge-warning';
+  const BADGE_DANGER = 'badge-danger';
+  const BADGE_PRIMARY = 'badge-primary';
+
+  /**
+   * Box Shadow
+   */
+
+  const BOX_SHADOW_NONE = 'box-shadow-none';
+
   /**
    * Specific Colours
    */
@@ -212,6 +225,7 @@ final class Ui
   const BG_BLACK = 'f-bg-black';
   const TEXT_WHITE = 'f-white';
   const BG_WHITE = 'f-bg-white';
+  const BG_NONE = 'f-bg-none';
 
   public static function boot(
     AssetManager $am = null, $bootstrap = true, $jquery = true,
