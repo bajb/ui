@@ -2,9 +2,6 @@
 namespace Fortifi\UiExample\Views;
 
 use Fortifi\Ui\GlobalElements\Panels\Panel;
-use Fortifi\Ui\GlobalElements\Panels\PanelBody;
-use Fortifi\Ui\GlobalElements\Panels\PanelHeading;
-use Fortifi\Ui\Ui;
 use Packaged\Glimpse\Tags\Link;
 use Packaged\Glimpse\Tags\Text\Paragraph;
 
