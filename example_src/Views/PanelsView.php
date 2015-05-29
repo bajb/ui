@@ -72,7 +72,7 @@ class PanelsView extends AbstractUiExampleView
     ];
     $content = Paragraph::create('Default panel with action(s)');
     return Panel::create($content, 'Panel heading with action(s)')
-      ->addAction($actions);
+      ->addAction(new Link('#', 'action 1'));
   }
 
   /**

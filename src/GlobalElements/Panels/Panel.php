@@ -113,6 +113,10 @@ class Panel extends UiElement
         $actions[] = Span::create($action)->addClass(Ui::MARGIN_MEDIUM_LEFT);
       }
     }
+    else
+    {
+      $actions = $obj;
+    }
     $this->_actions = Div::create($actions)->addClass(
       'heading-action',
       Ui::FLOAT_RIGHT
