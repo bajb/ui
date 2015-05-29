@@ -19,25 +19,21 @@ class Panel extends UiElement
   const STYLE_WARNING = 'panel-warning';
   const STYLE_DANGER = 'panel-danger';
 
+  protected $_classes = [];
+  protected $_attributes = [];
   protected $_style = self::STYLE_DEFAULT;
+  protected $_bodyPadding;
 
   protected $_heading;
+  protected $_content;
+  protected $_footer;
+
   protected $_headingBg = '#EEF0F4';
   protected $_headingBorder = 'border: 1px solid #d8d8d8';
   protected $_title;
   protected $_icon;
   protected $_actions;
   protected $_status;
-
-  protected $_content;
-  protected $_bodyPadding;
-  protected $_bgColour = Ui::BG_WHITE;
-  protected $_border = 'border: 1px solid #ddd';
-  protected $_borderRadius = Ui::BORDER_RADIUS_BOTTOM_MEDIUM;
-  protected $_classes = [];
-  protected $_attributes = [];
-
-  protected $_footer;
 
   public static function create($content, $title = null, $bodyPadding = true)
   {
