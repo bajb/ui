@@ -35,12 +35,10 @@ class Panel extends UiElement
   protected $_actions;
   protected $_status;
 
-  public static function create($content, $title = null, $bodyPadding = true)
+  public static function create($content = null)
   {
     $panel = new static;
     $panel->_content = $content;
-    $panel->_title = $title;
-    $panel->_bodyPadding = $bodyPadding;
     return $panel;
   }
 
@@ -56,9 +54,33 @@ class Panel extends UiElement
     return $this;
   }
 
-  public function setTitle($title)
+  public function setContent($content)
   {
-    $this->_title = $title;
+    if(!$content instanceof PanelContent)
+    {
+      $content = PanelContent::create($content);
+    }
+    $this->_content = $content;
+    return $this;
+  }
+
+  public function setHeading($content)
+  {
+    if(!$content instanceof PanelHeading)
+    {
+      $content = PanelHeading::create($content);
+    }
+    $this->_heading = $content;
+    return $this;
+  }
+
+  public function setFooter($content)
+  {
+    if(!$content instanceof PanelFooter)
+    {
+      $content = PanelFooter::create($content);
+    }
+    $this->_footer = $content;
     return $this;
   }
 
@@ -69,145 +91,12 @@ class Panel extends UiElement
   }
 
   /**
-   * @param $obj
-   *
-   * @return $this
-   */
-  public function addAction($obj)
-  {
-    $actions = [];
-    if(!is_array($obj))
-    {
-      $actions = $obj;
-    }
-    else
-    {
-      foreach($obj as $action)
-      {
-        $actions[] = Span::create($action)->addClass(Ui::MARGIN_MEDIUM_LEFT);
-      }
-    }
-
-    $this->_actions = Div::create($actions)->addClass(
-      'heading-action',
-      Ui::FLOAT_RIGHT
-    );
-    return $this;
-  }
-
-  public function addIcon($icon = FontIcon::EDIT)
-  {
-    $this->_icon = FontIcon::create($icon)
-      ->addClass('heading-icon')
-      ->addClass(Ui::FLOAT_LEFT)
-      ->addClass(Ui::MARGIN_SMALL_TOP);
-    return $this;
-  }
-
-  public function addStatus($text = '', $url = null, $style = Ui::LABEL_SUCCESS)
-  {
-    if($url !== null)
-    {
-      $status = new Link($url, $text);
-    }
-    else
-    {
-      $status = Span::create($text);
-    }
-
-    $status->addClass(
-      'heading-status',
-      Ui::FLOAT_RIGHT,
-      Ui::MARGIN_MEDIUM_LEFT,
-      'label ' . $style . ' '. Ui::LABEL_AS_BADGE
-    );
-    $this->_status = $status;
-    return $this;
-  }
-
-  public function addFooter($content)
-  {
-    $this->_footer = $content;
-    return $this;
-  }
-
-  public function headingBg($bg = '#EEF0F4')
-  {
-    $this->_headingBg = 'background: ' . $bg;
-    return $this;
-  }
-
-  public function headingBorder($border = '1px solid #d8d8d8')
-  {
-    $this->_headingBorder = 'border: ' . $border;
-    return $this;
-  }
-
-  public function removeBodyPadding()
-  {
-    $this->_bodyPadding = false;
-    return $this;
-  }
-
-  protected function _buildHeading()
-  {
-    if(!$this->_title)
-    {
-      return false;
-    }
-
-    return Div::create(
-      [
-        $this->_icon,
-        HeadingTwo::create($this->_title)->addClass(
-          'heading-text',
-          Ui::FLOAT_LEFT,
-          Ui::MARGIN_NONE
-        ),
-        $this->_actions,
-        $this->_status
-      ]
-    )->addClass(
-      'panel-heading',
-      Ui::CLEARFIX
-    );
-  }
-
-  protected function _buildBody()
-  {
-    if(!$this->_bodyPadding)
-    {
-      return $this->_content;
-    }
-
-    return Div::create($this->_content)->addClass(
-      'panel-body'
-    );
-  }
-
-  protected function _buildFooter()
-  {
-    $class = 'f-panel-footer';
-    if(!$this->_footer)
-    {
-      return false;
-    }
-
-    if($this->_bodyPadding)
-    {
-      $class = 'panel-footer';
-    }
-
-    return Div::create($this->_footer)->addClass($class);
-  }
-
-  /**
    * @return Div
    */
   protected function _produceHtml()
   {
     $panel = Div::create(
-      [$this->_buildHeading(), $this->_buildBody(), $this->_buildFooter()]
+      [$this->_heading, $this->_content, $this->_footer]
     )->addClass('panel', $this->_style);
 
     if($this->_style === self::STYLE_PLAIN)
