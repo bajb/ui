@@ -4,7 +4,6 @@ namespace Fortifi\UiExample\Views;
 use Fortifi\Ui\GlobalElements\Panels\ContentPanel;
 use Fortifi\Ui\GlobalElements\Panels\Panel;
 use Fortifi\Ui\GlobalElements\Panels\PanelHeader;
-use Fortifi\Ui\Ui;
 use Packaged\Glimpse\Tags\Link;
 use Packaged\Glimpse\Tags\Text\Paragraph;
 
@@ -71,7 +70,7 @@ class PanelsView extends AbstractUiExampleView
   {
     $panel = ContentPanel::create('Panel with header and status');
     $header = PanelHeader::create('Panel Header with Status');
-    $header->addStatus('Status');
+    $header->setStatus($header::STATUS_OPEN);
     $panel->setHeader($header);
     return $panel;
   }
@@ -86,7 +85,7 @@ class PanelsView extends AbstractUiExampleView
     $panel->prependContent(Paragraph::create('prepended content'));
 
     $header = PanelHeader::create('Panel Header with everything');
-    $header->addStatus('Status', null, Ui::LABEL_DANGER);
+    $header->setStatus($header::STATUS_CLOSED);
     $header->addIcon();
     $header->setBgColour($header::BG_SUCCESS);
     $header->setActions(

@@ -17,6 +17,10 @@ class PanelHeader extends UiElement
   const BG_DANGER = Ui::BG_DANGER_LIGHT;
   const BG_MUTED = '';
 
+  const STATUS_OPEN = 'Open';
+  const STATUS_CLOSED = 'Closed';
+  const STATUS_HELD = 'Held';
+
   protected $_title;
   protected $_actions;
   protected $_icon;
@@ -102,8 +106,23 @@ class PanelHeader extends UiElement
    *
    * @return $this
    */
-  public function addStatus($text = '', $url = null, $style = Ui::LABEL_SUCCESS)
+  public function setStatus(
+    $text = self::STATUS_OPEN, $url = null, $style = Ui::LABEL_SUCCESS
+  )
   {
+    switch($text)
+    {
+      case self::STATUS_CLOSED:
+        $style = Ui::LABEL_DANGER;
+        break;
+      case self::STATUS_HELD:
+        $style = Ui::LABEL_WARNING;
+        break;
+      case self::STATUS_OPEN:
+        $style = Ui::LABEL_SUCCESS;
+        break;
+    }
+
     if($url !== null)
     {
       $status = new Link($url, $text);
@@ -117,7 +136,7 @@ class PanelHeader extends UiElement
       'heading-status',
       Ui::FLOAT_RIGHT,
       Ui::MARGIN_MEDIUM_LEFT,
-      'label ' . $style . ' '. Ui::LABEL_AS_BADGE
+      'label ' . $style . ' ' . Ui::LABEL_AS_BADGE
     );
     $this->_status = $status;
     return $this;
