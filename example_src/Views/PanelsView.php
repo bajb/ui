@@ -1,10 +1,10 @@
 <?php
 namespace Fortifi\UiExample\Views;
 
+use Fortifi\Ui\GlobalElements\Panels\ContentPanel;
 use Fortifi\Ui\GlobalElements\Panels\Panel;
-use Fortifi\Ui\GlobalElements\Panels\PanelContent;
-use Fortifi\Ui\GlobalElements\Panels\PanelFooter;
-use Fortifi\Ui\GlobalElements\Panels\PanelHeading;
+use Fortifi\Ui\GlobalElements\Panels\PanelHeader;
+use Fortifi\Ui\Ui;
 use Packaged\Glimpse\Tags\Link;
 use Packaged\Glimpse\Tags\Text\Paragraph;
 
@@ -16,141 +16,89 @@ class PanelsView extends AbstractUiExampleView
    */
   final public function PlainPanel()
   {
-    $panel = Panel::create(
-      Paragraph::create('Panel only, with no panel-body div, thus no padding.')
-    );
-    $panel->setStyle($panel::STYLE_PLAIN);
+    return Panel::create('Panel only, with no panel-body div, thus no padding or BG colour.');
+  }
+
+  /**
+   * @group Panels
+   */
+  final public function ContentPanel()
+  {
+    return ContentPanel::create('Content panel. Has BG, border and border-radius.');
+  }
+
+  /**
+   * @group Panels
+   */
+  final public function ContentPanelWithHeader()
+  {
+    $panel = ContentPanel::create(Paragraph::create('Panel with setHeader and setContent'));
+    $panel->setHeader('Content Panel With Header');
+    $panel->prependContent(Paragraph::create('Prepend content'));
+    $panel->appendContent(Paragraph::create('Appended content'));
     return $panel;
   }
 
   /**
    * @group Panels
    */
-  final public function DefaultPanel()
+  final public function ContentPanelWithHeaderIcon()
   {
-    $panel = Panel::create();
-    $content = PanelContent::create(
+    $panel = ContentPanel::create('Panel with header and icon');
+
+    $header = PanelHeader::create('Panel Header with Icon');
+    $header->addIcon();
+    $panel->setHeader($header);
+    return $panel;
+  }
+
+  /**
+   * @group Panels
+   */
+  final public function ContentPanelWithHeaderAction()
+  {
+    $panel = ContentPanel::create('Content Panel with header');
+    $header = PanelHeader::create('Content Panel With Header Action');
+    $header->addAction(new Link('#', 'Action 1'));
+    $panel->setHeader($header);
+    return $panel;
+  }
+
+  /**
+   * @group Panels
+   */
+  final public function ContentPanelWithHeaderStatus()
+  {
+    $panel = ContentPanel::create('Panel with header and status');
+    $header = PanelHeader::create('Panel Header with Status');
+    $header->addStatus('Status');
+    $panel->setHeader($header);
+    return $panel;
+  }
+
+  /**
+   * @group Panels
+   */
+  final public function ContentPanelFullMonty()
+  {
+    $panel = ContentPanel::create(Paragraph::create('Content panel and header with everything'));
+    $panel->appendContent(Paragraph::create('appended content'));
+    $panel->prependContent(Paragraph::create('prepended content'));
+
+    $header = PanelHeader::create('Panel Header with everything');
+    $header->addStatus('Status', null, Ui::LABEL_DANGER);
+    $header->addIcon();
+    $header->setBgColour($header::BG_SUCCESS);
+    $header->setActions(
       [
-        Paragraph::create('Default panel with panel-body only.'),
-        Paragraph::create('The panel-body adds the padding and BG colour.')
+        new Link('#', 'Action 1'),
+        new Link('#', 'Action 2'),
+        new Link('#', 'Action 3'),
+        new Link('#', 'Action 4'),
+        new Link('#', 'Action 5'),
       ]
     );
 
-    $panel->setContent($content);
-    return $panel;
-  }
-
-  /**
-   * @group Panels
-   */
-  final public function DefaultPanelWithHeading()
-  {
-    $panel = Panel::create();
-    $panel->setHeading('Panel Heading');
-    $panel->setContent(Paragraph::create('Default panel with heading'));
-    return $panel;
-  }
-
-  /**
-   * @group Panels
-   */
-  final public function DefaultPanelWithFooter()
-  {
-    $panel = Panel::create();
-    $panel->setContent(Paragraph::create('Default panel with footer'));
-    $panel->setFooter('Panel Footer');
-    return $panel;
-  }
-
-  /**
-   * @group Panels
-   */
-  final public function PanelWithIcon()
-  {
-    $heading = PanelHeading::create('Panel With Icon');
-    $heading->addIcon();
-
-    $panel = Panel::create();
-    $panel->setHeading($heading);
-    $panel->setContent(Paragraph::create('Default panel with icon'));
-    return $panel;
-  }
-
-  /**
-   * @group Panels
-   */
-  final public function PanelWithStatus()
-  {
-    $heading = PanelHeading::create('Panel heading with status');
-    $heading->addStatus('status', '#');
-    $content = PanelContent::create(
-      Paragraph::create('Default panel with status')
-    );
-
-    $panel = Panel::create();
-    $panel->setHeading($heading);
-    $panel->setContent($content);
-    return $panel;
-  }
-
-  /**
-   * @group Panels
-   */
-  final public function PanelWithAction()
-  {
-    $heading = PanelHeading::create('Panel heading with action');
-    $heading->addAction(new Link('#', 'Action 1'));
-    $content = PanelContent::create(
-      Paragraph::create('Default panel with action')
-    );
-
-    $panel = Panel::create();
-    $panel->setHeading($heading);
-    $panel->setContent($content);
-    return $panel;
-  }
-
-  /**
-   * @group Panels
-   */
-  final public function PanelWithStyle()
-  {
-    $heading = PanelHeading::create('Panel With Style');
-    $heading->addAction(new Link('#', 'action 1'));
-
-    $panel = Panel::create();
-    $panel->setHeading($heading);
-    $panel->setContent(Paragraph::create('Success panel'));
-    return $panel->setStyle($panel::STYLE_DANGER);
-  }
-
-  /**
-   * @group Panels
-   */
-  final public function PanelFullMonty()
-  {
-    $actions = [
-      new Link('#', 'action 1'),
-      new Link('#', 'action 2'),
-      new Link('#', 'action 3'),
-    ];
-
-    $heading = PanelHeading::create(
-      'Panel heading with icon, status and actions'
-    );
-    $heading->addActions($actions)->addStatus('Status')->addIcon();
-    $content = PanelContent::create(
-      Paragraph::create('Default panel with full monty')
-    );
-
-    $footer = PanelFooter::create('Panel Footer');
-    $footer->addAction(new Link('#', 'footer action'));
-    $footer->addAction(new Link('#', 'footer action2'));
-
-    $panel = Panel::create();
-    $panel->setHeading($heading);
-    $panel->setContent($content);
-    $panel->setFooter($footer);
-    return $panel;
+    return $panel->setHeader($header);
   }
 }

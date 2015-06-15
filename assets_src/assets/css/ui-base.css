@@ -360,19 +360,59 @@ body ul, body ol {
 }
 
 .f-bg-black {
-  background-color: #333333 !important;
+  background-color: #333333;
 }
 
 .f-white {
-  color: #fff !important;
+  color: #fff;
 }
 
 .f-bg-white {
-  background-color: #fff !important;
+  background-color: #fff;
 }
 
 .f-bg-none {
   background-color: transparent !important;
+}
+
+/**/
+.bg-default {
+  background-color: #777 !important;
+}
+.bg-success {
+  background-color: #5cb85c !important;
+}
+.bg-success-light {
+  color: #3c763d !important;
+  border-color: #d6e9c6 !important;
+  background-color: #dff0d8 !important;
+}
+.bg-primary {
+  background-color: #337ab7 !important;
+}
+.bg-info {
+  background-color: #5bc0de !important;
+}
+.bg-info-light {
+  color: #31708f !important;
+  border-color: #bce8f1 !important;
+  background-color: #d9edf7 !important;
+}
+.bg-warning {
+  background-color: #f0ad4e !important;
+}
+.bg-warning-light {
+  border-color: #faebcc !important;
+  color: #8a6d3b !important;
+  background-color: #fcf8e3 !important;
+}
+.bg-danger {
+  background-color: #d9534f !important;
+}
+.bg-danger-light {
+  border-color: #ebccd1 !important;
+  color: #a94442 !important;
+  background-color: #f2dede !important;
 }
 
 /* Border Radius */
@@ -512,7 +552,7 @@ body ul, body ol {
   display: inline-block !important;
 }
 .f-dt {
-  width: 100%;
+  width: 100% !important;
   display: table !important;
 }
 .f-dtr {

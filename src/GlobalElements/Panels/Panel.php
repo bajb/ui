@@ -1,13 +1,9 @@
 <?php
 namespace Fortifi\Ui\GlobalElements\Panels;
 
-use Fortifi\Ui\GlobalElements\Icons\FontIcon;
 use Fortifi\Ui\Ui;
 use Fortifi\Ui\UiElement;
 use Packaged\Glimpse\Tags\Div;
-use Packaged\Glimpse\Tags\Link;
-use Packaged\Glimpse\Tags\Span;
-use Packaged\Glimpse\Tags\Text\HeadingTwo;
 
 class Panel extends UiElement
 {
@@ -24,12 +20,9 @@ class Panel extends UiElement
   protected $_style = self::STYLE_DEFAULT;
   protected $_bodyPadding;
 
-  protected $_heading;
-  protected $_content;
-  protected $_footer;
+  protected $_header;
+  protected $_content = [];
 
-  protected $_headingBg = '#EEF0F4';
-  protected $_headingBorder = 'border: 1px solid #d8d8d8';
   protected $_title;
   protected $_icon;
   protected $_actions;
@@ -38,7 +31,7 @@ class Panel extends UiElement
   public static function create($content = null)
   {
     $panel = new static;
-    $panel->_content = $content;
+    $panel->_content[] = $content;
     return $panel;
   }
 
@@ -48,39 +41,44 @@ class Panel extends UiElement
     return $this;
   }
 
-  public function setAttribute($property, $value)
-  {
-    $this->_attributes[$property][] = [$property, $value];
-    return $this;
-  }
-
   public function setContent($content)
   {
-    if(!$content instanceof PanelContent)
-    {
-      $content = PanelContent::create($content);
-    }
-    $this->_content = $content;
+    $this->_content[] = $content;
     return $this;
   }
 
-  public function setHeading($content)
+  public function prependContent($content)
   {
-    if(!$content instanceof PanelHeading)
-    {
-      $content = PanelHeading::create($content);
-    }
-    $this->_heading = $content;
+    array_unshift($this->_content, $content);
     return $this;
   }
 
-  public function setFooter($content)
+  public function appendContent($content)
   {
-    if(!$content instanceof PanelFooter)
+    $this->_content[] = $content;
+    return $this;
+  }
+
+  /**
+   * $content can be of type String or PanelHeader
+   * @param $content
+   *
+   * @return $this
+   * @throws \Exception
+   */
+  public function setHeader($content)
+  {
+    if(!$content instanceof PanelHeader)
     {
-      $content = PanelFooter::create($content);
+      if(gettype($content) === 'string')
+      {
+        $this->_header = PanelHeader::create($content);
+      }
     }
-    $this->_footer = $content;
+    else
+    {
+      $this->_header = $content;
+    }
     return $this;
   }
 
@@ -90,19 +88,35 @@ class Panel extends UiElement
     return $this;
   }
 
+  public function getContent()
+  {
+    $this->setStyle(self::STYLE_PLAIN);
+    $this->addClass(Ui::BG_NONE);
+    $this->addClass(Ui::BOX_SHADOW_NONE);
+    return $this->_content;
+  }
+
+  public function getHeader()
+  {
+    if($this->_header && !$this->_header instanceof PanelHeader)
+    {
+      throw new \Exception('Returned property must be of type PanelHeader');
+    }
+    return $this->_header;
+  }
+
+  public function getStyle()
+  {
+    return $this->_style;
+  }
+
   /**
    * @return Div
    */
   protected function _produceHtml()
   {
-    $panel = Div::create(
-      [$this->_heading, $this->_content, $this->_footer]
-    )->addClass('panel', $this->_style);
-
-    if($this->_style === self::STYLE_PLAIN)
-    {
-      $panel->addClass(Ui::BG_NONE, Ui::BORDER_NONE, Ui::BOX_SHADOW_NONE);
-    }
+    $panel = Div::create([$this->getHeader(), $this->getContent()])
+      ->addClass('panel', $this->getStyle());
 
     foreach($this->_classes as $class)
     {

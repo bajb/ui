@@ -185,6 +185,13 @@ final class Ui
   const BG_PRIMARY = 'bg-primary';
   const BG_MUTED = 'bg-muted';
 
+  const BG_SUCCESS_LIGHT = 'bg-success-light';
+  const BG_INFO_LIGHT = 'bg-info-light';
+  const BG_WARNING_LIGHT = 'bg-warning-light';
+  const BG_DANGER_LIGHT = 'bg-danger-light';
+  const BG_PRIMARY_LIGHT = 'bg-primary-light';
+  const BG_MUTED_LIGHT = 'bg-muted-light';
+
   const LABEL_DEFAULT = 'label-default';
   const LABEL_SUCCESS = 'label-success';
   const LABEL_INFO = 'label-info';
