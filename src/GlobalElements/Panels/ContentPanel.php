@@ -9,4 +9,10 @@ class ContentPanel extends Panel
   {
     return Div::create($this->_content)->addClass('panel-body');
   }
+
+  protected function _produceHtml()
+  {
+    $this->setStyle(self::STYLE_DEFAULT);
+    return parent::_produceHtml();
+  }
 }

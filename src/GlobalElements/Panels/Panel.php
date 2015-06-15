@@ -1,14 +1,14 @@
 <?php
 namespace Fortifi\Ui\GlobalElements\Panels;
 
-use Fortifi\Ui\Ui;
 use Fortifi\Ui\UiElement;
+use Packaged\Dispatch\AssetManager;
 use Packaged\Glimpse\Tags\Div;
 
 class Panel extends UiElement
 {
-  const STYLE_DEFAULT = 'panel-default';
   const STYLE_PLAIN = 'panel-plain';
+  const STYLE_DEFAULT = 'panel-default';
   const STYLE_PRIMARY = 'panel-primary';
   const STYLE_INFO = 'panel-info';
   const STYLE_SUCCESS = 'panel-success';
@@ -17,7 +17,7 @@ class Panel extends UiElement
 
   protected $_classes = [];
   protected $_attributes = [];
-  protected $_style = self::STYLE_DEFAULT;
+  protected $_style = self::STYLE_PLAIN;
   protected $_bodyPadding;
 
   protected $_header;
@@ -35,6 +35,24 @@ class Panel extends UiElement
     return $panel;
   }
 
+  /**
+   * Require Assets
+   *
+   * @param AssetManager $assetManager
+   * @param bool         $vendor
+   */
+  public function processIncludes(AssetManager $assetManager, $vendor = false)
+  {
+    if($vendor)
+    {
+      $assetManager->requireCss('assets/css/GlobalElements');
+    }
+    else
+    {
+      $assetManager->requireCss('assets/css/GlobalElements/Panels');
+    }
+  }
+
   public function addClass($class)
   {
     $this->_classes[] = $class;
@@ -43,7 +61,7 @@ class Panel extends UiElement
 
   public function setContent($content)
   {
-    $this->_content[] = $content;
+    $this->_content = $content;
     return $this;
   }
 
@@ -68,21 +86,18 @@ class Panel extends UiElement
    */
   public function setHeader($content)
   {
-    if(!$content instanceof PanelHeader)
-    {
-      if(gettype($content) === 'string')
-      {
-        $this->_header = PanelHeader::create($content);
-      }
-    }
-    else
+    if($content instanceof PanelHeader)
     {
       $this->_header = $content;
+    }
+    else if(is_scalar($content))
+    {
+      $this->_header = PanelHeader::create($content);
     }
     return $this;
   }
 
-  public function setStyle($style = self::STYLE_DEFAULT)
+  public function setStyle($style = self::STYLE_PLAIN)
   {
     $this->_style = $style;
     return $this;
@@ -90,18 +105,11 @@ class Panel extends UiElement
 
   public function getContent()
   {
-    $this->setStyle(self::STYLE_PLAIN);
-    $this->addClass(Ui::BG_NONE);
-    $this->addClass(Ui::BOX_SHADOW_NONE);
     return $this->_content;
   }
 
   public function getHeader()
   {
-    if($this->_header && !$this->_header instanceof PanelHeader)
-    {
-      throw new \Exception('Returned property must be of type PanelHeader');
-    }
     return $this->_header;
   }
 

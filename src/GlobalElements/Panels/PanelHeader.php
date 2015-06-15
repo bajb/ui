@@ -27,7 +27,7 @@ class PanelHeader extends UiElement
   protected $_status;
   protected $_bgColour;
 
-  public static function create($title = '')
+  public static function create($title = null)
   {
     $heading = new static;
     $heading->_title = $title;
@@ -65,13 +65,13 @@ class PanelHeader extends UiElement
   {
     foreach($actions as $action)
     {
-      if(!$action instanceof Link)
+      if($action instanceof Link)
       {
-        throw new \Exception('addActions() array must contain Link() objects');
+        $this->addAction($action);
       }
       else
       {
-        $this->addAction($action);
+        throw new \Exception('addActions() array must contain Link() objects');
       }
     }
     return $this;
@@ -91,7 +91,7 @@ class PanelHeader extends UiElement
   public function addIcon($icon = FontIcon::EDIT)
   {
     $this->_icon = FontIcon::create($icon)
-      ->addClass('heading-icon')
+      ->addClass('panel-heading-icon')
       ->addClass(Ui::FLOAT_LEFT)
       ->addClass(Ui::MARGIN_SMALL_TOP);
     return $this;
@@ -123,14 +123,7 @@ class PanelHeader extends UiElement
         break;
     }
 
-    if($url !== null)
-    {
-      $status = new Link($url, $text);
-    }
-    else
-    {
-      $status = Span::create($text);
-    }
+    $status = $url ? new Link($url, $text) : Span::create($text);
 
     $status->addClass(
       'heading-status',
@@ -142,10 +135,21 @@ class PanelHeader extends UiElement
     return $this;
   }
 
+  protected function _renderTitle()
+  {
+    return HeadingTwo::create($this->getTitle())
+      ->addClass('heading-text', Ui::FLOAT_LEFT, Ui::MARGIN_NONE);
+  }
+
+  protected function _renderActions()
+  {
+    return Div::create($this->getActions())
+      ->addClass('heading-action', Ui::FLOAT_RIGHT, Ui::MARGIN_MEDIUM_LEFT);
+  }
+
   public function getTitle()
   {
-    return HeadingTwo::create($this->_title)
-      ->addClass('heading-text', Ui::FLOAT_LEFT, Ui::MARGIN_NONE);
+    return $this->_title;
   }
 
   public function getIcon()
@@ -170,8 +174,7 @@ class PanelHeader extends UiElement
    */
   public function getActions()
   {
-    return Div::create($this->_actions)
-      ->addClass('heading-action', Ui::FLOAT_RIGHT, Ui::MARGIN_MEDIUM_LEFT);
+    return $this->_actions;
   }
 
   protected function _produceHtml()
@@ -179,8 +182,8 @@ class PanelHeader extends UiElement
     return Div::create(
       [
         $this->getIcon(),
-        $this->getTitle(),
-        $this->getActions(),
+        $this->_renderTitle(),
+        $this->_renderActions(),
         $this->getStatus()
       ]
     )->addClass(
