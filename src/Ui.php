@@ -24,6 +24,16 @@ final class Ui
   const CLEAR_FLOAT_NONE = 'f-clr-none';
 
   /**
+   * Text Alignment
+   */
+  const TEXT_ALIGN_CENTER = 'f-align-center';
+  const TEXT_ALIGN_LEFT = 'f-align-left';
+  const TEXT_ALIGN_RIGHT = 'f-align-right';
+  const TEXT_ALIGN_TOP = 'f-align-top';
+  const TEXT_ALIGN_BOTTOM = 'f-align-bottom';
+  const TEXT_ALIGN_MIDDLE = 'f-align-middle';
+
+  /**
    * Visibility
    */
   const INVISIBLE = 'invisible';
@@ -32,24 +42,93 @@ final class Ui
   const SHOW = 'show';
 
   /**
+   * Display Options
+   */
+
+  const DISPLAY_INLINE = 'f-di';
+  const DISPLAY_INLINE_BLOCK = 'f-dib';
+  const DISPLAY_BLOCK = 'f-db';
+  const DISPLAY_NONE = 'f-dn';
+  const DISPLAY_TABLE = 'f-dt';
+  const DISPLAY_TABLE_ROW = 'f-dtr';
+  const DISPLAY_TABLE_CELL = 'f-dtc';
+
+  /**
    * Margins
    */
 
   const MARGIN_SMALL = 'f-ms';
   const MARGIN_MEDIUM = 'f-mm';
   const MARGIN_LARGE = 'f-ml';
+  const MARGIN_NONE = 'f-mn';
   const MARGIN_SMALL_LEFT = 'f-msl';
   const MARGIN_MEDIUM_LEFT = 'f-mml';
   const MARGIN_LARGE_LEFT = 'f-mll';
+  const MARGIN_NONE_LEFT = 'f-mnl';
   const MARGIN_SMALL_RIGHT = 'f-msr';
   const MARGIN_MEDIUM_RIGHT = 'f-mmr';
   const MARGIN_LARGE_RIGHT = 'f-mlr';
+  const MARGIN_NONE_RIGHT = 'f-mnr';
   const MARGIN_SMALL_BOTTOM = 'f-msb';
   const MARGIN_MEDIUM_BOTTOM = 'f-mmb';
   const MARGIN_LARGE_BOTTOM = 'f-mlb';
+  const MARGIN_NONE_BOTTOM = 'f-mnb';
   const MARGIN_SMALL_TOP = 'f-mst';
   const MARGIN_MEDIUM_TOP = 'f-mmt';
   const MARGIN_LARGE_TOP = 'f-mlt';
+  const MARGIN_NONE_TOP = 'f-mnt';
+
+  /**
+   * Border None
+   */
+
+  const BORDER_NONE = 'f-bn';
+  const BORDER_TOP_NONE = 'f-bn-t';
+  const BORDER_RIGHT_NONE = 'f-bn-r';
+  const BORDER_BOTTOM_NONE = 'f-bn-b';
+  const BORDER_LEFT_NONE = 'f-bn-l';
+
+  /**
+   * Border Radius
+   */
+
+  const BORDER_RADIUS_SMALL = 'f-brs';
+  const BORDER_RADIUS_MEDIUM = 'f-brm';
+  const BORDER_RADIUS_LARGE = 'f-brl';
+  const BORDER_RADIUS_NONE = 'f-brn';
+
+  const BORDER_RADIUS_TOP_SMALL = 'f-brs-t';
+  const BORDER_RADIUS_TOP_MEDIUM = 'f-brm-t';
+  const BORDER_RADIUS_TOP_LARGE = 'f-brl-t';
+  const BORDER_RADIUS_TOP_NONE = 'f-brn-t';
+
+  const BORDER_RADIUS_TOP_LEFT_SMALL = 'f-brs-tl';
+  const BORDER_RADIUS_TOP_LEFT_MEDIUM = 'f-brm-tl';
+  const BORDER_RADIUS_TOP_LEFT_LARGE = 'f-brl-tl';
+  const BORDER_RADIUS_TOP_LEFT_NONE = 'f-brn-tl';
+
+  const BORDER_RADIUS_TOP_RIGHT_SMALL = 'f-brs-tr';
+  const BORDER_RADIUS_TOP_RIGHT_MEDIUM = 'f-brm-tr';
+  const BORDER_RADIUS_TOP_RIGHT_LARGE = 'f-brl-tr';
+  const BORDER_RADIUS_TOP_RIGHT_NONE = 'f-brn-tr';
+
+  const BORDER_RADIUS_BOTTOM_SMALL = 'f-brs-b';
+  const BORDER_RADIUS_BOTTOM_MEDIUM = 'f-brm-b';
+  const BORDER_RADIUS_BOTTOM_LARGE = 'f-brl-b';
+  const BORDER_RADIUS_BOTTOM_NONE = 'f-brn-b';
+
+  const BORDER_RADIUS_BOTTOM_RIGHT_SMALL = 'f-brs-br';
+  const BORDER_RADIUS_BOTTOM_RIGHT_MEDIUM = 'f-brm-br';
+  const BORDER_RADIUS_BOTTOM_RIGHT_LARGE = 'f-brl-br';
+  const BORDER_RADIUS_BOTTOM_RIGHT_NONE = 'f-brn-br';
+
+  const BORDER_RADIUS_BOTTOM_LEFT_SMALL = 'f-brs-bl';
+  const BORDER_RADIUS_BOTTOM_LEFT_MEDIUM = 'f-brm-bl';
+  const BORDER_RADIUS_BOTTOM_LEFT_LARGE = 'f-brl-bl';
+  const BORDER_RADIUS_BOTTOM_LEFT_NONE = 'f-brn-bl';
+
+  const BORDER_RADIUS_LEFT_NONE = 'f-brn-l';
+  const BORDER_RADIUS_RIGHT_NONE = 'f-brn-r';
 
   /**
    * Padding
@@ -58,18 +137,23 @@ final class Ui
   const PADDING_SMALL = 'f-ps';
   const PADDING_MEDIUM = 'f-pm';
   const PADDING_LARGE = 'f-pl';
+  const PADDING_NONE = 'f-pn';
   const PADDING_SMALL_LEFT = 'f-psl';
   const PADDING_MEDIUM_LEFT = 'f-pml';
   const PADDING_LARGE_LEFT = 'f-pll';
+  const PADDING_NONE_LEFT = 'f-pnl';
   const PADDING_SMALL_RIGHT = 'f-psr';
   const PADDING_MEDIUM_RIGHT = 'f-pmr';
   const PADDING_LARGE_RIGHT = 'f-plr';
+  const PADDING_NONE_RIGHT = 'f-pnr';
   const PADDING_SMALL_BOTTOM = 'f-psb';
   const PADDING_MEDIUM_BOTTOM = 'f-pmb';
   const PADDING_LARGE_BOTTOM = 'f-plb';
+  const PADDING_NONE_BOTTOM = 'f-pnb';
   const PADDING_SMALL_TOP = 'f-pst';
   const PADDING_MEDIUM_TOP = 'f-pmt';
   const PADDING_LARGE_TOP = 'f-plt';
+  const PADDING_NONE_TOP = 'f-pnt';
 
   /**
    * Text Styles
@@ -101,12 +185,27 @@ final class Ui
   const BG_PRIMARY = 'bg-primary';
   const BG_MUTED = 'bg-muted';
 
+  const BG_SUCCESS_LIGHT = 'bg-success-light';
+  const BG_INFO_LIGHT = 'bg-info-light';
+  const BG_WARNING_LIGHT = 'bg-warning-light';
+  const BG_DANGER_LIGHT = 'bg-danger-light';
+  const BG_PRIMARY_LIGHT = 'bg-primary-light';
+  const BG_MUTED_LIGHT = 'bg-muted-light';
+
   const LABEL_DEFAULT = 'label-default';
   const LABEL_SUCCESS = 'label-success';
   const LABEL_INFO = 'label-info';
   const LABEL_WARNING = 'label-warning';
   const LABEL_DANGER = 'label-danger';
   const LABEL_PRIMARY = 'label-primary';
+
+  const LABEL_AS_BADGE = 'label-as-badge';
+
+  /**
+   * Box Shadow
+   */
+
+  const BOX_SHADOW_NONE = 'box-shadow-none';
 
   /**
    * Specific Colours
@@ -148,6 +247,9 @@ final class Ui
   const BG_GREY = 'f-bg-grey';
   const TEXT_BLACK = 'f-black';
   const BG_BLACK = 'f-bg-black';
+  const TEXT_WHITE = 'f-white';
+  const BG_WHITE = 'f-bg-white';
+  const BG_NONE = 'f-bg-none';
 
   public static function boot(
     AssetManager $am = null, $bootstrap = true, $jquery = true,
