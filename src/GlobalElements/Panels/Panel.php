@@ -61,7 +61,7 @@ class Panel extends UiElement
 
   public function setContent($content)
   {
-    $this->_content = $content;
+    $this->_content = (array)$content;
     return $this;
   }
 
