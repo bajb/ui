@@ -1,20 +1,14 @@
-[class="f-panel"],
-[class~="f-panel"] {
-  background-color: transparent;
+.panel[class~=f-panel] > [class*=f-panel-heading] {
+  padding: 10px 15px
 }
 
-/**/
-[class~="f-panel"] > [class*="f-panel-heading"] {
-  padding: 10px 15px;
+.panel[class~=f-panel][class~=panel-plain] {
+  padding:          0;
+  border:           none;
+  box-shadow:       none;
+  background-color: transparent
 }
 
-/**/
-[class~="f-panel"][class~="panel-plain"] {
-  padding: 0;
-  border: none;
-  box-shadow: none;
-  background-color: transparent;
-}
-[class~="f-panel"][class~="panel-default"] {
-  background-color: #fff;
+.panel[class~=f-panel][class~=panel-default] {
+  background-color: #fff
 }
