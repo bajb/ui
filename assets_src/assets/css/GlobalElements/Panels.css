@@ -1,14 +1,22 @@
-.panel[class~=f-panel] > [class*=f-panel-heading] {
+.panel[class~="f-panel"] > [class*="f-panel-heading"] {
   padding: 10px 15px
 }
 
-.panel[class~=f-panel][class~=panel-plain] {
+/*
+Remove margin-bottom from last direct child of panel-body
+*/
+.panel[class~="f-panel"] > [class*="panel-body"] > :last-child {
+  margin-bottom: 0;
+}
+
+/**/
+.panel[class~="f-panel"][class~="panel-plain"] {
   padding:          0;
   border:           none;
   box-shadow:       none;
   background-color: transparent
 }
 
-.panel[class~=f-panel][class~=panel-default] {
+.panel[class~="f-panel"][class~="panel-default"] {
   background-color: #fff
 }
