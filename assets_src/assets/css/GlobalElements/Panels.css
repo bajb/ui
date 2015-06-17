@@ -4,7 +4,7 @@
 }
 
 /**/
-[class~="f-panel"] [class="f-panel-heading"] {
+[class~="f-panel"] > [class*="f-panel-heading"] {
   padding: 10px 15px;
 }
 
