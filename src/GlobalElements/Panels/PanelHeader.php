@@ -187,6 +187,7 @@ class PanelHeader extends UiElement
         $this->getStatus()
       ]
     )->addClass(
+      'f-panel-heading',
       'panel-heading',
       $this->getBgColour(),
       Ui::CLEARFIX
