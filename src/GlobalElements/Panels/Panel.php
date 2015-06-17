@@ -124,7 +124,7 @@ class Panel extends UiElement
   protected function _produceHtml()
   {
     $panel = Div::create([$this->getHeader(), $this->getContent()])
-      ->addClass('panel', $this->getStyle());
+      ->addClass('f-panel', 'panel', $this->getStyle());
 
     foreach($this->_classes as $class)
     {

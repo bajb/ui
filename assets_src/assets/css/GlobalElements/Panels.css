@@ -1,6 +1,12 @@
-.panel[class~="panel-plain"] {
+[class~="f-panel"] {
+  background-color: transparent;
+}
+[class~="f-panel"][class~="panel-plain"] {
   padding: 0;
   border: none;
   box-shadow: none;
-  background: transparent;
+  background-color: transparent;
+}
+[class~="f-panel"][class~="panel-default"] {
+  background-color: #fff;
 }
