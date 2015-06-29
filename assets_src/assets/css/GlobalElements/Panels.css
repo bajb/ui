@@ -1,5 +1,6 @@
 .panel[class~="f-panel"] > [class*="f-panel-heading"] {
-  padding: 10px 15px
+  padding: 10px 15px;
+  font-size: inherit;
 }
 
 /*
@@ -14,9 +15,9 @@ Remove margin-bottom from last direct child of panel-body
   padding:          0;
   border:           none;
   box-shadow:       none;
-  background-color: transparent
+  background-color: transparent;
 }
 
 .panel[class~="f-panel"][class~="panel-default"] {
-  background-color: #fff
+  background-color: #fff;
 }
