@@ -59,6 +59,11 @@ class Panel extends UiElement
     return $this;
   }
 
+  public function addAttribute($key, $value)
+  {
+    $this->_attributes[$key] = $value;
+  }
+
   public function setContent($content)
   {
     $this->_content = (array)$content;
@@ -79,6 +84,7 @@ class Panel extends UiElement
 
   /**
    * $content can be of type String or PanelHeader
+   *
    * @param $content
    *
    * @return $this
@@ -129,6 +135,11 @@ class Panel extends UiElement
     foreach($this->_classes as $class)
     {
       $panel->addClass($class);
+    }
+
+    foreach($this->_attributes as $key => $value)
+    {
+      $panel->setAttribute($key, $value);
     }
 
     return $panel;
