@@ -1,6 +1,8 @@
 <?php
 namespace Fortifi\Ui\ContentElements\QueryBuilder;
 
+use Packaged\Helpers\Objects;
+
 class QueryBuilderDefinitions
 {
   /**
@@ -27,6 +29,10 @@ class QueryBuilderDefinitions
 
   public function forOutput()
   {
-    return mpull($this->_definitions, 'toArray');
+    if(!$this->_definitions)
+    {
+      return [];
+    }
+    return Objects::mpull($this->_definitions, 'toArray');
   }
 }
