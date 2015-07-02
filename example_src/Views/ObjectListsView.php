@@ -109,6 +109,37 @@ class ObjectListsView extends AbstractUiExampleView
   }
 
   /**
+   * @group RightContent
+   */
+  final public function columnContentCardsWithoutRightContent()
+  {
+    $result = [];
+
+    $card = ObjectListCard::i();
+    $card->setTitle('One Action');
+    $card->addAction(new Link('#'), FontIcon::create(FontIcon::EDIT));
+    $card->appendColumn("Column 1");
+    $card->appendColumn("Column 2");
+    $card->appendColumn("Column 3");
+    $result[] = $card;
+    $result[] = $card;
+
+    $card = ObjectListCard::i();
+    $card->setTitle('One Action');
+    $card->addAction(new Link('#'), FontIcon::create(FontIcon::EDIT));
+    $card->appendColumn("Column 1");
+    $card->appendColumn("Column 2");
+    $card->appendColumn("Column 3 with content");
+    $result[] = $card;
+
+    $card = clone $card;
+    $card->appendColumn("Column 4");
+    $result[] = $card;
+
+    return $result;
+  }
+
+  /**
    * @group subTitledCards
    */
   final public function subTitleCards()
