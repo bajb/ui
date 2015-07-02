@@ -7,6 +7,7 @@ use Fortifi\Ui\GlobalElements\Icons\FontIcon;
 use Fortifi\Ui\Ui;
 use Packaged\Glimpse\Elements\LineBreak;
 use Packaged\Glimpse\Tags\Link;
+use Packaged\Glimpse\Tags\Text\HeadingOne;
 
 class ObjectListsView extends AbstractUiExampleView
 {
@@ -81,6 +82,27 @@ class ObjectListsView extends AbstractUiExampleView
     $card->setRightContent(
       FontIcon::create(FontIcon::CURRENT_DEFAULT)->addClass(Ui::TEXT_ORANGE)
     );
+    $result[] = $card;
+
+    return $result;
+  }
+
+  /**
+   * @group RightContent
+   */
+  final public function columnContentCards()
+  {
+    $result = [];
+
+    $card = ObjectListCard::i();
+    $card->setTitle('One Action');
+    $card->addAction(new Link('#'), FontIcon::create(FontIcon::EDIT));
+    $card->setRightContent(
+      FontIcon::create(FontIcon::CURRENT_DEFAULT)->addClass(Ui::TEXT_ORANGE)
+    );
+    $card->appendColumn("Column 1");
+    $card->appendColumn("Column 2");
+    $card->appendColumn("Column 3");
     $result[] = $card;
 
     return $result;

@@ -36,6 +36,7 @@ class ObjectListCard extends UiElement
   protected $_state;
   protected $_subTitle;
   protected $_rightContent;
+  protected $_midColumns = [];
 
   public function processIncludes(AssetManager $assetManager, $vendor = false)
   {
@@ -107,6 +108,12 @@ class ObjectListCard extends UiElement
     return $this;
   }
 
+  public function appendColumn($content)
+  {
+    $this->_midColumns[] = $content;
+    return $this;
+  }
+
   /**
    * @return SafeHtml|SafeHtml[]
    */
@@ -153,6 +160,13 @@ class ObjectListCard extends UiElement
     $col1 = Div::create('');
     $col1->addClass('f-obj-lst-itm-cntr-col');
     $row->appendContent($col1);
+
+    foreach($this->_midColumns as $column)
+    {
+      $midCol = Div::create($column);
+      $midCol->addClass('f-obj-lst-itm-cntr-col');
+      $row->appendContent($midCol);
+    }
 
     if(!empty($this->_rightContent))
     {
