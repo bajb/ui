@@ -166,7 +166,7 @@
     function getInput(ruleData, definition)
     {
       var $input, inputType;
-      if (!ruleData.comparator && definition.dataType == 'bool')
+      if (definition.dataType == 'bool')
       {
         inputType = 'bool'
       }
