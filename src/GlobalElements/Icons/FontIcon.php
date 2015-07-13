@@ -12,6 +12,8 @@ class FontIcon extends Icon
   const UNLOCK = 'fa-unlock';
   const MAKE_DEFAULT = 'fa-star-o';
   const CURRENT_DEFAULT = 'fa-star';
+  const TICK = 'fa-check';
+  const CROSS = 'fa-times';
 
   /**
    * Policies
