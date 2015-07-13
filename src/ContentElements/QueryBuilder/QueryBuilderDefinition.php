@@ -64,6 +64,14 @@ class QueryBuilderDefinition
     return $this->_key;
   }
 
+  /**
+   * @return mixed
+   */
+  public function getDisplay()
+  {
+    return $this->_display;
+  }
+
   public function setRequired($required)
   {
     $this->_required = $required;
