@@ -159,6 +159,9 @@
   height:   100%;
 }
 
+.f-obj-lst-itm-act li a {
+  margin-right: 1px;
+}
 .f-obj-lst-itm-act li a:hover {
   background: #F5F5F5;
 }
@@ -184,6 +187,6 @@
 */
 
 [class*="f-obj-lst-itm-w-act-"] .f-obj-lst-itm-cntr {
-  margin-right: 72px;
+  margin-right: 75px;
 }
 
