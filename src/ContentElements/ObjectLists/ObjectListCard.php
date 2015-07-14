@@ -9,6 +9,7 @@ use Packaged\Glimpse\Tags\Div;
 use Packaged\Glimpse\Tags\Link;
 use Packaged\Glimpse\Tags\Lists\ListItem;
 use Packaged\Glimpse\Tags\Lists\UnorderedList;
+use Packaged\Glimpse\Tags\Span;
 
 class ObjectListCard extends UiElement
 {
@@ -89,7 +90,7 @@ class ObjectListCard extends UiElement
     return $this;
   }
 
-  public function addAction(Link $link, Icon $icon, $highlight = false)
+  public function addAction($link = null, Icon $icon, $highlight = false)
   {
     if(count($this->_actions) > 2)
     {
@@ -98,7 +99,12 @@ class ObjectListCard extends UiElement
       );
     }
 
+    if(!$link instanceof Link)
+    {
+      $link = Span::create();
+    }
     $this->_actions[] = [$link->setContent($icon), $highlight];
+
     return $this;
   }
 
