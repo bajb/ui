@@ -6,10 +6,7 @@ use Cubex\View\LayoutController;
 use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDefinition as QBD;
 use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDefinitions;
 use Fortifi\Ui\ProjectSupport\FortifiUiLayout;
-use Fortifi\UiExample\Views\AsideView;
-use Fortifi\UiExample\Views\ButtonsView;
 use Fortifi\UiExample\Views\ColoursView;
-use Fortifi\UiExample\Views\HeadersView;
 use Fortifi\UiExample\Views\IconsView;
 use Fortifi\UiExample\Views\ObjectListsView;
 use Fortifi\UiExample\Views\PageNavigationView;
@@ -73,6 +70,7 @@ class ExampleController extends LayoutController
     $actionDefinition = new QBD('action', 'Action', 'string');
     $actionDefinition->setComparators([QBD::COMPARATOR_EQUALS]);
     $actionDefinition->setRequired(true);
+    $actionDefinition->setUnique(true);
     $actionDefinition->setValues(
       ['click' => 'Click', 'lead' => 'Lead', 'acquisition' => 'Acquisition']
     );
@@ -83,10 +81,10 @@ class ExampleController extends LayoutController
   public function qbPolicyData()
   {
     $policy = [
+      ['key' => 'action', 'comparator' => 'eq', 'value' => 'lead'],
       ['key' => 'browser', 'comparator' => 'eq', 'value' => 'chrome'],
       ['key' => 'company', 'comparator' => 'in', 'value' => ['x', 'y']],
       ['key' => 'affiliateType', 'comparator' => 'eq', 'value' => 'a'],
-      ['key' => 'action', 'comparator' => 'eq', 'value' => 'lead'],
     ];
     return new Response(json_encode($policy));
   }

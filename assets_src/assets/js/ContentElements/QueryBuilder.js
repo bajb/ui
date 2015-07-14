@@ -12,6 +12,7 @@
    * @property {String} ajaxUrl
    * @property {String} dataType
    * @property {String} required
+   * @property {String} unique
    */
 
   /**
@@ -392,18 +393,7 @@
       }
       if (self._definitions)
       {
-        // add rules
-        if (self._rules.length)
-        {
-          $.each(
-            self._rules, function ()
-            {
-              self.addRule(this);
-            }
-          );
-        }
-        $(self._ele).trigger('change.querybuilder');
-        // add any required fields which are not already added
+        // add required fields
         $.each(
           self._definitions, function (defKey)
           {
@@ -426,6 +416,17 @@
             }
           }
         );
+        // add rules
+        if (self._rules.length)
+        {
+          $.each(
+            self._rules, function ()
+            {
+              self.addRule(this);
+            }
+          );
+        }
+        $(self._ele).trigger('change.querybuilder');
 
         // if no rules, add an empty one
         if (!$('.qb-rules .qb-rule', this._ele).length)
@@ -462,6 +463,25 @@
       }
     }
 
+    function hasRule(key)
+    {
+      var found = false;
+      if (this._rules)
+      {
+        $.each(
+          this._rules, function ()
+          {
+            if (this.key == key)
+            {
+              found = true;
+              return false;
+            }
+          }
+        );
+      }
+      return found;
+    }
+
     function addRule(ruleData, idx)
     {
       var $row = $('<div class="qb-rule"/>'),
@@ -483,7 +503,8 @@
       $.each(
         this._definitions, function (optionKey)
         {
-          if (this.required && ruleKey !== optionKey)
+          // if this definition is unique, don't add it unless the current rule is unique
+          if (this.unique && ruleKey !== optionKey && (!hasRule(ruleKey)))
           {
             return;
           }

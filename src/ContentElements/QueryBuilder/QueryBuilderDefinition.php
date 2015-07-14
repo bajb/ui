@@ -21,6 +21,7 @@ class QueryBuilderDefinition
   protected $_values;
   protected $_ajaxUrl;
   protected $_required = false;
+  protected $_unique = false;
 
   public function __construct($key, $display, $dataType = null)
   {
@@ -78,6 +79,12 @@ class QueryBuilderDefinition
     return $this;
   }
 
+  public function setUnique($unique)
+  {
+    $this->_unique = $unique;
+    return $this;
+  }
+
   public function toArray()
   {
     return [
@@ -87,6 +94,7 @@ class QueryBuilderDefinition
       'ajaxUrl'     => $this->_ajaxUrl,
       'dataType'    => $this->_dataType,
       'required'    => $this->_required,
+      'unique'      => $this->_unique,
     ];
   }
 }
