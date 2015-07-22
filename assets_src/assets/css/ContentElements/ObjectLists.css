@@ -160,7 +160,7 @@
 }
 
 .f-obj-lst-itm-act li a {
-  margin-right: 1px;
+  width: 100%;
 }
 .f-obj-lst-itm-act li a:hover {
   background: #F5F5F5;
