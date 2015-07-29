@@ -100,6 +100,10 @@ class Panel extends UiElement
     {
       $this->_header = PanelHeader::create($content);
     }
+    else if(is_array($content))
+    {
+      $this->_header = PanelHeader::create($content);
+    }
     return $this;
   }
 
