@@ -11,7 +11,7 @@ class ObjectList extends UiElement
   /**
    * @var ObjectListCard[]
    */
-  protected $_items;
+  protected $_items = [];
 
   //0 = false, 1 = true, 2 = std border
   protected $_stacked = 0;
