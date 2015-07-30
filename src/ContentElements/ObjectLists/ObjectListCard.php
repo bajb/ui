@@ -2,6 +2,7 @@
 namespace Fortifi\Ui\ContentElements\ObjectLists;
 
 use Fortifi\Ui\GlobalElements\Icons\Icon;
+use Fortifi\Ui\Ui;
 use Fortifi\Ui\UiElement;
 use Packaged\Dispatch\AssetManager;
 use Packaged\Glimpse\Core\SafeHtml;
@@ -10,6 +11,7 @@ use Packaged\Glimpse\Tags\Link;
 use Packaged\Glimpse\Tags\Lists\ListItem;
 use Packaged\Glimpse\Tags\Lists\UnorderedList;
 use Packaged\Glimpse\Tags\Span;
+use Packaged\Glimpse\Tags\Text\BoldText;
 
 class ObjectListCard extends UiElement
 {
@@ -194,5 +196,26 @@ class ObjectListCard extends UiElement
     }
 
     return $card;
+  }
+
+  /**
+   * @param $property
+   * @param $val
+   *
+   * @return Span|null
+   */
+  protected function _cardProperty($property, $val)
+  {
+    if($val || strtolower($property) === 'description')
+    {
+      return Span::create(
+        [
+          BoldText::create($property . ':'),
+          ' ',
+          $val ? $val : '-',
+        ]
+      )->addClass(Ui::DISPLAY_BLOCK);
+    }
+    return null;
   }
 }
