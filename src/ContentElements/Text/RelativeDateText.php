@@ -6,22 +6,20 @@ use Packaged\Glimpse\Tags\Span;
 
 class RelativeDateText extends Span
 {
-  protected $_timestamp;
-
   public function __construct($date = null)
   {
     if(is_int($date))
     {
-      $this->_timestamp = $date;
+      $timestamp = $date;
     }
     else
     {
-      $this->_timestamp = strtotime($date);
+      $timestamp = strtotime($date);
     }
 
-    $carbon = Carbon::createFromTimestamp($this->_timestamp);
+    $carbon = Carbon::createFromTimestamp($timestamp);
     $this->setContent($carbon->diffForHumans());
-    $this->setAttribute('title', gmdate("Y-m-d H:i:s", $this->_timestamp));
+    $this->setAttribute('title', gmdate("Y-m-d H:i:s", $timestamp));
     $this->addClass('f-txt-rel-date');
   }
 }
