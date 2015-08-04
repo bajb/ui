@@ -1,0 +1,4 @@
+div.f-prop-value b:after {
+  content: ': ';
+}
+
