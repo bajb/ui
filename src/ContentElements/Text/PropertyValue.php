@@ -16,24 +16,18 @@ class PropertyValue extends UiElement
    * @var string
    */
   protected $_value;
-  /**
-   * @var bool
-   */
-  protected $_force = false;
 
   /**
    * @param string $property
    * @param string $value
-   * @param bool   $force
    *
    * @return static
    */
-  public static function create($property, $value, $force = false)
+  public static function create($property, $value)
   {
     $obj = new static();
     $obj->setProperty($property);
     $obj->setValue($value);
-    $obj->setForce($force);
     return $obj;
   }
 
@@ -54,32 +48,17 @@ class PropertyValue extends UiElement
   }
 
   /**
-   * @param bool $bool
-   */
-  public function setForce($bool)
-  {
-    $this->_force = $bool;
-  }
-
-  /**
    * @return Div
    */
   protected function _produceHtml()
   {
-    if($this->_force || $this->_value)
-    {
-      $div = Div::create(
-        [
-          BoldText::create('Field'),
-          Span::create('Value')
-        ]
-      );
-      $div->addClass('f-prop-value');
-      return $div;
-    }
-    else
-    {
-      return null;
-    }
+    $div = Div::create(
+      [
+        BoldText::create($this->_property),
+        Span::create($this->_value),
+      ]
+    );
+    $div->addClass('f-prop-value');
+    return $div;
   }
 }
