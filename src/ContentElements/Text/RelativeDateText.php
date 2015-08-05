@@ -20,7 +20,7 @@ class RelativeDateText extends Span
     }
 
     $carbon = Carbon::createFromTimestamp($this->_timestamp);
-    $this->setContent($carbon->diffForHumans());
+    parent::__construct($carbon->diffForHumans());
     $this->setAttribute('title', gmdate("Y-m-d H:i:s", $this->_timestamp));
     $this->addClass('f-txt-rel-date');
   }
