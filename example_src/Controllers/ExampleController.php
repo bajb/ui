@@ -63,9 +63,27 @@ class ExampleController extends LayoutController
       ]
     );
     $browserDefinition->setComparators(
-      [QBD::COMPARATOR_EQUALS, QBD::COMPARATOR_IN]
+      [
+        QBD::COMPARATOR_EQUALS,
+        QBD::COMPARATOR_IN
+      ]
     );
     $definitions->addDefinition($browserDefinition);
+    $sidDefinition = new QBD(
+      'sid',
+      'Sub ID',
+      'string'
+    );
+    $sidDefinition->setComparators(
+      [
+        QBD::COMPARATOR_EQUALS,
+        QBD::COMPARATOR_IN,
+        QBD::COMPARATOR_LIKE,
+        QBD::COMPARATOR_ENDS,
+        QBD::COMPARATOR_STARTS
+      ]
+    );
+    $definitions->addDefinition($sidDefinition);
 
     $hasOrdersDefinition = new QBD('hasOrders', 'Has Orders', 'bool');
     $definitions->addDefinition($hasOrdersDefinition);

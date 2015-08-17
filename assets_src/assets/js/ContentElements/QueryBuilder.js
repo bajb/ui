@@ -131,28 +131,34 @@
   QueryBuilder.prototype = (function ()
   {
     var types = {
-      'eq':  {string: 'text', number: 'number', date: 'date'},
-      'neq': {string: 'text', number: 'number', date: 'date'},
-      'in':  {string: 'token', number: 'token'},
-      'nin': {string: 'token', number: 'token'},
-      'gt':  {number: 'number', date: 'date', decimal: 'decimal'},
-      'gte': {number: 'number', date: 'date', decimal: 'decimal'},
-      'lt':  {number: 'number', date: 'date', decimal: 'decimal'},
-      'lte': {number: 'number', date: 'date', decimal: 'decimal'},
-      'bet': {number: 'number', date: 'date', decimal: 'decimal'},
-      'age': {date: 'age'}
+      'eq':     {string: 'text', number: 'number', date: 'date'},
+      'neq':    {string: 'text', number: 'number', date: 'date'},
+      'in':     {string: 'token', number: 'token'},
+      'nin':    {string: 'token', number: 'token'},
+      'gt':     {number: 'number', date: 'date', decimal: 'decimal'},
+      'gte':    {number: 'number', date: 'date', decimal: 'decimal'},
+      'lt':     {number: 'number', date: 'date', decimal: 'decimal'},
+      'lte':    {number: 'number', date: 'date', decimal: 'decimal'},
+      'bet':    {number: 'number', date: 'date', decimal: 'decimal'},
+      'age':    {date: 'age'},
+      'like':   {string: 'text'},
+      'starts': {string: 'text'},
+      'ends':   {string: 'text'}
     };
     var typeNames = {
-      'eq':  'Equals',
-      'neq': 'Does Not Equal',
-      'in':  'In',
-      'nin': 'Not In',
-      'gt':  'Greater Than',
-      'gte': 'Greater Than or Equal to',
-      'lt':  'Less Than',
-      'lte': 'Less Than or Equal to',
-      'bet': 'Between',
-      'age': 'was'
+      'eq':     'Equals',
+      'neq':    'Does Not Equal',
+      'in':     'In',
+      'nin':    'Not In',
+      'gt':     'Greater Than',
+      'gte':    'Greater Than or Equal to',
+      'lt':     'Less Than',
+      'lte':    'Less Than or Equal to',
+      'bet':    'Between',
+      'age':    'was',
+      'like':   'Like',
+      'starts': 'Starts With',
+      'ends':   'Ends With'
     };
 
     /**

@@ -13,6 +13,9 @@ class QueryBuilderDefinition
   const COMPARATOR_LESS_OR_EQUAL = 'lte';
   const COMPARATOR_BETWEEN = 'bet';
   const COMPARATOR_AGE = 'age';
+  const COMPARATOR_LIKE = 'like';
+  const COMPARATOR_STARTS = 'starts';
+  const COMPARATOR_ENDS = 'ends';
 
   protected $_key;
   protected $_display;
