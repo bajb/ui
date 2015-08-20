@@ -202,17 +202,10 @@
           $input = $('<input type="number" value="' + (ruleData.value ? ruleData.value : '') + '"/>');
           break;
         case 'bool':
-          $input = $('<select><option value="1">True</option><option value="0">False</option></select>');
+          $input = drawSelect({'1': 'True', '0': 'False'}, ruleData.value);
           break;
         case 'select':
-          $input = $('<select/>');
-          $.each(
-            definition.values, function (idx)
-            {
-              var selected = (idx == ruleData.value) ? ' selected="selected"' : '';
-              $input.append('<option' + selected + ' value="' + idx + '">' + this + '</option>');
-            }
-          );
+          $input = drawSelect(definition.values, ruleData.value);
           break;
         case 'token':
           $input = $('<input type="text" value="' + (ruleData.value ? ruleData.value : '') + '"/>');
@@ -223,6 +216,19 @@
 
       $input.addClass('qb-value');
       return $input;
+    }
+
+    function drawSelect(options, defaultValue)
+    {
+      var $select = $('<select/>');
+      $.each(
+        options, function (idx)
+        {
+          var selected = (idx == defaultValue) ? ' selected="selected"' : '';
+          $select.append('<option' + selected + ' value="' + idx + '">' + this + '</option>');
+        }
+      );
+      return $select;
     }
 
     /**
