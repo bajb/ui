@@ -3,13 +3,11 @@ namespace Fortifi\UiExample\Controllers;
 
 use Cubex\Http\Response;
 use Cubex\View\LayoutController;
+use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDataType as QBDT;
 use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDefinition as QBD;
 use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDefinitions;
 use Fortifi\Ui\ProjectSupport\FortifiUiLayout;
-use Fortifi\UiExample\Views\AsideView;
-use Fortifi\UiExample\Views\ButtonsView;
 use Fortifi\UiExample\Views\ColoursView;
-use Fortifi\UiExample\Views\HeadersView;
 use Fortifi\UiExample\Views\IconsView;
 use Fortifi\UiExample\Views\ObjectListsView;
 use Fortifi\UiExample\Views\PageNavigationView;
@@ -53,7 +51,7 @@ class ExampleController extends LayoutController
     $browserDefinition = new QBD(
       'browser',
       'Browser',
-      'string'
+      QBDT::STRING
     );
     $browserDefinition->setValues(
       [
@@ -72,7 +70,7 @@ class ExampleController extends LayoutController
     $sidDefinition = new QBD(
       'sid',
       'Sub ID',
-      'string'
+      QBDT::STRING
     );
     $sidDefinition->setComparators(
       [
@@ -85,10 +83,10 @@ class ExampleController extends LayoutController
     );
     $definitions->addDefinition($sidDefinition);
 
-    $hasOrdersDefinition = new QBD('hasOrders', 'Has Orders', 'bool');
+    $hasOrdersDefinition = new QBD('hasOrders', 'Has Orders', QBDT::BOOL);
     $definitions->addDefinition($hasOrdersDefinition);
 
-    $actionDefinition = new QBD('action', 'Action', 'string');
+    $actionDefinition = new QBD('action', 'Action', QBDT::STRING);
     $actionDefinition->setComparators([QBD::COMPARATOR_EQUALS]);
     $actionDefinition->setRequired(true);
     $actionDefinition->setValues(
