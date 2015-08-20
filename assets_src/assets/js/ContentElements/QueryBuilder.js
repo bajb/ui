@@ -207,6 +207,9 @@
         case 'select':
           $input = drawSelect(definition.values, ruleData.value);
           break;
+        case 'date':
+          $input = $('<input type="date">');
+          break;
         case 'token':
           $input = $('<input type="text" value="' + (ruleData.value ? ruleData.value : '') + '"/>');
           break;
