@@ -107,6 +107,7 @@ class ExampleController extends LayoutController
       ['key' => 'company', 'comparator' => 'in', 'value' => ['x', 'y']],
       ['key' => 'affiliateType', 'comparator' => 'eq', 'value' => 'a'],
       ['key' => 'action', 'comparator' => 'eq', 'value' => 'lead'],
+      ['key' => 'expiryDate', 'comparator' => 'eq', 'value' => date('Y-m-d')],
     ];
     return new Response(json_encode($policy));
   }
