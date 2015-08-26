@@ -73,4 +73,12 @@ class ObjectList extends UiElement
     $list->addItems($this->_items);
     return $list;
   }
+
+  /**
+   * @return ObjectListCard[]
+   */
+  public function getItems()
+  {
+    return $this->_items;
+  }
 }
