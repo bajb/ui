@@ -58,7 +58,7 @@ class PropertyValue extends UiElement
         Span::create($this->_value),
       ]
     );
-    $div->addClass('f-prop-value');
+    $div->addClass('f-prop-value', 'truncate', 'truncate-100');
     return $div;
   }
 }
