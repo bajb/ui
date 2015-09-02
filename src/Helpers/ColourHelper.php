@@ -5,7 +5,11 @@ class ColourHelper
 {
   public static function rgbGradient($value, $target, $invert = false)
   {
-    $percent = ceil(($value / $target) * 100);
+    $percent = 0;
+    if($target > 0)
+    {
+      $percent = ceil(($value / $target) * 100);
+    }
 
     if($percent > 100)
     {
