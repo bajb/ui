@@ -1,7 +1,10 @@
 <?php
 namespace Fortifi\UiExample\Views;
 
+use Fortifi\Ui\Helpers\ColourHelper;
 use Fortifi\Ui\Ui;
+use Packaged\Glimpse\Tags\Div;
+use Packaged\Glimpse\Tags\Text\BoldText;
 use Packaged\Glimpse\Tags\Text\Paragraph;
 
 class ColoursView extends AbstractUiExampleView
@@ -278,5 +281,59 @@ class ColoursView extends AbstractUiExampleView
     return (new Paragraph('Light pink Background'))->addClass(
       Ui::BG_LIGHT_PINK
     );
+  }
+
+  /**
+   * @group GradientColours
+   */
+  final public function gradientBackground()
+  {
+    $out1 = Div::create()->setAttribute(
+      'style',
+      'width:100%;height:17px;display:table;table-layout:fixed'
+    );
+    for($i = 0; $i <= 100; $i++)
+    {
+      $div = (new Div())->setAttribute(
+        'style',
+        'display:table-cell;background:'
+        . ColourHelper::rgbGradient($i, 100)
+      );
+      $out1->appendContent($div);
+    }
+    $out2 = Div::create()->setAttribute(
+      'style',
+      'width:100%;height:17px;display:table;table-layout:fixed'
+    );
+    for($i = 0; $i <= 100; $i++)
+    {
+      $div = (new Div())->setAttribute(
+        'style',
+        'display:table-cell;background:'
+        . ColourHelper::rgbGradient($i, 100, true)
+      );
+      $out2->appendContent($div);
+    }
+    return ['Regular', $out1, 'Inverted', $out2];
+  }
+
+  /**
+   * @group GradientColours
+   */
+  final public function gradientText()
+  {
+    $output = [];
+    for($i = 0; $i <= 100; $i++)
+    {
+      $output[] = (
+      new BoldText(
+        str_pad($i, 3, '0', STR_PAD_LEFT)
+      )
+      )->setAttribute(
+          'style',
+          'color:' . ColourHelper::rgbGradient($i, 100)
+        );
+    }
+    return $output;
   }
 }
