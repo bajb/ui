@@ -15,6 +15,17 @@ class FontIcon extends Icon
   const TICK = 'fa-check';
   const CROSS = 'fa-times';
 
+  const EMAIL = 'fa-at';
+  const PORTAL = 'fa-globe';
+
+  const QUESTION = 'fa-question';
+  const INCIDENT = 'fa-flash';
+  const PROBLEM = 'fa-exclamation';
+  const SUPPORT = 'fa-life-ring';
+
+  const URGENCY = 'fa-heartbeat';
+  const IMPACT = 'fa-arrow-up';
+
   /**
    * Policies
    */
