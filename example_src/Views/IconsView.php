@@ -25,6 +25,25 @@ class IconsView extends AbstractUiExampleView
   }
 
   /**
+   * @group Font Icons
+   */
+  final public function ColouredIcons()
+  {
+    $icons = (new \ReflectionClass(FontIcon::class))->getConstants();
+
+    $fontIcons = [];
+    foreach($icons as $icon)
+    {
+      $fontIcons[] = FontIcon::create($icon)
+        ->setColor(
+          'rgb(' . rand(0, 255) . ',' . rand(0, 255) . ',' . rand(0, 255) . ')'
+        );
+    }
+
+    return $fontIcons;
+  }
+
+  /**
    * @group country flags
    */
   final public function AllCountryFlags()
@@ -44,7 +63,10 @@ class IconsView extends AbstractUiExampleView
   final public function EnglishSpeakingFlags()
   {
     $countries = [
-      'gb', 'ie', 'us', 'au'
+      'gb',
+      'ie',
+      'us',
+      'au'
     ];
 
     $flags = [];

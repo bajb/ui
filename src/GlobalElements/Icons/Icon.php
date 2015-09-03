@@ -9,6 +9,7 @@ abstract class Icon extends UiElement
 {
   protected $_icon;
   protected $_classes = [];
+  protected $_color;
 
   public static function create($icon)
   {
@@ -37,6 +38,12 @@ abstract class Icon extends UiElement
     return $this;
   }
 
+  public function setColor($color)
+  {
+    $this->_color = $color;
+    return $this;
+  }
+
   /**
    * @return HtmlTag
    */
@@ -47,6 +54,10 @@ abstract class Icon extends UiElement
     foreach($this->_classes as $class)
     {
       $icon->addClass($class);
+    }
+    if($this->_color)
+    {
+      $icon->setAttribute('style', 'color:' . $this->_color);
     }
     return $icon;
   }
