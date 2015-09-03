@@ -18,12 +18,12 @@
   z-index:                     10;
 }
 
+/* horizontal flip */
 .flip-container .back {
   -webkit-transform: rotateY(-180deg);
   transform:         rotateY(-180deg);
 }
 
-/* flip the pane when hovered */
 .flip-container:hover .front, .flip-container.hover .front {
   -webkit-transform: rotateY(-180deg);
   transform:         rotateY(-180deg);
@@ -33,5 +33,23 @@
 .flip-container:hover .back, .flip-container.hover .back {
   -webkit-transform: rotateY(0deg);
   transform:         rotateY(0deg);
+  z-index:           20;
+}
+
+/* vertical flip */
+.vertical.flip-container .back {
+  -webkit-transform: rotateX(-180deg);
+  transform:         rotateX(-180deg);
+}
+
+.vertical.flip-container:hover .front, .vertical.flip-container.hover .front {
+  -webkit-transform: rotateX(-180deg);
+  transform:         rotateX(-180deg);
+  z-index:           20;
+}
+
+.vertical.flip-container:hover .back, .vertical.flip-container.hover .back {
+  -webkit-transform: rotateX(0deg);
+  transform:         rotateX(0deg);
   z-index:           20;
 }
