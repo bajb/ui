@@ -17,6 +17,7 @@ class FontIcon extends Icon
 
   const EMAIL = 'fa-at';
   const PORTAL = 'fa-globe';
+  const WORKFLOW = 'fa-random';
 
   const QUESTION = 'fa-question';
   const INCIDENT = 'fa-flash';
