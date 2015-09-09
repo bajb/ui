@@ -176,9 +176,15 @@
       {
         inputType = 'bool'
       }
-      else
+      else if (ruleData.comparator && definition.dataType
+        && types[ruleData.comparator]
+        && types[ruleData.comparator][definition.dataType])
       {
         inputType = types[ruleData.comparator][definition.dataType];
+      }
+      else
+      {
+        inputType = 'text';
       }
       if (inputType == 'text' && definition.values && (!definition.ajaxUrl))
       {
@@ -196,10 +202,14 @@
       {
         case 'text':
           // if ajaxUrl this should be typeahed
-          $input = $('<input type="text" value="' + (ruleData.value ? ruleData.value : '') + '"/>');
+          $input = $(
+            '<input type="text" value="' + (ruleData.value ? ruleData.value : '') + '"/>'
+          );
           break;
         case 'number':
-          $input = $('<input type="number" value="' + (ruleData.value ? ruleData.value : '') + '"/>');
+          $input = $(
+            '<input type="number" value="' + (ruleData.value ? ruleData.value : '') + '"/>'
+          );
           break;
         case 'bool':
           $input = drawSelect({'1': 'True', '0': 'False'}, ruleData.value);
@@ -208,10 +218,14 @@
           $input = drawSelect(definition.values, ruleData.value);
           break;
         case 'date':
-          $input = $('<input type="date" value="' + (ruleData.value ? ruleData.value : '') + '">');
+          $input = $(
+            '<input type="date" value="' + (ruleData.value ? ruleData.value : '') + '">'
+          );
           break;
         case 'token':
-          $input = $('<input type="text" value="' + (ruleData.value ? ruleData.value : '') + '"/>');
+          $input = $(
+            '<input type="text" value="' + (ruleData.value ? ruleData.value : '') + '"/>'
+          );
           break;
         default:
           throw 'Input type not found for ' + inputType;
@@ -228,7 +242,9 @@
         options, function (idx)
         {
           var selected = (idx == defaultValue) ? ' selected="selected"' : '';
-          $select.append('<option' + selected + ' value="' + idx + '">' + this + '</option>');
+          $select.append(
+            '<option' + selected + ' value="' + idx + '">' + this + '</option>'
+          );
         }
       );
       return $select;
@@ -483,7 +499,7 @@
         $propertySel = $('<select class="qb-key"/>').appendTo($row),
         ruleKey = ruleData ? ruleData.key : null;
       /**
-       * @type {QueryBuilderDefinition}
+       * @type {QueryBuilderDefinition|null}
        */
       var definition = ruleKey ? this._definitions[ruleKey] : null;
 
@@ -503,7 +519,9 @@
             return;
           }
           var selected = (ruleKey == optionKey) ? ' selected="selected"' : '';
-          $propertySel.append('<option' + selected + ' value="' + optionKey + '">' + this.display + '</option>');
+          $propertySel.append(
+            '<option' + selected + ' value="' + optionKey + '">' + this.display + '</option>'
+          );
         }
       );
 
@@ -519,7 +537,8 @@
         }
         if (definition['comparators'])
         {
-          var $comparatorSel = $('<select class="qb-comparator"/>').appendTo($row);
+          var $comparatorSel = $('<select class="qb-comparator"/>')
+            .appendTo($row);
           $.each(
             definition['comparators'], function ()
             {
@@ -528,7 +547,9 @@
                 ruleData.comparator = this;
               }
               var selected = (ruleData.comparator == this) ? ' selected="selected"' : '';
-              $comparatorSel.append('<option' + selected + ' value="' + this + '">' + typeNames[this] + '</option>');
+              $comparatorSel.append(
+                '<option' + selected + ' value="' + this + '">' + typeNames[this] + '</option>'
+              );
             }
           );
         }
