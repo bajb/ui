@@ -92,4 +92,33 @@ class QueryBuilderDefinition
       'required'    => $this->_required,
     ];
   }
+
+  public static function timeComparators()
+  {
+    return [
+      QueryBuilderDefinition::COMPARATOR_GREATER_OR_EQUAL,
+      QueryBuilderDefinition::COMPARATOR_GREATER_THAN,
+      QueryBuilderDefinition::COMPARATOR_LESS_THAN,
+      QueryBuilderDefinition::COMPARATOR_LESS_OR_EQUAL,
+      QueryBuilderDefinition::COMPARATOR_EQUALS,
+    ];
+  }
+
+  public static function enumComparators()
+  {
+    return [
+      QueryBuilderDefinition::COMPARATOR_EQUALS,
+      QueryBuilderDefinition::COMPARATOR_NOT_EQUALS,
+    ];
+  }
+
+  public static function textComparators()
+  {
+    return [
+      QueryBuilderDefinition::COMPARATOR_EQUALS,
+      QueryBuilderDefinition::COMPARATOR_LIKE,
+      QueryBuilderDefinition::COMPARATOR_STARTS,
+      QueryBuilderDefinition::COMPARATOR_ENDS,
+    ];
+  }
 }
