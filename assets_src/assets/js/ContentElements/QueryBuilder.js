@@ -535,24 +535,25 @@
         {
           definition.dataType = 'string';
         }
-        if (definition['comparators'])
+        if (!definition['comparators'])
         {
-          var $comparatorSel = $('<select class="qb-comparator"/>')
-            .appendTo($row);
-          $.each(
-            definition['comparators'], function ()
-            {
-              if (!ruleData.comparator)
-              {
-                ruleData.comparator = this;
-              }
-              var selected = (ruleData.comparator == this) ? ' selected="selected"' : '';
-              $comparatorSel.append(
-                '<option' + selected + ' value="' + this + '">' + typeNames[this] + '</option>'
-              );
-            }
-          );
+          definition['comparators'] = ['eq'];
         }
+        var $comparatorSel = $('<select class="qb-comparator"/>')
+          .appendTo($row);
+        $.each(
+          definition['comparators'], function ()
+          {
+            if (!ruleData.comparator)
+            {
+              ruleData.comparator = this;
+            }
+            var selected = (ruleData.comparator == this) ? ' selected="selected"' : '';
+            $comparatorSel.append(
+              '<option' + selected + ' value="' + this + '">' + typeNames[this] + '</option>'
+            );
+          }
+        );
         getInput(ruleData, definition).appendTo($row);
       }
       if (definition && !definition.required)
