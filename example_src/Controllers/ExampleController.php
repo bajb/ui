@@ -106,7 +106,7 @@ class ExampleController extends LayoutController
   public function qbPolicyData()
   {
     $policy = [
-      ['key' => 'browser', 'comparator' => 'eq', 'value' => 'chrome'],
+      ['key' => 'browser', 'comparator' => 'eq', 'value' => ['chrome','firefox']],
       ['key' => 'company', 'comparator' => 'in', 'value' => ['x', 'y']],
       ['key' => 'affiliateType', 'comparator' => 'eq', 'value' => 'a'],
       ['key' => 'action', 'comparator' => 'eq', 'value' => 'lead'],

@@ -112,7 +112,6 @@
    * Public commands are below here
    */
   /**
-   *
    * @param ele
    * @constructor
    *
@@ -147,6 +146,7 @@
     };
     var typeNames = {
       'eq':     'Equals',
+      'eqi':    'Equals (Case insensitive)',
       'neq':    'Does Not Equal',
       'in':     'In',
       'nin':    'Not In',
@@ -231,7 +231,7 @@
           throw 'Input type not found for ' + inputType;
       }
 
-      $input.addClass('qb-value');
+      $input.addClass('qb-value').attr('data-key', 'value');
       return $input;
     }
 
@@ -331,18 +331,15 @@
         $('.qb-rules .qb-rule', $(this._ele)).each(
           function ()
           {
-            var key = $('.qb-key', this).val();
-            if (key)
-            {
-              currentData.push(
-                {
-                  key:        key,
-                  comparator: $('.qb-comparator', this).val()
-                                ? $('.qb-comparator', this).val() : 'eq',
-                  value:      $('.qb-value', this).val()
-                }
-              );
-            }
+            var thisData = {};
+            $('[data-key]', this).each(
+              function ()
+              {
+                var $thisData = $(this);
+                thisData[$thisData.attr('data-key')] = $thisData.val();
+              }
+            );
+            currentData.push(thisData);
           }
         );
         return currentData;
@@ -496,8 +493,10 @@
     function addRule(ruleData, idx)
     {
       var $row = $('<div class="qb-rule"/>'),
-        $propertySel = $('<select class="qb-key"/>').appendTo($row),
+        $propertySel = $('<select class="qb-key"/>'),
         ruleKey = ruleData ? ruleData.key : null;
+
+      $row.append($propertySel.attr('data-key', 'key'));
       /**
        * @type {QueryBuilderDefinition|null}
        */
@@ -539,8 +538,8 @@
         {
           definition['comparators'] = ['eq'];
         }
-        var $comparatorSel = $('<select class="qb-comparator"/>')
-          .appendTo($row);
+        var $comparatorSel = $('<select class="qb-comparator"/>');
+        $row.append($comparatorSel.attr('data-key', 'comparator'));
         $.each(
           definition['comparators'], function ()
           {
@@ -554,7 +553,7 @@
             );
           }
         );
-        getInput(ruleData, definition).appendTo($row);
+        $row.append(getInput(ruleData, definition));
       }
       if (definition && !definition.required)
       {

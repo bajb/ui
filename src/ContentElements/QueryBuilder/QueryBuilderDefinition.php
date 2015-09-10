@@ -4,6 +4,7 @@ namespace Fortifi\Ui\ContentElements\QueryBuilder;
 class QueryBuilderDefinition
 {
   const COMPARATOR_EQUALS = 'eq';
+  const COMPARATOR_EQUALS_INSENSITIVE = 'eqi';
   const COMPARATOR_NOT_EQUALS = 'neq';
   const COMPARATOR_IN = 'in';
   const COMPARATOR_NOT_IN = 'nin';
