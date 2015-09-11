@@ -171,7 +171,9 @@
      */
     function getInput(ruleData, definition)
     {
-      var $input, inputType;
+      var $input, inputType,
+        value = (ruleData.value ? ruleData.value : '');
+
       if (definition.dataType == 'bool')
       {
         inputType = 'bool'
@@ -190,7 +192,7 @@
       {
         inputType = 'select';
       }
-      if (inputType == 'select' && ruleData.value && (!(ruleData.value in definition.values)))
+      if (inputType == 'select' && value && (!(value in definition.values)))
       {
         inputType = 'text';
       }
@@ -202,30 +204,22 @@
       {
         case 'text':
           // if ajaxUrl this should be typeahed
-          $input = $(
-            '<input type="text" value="' + (ruleData.value ? ruleData.value : '') + '"/>'
-          );
+          $input = $('<input type="text"/>').attr('value', value);
           break;
         case 'number':
-          $input = $(
-            '<input type="number" value="' + (ruleData.value ? ruleData.value : '') + '"/>'
-          );
+          $input = $('<input type="number"/>').attr('value', value);
           break;
         case 'bool':
-          $input = drawSelect({'1': 'True', '0': 'False'}, ruleData.value);
+          $input = drawSelect({'1': 'True', '0': 'False'}, value);
           break;
         case 'select':
-          $input = drawSelect(definition.values, ruleData.value);
+          $input = drawSelect(definition.values, value);
           break;
         case 'date':
-          $input = $(
-            '<input type="date" value="' + (ruleData.value ? ruleData.value : '') + '">'
-          );
+          $input = $('<input type="date"/>').attr('value', value);
           break;
         case 'token':
-          $input = $(
-            '<input type="text" value="' + (ruleData.value ? ruleData.value : '') + '"/>'
-          );
+          $input = $('<input type="text"/>').attr('value', value);
           break;
         default:
           throw 'Input type not found for ' + inputType;
@@ -241,10 +235,12 @@
       $.each(
         options, function (idx)
         {
-          var selected = (idx == defaultValue) ? ' selected="selected"' : '';
-          $select.append(
-            '<option' + selected + ' value="' + idx + '">' + this + '</option>'
-          );
+          var $option = $('<option/>').text(this).attr('value', idx);
+          if (idx == defaultValue)
+          {
+            $option.attr('selected', 'selected');
+          }
+          $select.append($option);
         }
       );
       return $select;
