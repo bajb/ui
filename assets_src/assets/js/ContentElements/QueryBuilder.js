@@ -297,6 +297,7 @@
       {
         this.setComparator(comparators[0]);
       }
+      this.setValue('');
     };
 
     QueryBuilderRule.prototype.render = function ()
