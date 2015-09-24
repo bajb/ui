@@ -185,7 +185,6 @@
     this._comparator = comparator || '';
     this._value = value || '';
     this._element = null;
-    this.initValue();
   }
 
   (function ()
@@ -228,10 +227,6 @@
       {
         inputType = INPUT_SELECT;
       }
-      if ((inputType == INPUT_SELECT) && this.getValue() && (!definition || !(this.getValue() in definition.values)))
-      {
-        inputType = INPUT_TEXT;
-      }
       return inputType;
     }
 
@@ -239,7 +234,14 @@
     {
       if (this._element && $('.qb-value', this._element).length)
       {
-        return $('.qb-value', this._element).val();
+        if ($('.qb-value', this._element).is('select'))
+        {
+          return $('.qb-value option:selected', this._element).attr('value');
+        }
+        else
+        {
+          return $('.qb-value', this._element).val();
+        }
       }
       return this._value;
     };
@@ -294,20 +296,6 @@
       if (comparators.indexOf(this.getComparator()) == -1)
       {
         this.setComparator(comparators[0]);
-      }
-
-      this.initValue();
-    };
-
-    QueryBuilderRule.prototype.initValue = function ()
-    {
-      var def = this.getDefinition(),
-        values = def && def.values ? def.values : [],
-        vv = Object.keys(values);
-      if (vv && vv.indexOf(this.getValue()) == -1
-        && getInputType.call(this) == INPUT_SELECT)
-      {
-        this.setValue(vv[0]);
       }
     };
 
@@ -1025,6 +1013,13 @@
   function drawSelect(options, value)
   {
     var $select = $('<select/>');
+    if (value && Object.keys(options).indexOf(value) == -1)
+    {
+      var $option = $('<option/>').text(value).attr('value', value);
+      $option.attr('selected', 'selected');
+      $option.attr('disabled', 'disabled');
+      $select.append($option);
+    }
     $.each(
       options, function (idx)
       {
@@ -1036,6 +1031,10 @@
         $select.append($option);
       }
     );
+    if ($(':selected', $select).length == 0)
+    {
+      $('option', $select).first().attr('selected', 'selected');
+    }
     return $select;
   } // drawSelect
 })(jQuery);
