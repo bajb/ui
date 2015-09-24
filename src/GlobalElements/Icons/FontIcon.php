@@ -27,6 +27,8 @@ class FontIcon extends Icon
   const URGENCY = 'fa-heartbeat';
   const IMPACT = 'fa-arrow-up';
 
+  const ATTACHMENT = 'fa-paperclip';
+
   /**
    * Policies
    */
