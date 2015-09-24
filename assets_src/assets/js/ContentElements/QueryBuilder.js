@@ -217,17 +217,18 @@
     {
       var definition = this.getDefinition(),
         qb = this._queryBuilder,
-        inputType = (definition ? definition.inputType : null)
-          || qb.getInputType(
-            this.getComparator(),
-            definition && definition.dataType || DATATYPE_STRING
-          );
+        inputType = definition && definition.inputType ? definition.inputType : null;
+      if (!inputType)
+      {
+        var dataType = definition && definition.dataType ? definition.dataType : DATATYPE_STRING;
+        inputType = qb.getInputType(this.getComparator(), dataType);
+      }
 
       if (inputType == INPUT_TEXT && definition && definition.values && (!definition.ajaxUrl))
       {
         inputType = INPUT_SELECT;
       }
-      if (inputType == INPUT_SELECT && this.getValue() && (!definition || !(this.getValue() in definition.values)))
+      if ((inputType == INPUT_SELECT) && this.getValue() && (!definition || !(this.getValue() in definition.values)))
       {
         inputType = INPUT_TEXT;
       }
@@ -236,7 +237,7 @@
 
     QueryBuilderRule.prototype.getValue = function ()
     {
-      if (this._element)
+      if (this._element && $('.qb-value', this._element).length)
       {
         return $('.qb-value', this._element).val();
       }
@@ -246,7 +247,7 @@
     QueryBuilderRule.prototype.setValue = function (value)
     {
       this._value = value;
-      if (this._element)
+      if (this._element && $('.qb-value', this._element).length)
       {
         $('.qb-value', this._element).val(value);
       }
@@ -254,7 +255,7 @@
 
     QueryBuilderRule.prototype.getComparator = function ()
     {
-      if (this._element)
+      if (this._element && $('.qb-comparator', this._element).length)
       {
         return $('.qb-comparator', this._element).val();
       }
@@ -264,7 +265,7 @@
     QueryBuilderRule.prototype.setComparator = function (value)
     {
       this._comparator = value;
-      if (this._element)
+      if (this._element && $('.qb-comparator', this._element).length)
       {
         $('.qb-comparator', this._element).val(value);
       }
@@ -755,12 +756,12 @@
     QueryBuilder.prototype.addRule = function (key, comparator, value)
     {
       this.incrementCounter(key);
-
-      var r = new QueryBuilderRule(this, key, comparator, value),
-        $rendered = r.render();
-      this._rules.push(r);
-
-      $('.qb-rules', this._ele).append($rendered);
+      var rule = new QueryBuilderRule(this, key, comparator, value);
+      this._rules.push(rule);
+      if (this._initialisedDefinitions && this._initialisedRules)
+      {
+        $('.qb-rules', this._ele).append(rule.render());
+      }
     };
 
     /**
@@ -792,8 +793,7 @@
           {
             if (this.required)
             {
-              var def = this,
-                found = false;
+              var def = this, found = false;
               $.each(
                 self._rules, function ()
                 {
