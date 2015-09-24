@@ -16,15 +16,6 @@
   margin:        2px 5px 2px 0;
 }
 
-.qb-key {
-}
-
-.qb-comparator {
-}
-
-.qb-value {
-}
-
 .qb-button {
   border-radius:    15px;
   font-size:        18px;
@@ -48,6 +39,7 @@
 
 .qb-remove-rule {
   position:   absolute;
+  top:        0;
   right:      0;
   border:     0;
   background: transparent;
@@ -59,7 +51,7 @@
 }
 
 .qb-add-rule {
-  margin:   11px 0 0 15px;
+  margin:   11px 0 2px 15px;
   position: relative;
 }
 

@@ -87,19 +87,30 @@ class ExampleController extends LayoutController
     $definitions->addDefinition($sidDefinition);
 
     $expiryDateDefinition = new QBD('expiryDate', 'Expiry Date', QBDT::DATE);
-    $expiryDateDefinition->setComparators([QBD::COMPARATOR_EQUALS]);
     $definitions->addDefinition($expiryDateDefinition);
 
     $hasOrdersDefinition = new QBD('hasOrders', 'Has Orders', QBDT::BOOL);
     $definitions->addDefinition($hasOrdersDefinition);
 
-    $actionDefinition = new QBD('action', 'Action', QBDT::STRING);
-    $actionDefinition->setComparators([QBD::COMPARATOR_EQUALS]);
-    $actionDefinition->setRequired(true);
-    $actionDefinition->setValues(
-      ['click' => 'Click', 'lead' => 'Lead', 'acquisition' => 'Acquisition']
+    $def = new QBD('required', 'Required', QBDT::STRING);
+    $def->setRequired(true);
+    $definitions->addDefinition($def);
+
+    $def = new QBD('unique', 'Unique', QBDT::STRING);
+    $def->setUnique(true);
+    $definitions->addDefinition($def);
+
+    $def = new QBD('unique_required', 'Unique & Required', QBDT::STRING);
+    $def->setRequired(true);
+    $def->setUnique(true);
+    $def->setValues(
+      [
+        'unique1' => 'Unique One',
+        'unique2' => 'Unique Two',
+        'unique3' => 'Unique Three'
+      ]
     );
-    $definitions->addDefinition($actionDefinition);
+    $definitions->addDefinition($def);
     return new Response(json_encode($definitions->forOutput()));
   }
 
@@ -116,9 +127,6 @@ class ExampleController extends LayoutController
         'comparator' => 'eq',
         'value'      => '"><script>alert(\'break\')</script>'
       ],
-      ['key' => 'company', 'comparator' => 'in', 'value' => ['x', 'y']],
-      ['key' => 'affiliateType', 'comparator' => 'eq', 'value' => 'a'],
-      ['key' => 'action', 'comparator' => 'eq', 'value' => 'lead'],
       ['key' => 'expiryDate', 'comparator' => 'eq', 'value' => date('Y-m-d')],
     ];
     return new Response(json_encode($policy));

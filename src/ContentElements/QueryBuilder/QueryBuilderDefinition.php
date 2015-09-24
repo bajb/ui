@@ -18,13 +18,14 @@ class QueryBuilderDefinition
   const COMPARATOR_STARTS = 'starts';
   const COMPARATOR_ENDS = 'ends';
 
-  protected $_key;
-  protected $_display;
-  protected $_dataType;
-  protected $_comparators;
+  protected $_key = '';
+  protected $_display = '- SELECT -';
+  protected $_dataType = QueryBuilderDataType::STRING;
+  protected $_comparators = [self::COMPARATOR_EQUALS];
   protected $_values;
   protected $_ajaxUrl;
   protected $_required = false;
+  protected $_unique = false;
 
   public function __construct($key, $display, $dataType = null)
   {
@@ -82,15 +83,23 @@ class QueryBuilderDefinition
     return $this;
   }
 
+  public function setUnique($unique)
+  {
+    $this->_unique = $unique;
+    return $this;
+  }
+
   public function toArray()
   {
     return [
+      'key'         => $this->_key,
       'display'     => $this->_display,
       'comparators' => $this->_comparators,
       'values'      => $this->_values,
       'ajaxUrl'     => $this->_ajaxUrl,
       'dataType'    => $this->_dataType,
       'required'    => $this->_required,
+      'unique'      => $this->_unique,
     ];
   }
 
