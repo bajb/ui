@@ -119,7 +119,7 @@ class ExampleController extends LayoutController
     $policy = [
       [
         'key'        => 'browser',
-        'comparator' => 'eq',
+        'comparator' => 'in',
         'value'      => ['chrome', 'firefox']
       ],
       [

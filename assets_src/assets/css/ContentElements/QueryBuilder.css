@@ -1,19 +1,24 @@
+
+.qb-rules {
+}
+
 .qb-rule {
   position: relative;
   width:    100%;
   padding:  1px;
 }
 
-.qb-rule input, .qb-rule select {
+.qb-rule input, .qb-rule select, .qb-rule .qb-input {
+  position:      relative;
   display:       inline-block;
   height:        32px;
   padding:       6px 12px;
   font-size:     13px;
-  line-height:   1.4;
   color:         #555;
   border:        1px solid #d6d6d6;
   border-radius: 5px;
   margin:        2px 5px 2px 0;
+  background:    white;
 }
 
 .qb-button {
@@ -51,7 +56,7 @@
 }
 
 .qb-add-rule {
-  margin:   11px 0 2px 15px;
+  margin:   13px 0 2px 15px;
   position: relative;
 }
 

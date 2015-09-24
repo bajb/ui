@@ -21,6 +21,7 @@ class QueryBuilderDefinition
   protected $_key = '';
   protected $_display = '- SELECT -';
   protected $_dataType = QueryBuilderDataType::STRING;
+  protected $_inputType = null;
   protected $_comparators = [self::COMPARATOR_EQUALS];
   protected $_values;
   protected $_ajaxUrl;
@@ -64,6 +65,12 @@ class QueryBuilderDefinition
     return $this;
   }
 
+  public function setInputType($inputType)
+  {
+    $this->_inputType = $inputType;
+    return $this;
+  }
+
   public function getKey()
   {
     return $this->_key;
@@ -98,6 +105,7 @@ class QueryBuilderDefinition
       'values'      => $this->_values,
       'ajaxUrl'     => $this->_ajaxUrl,
       'dataType'    => $this->_dataType,
+      'inputType'   => $this->_inputType,
       'required'    => $this->_required,
       'unique'      => $this->_unique,
     ];

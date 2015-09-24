@@ -2,6 +2,8 @@
  * Query Builder
  */
 
+var QueryBuilderConstants = QueryBuilderConstants || {};
+
 (function ($)
 {
   'use strict';
@@ -9,35 +11,32 @@
   const QB_DATA_NS = 'querybuilder';
   const QB_DATA_NS_RULE = QB_DATA_NS + '.rule';
 
-  const INPUT_TEXT = 'text';
-  const INPUT_NUMBER = 'number';
-  const INPUT_DECIMAL = 'decimal';
-  const INPUT_SELECT = 'select';
-  const INPUT_TOKEN = 'token';
-  const INPUT_DATE = 'date';
-  const INPUT_BOOL = 'bool';
-  const INPUT_AGE = 'age';
-
-  const DATATYPE_STRING = 'string';
-  const DATATYPE_NUMBER = 'number';
-  const DATATYPE_DECIMAL = 'decimal';
-  const DATATYPE_DATE = 'date';
-  const DATATYPE_BOOL = 'bool';
-
-  const COMPARATOR_EQUALS = 'eq';
-  const COMPARATOR_EQUALS_INSENSITIVE = 'eqi';
-  const COMPARATOR_NOT_EQUAL = 'neq';
-  const COMPARATOR_IN = 'in';
-  const COMPARATOR_NOT_IN = 'nin';
-  const COMPARATOR_GREATER = 'gt';
-  const COMPARATOR_GREATER_EQUAL = 'gte';
-  const COMPARATOR_LESS = 'lt';
-  const COMPARATOR_LESS_EQUAL = 'lte';
-  const COMPARATOR_BETWEEN = 'bet';
-  const COMPARATOR_AGE = 'age';
-  const COMPARATOR_LIKE = 'like';
-  const COMPARATOR_STARTS = 'starts';
-  const COMPARATOR_ENDS = 'ends';
+  QueryBuilderConstants.INPUT_TEXT = 'text';
+  QueryBuilderConstants.INPUT_NUMBER = 'number';
+  QueryBuilderConstants.INPUT_DECIMAL = 'decimal';
+  QueryBuilderConstants.INPUT_SELECT = 'select';
+  QueryBuilderConstants.INPUT_DATE = 'date';
+  QueryBuilderConstants.INPUT_BOOL = 'bool';
+  QueryBuilderConstants.INPUT_AGE = 'age';
+  QueryBuilderConstants.DATATYPE_STRING = 'string';
+  QueryBuilderConstants.DATATYPE_NUMBER = 'number';
+  QueryBuilderConstants.DATATYPE_DECIMAL = 'decimal';
+  QueryBuilderConstants.DATATYPE_DATE = 'date';
+  QueryBuilderConstants.DATATYPE_BOOL = 'bool';
+  QueryBuilderConstants.COMPARATOR_EQUALS = 'eq';
+  QueryBuilderConstants.COMPARATOR_EQUALS_INSENSITIVE = 'eqi';
+  QueryBuilderConstants.COMPARATOR_NOT_EQUAL = 'neq';
+  QueryBuilderConstants.COMPARATOR_IN = 'in';
+  QueryBuilderConstants.COMPARATOR_NOT_IN = 'nin';
+  QueryBuilderConstants.COMPARATOR_GREATER = 'gt';
+  QueryBuilderConstants.COMPARATOR_GREATER_EQUAL = 'gte';
+  QueryBuilderConstants.COMPARATOR_LESS = 'lt';
+  QueryBuilderConstants.COMPARATOR_LESS_EQUAL = 'lte';
+  QueryBuilderConstants.COMPARATOR_BETWEEN = 'bet';
+  QueryBuilderConstants.COMPARATOR_AGE = 'age';
+  QueryBuilderConstants.COMPARATOR_LIKE = 'like';
+  QueryBuilderConstants.COMPARATOR_STARTS = 'starts';
+  QueryBuilderConstants.COMPARATOR_ENDS = 'ends';
 
   $.fn.QueryBuilder = function (command)
   {
@@ -84,8 +83,6 @@
         $rule = $(this).closest('.qb-rule'),
         qbr = $rule.data(QB_DATA_NS_RULE);
       qbr.setKey($(this).val());
-      qbr.render();
-      $container.trigger('change.querybuilder', [qb.rules()]);
     }
   );
   $(document).on(
@@ -96,8 +93,6 @@
         $rule = $(this).closest('.qb-rule'),
         qbr = $rule.data(QB_DATA_NS_RULE);
       qbr.setComparator($(this).val());
-      qbr.render();
-      $container.trigger('change.querybuilder', [qb.rules()]);
     }
   );
   $(document).on(
@@ -108,7 +103,6 @@
         $rule = $(this).closest('.qb-rule'),
         qbr = $rule.data(QB_DATA_NS_RULE);
       qbr.setValue($(this).val());
-      $container.trigger('change.querybuilder', [qb.rules()]);
     }
   );
   $(document).on(
@@ -119,7 +113,6 @@
         $rule = $(this).closest('.qb-rule'),
         qbr = $rule.data(QB_DATA_NS_RULE);
       qb.removeRule(qbr);
-      $container.trigger('change.querybuilder', [qb.rules()]);
     }
   );
   $(document).on(
@@ -146,8 +139,8 @@
   {
     this.key = '';
     this.display = '- SELECT -';
-    this.dataType = DATATYPE_STRING;
-    this.comparators = [COMPARATOR_EQUALS];
+    this.dataType = QueryBuilderConstants.DATATYPE_STRING;
+    this.comparators = [QueryBuilderConstants.COMPARATOR_EQUALS];
     this.inputType = null;
     this.required = false;
     this.unique = false;
@@ -184,6 +177,8 @@
     this._key = key || '';
     this._comparator = comparator || '';
     this._value = value || '';
+    this._valCache = {};
+    this._valCache[this._comparator] = this._value;
     this._element = null;
   }
 
@@ -200,7 +195,7 @@
     function getInput()
     {
       var $input,
-        inputType = getInputType.call(this),
+        inputType = this.getInputType(this),
         inputTypeFn = this._queryBuilder.getInputMethod(inputType);
 
       if (!inputTypeFn)
@@ -212,37 +207,26 @@
       return $input;
     } // getInput
 
-    function getInputType()
+    QueryBuilderRule.prototype.getInputType = function ()
     {
       var definition = this.getDefinition(),
         qb = this._queryBuilder,
         inputType = definition && definition.inputType ? definition.inputType : null;
       if (!inputType)
       {
-        var dataType = definition && definition.dataType ? definition.dataType : DATATYPE_STRING;
+        var dataType = definition && definition.dataType ? definition.dataType : QueryBuilderConstants.DATATYPE_STRING;
         inputType = qb.getInputType(this.getComparator(), dataType);
       }
 
-      if (inputType == INPUT_TEXT && definition && definition.values && (!definition.ajaxUrl))
+      if (inputType == QueryBuilderConstants.INPUT_TEXT && definition && definition.values && (!definition.ajaxUrl))
       {
-        inputType = INPUT_SELECT;
+        inputType = QueryBuilderConstants.INPUT_SELECT;
       }
       return inputType;
-    }
+    };
 
     QueryBuilderRule.prototype.getValue = function ()
     {
-      if (this._element && $('.qb-value', this._element).length)
-      {
-        if ($('.qb-value', this._element).is('select'))
-        {
-          return $('.qb-value option:selected', this._element).attr('value');
-        }
-        else
-        {
-          return $('.qb-value', this._element).val();
-        }
-      }
       return this._value;
     };
 
@@ -253,32 +237,40 @@
       {
         $('.qb-value', this._element).val(value);
       }
+      $(this._queryBuilder._ele).trigger(
+        'change.querybuilder', [this._queryBuilder.rules()]
+      );
     };
 
     QueryBuilderRule.prototype.getComparator = function ()
     {
-      if (this._element && $('.qb-comparator', this._element).length)
-      {
-        return $('.qb-comparator', this._element).val();
-      }
       return this._comparator;
     };
 
     QueryBuilderRule.prototype.setComparator = function (value)
     {
+      this._valCache[this._comparator] = this.getValue();
       this._comparator = value;
       if (this._element && $('.qb-comparator', this._element).length)
       {
         $('.qb-comparator', this._element).val(value);
       }
+      if (this._valCache[this._comparator])
+      {
+        this.setValue(this._valCache[this._comparator]);
+        this.render();
+      }
+      else
+      {
+        this.render();
+        $(this._queryBuilder._ele).trigger(
+          'change.querybuilder', [this._queryBuilder.rules()]
+        );
+      }
     };
 
     QueryBuilderRule.prototype.getKey = function ()
     {
-      if (this._element)
-      {
-        return $('.qb-key option:selected', this._element).attr('value');
-      }
       return this._key;
     };
 
@@ -298,6 +290,7 @@
         this.setComparator(comparators[0]);
       }
       this.setValue('');
+      this.render();
     };
 
     QueryBuilderRule.prototype.render = function ()
@@ -364,9 +357,12 @@
           definition['comparators'] = ['eq'];
         }
         var $comparatorSel = $('<select class="qb-comparator"/>');
-        $row.append($comparatorSel);
+        if (definition.dataType != QueryBuilderConstants.DATATYPE_BOOL)
+        {
+          $row.append($comparatorSel);
+        }
         $.each(
-          definition ? definition['comparators'] : [COMPARATOR_EQUALS],
+          definition ? definition['comparators'] : [QueryBuilderConstants.COMPARATOR_EQUALS],
           function (idx, ident)
           {
             var selected = (self.getComparator() == ident) ? ' selected="selected"' : '';
@@ -378,6 +374,14 @@
           }
         );
         var $value = getInput.call(this);
+        if ($value.is('select') && ($('option[selected]', $value).length == 0))
+        {
+          this.setValue(
+            $('option', $value).first()
+              .attr('selected', 'selected')
+              .attr('value')
+          );
+        }
         $row.append($value);
       }
 
@@ -400,8 +404,13 @@
       if (this._element)
       {
         this._element.replaceWith($row);
+        this._element = $row;
+        $(this._queryBuilder._ele).trigger('render.querybuilder', this);
       }
-      this._element = $row;
+      else
+      {
+        this._element = $row;
+      }
       return $row;
     };
 
@@ -453,73 +462,194 @@
     this._inputMethods = {};
     this._inputTypes = {};
     this._comparatorNames = {};
-    this.setInputMethod(INPUT_TEXT, textInput);
-    this.setInputMethod(INPUT_NUMBER, numberInput);
-    this.setInputMethod(INPUT_DECIMAL, decimalInput);
-    this.setInputMethod(INPUT_SELECT, selectInput);
-    this.setInputMethod(INPUT_TOKEN, tokenInput);
-    this.setInputMethod(INPUT_DATE, dateInput);
-    this.setInputMethod(INPUT_BOOL, boolInput);
-    this.setInputMethod(INPUT_AGE, boolInput);
-    this.setInputType(COMPARATOR_EQUALS, DATATYPE_STRING, INPUT_TEXT);
-    this.setInputType(COMPARATOR_EQUALS, DATATYPE_NUMBER, INPUT_NUMBER);
-    this.setInputType(COMPARATOR_EQUALS, DATATYPE_DATE, INPUT_DATE);
-    this.setInputType(COMPARATOR_EQUALS, DATATYPE_BOOL, INPUT_BOOL);
+    this.setInputMethod(QueryBuilderConstants.INPUT_TEXT, textInput);
+    this.setInputMethod(QueryBuilderConstants.INPUT_NUMBER, numberInput);
+    this.setInputMethod(QueryBuilderConstants.INPUT_DECIMAL, decimalInput);
+    this.setInputMethod(QueryBuilderConstants.INPUT_SELECT, selectInput);
+    this.setInputMethod(QueryBuilderConstants.INPUT_DATE, dateInput);
+    this.setInputMethod(QueryBuilderConstants.INPUT_BOOL, boolInput);
+    this.setInputMethod(QueryBuilderConstants.INPUT_AGE, boolInput);
     this.setInputType(
-      COMPARATOR_EQUALS_INSENSITIVE, DATATYPE_STRING, INPUT_TEXT
+      QueryBuilderConstants.COMPARATOR_EQUALS,
+      QueryBuilderConstants.DATATYPE_STRING,
+      QueryBuilderConstants.INPUT_TEXT
     );
     this.setInputType(
-      COMPARATOR_EQUALS_INSENSITIVE, DATATYPE_NUMBER, INPUT_NUMBER
+      QueryBuilderConstants.COMPARATOR_EQUALS,
+      QueryBuilderConstants.DATATYPE_NUMBER,
+      QueryBuilderConstants.INPUT_NUMBER
     );
-    this.setInputType(COMPARATOR_EQUALS_INSENSITIVE, DATATYPE_DATE, INPUT_DATE);
-    this.setInputType(COMPARATOR_EQUALS_INSENSITIVE, DATATYPE_BOOL, INPUT_BOOL);
-    this.setInputType(COMPARATOR_NOT_EQUAL, DATATYPE_STRING, INPUT_TEXT);
-    this.setInputType(COMPARATOR_NOT_EQUAL, DATATYPE_NUMBER, INPUT_NUMBER);
-    this.setInputType(COMPARATOR_NOT_EQUAL, DATATYPE_DATE, INPUT_DATE);
-    this.setInputType(COMPARATOR_NOT_EQUAL, DATATYPE_BOOL, INPUT_BOOL);
-    this.setInputType(COMPARATOR_IN, DATATYPE_STRING, INPUT_TOKEN);
-    this.setInputType(COMPARATOR_IN, DATATYPE_NUMBER, INPUT_TOKEN);
-    this.setInputType(COMPARATOR_NOT_IN, DATATYPE_STRING, INPUT_TOKEN);
-    this.setInputType(COMPARATOR_NOT_IN, DATATYPE_NUMBER, INPUT_TOKEN);
-    this.setInputType(COMPARATOR_GREATER, DATATYPE_NUMBER, INPUT_NUMBER);
-    this.setInputType(COMPARATOR_GREATER, DATATYPE_DATE, INPUT_DATE);
-    this.setInputType(COMPARATOR_GREATER, DATATYPE_DECIMAL, INPUT_DECIMAL);
-    this.setInputType(COMPARATOR_GREATER_EQUAL, DATATYPE_NUMBER, INPUT_NUMBER);
-    this.setInputType(COMPARATOR_GREATER_EQUAL, DATATYPE_DATE, INPUT_DATE);
     this.setInputType(
-      COMPARATOR_GREATER_EQUAL, DATATYPE_DECIMAL, INPUT_DECIMAL
+      QueryBuilderConstants.COMPARATOR_EQUALS,
+      QueryBuilderConstants.DATATYPE_DATE,
+      QueryBuilderConstants.INPUT_DATE
     );
-    this.setInputType(COMPARATOR_LESS, DATATYPE_NUMBER, INPUT_NUMBER);
-    this.setInputType(COMPARATOR_LESS, DATATYPE_DATE, INPUT_DATE);
-    this.setInputType(COMPARATOR_LESS, DATATYPE_DECIMAL, INPUT_DECIMAL);
-    this.setInputType(COMPARATOR_LESS_EQUAL, DATATYPE_NUMBER, INPUT_NUMBER);
-    this.setInputType(COMPARATOR_LESS_EQUAL, DATATYPE_DATE, INPUT_DATE);
-    this.setInputType(COMPARATOR_LESS_EQUAL, DATATYPE_DECIMAL, INPUT_DECIMAL);
-    this.setInputType(COMPARATOR_BETWEEN, DATATYPE_NUMBER, INPUT_NUMBER);
-    this.setInputType(COMPARATOR_BETWEEN, DATATYPE_DATE, INPUT_DATE);
-    this.setInputType(COMPARATOR_BETWEEN, DATATYPE_DECIMAL, INPUT_DECIMAL);
-    this.setInputType(COMPARATOR_AGE, DATATYPE_DATE, INPUT_AGE);
-    this.setInputType(COMPARATOR_LIKE, DATATYPE_STRING, INPUT_TEXT);
-    this.setInputType(COMPARATOR_STARTS, DATATYPE_STRING, INPUT_TEXT);
-    this.setInputType(COMPARATOR_ENDS, DATATYPE_STRING, INPUT_TEXT);
-    this.setComparatorName(COMPARATOR_EQUALS, 'Equals');
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_EQUALS,
+      QueryBuilderConstants.DATATYPE_BOOL,
+      QueryBuilderConstants.INPUT_BOOL
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_EQUALS_INSENSITIVE,
+      QueryBuilderConstants.DATATYPE_STRING,
+      QueryBuilderConstants.INPUT_TEXT
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_EQUALS_INSENSITIVE,
+      QueryBuilderConstants.DATATYPE_NUMBER,
+      QueryBuilderConstants.INPUT_NUMBER
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_EQUALS_INSENSITIVE,
+      QueryBuilderConstants.DATATYPE_DATE,
+      QueryBuilderConstants.INPUT_DATE
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_EQUALS_INSENSITIVE,
+      QueryBuilderConstants.DATATYPE_BOOL,
+      QueryBuilderConstants.INPUT_BOOL
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_NOT_EQUAL,
+      QueryBuilderConstants.DATATYPE_STRING,
+      QueryBuilderConstants.INPUT_TEXT
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_NOT_EQUAL,
+      QueryBuilderConstants.DATATYPE_NUMBER,
+      QueryBuilderConstants.INPUT_NUMBER
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_NOT_EQUAL,
+      QueryBuilderConstants.DATATYPE_DATE,
+      QueryBuilderConstants.INPUT_DATE
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_NOT_EQUAL,
+      QueryBuilderConstants.DATATYPE_BOOL,
+      QueryBuilderConstants.INPUT_BOOL
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_GREATER,
+      QueryBuilderConstants.DATATYPE_NUMBER,
+      QueryBuilderConstants.INPUT_NUMBER
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_GREATER,
+      QueryBuilderConstants.DATATYPE_DATE,
+      QueryBuilderConstants.INPUT_DATE
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_GREATER,
+      QueryBuilderConstants.DATATYPE_DECIMAL,
+      QueryBuilderConstants.INPUT_DECIMAL
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_GREATER_EQUAL,
+      QueryBuilderConstants.DATATYPE_NUMBER,
+      QueryBuilderConstants.INPUT_NUMBER
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_GREATER_EQUAL,
+      QueryBuilderConstants.DATATYPE_DATE,
+      QueryBuilderConstants.INPUT_DATE
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_GREATER_EQUAL,
+      QueryBuilderConstants.DATATYPE_DECIMAL,
+      QueryBuilderConstants.INPUT_DECIMAL
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_LESS,
+      QueryBuilderConstants.DATATYPE_NUMBER,
+      QueryBuilderConstants.INPUT_NUMBER
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_LESS,
+      QueryBuilderConstants.DATATYPE_DATE,
+      QueryBuilderConstants.INPUT_DATE
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_LESS,
+      QueryBuilderConstants.DATATYPE_DECIMAL,
+      QueryBuilderConstants.INPUT_DECIMAL
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_LESS_EQUAL,
+      QueryBuilderConstants.DATATYPE_NUMBER,
+      QueryBuilderConstants.INPUT_NUMBER
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_LESS_EQUAL,
+      QueryBuilderConstants.DATATYPE_DATE,
+      QueryBuilderConstants.INPUT_DATE
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_LESS_EQUAL,
+      QueryBuilderConstants.DATATYPE_DECIMAL,
+      QueryBuilderConstants.INPUT_DECIMAL
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_BETWEEN,
+      QueryBuilderConstants.DATATYPE_NUMBER,
+      QueryBuilderConstants.INPUT_NUMBER
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_BETWEEN,
+      QueryBuilderConstants.DATATYPE_DATE,
+      QueryBuilderConstants.INPUT_DATE
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_BETWEEN,
+      QueryBuilderConstants.DATATYPE_DECIMAL,
+      QueryBuilderConstants.INPUT_DECIMAL
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_AGE, QueryBuilderConstants.DATATYPE_DATE,
+      QueryBuilderConstants.INPUT_AGE
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_LIKE,
+      QueryBuilderConstants.DATATYPE_STRING,
+      QueryBuilderConstants.INPUT_TEXT
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_STARTS,
+      QueryBuilderConstants.DATATYPE_STRING,
+      QueryBuilderConstants.INPUT_TEXT
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_ENDS,
+      QueryBuilderConstants.DATATYPE_STRING,
+      QueryBuilderConstants.INPUT_TEXT
+    );
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_EQUALS, 'Equals');
     this.setComparatorName(
-      COMPARATOR_EQUALS_INSENSITIVE, 'Equals (insensitive)'
+      QueryBuilderConstants.COMPARATOR_EQUALS_INSENSITIVE,
+      'Equals (insensitive)'
     );
-    this.setComparatorName(COMPARATOR_NOT_EQUAL, 'Does Not Equal');
-    this.setComparatorName(COMPARATOR_IN, 'In');
-    this.setComparatorName(COMPARATOR_NOT_IN, 'Not In');
-    this.setComparatorName(COMPARATOR_GREATER, 'Greater Than');
     this.setComparatorName(
-      COMPARATOR_GREATER_EQUAL, 'Greater Than or Equal to'
+      QueryBuilderConstants.COMPARATOR_NOT_EQUAL, 'Does Not Equal'
     );
-    this.setComparatorName(COMPARATOR_LESS, 'Less Than');
-    this.setComparatorName(COMPARATOR_LESS_EQUAL, 'Less Than or Equal to');
-    this.setComparatorName(COMPARATOR_BETWEEN, 'Between');
-    this.setComparatorName(COMPARATOR_AGE, 'was');
-    this.setComparatorName(COMPARATOR_LIKE, 'Like');
-    this.setComparatorName(COMPARATOR_STARTS, 'Starts With');
-    this.setComparatorName(COMPARATOR_ENDS, 'Ends With');
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_IN, 'In');
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_IN, 'Not In');
+    this.setComparatorName(
+      QueryBuilderConstants.COMPARATOR_GREATER, 'Greater Than'
+    );
+    this.setComparatorName(
+      QueryBuilderConstants.COMPARATOR_GREATER_EQUAL, 'Greater Than or Equal to'
+    );
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_LESS, 'Less Than');
+    this.setComparatorName(
+      QueryBuilderConstants.COMPARATOR_LESS_EQUAL, 'Less Than or Equal to'
+    );
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_BETWEEN, 'Between');
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_AGE, 'was');
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_LIKE, 'Like');
+    this.setComparatorName(
+      QueryBuilderConstants.COMPARATOR_STARTS, 'Starts With'
+    );
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_ENDS, 'Ends With');
   }
 
   (function ()
@@ -551,7 +681,7 @@
       {
         return this._inputTypes[comparator][dataType];
       }
-      return this._inputTypes[COMPARATOR_EQUALS][DATATYPE_STRING];
+      return this._inputTypes[QueryBuilderConstants.COMPARATOR_EQUALS][QueryBuilderConstants.DATATYPE_STRING];
     };
 
     QueryBuilder.prototype.setComparatorName = function (comparator, text)
@@ -579,6 +709,8 @@
       $ele.addClass('qb-container')
         .html($('<div class="qb-rules"/>'))
         .append($('<button class="qb-button qb-add-rule">+</button>'));
+
+      $ele.trigger('init.querybuilder', this);
 
       options = $.extend({}, $ele.data(), options);
       this.options(options);
@@ -749,7 +881,9 @@
       this._rules.push(rule);
       if (this._initialisedDefinitions && this._initialisedRules)
       {
-        $('.qb-rules', this._ele).append(rule.render());
+        var $ele = rule.render();
+        $('.qb-rules', this._ele).append($ele);
+        $(this._ele).trigger('render.querybuilder', rule);
       }
     };
 
@@ -769,8 +903,9 @@
       $.each(
         this._rules, function ()
         {
-          var $rendered = this.render();
-          $('.qb-rules', self._ele).append($rendered);
+          var $ele = this.render();
+          $('.qb-rules', self._ele).append($ele);
+          $(self._ele).trigger('render.querybuilder', this);
         }
       );
 
@@ -845,6 +980,7 @@
       {
         this.addRule('', '', '');
       }
+      $(this._ele).trigger('change.querybuilder', [this.rules()]);
     }; // removeRule
 
     QueryBuilder.prototype.getCount = function (key)
@@ -958,7 +1094,7 @@
   function textInput()
   {
     // if ajaxUrl this should be typeahed
-    return $('<input type="text"/>').attr('value', this.getValue());
+    return $('<input type="text"/>').attr('value', this._value);
   }
 
   /**
@@ -966,7 +1102,7 @@
    */
   function numberInput()
   {
-    return $('<input type="number"/>').attr('value', this.getValue());
+    return $('<input type="number"/>').attr('value', this._value);
   }
 
   /**
@@ -983,7 +1119,7 @@
    */
   function boolInput()
   {
-    return drawSelect({'1': 'True', '0': 'False'}, this.getValue());
+    return drawSelect({'1': 'True', '0': 'False'}, this._value);
   }
 
   /**
@@ -992,7 +1128,7 @@
    */
   function selectInput()
   {
-    return drawSelect(this.getDefinition().values, this.getValue());
+    return drawSelect(this.getDefinition().values, this._value);
   }
 
   /**
@@ -1000,15 +1136,7 @@
    */
   function dateInput()
   {
-    return $('<input type="date"/>').attr('value', this.getValue());
-  }
-
-  /**
-   * @returns {jQuery}
-   */
-  function tokenInput()
-  {
-    return $('<input type="text"/>').attr('value', this.getValue());
+    return $('<input type="date"/>').attr('value', this._value);
   }
 
   function drawSelect(options, value)
@@ -1032,10 +1160,6 @@
         $select.append($option);
       }
     );
-    if ($(':selected', $select).length == 0)
-    {
-      $('option', $select).first().attr('selected', 'selected');
-    }
     return $select;
   } // drawSelect
 })(jQuery);

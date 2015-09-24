@@ -1,0 +1,22 @@
+.qb-tokenizer.Tokenize ul.TokensContainer {
+  border:  none;
+  padding: 0;
+  margin:  0;
+  display: inline-flex;
+}
+
+.qb-tokenizer.Tokenize ul.Dropdown {
+  position:   absolute;
+  left:       0;
+  margin-top: 4px;
+}
+
+.qb-tokenizer.Tokenize ul.TokensContainer li.Token, .qb-tokenizer.Tokenize ul.TokensContainer li.TokenSearch {
+  margin: 0 5px 0 0;
+}
+
+.qb-tokenizer.Tokenize ul.TokensContainer li.TokenSearch input {
+  line-height: inherit;
+  height:      auto;
+  min-width:   80px;
+}
