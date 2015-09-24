@@ -434,7 +434,7 @@
     {
       if (this._element)
       {
-        this._element.removeElement();
+        this._element.remove();
       }
     };
 
