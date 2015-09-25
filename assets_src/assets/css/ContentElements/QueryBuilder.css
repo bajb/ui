@@ -9,16 +9,17 @@
 }
 
 .qb-rule input, .qb-rule select, .qb-rule .qb-input {
-  position:      relative;
-  display:       inline-block;
-  height:        32px;
-  padding:       6px 12px;
-  font-size:     13px;
-  color:         #555;
-  border:        1px solid #d6d6d6;
-  border-radius: 5px;
-  margin:        2px 5px 2px 0;
-  background:    white;
+  position:       relative;
+  display:        inline-block;
+  height:         32px;
+  padding:        6px 12px;
+  font-size:      13px;
+  color:          #555;
+  border:         1px solid #d6d6d6;
+  border-radius:  5px;
+  margin:         2px 5px 2px 0;
+  background:     white;
+  vertical-align: top;
 }
 
 .qb-button {
