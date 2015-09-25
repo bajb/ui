@@ -86,9 +86,9 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
           vals = [vals];
         }
         $.each(
-          vals, function ()
+          vals, function (idx, val)
           {
-            $ele.tokenize().tokenAdd(this, this);
+            $ele.tokenize().tokenAdd(val, val);
           }
         );
       }
