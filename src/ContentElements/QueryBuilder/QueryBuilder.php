@@ -35,6 +35,8 @@ class QueryBuilder extends UiElement
   public function processIncludes(AssetManager $assetManager, $vendor = false)
   {
     $assetManager->requireJs('assets/vendor/params/params');
+    $assetManager->requireJs('assets/vendor/jquery.tokenize/jquery.tokenize');
+    $assetManager->requireCss('assets/vendor/jquery.tokenize/jquery.tokenize');
     if($vendor)
     {
       $assetManager->requireJs('assets/js/ContentElements');
@@ -44,12 +46,6 @@ class QueryBuilder extends UiElement
     {
       $assetManager->requireJs('assets/js/ContentElements/QueryBuilder');
       $assetManager->requireCss('assets/css/ContentElements/QueryBuilder');
-      $assetManager->requireJs(
-        'assets/vendor/jquery.tokenize/jquery.tokenize'
-      );
-      $assetManager->requireCss(
-        'assets/vendor/jquery.tokenize/jquery.tokenize'
-      );
       $assetManager->requireJs(
         'assets/js/ContentElements/QueryBuilderTokenizer'
       );
