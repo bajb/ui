@@ -211,7 +211,7 @@
             if(this.options.sortable){
                 var previous, current, $this = this;
                 $.each(this.tokensContainer.sortable('toArray', {attribute: 'data-value'}), function(k, v){
-                    current = $('option[value="' + v + '"]', $this.select);
+                    current = $('option[value="' + encodeURIComponent(v) + '"]', $this.select);
                     if(previous == undefined){
                         current.prependTo($this.select);
                     } else {
@@ -304,15 +304,15 @@
                 html = text;
             }
 
-            if(!$('li[data-value="' + value + '"]', this.tokensContainer).length){
+            if(!$('li[data-value="' + encodeURIComponent(value) + '"]', this.tokensContainer).length){
                 var $this = this;
                 var item = $('<li />')
-                    .attr('data-value', value)
-                    .attr('data-text', text)
-                    .html(html)
+                    .attr('data-value', encodeURIComponent(value))
+                    .attr('data-text', encodeURIComponent(text))
+                    .text(html)
                     .on('click', function(e){
                         e.stopImmediatePropagation();
-                        $this.tokenAdd($(this).attr('data-value'), $(this).attr('data-text'));
+                        $this.tokenAdd(decodeURIComponent($(this).attr('data-value')), decodeURIComponent($(this).attr('data-text')));
                     }).on('mouseover', function(){
                         $(this).addClass('Hover');
                     }).on('mouseout', function(){
@@ -401,7 +401,7 @@
                     if(this.searchInput.val().length == 0){
                         e.preventDefault();
                         if($('li.Token.PendingDelete', this.tokensContainer).length){
-                            this.tokenRemove($('li.Token.PendingDelete').attr('data-value'));
+                            this.tokenRemove(dencodeURIComponent($('li.Token.PendingDelete').attr('data-value')));
                         } else {
                             $('li.Token:last', this.tokensContainer).addClass('PendingDelete');
                         }
@@ -414,7 +414,7 @@
                     if($('li.Hover', this.dropdown).length){
                         var element = $('li.Hover', this.dropdown);
                         e.preventDefault();
-                        this.tokenAdd(element.attr('data-value'), element.attr('data-text'));
+                        this.tokenAdd(decodeURIComponent(element.attr('data-value')), decodeURIComponent(element.attr('data-text')));
                     } else {
                         if(this.searchInput.val()){
                             e.preventDefault();
@@ -584,8 +584,6 @@
          */
         tokenAdd: function(value, text, first){
 
-            value = this.escape(value);
-
             if(value == undefined || value == ''){
                 return this;
             }
@@ -612,12 +610,12 @@
                     $this.tokenRemove(value);
                 });
 
-            if($('option[value="' + value + '"]', this.select).length){
-                $('option[value="' + value + '"]', this.select).attr('selected', true).prop('selected', true);
-            } else if(this.options.newElements || (!this.options.newElements && $('li[data-value="' + value + '"]', this.dropdown).length > 0)) {
+            if($('option[value="' + encodeURIComponent(value) + '"]', this.select).length){
+                $('option[value="' + encodeURIComponent(value) + '"]', this.select).attr('selected', true).prop('selected', true);
+            } else if(this.options.newElements || (!this.options.newElements && $('li[data-value="' + encodeURIComponent(value) + '"]', this.dropdown).length > 0)) {
                 var option = $('<option />')
                     .attr('selected', true)
-                    .val(value)
+                    .val(encodeURIComponent(value))
                     .attr('data-type', 'custom')
                     .prop('selected', true);
                 this.select.append(option);
@@ -626,13 +624,13 @@
                 return this;
             }
 
-            if($('li.Token[data-value="' + value + '"]', this.tokensContainer).length > 0) {
+            if($('li.Token[data-value="' + encodeURIComponent(value) + '"]', this.tokensContainer).length > 0) {
                 return this;
             }
 
             $('<li />')
                 .addClass('Token')
-                .attr('data-value', value)
+                .attr('data-value', encodeURIComponent(value))
                 .append($('<span/>').text(text))
                 .prepend(close_btn)
                 .insertBefore(this.searchToken);
@@ -657,7 +655,7 @@
          */
         tokenRemove: function(value){
 
-            var option = $('option[value="' + value + '"]', this.select);
+            var option = $('option[value="' + encodeURIComponent(value) + '"]', this.select);
 
             if(option.attr('data-type') == 'custom'){
                 option.remove();
@@ -665,7 +663,7 @@
                 option.removeAttr('selected').prop('selected', false);
             }
 
-            $('li.Token[data-value="' + value + '"]', this.tokensContainer).remove();
+            $('li.Token[data-value="' + encodeURIComponent(value) + '"]', this.tokensContainer).remove();
 
             this.options.onRemoveToken(value, this);
             this.resizeSearchInput();
@@ -686,7 +684,7 @@
             var $this = this;
 
             $('li.Token', this.tokensContainer).each(function(){
-                $this.tokenRemove($(this).attr('data-value'));
+                $this.tokenRemove(decodeURIComponent($(this).attr('data-value')));
             });
 
             this.options.onClear(this);
@@ -750,7 +748,7 @@
             this.clear();
 
             tmp.each(function(){
-                $this.tokenAdd($(this).val(), $(this).html(), first);
+                $this.tokenAdd(decodeURIComponent($(this).val()), $(this).html(), first);
             });
 
             return this;
@@ -766,7 +764,7 @@
 
             var output = [];
             $("option:selected", this.select).each(function(){
-                output.push($(this).val());
+                output.push(decodeURIComponent($(this).val()));
             });
             return output;
 

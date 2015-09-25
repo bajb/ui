@@ -57,7 +57,6 @@ class ExampleController extends LayoutController
       QBDT::STRING
     );
     $browserDefinition->setValuesUrl('/querybuilder/browsers');
-    $browserDefinition->setStrict(false);
     $browserDefinition->setComparators(
       [
         QBD::COMPARATOR_EQUALS,
@@ -134,6 +133,12 @@ class ExampleController extends LayoutController
       ['value' => 'chrome', 'text' => 'Chrome'],
       ['value' => 'firefox', 'text' => 'Firefox'],
       ['value' => 'safari', 'text' => 'Safari'],
+      ['value' => '"><script>alert(\'break 1\')</script>', 'text' => 'Break 1'],
+      ['value' => 'Break 2', 'text' => '"><script>alert(\'break 2\')</script>'],
+      [
+        'value' => '"><script>alert(\'break 3\')</script>',
+        'text'  => '"><script>alert(\'break 3\')</script>'
+      ],
     ];
     return array_filter(
       $values,

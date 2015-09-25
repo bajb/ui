@@ -88,7 +88,7 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
         $.each(
           vals, function (idx, val)
           {
-            $ele.tokenize().tokenAdd(val, val);
+            $ele.tokenize().dropdownAddItem(val, val).tokenAdd(val, val);
           }
         );
       }
