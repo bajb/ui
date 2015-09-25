@@ -129,11 +129,20 @@ class ExampleController extends LayoutController
 
   public function qbBrowsers()
   {
-    return [
+    $query = $this->_getRequest()->query->get('search');
+    $values = [
       ['value' => 'chrome', 'text' => 'Chrome'],
       ['value' => 'firefox', 'text' => 'Firefox'],
       ['value' => 'safari', 'text' => 'Safari'],
     ];
+    return array_filter(
+      $values,
+      function ($var) use ($query)
+      {
+        return stripos($var['value'], $query) !== false
+        && stripos($var['text'], $query) !== false;
+      }
+    );
   }
 
   public function getRoutes()

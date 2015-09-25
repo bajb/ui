@@ -1,5 +1,6 @@
 
-.qb-rules {
+.qb-value {
+  min-width: 120px;
 }
 
 .qb-rule {

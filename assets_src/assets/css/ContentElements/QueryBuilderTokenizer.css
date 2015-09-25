@@ -22,6 +22,22 @@
 .qb-tokenizer.Tokenize ul.TokensContainer li.TokenSearch input {
   line-height: inherit;
   height:      auto;
-  min-width:   80px;
   padding:     2px 0;
+}
+
+.qb-tokenizer.Tokenize.OnlyOne ul.TokensContainer li.TokenSearch input {
+  min-width: 0;
+}
+
+.qb-tokenizer.Tokenize.OnlyOne ul.TokensContainer {
+  min-width: 85px;
+}
+
+.qb-tokenizer.Tokenize.OnlyOne ul.TokensContainer .Token[data-value] + .TokenSearch {
+  display: none;
+}
+
+.qb-tokenizer.Tokenize.OnlyOne ul.TokensContainer li.Token, .qb-tokenizer.Tokenize.OnlyOne ul.TokensContainer li.TokenSearch {
+  border:     none;
+  background: transparent;
 }
