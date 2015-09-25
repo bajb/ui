@@ -34,7 +34,7 @@ class QueryBuilderDefinitions
       return [];
     }
 
-    $this->_definitions = Objects::msort($this->_definitions, 'getDisplay');
+    $this->_definitions = Objects::msort($this->_definitions, 'getDisplayName');
 
     return Objects::mpull($this->_definitions, 'toArray');
   }

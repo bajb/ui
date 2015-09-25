@@ -124,28 +124,30 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
 
   /**
    * @property {String} key
-   * @property {String} display
+   * @property {String} displayName
    * @property {String[]} comparators
-   * @property {String} values
-   * @property {String} ajaxUrl
    * @property {String} dataType
    * @property {String} inputType
    * @property {Boolean} required
    * @property {Boolean} unique
+   * @property {String} values
+   * @property {String} valuesUrl
+   * @property {Boolean} strictValues
    * @property {Number} count
    * @constructor
    */
-  var QueryBuilderDefinition = function (data)
+  function QueryBuilderDefinition(data)
   {
     this.key = '';
-    this.display = '- SELECT -';
+    this.displayName = '- SELECT -';
     this.dataType = QueryBuilderConstants.DATATYPE_STRING;
     this.comparators = [QueryBuilderConstants.COMPARATOR_EQUALS];
     this.inputType = null;
     this.required = false;
     this.unique = false;
     this.values = '';
-    this.ajaxUrl = '';
+    this.valuesUrl = '';
+    this.strictValues = true;
     this.count = 0;
 
     if (data)
@@ -162,7 +164,23 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
         }
       );
     }
-  };
+  }
+
+  (function ()
+  {
+    QueryBuilderDefinition.prototype.hasValues = function ()
+    {
+      return !!this.values;
+    };
+    QueryBuilderDefinition.prototype.hasAjaxValues = function ()
+    {
+      return !!this.valuesUrl;
+    };
+    QueryBuilderDefinition.prototype.isStrict = function ()
+    {
+      return !!this.strictValues;
+    };
+  })();
 
   /**
    * @param queryBuilder
@@ -195,7 +213,7 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
     function getInput()
     {
       var $input,
-        inputType = this.getInputType(this),
+        inputType = this._queryBuilder.getInputTypeForRule(this),
         inputTypeFn = this._queryBuilder.getInputMethod(inputType);
 
       if (!inputTypeFn)
@@ -206,24 +224,6 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
       $input.addClass('qb-value');
       return $input;
     } // getInput
-
-    QueryBuilderRule.prototype.getInputType = function ()
-    {
-      var definition = this.getDefinition(),
-        qb = this._queryBuilder,
-        inputType = definition && definition.inputType ? definition.inputType : null;
-      if (!inputType)
-      {
-        var dataType = definition && definition.dataType ? definition.dataType : QueryBuilderConstants.DATATYPE_STRING;
-        inputType = qb.getInputType(this.getComparator(), dataType);
-      }
-
-      if (inputType == QueryBuilderConstants.INPUT_TEXT && definition && definition.values && (!definition.ajaxUrl))
-      {
-        inputType = QueryBuilderConstants.INPUT_SELECT;
-      }
-      return inputType;
-    };
 
     QueryBuilderRule.prototype.getValue = function ()
     {
@@ -324,7 +324,7 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
         this._queryBuilder.definitions(), function (idx, def)
         {
           var $option = $(
-            '<option value="' + def.key + '">' + this.display + '</option>'
+            '<option value="' + def.key + '">' + this.displayName + '</option>'
           );
           if (ruleKey == def.key)
           {
@@ -459,6 +459,7 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
     this._initialisedRules = false;
     this._initialisedDefinitions = false;
 
+    this._inputTypeProcessors = [];
     this._inputMethods = {};
     this._inputTypes = {};
     this._comparatorNames = {};
@@ -650,6 +651,16 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
       QueryBuilderConstants.COMPARATOR_STARTS, 'Starts With'
     );
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_ENDS, 'Ends With');
+
+    this.addInputTypeProcessor(textToSelect);
+    function textToSelect(rule)
+    {
+      var definition = rule.getDefinition();
+      if (definition && definition.hasValues() && (!definition.hasAjaxValues()))
+      {
+        return QueryBuilderConstants.INPUT_SELECT;
+      }
+    }
   }
 
   (function ()
@@ -696,6 +707,34 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
         return this._comparatorNames[comparator];
       }
       return comparator;
+    };
+
+    QueryBuilder.prototype.addInputTypeProcessor = function (fn)
+    {
+      this._inputTypeProcessors.push(fn);
+    };
+
+    QueryBuilder.prototype.getInputTypeForRule = function (rule)
+    {
+      var definition = rule.getDefinition(),
+        inputType = definition && definition.inputType ? definition.inputType : null;
+      if (!inputType)
+      {
+        var dataType = definition && definition.dataType ? definition.dataType : QueryBuilderConstants.DATATYPE_STRING;
+        inputType = this.getInputType(rule.getComparator(), dataType);
+      }
+
+      $(this._inputTypeProcessors).each(
+        function ()
+        {
+          var it = this(rule);
+          if (it)
+          {
+            inputType = it;
+          }
+        }
+      );
+      return inputType;
     };
 
     /**
@@ -1093,7 +1132,6 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
    */
   function textInput()
   {
-    // if ajaxUrl this should be typeahed
     return $('<input type="text"/>').attr('value', this._value);
   }
 

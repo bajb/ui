@@ -19,19 +19,20 @@ class QueryBuilderDefinition
   const COMPARATOR_ENDS = 'ends';
 
   protected $_key = '';
-  protected $_display = '- SELECT -';
+  protected $_displayName = '';
   protected $_dataType = QueryBuilderDataType::STRING;
   protected $_inputType = null;
   protected $_comparators = [self::COMPARATOR_EQUALS];
-  protected $_values;
-  protected $_ajaxUrl;
   protected $_required = false;
   protected $_unique = false;
+  protected $_values;
+  protected $_valuesUrl;
+  protected $_strictValues = true;
 
-  public function __construct($key, $display, $dataType = null)
+  public function __construct($key, $displayName, $dataType = null)
   {
     $this->_key = $key;
-    $this->_display = $display;
+    $this->_displayName = $displayName;
     $this->_dataType = $dataType;
   }
 
@@ -53,18 +54,6 @@ class QueryBuilderDefinition
     return $this;
   }
 
-  public function setValues(array $values)
-  {
-    $this->_values = $values;
-    return $this;
-  }
-
-  public function setAjaxUrl($url)
-  {
-    $this->_ajaxUrl = $url;
-    return $this;
-  }
-
   public function setInputType($inputType)
   {
     $this->_inputType = $inputType;
@@ -79,9 +68,9 @@ class QueryBuilderDefinition
   /**
    * @return mixed
    */
-  public function getDisplay()
+  public function getDisplayName()
   {
-    return $this->_display;
+    return $this->_displayName;
   }
 
   public function setRequired($required)
@@ -96,18 +85,37 @@ class QueryBuilderDefinition
     return $this;
   }
 
+  public function setValues(array $values)
+  {
+    $this->_values = $values;
+    return $this;
+  }
+
+  public function setValuesUrl($url)
+  {
+    $this->_valuesUrl = $url;
+    return $this;
+  }
+
+  public function setStrict($value)
+  {
+    $this->_strictValues = $value;
+    return $this;
+  }
+
   public function toArray()
   {
     return [
-      'key'         => $this->_key,
-      'display'     => $this->_display,
-      'comparators' => $this->_comparators,
-      'values'      => $this->_values,
-      'ajaxUrl'     => $this->_ajaxUrl,
-      'dataType'    => $this->_dataType,
-      'inputType'   => $this->_inputType,
-      'required'    => $this->_required,
-      'unique'      => $this->_unique,
+      'key'          => $this->_key,
+      'displayName'  => $this->_displayName,
+      'comparators'  => $this->_comparators,
+      'dataType'     => $this->_dataType,
+      'inputType'    => $this->_inputType,
+      'required'     => $this->_required,
+      'unique'       => $this->_unique,
+      'values'       => $this->_values,
+      'valuesUrl'    => $this->_valuesUrl,
+      'strictValues' => $this->_strictValues,
     ];
   }
 

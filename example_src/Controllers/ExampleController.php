@@ -56,13 +56,8 @@ class ExampleController extends LayoutController
       'Browser',
       QBDT::STRING
     );
-    $browserDefinition->setValues(
-      [
-        'chrome'  => 'Chrome',
-        'firefox' => 'Firefox',
-        'safari'  => 'Safari'
-      ]
-    );
+    $browserDefinition->setValuesUrl('/querybuilder/browsers');
+    $browserDefinition->setStrict(false);
     $browserDefinition->setComparators(
       [
         QBD::COMPARATOR_EQUALS,
@@ -129,7 +124,16 @@ class ExampleController extends LayoutController
       ],
       ['key' => 'expiryDate', 'comparator' => 'eq', 'value' => date('Y-m-d')],
     ];
-    return new Response(json_encode($policy));
+    return $policy;
+  }
+
+  public function qbBrowsers()
+  {
+    return [
+      ['value' => 'chrome', 'text' => 'Chrome'],
+      ['value' => 'firefox', 'text' => 'Firefox'],
+      ['value' => 'safari', 'text' => 'Safari'],
+    ];
   }
 
   public function getRoutes()
@@ -137,6 +141,7 @@ class ExampleController extends LayoutController
     return [
       'querybuilder/definition' => 'qbDefinition',
       'querybuilder/policy'     => 'qbPolicyData',
+      'querybuilder/browsers'   => 'qbBrowsers',
       ':page'                   => 'defaultAction',
     ];
   }

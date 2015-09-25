@@ -10,12 +10,12 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
    */
   function tokenInput()
   {
-    var $token = $(
-      '<select multiple="multiple" class="qb-input qb-tokenizer"/>'
-    );
-    if (this.getDefinition().values)
+    var def = this.getDefinition(),
+      $token = $('<select class="qb-input qb-tokenizer"/>');
+
+    if (def.hasValues())
     {
-      var defVals = $.extend({}, this.getDefinition().values),
+      var defVals = $.extend({}, def.values),
         vals = this._value;
       if (!(vals instanceof Object))
       {
@@ -46,24 +46,39 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
   }
 
   $(document).on(
-    'render.querybuilder', function (e, r)
+    'render.querybuilder', function (e, rule)
     {
-      var $ele = $('.qb-tokenizer', r.getElement());
+      var $ele = $('.qb-tokenizer', rule.getElement());
       if ($ele.length)
       {
         function setVal(value, text, e)
         {
           var val = $ele.tokenize().toArray();
-          r.setValue(val.length ? val : '');
+          rule.setValue(val.length ? val : '');
         }
 
-        $ele.tokenize(
-          {
+        var def = rule.getDefinition(),
+          options = {
             autosize:      true,
             onAddToken:    setVal,
             onRemoveToken: setVal
-          }
-        );
+          };
+        if (def.isStrict())
+        {
+          options.newElements = false;
+        }
+        if (def.hasAjaxValues())
+        {
+          options.datas = def.valuesUrl;
+        }
+        // in = multiple values
+        // eq = single value
+        if ([QueryBuilderConstants.COMPARATOR_IN, QueryBuilderConstants.COMPARATOR_NOT_IN]
+            .indexOf(rule.getComparator()) < 0)
+        {
+          options.maxElements = 1;
+        }
+        $ele.tokenize(options);
       }
     }
   );
@@ -93,6 +108,16 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
         QueryBuilderConstants.DATATYPE_NUMBER,
         QueryBuilderConstants.INPUT_TOKEN
       );
+      qb.addInputTypeProcessor(tokenIfAjax);
     }
   );
+
+  function tokenIfAjax(rule)
+  {
+    var definition = rule.getDefinition();
+    if (definition && definition.hasAjaxValues())
+    {
+      return QueryBuilderConstants.INPUT_TOKEN;
+    }
+  }
 })();
