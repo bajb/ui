@@ -374,7 +374,8 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
           }
         );
         var $value = getInput.call(this);
-        if ($value.is('select') && ($('option[selected]', $value).length == 0))
+        if ((!this.getValue())
+          && $value.is('select') && ($('option[selected]', $value).length == 0))
         {
           this.setValue(
             $('option', $value).first()

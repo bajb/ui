@@ -79,6 +79,18 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
           options.maxElements = 1;
         }
         $ele.tokenize(options);
+
+        var vals = rule.getValue();
+        if (!(vals instanceof Object))
+        {
+          vals = [vals];
+        }
+        $.each(
+          vals, function ()
+          {
+            $ele.tokenize().tokenAdd(this, this);
+          }
+        );
       }
     }
   );
