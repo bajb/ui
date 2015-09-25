@@ -617,10 +617,9 @@
             } else if(this.options.newElements || (!this.options.newElements && $('li[data-value="' + value + '"]', this.dropdown).length > 0)) {
                 var option = $('<option />')
                     .attr('selected', true)
-                    .attr('value', value)
+                    .val(value)
                     .attr('data-type', 'custom')
-                    .prop('selected', true)
-                    .html(text);
+                    .prop('selected', true);
                 this.select.append(option);
             } else {
                 this.resetSearchInput();
@@ -634,7 +633,7 @@
             $('<li />')
                 .addClass('Token')
                 .attr('data-value', value)
-                .append('<span>' + text + '</span>')
+                .append($('<span/>').text(text))
                 .prepend(close_btn)
                 .insertBefore(this.searchToken);
 
