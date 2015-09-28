@@ -22,7 +22,7 @@ class QueryBuilderDefinition
   protected $_displayName = '';
   protected $_dataType = QueryBuilderDataType::STRING;
   protected $_inputType = null;
-  protected $_comparators = [self::COMPARATOR_EQUALS];
+  protected $_comparators = [];
   protected $_required = false;
   protected $_unique = false;
   protected $_values;
@@ -38,7 +38,10 @@ class QueryBuilderDefinition
 
   public function setComparators(array $comparators)
   {
-    $this->_comparators = $comparators;
+    foreach($comparators as $comparator)
+    {
+      $this->addComparator($comparator);
+    }
     return $this;
   }
 
@@ -108,7 +111,7 @@ class QueryBuilderDefinition
     return [
       'key'          => $this->_key,
       'displayName'  => $this->_displayName,
-      'comparators'  => $this->_comparators,
+      'comparators'  => array_values($this->_comparators),
       'dataType'     => $this->_dataType,
       'inputType'    => $this->_inputType,
       'required'     => $this->_required,
