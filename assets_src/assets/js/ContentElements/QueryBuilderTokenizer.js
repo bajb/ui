@@ -127,7 +127,7 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
   function tokenIfAjax(rule)
   {
     var definition = rule.getDefinition();
-    if (definition && definition.hasAjaxValues())
+    if (definition && (definition.hasAjaxValues() || (definition.hasValues() && !definition.isStrict())))
     {
       return QueryBuilderConstants.INPUT_TOKEN;
     }
