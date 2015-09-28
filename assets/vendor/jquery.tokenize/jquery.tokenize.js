@@ -401,7 +401,7 @@
                     if(this.searchInput.val().length == 0){
                         e.preventDefault();
                         if($('li.Token.PendingDelete', this.tokensContainer).length){
-                            this.tokenRemove(dencodeURIComponent($('li.Token.PendingDelete').attr('data-value')));
+                            this.tokenRemove(decodeURIComponent($('li.Token.PendingDelete').attr('data-value')));
                         } else {
                             $('li.Token:last', this.tokensContainer).addClass('PendingDelete');
                         }
