@@ -227,7 +227,7 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
 
     QueryBuilderRule.prototype.getValue = function ()
     {
-      return this._value;
+      return this._value || "";
     };
 
     QueryBuilderRule.prototype.setValue = function (value)

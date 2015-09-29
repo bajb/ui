@@ -33,12 +33,15 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
       $.each(
         defVals, function (idx)
         {
-          var $option = $('<option/>').text(this).attr('value', idx);
-          if (vals.indexOf(idx) > -1)
+          if (idx)
           {
-            $option.attr('selected', 'selected');
+            var $option = $('<option/>').text(this).attr('value', idx);
+            if (vals.indexOf(idx) > -1)
+            {
+              $option.attr('selected', 'selected');
+            }
+            $token.append($option);
           }
-          $token.append($option);
         }
       );
     }
