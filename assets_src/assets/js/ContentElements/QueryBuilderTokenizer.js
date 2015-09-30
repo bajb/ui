@@ -62,6 +62,7 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
 
         var def = rule.getDefinition(),
           options = {
+            debounce:      250,
             autosize:      true,
             onAddToken:    setVal,
             onRemoveToken: setVal
