@@ -33,6 +33,7 @@
     // Debounce timeout
     var debounce_timeout = null;
     var xhr = null;
+    var ajaxCache = {};
 
     // Data storage constant
     var DATA = 'tokenize';
@@ -519,44 +520,56 @@
             } else {
 
                 this.debounce(function(){
-                    if (xhr) {
-                        xhr.abort();
-                    }
-                    xhr = $.ajax({
+                  if (xhr) {
+                    xhr.abort();
+                  }
+                  var searchVal = $this.searchInput.val();
+                    if (searchVal in ajaxCache){
+                      $this.fillDropdown(ajaxCache[searchVal]);
+                    } else {
+                      xhr = $.ajax({
                         url: $this.options.datas,
-                        data: $this.options.searchParam + "=" + $this.searchInput.val(),
+                        data: $this.options.searchParam + "=" + searchVal,
                         dataType: $this.options.dataType,
                         success: function(data){
-                            if(data){
-                                $this.dropdownReset();
-                                $.each(data, function(key, val){
-                                    if(count <= $this.options.nbDropdownElements){
-                                        var html = undefined;
-                                        if(val[$this.options.htmlField]){
-                                            html = val[$this.options.htmlField];
-                                        }
-                                        $this.dropdownAddItem(val[$this.options.valueField], val[$this.options.textField], html);
-                                        count++;
-                                    } else {
-                                        return false;
-                                    }
-                                });
-                                if($('li', $this.dropdown).length){
-                                    $('li:first', $this.dropdown).addClass('Hover');
-                                    $this.dropdownShow();
-                                    return true;
-                                }
-                            }
-                            $this.dropdownHide();
+                          ajaxCache[searchVal] = data;
+                          $this.fillDropdown(data);
                         },
                         error: function(XHR, textStatus) {
-                            console.log("Error : " + textStatus);
+                          console.log("Error : " + textStatus);
                         }
-                    });
+                      });
+                    }
                 }, this.options.debounce);
 
             }
 
+        },
+
+        fillDropdown: function(data){
+          var $this = this;
+          var count = 1;
+          if(data){
+            $this.dropdownReset();
+            $.each(data, function(key, val){
+              if(count <= $this.options.nbDropdownElements){
+                var html = undefined;
+                if(val[$this.options.htmlField]){
+                  html = val[$this.options.htmlField];
+                }
+                $this.dropdownAddItem(val[$this.options.valueField], val[$this.options.textField], html);
+                count++;
+              } else {
+                return false;
+              }
+            });
+            if($('li', $this.dropdown).length){
+              $('li:first', $this.dropdown).addClass('Hover');
+              $this.dropdownShow();
+              return true;
+            }
+          }
+          $this.dropdownHide();
         },
 
         /**
