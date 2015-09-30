@@ -32,6 +32,7 @@
 
     // Debounce timeout
     var debounce_timeout = null;
+    var xhr = null;
 
     // Data storage constant
     var DATA = 'tokenize';
@@ -518,7 +519,10 @@
             } else {
 
                 this.debounce(function(){
-                    $.ajax({
+                    if (xhr) {
+                        xhr.abort();
+                    }
+                    xhr = $.ajax({
                         url: $this.options.datas,
                         data: $this.options.searchParam + "=" + $this.searchInput.val(),
                         dataType: $this.options.dataType,
