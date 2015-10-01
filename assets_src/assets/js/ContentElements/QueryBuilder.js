@@ -380,7 +380,6 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
         if ((this.getValue() === null)
           && $value.is('select') && ($('option[selected]', $value).length == 0))
         {
-          console.log('default');
           this.setValue(
             $('option', $value).first()
               .attr('selected', 'selected')
@@ -464,7 +463,7 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
     this._ele = ele;
     this._options = {};
     this._definitions = [];
-    this._rules = [];
+    this._rules = [new QueryBuilderRule(this, '', '', null)];
     this._initialisedRules = false;
     this._initialisedDefinitions = false;
 
@@ -902,26 +901,15 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
 
       this._initialisedRules = false;
 
-      $.each(
-        this._rules, function ()
-        {
-          self.removeRule(this, true);
-        }
-      );
-
       // if data is object, read it into rules
       if (typeof data === 'object')
       {
         processRules.call(this, data);
-        this._initialisedRules = true;
-        this.redraw();
         return null;
       }
       else if (typeof data === 'function')
       {
         processRules.call(this, data());
-        this._initialisedRules = true;
-        this.redraw();
         return null;
       }
       else if (typeof data === 'string')
@@ -930,8 +918,6 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
           data, {}, function (rules)
           {
             processRules.call(self, rules);
-            self._initialisedRules = true;
-            self.redraw();
           }
         );
         return null;
@@ -952,7 +938,7 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
       if ((!key) || rule.getDefinition())
       {
         this._rules.push(rule);
-        if (this._initialisedDefinitions && this._initialisedRules)
+        if (this._initialisedDefinitions)
         {
           var $ele = rule.render();
           $('.qb-rules', this._ele).append($ele);
@@ -966,7 +952,7 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
      */
     QueryBuilder.prototype.redraw = function ()
     {
-      if (!(this._initialisedDefinitions && this._initialisedRules))
+      if (!(this._initialisedDefinitions))
       {
         return;
       }
@@ -1009,19 +995,13 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
           }
         );
 
-        // if no rules, add an empty one
-        if (this._rules.length == 0)
-        {
-          this.addRule('', '', null);
-        }
-
         if (this._definitions.length)
         {
           var count = 0;
           $.each(
             this._definitions, function ()
             {
-              if (!this.required)
+              if (!this.unique)
               {
                 count++;
               }
@@ -1032,6 +1012,9 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
             $('.qb-add-rule').hide();
           }
         }
+      }
+      if (this._initialisedRules)
+      {
         $(self._ele).trigger('change.querybuilder', [self.rules()]);
       }
     }; // redraw
@@ -1151,6 +1134,12 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
     function _processRules(data)
     {
       var self = this;
+
+      while (this._rules.length)
+      {
+        self.removeRule(this._rules[0], true);
+      }
+
       if (data)
       {
         $.each(
@@ -1180,6 +1169,8 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
             }
           }
         );
+        self._initialisedRules = true;
+        this.redraw();
       }
     }
   })();
