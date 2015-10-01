@@ -74,9 +74,7 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
           {
             if (idx)
             {
-              var $option = $('<option/>').text(this).val(
-                encodeURIComponent(idx)
-              );
+              var $option = $('<option/>').val(encodeURIComponent(idx));
               if (vals.indexOf(idx) > -1)
               {
                 $option.attr('selected', 'selected');
