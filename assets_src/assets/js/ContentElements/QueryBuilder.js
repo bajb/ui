@@ -918,12 +918,15 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
     {
       this.incrementCounter(key);
       var rule = new QueryBuilderRule(this, key, comparator, value);
-      this._rules.push(rule);
-      if (this._initialisedDefinitions && this._initialisedRules)
+      if (rule.getDefinition())
       {
-        var $ele = rule.render();
-        $('.qb-rules', this._ele).append($ele);
-        $(this._ele).trigger('render.querybuilder', rule);
+        this._rules.push(rule);
+        if (this._initialisedDefinitions && this._initialisedRules)
+        {
+          var $ele = rule.render();
+          $('.qb-rules', this._ele).append($ele);
+          $(this._ele).trigger('render.querybuilder', rule);
+        }
       }
     };
 
@@ -1093,6 +1096,28 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
     };
 
     function processRules(data)
+    {
+      if (this._definitions.length > 0)
+      {
+        _processRules.call(this, data);
+      }
+      else
+      {
+        var self = this,
+          intervalId = setInterval(
+            function ()
+            {
+              if (self._definitions.length > 0)
+              {
+                _processRules.call(self, data);
+                clearInterval(intervalId);
+              }
+            }, 100
+          );
+      }
+    }
+
+    function _processRules(data)
     {
       var self = this;
       if (data)
