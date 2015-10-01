@@ -33,10 +33,11 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
   QueryBuilderConstants.COMPARATOR_LESS = 'lt';
   QueryBuilderConstants.COMPARATOR_LESS_EQUAL = 'lte';
   QueryBuilderConstants.COMPARATOR_BETWEEN = 'bet';
-  QueryBuilderConstants.COMPARATOR_AGE = 'age';
   QueryBuilderConstants.COMPARATOR_LIKE = 'like';
   QueryBuilderConstants.COMPARATOR_STARTS = 'starts';
   QueryBuilderConstants.COMPARATOR_ENDS = 'ends';
+  QueryBuilderConstants.COMPARATOR_BEFORE = 'before';
+  QueryBuilderConstants.COMPARATOR_AFTER = 'after';
 
   $.fn.QueryBuilder = function (command)
   {
@@ -95,16 +96,16 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
       qbr.setComparator($(this).val());
     }
   );
-  $(document).on(
-    'change', '.qb-container .qb-value', function ()
-    {
-      var $container = $(this).closest('.qb-container'),
-        qb = $container.data(QB_DATA_NS),
-        $rule = $(this).closest('.qb-rule'),
-        qbr = $rule.data(QB_DATA_NS_RULE);
-      qbr.setValue($(this).val());
-    }
-  );
+  /*$(document).on(
+   'change', '.qb-container .qb-value', function ()
+   {
+   var $container = $(this).closest('.qb-container'),
+   qb = $container.data(QB_DATA_NS),
+   $rule = $(this).closest('.qb-rule'),
+   qbr = $rule.data(QB_DATA_NS_RULE);
+   qbr.setValue($(this).val());
+   }
+   );*/
   $(document).on(
     'click', 'button.qb-remove-rule', function ()
     {
@@ -194,7 +195,7 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
     this._queryBuilder = queryBuilder;
     this._key = key || '';
     this._comparator = comparator || '';
-    this._value = value || '';
+    this._value = value !== null ? value : null;
     this._valCache = {};
     this._valCache[this._comparator] = this._value;
     this._element = null;
@@ -212,7 +213,7 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
      */
     function getInput()
     {
-      var $input,
+      var
         inputType = this._queryBuilder.getInputTypeForRule(this),
         inputTypeFn = this._queryBuilder.getInputMethod(inputType);
 
@@ -220,23 +221,26 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
       {
         throw 'Input type not found for ' + this.getComparator() + ' ' + this.getDefinition().dataType;
       }
-      $input = inputTypeFn.call(this);
-      $input.addClass('qb-value');
-      return $input;
+      return new inputTypeFn(this);
     } // getInput
 
     QueryBuilderRule.prototype.getValue = function ()
     {
-      return this._value || "";
+      return this._value;
     };
 
     QueryBuilderRule.prototype.setValue = function (value)
     {
+      this._setValue(value);
+      this.render();
+      $(this._queryBuilder._ele).trigger(
+        'change.querybuilder', [this._queryBuilder.rules()]
+      );
+    };
+
+    QueryBuilderRule.prototype._setValue = function (value)
+    {
       this._value = value;
-      if (this._element && $('.qb-value', this._element).length)
-      {
-        $('.qb-value', this._element).val(value);
-      }
       $(this._queryBuilder._ele).trigger(
         'change.querybuilder', [this._queryBuilder.rules()]
       );
@@ -258,14 +262,10 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
       if (this._valCache[this._comparator])
       {
         this.setValue(this._valCache[this._comparator]);
-        this.render();
       }
       else
       {
-        this.render();
-        $(this._queryBuilder._ele).trigger(
-          'change.querybuilder', [this._queryBuilder.rules()]
-        );
+        this.setValue(null);
       }
     };
 
@@ -289,8 +289,10 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
       {
         this.setComparator(comparators[0]);
       }
-      this.setValue('');
-      this.render();
+      else
+      {
+        this.setValue(null);
+      }
     };
 
     QueryBuilderRule.prototype.render = function ()
@@ -373,10 +375,12 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
             );
           }
         );
-        var $value = getInput.call(this);
-        if ((!this.getValue())
+        var valueObject = getInput.call(this),
+          $value = valueObject.render();
+        if ((this.getValue() === null)
           && $value.is('select') && ($('option[selected]', $value).length == 0))
         {
+          console.log('default');
           this.setValue(
             $('option', $value).first()
               .attr('selected', 'selected')
@@ -384,6 +388,10 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
           );
         }
         $row.append($value);
+        if (valueObject['postRender'])
+        {
+          valueObject.postRender();
+        }
       }
 
       var $removeButton = $(
@@ -464,13 +472,27 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
     this._inputMethods = {};
     this._inputTypes = {};
     this._comparatorNames = {};
-    this.setInputMethod(QueryBuilderConstants.INPUT_TEXT, textInput);
-    this.setInputMethod(QueryBuilderConstants.INPUT_NUMBER, numberInput);
-    this.setInputMethod(QueryBuilderConstants.INPUT_DECIMAL, decimalInput);
-    this.setInputMethod(QueryBuilderConstants.INPUT_SELECT, selectInput);
-    this.setInputMethod(QueryBuilderConstants.INPUT_DATE, dateInput);
-    this.setInputMethod(QueryBuilderConstants.INPUT_BOOL, boolInput);
-    this.setInputMethod(QueryBuilderConstants.INPUT_AGE, boolInput);
+    this.setInputMethod(
+      QueryBuilderConstants.INPUT_TEXT, QueryBuilderTextInput
+    );
+    this.setInputMethod(
+      QueryBuilderConstants.INPUT_NUMBER, QueryBuilderNumberInput
+    );
+    this.setInputMethod(
+      QueryBuilderConstants.INPUT_DECIMAL, QueryBuilderDecimalInput
+    );
+    this.setInputMethod(
+      QueryBuilderConstants.INPUT_SELECT, QueryBuilderSelectInput
+    );
+    this.setInputMethod(
+      QueryBuilderConstants.INPUT_DATE, QueryBuilderDateInput
+    );
+    this.setInputMethod(
+      QueryBuilderConstants.INPUT_BOOL, QueryBuilderBooleanInput
+    );
+    this.setInputMethod(
+      QueryBuilderConstants.INPUT_AGE, QueryBuilderAgeInput
+    );
     this.setInputType(
       QueryBuilderConstants.COMPARATOR_EQUALS,
       QueryBuilderConstants.DATATYPE_STRING,
@@ -607,7 +629,13 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
       QueryBuilderConstants.INPUT_DECIMAL
     );
     this.setInputType(
-      QueryBuilderConstants.COMPARATOR_AGE, QueryBuilderConstants.DATATYPE_DATE,
+      QueryBuilderConstants.COMPARATOR_BEFORE,
+      QueryBuilderConstants.DATATYPE_NUMBER,
+      QueryBuilderConstants.INPUT_AGE
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_AFTER,
+      QueryBuilderConstants.DATATYPE_NUMBER,
       QueryBuilderConstants.INPUT_AGE
     );
     this.setInputType(
@@ -646,12 +674,15 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
       QueryBuilderConstants.COMPARATOR_LESS_EQUAL, 'Less Than or Equal to'
     );
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_BETWEEN, 'Between');
-    this.setComparatorName(QueryBuilderConstants.COMPARATOR_AGE, 'was');
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_LIKE, 'Like');
     this.setComparatorName(
       QueryBuilderConstants.COMPARATOR_STARTS, 'Starts With'
     );
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_ENDS, 'Ends With');
+    this.setComparatorName(
+      QueryBuilderConstants.COMPARATOR_BEFORE, 'Was Before'
+    );
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_AFTER, 'Was After');
 
     this.addInputTypeProcessor(textToSelect);
     function textToSelect(rule)
@@ -918,7 +949,7 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
     {
       this.incrementCounter(key);
       var rule = new QueryBuilderRule(this, key, comparator, value);
-      if (rule.getDefinition())
+      if ((!key) || rule.getDefinition())
       {
         this._rules.push(rule);
         if (this._initialisedDefinitions && this._initialisedRules)
@@ -972,7 +1003,7 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
               );
               if (!found)
               {
-                self.addRule(def.key, def.comparators[0], '');
+                self.addRule(def.key, def.comparators[0], null);
               }
             }
           }
@@ -981,7 +1012,7 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
         // if no rules, add an empty one
         if (this._rules.length == 0)
         {
-          this.addRule('', '', '');
+          this.addRule('', '', null);
         }
 
         if (this._definitions.length)
@@ -1021,7 +1052,7 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
       );
       if ((!$('.qb-rule', this._ele).length) && (!noEmptyRule))
       {
-        this.addRule('', '', '');
+        this.addRule('', '', null);
       }
       $(this._ele).trigger('change.querybuilder', [this.rules()]);
     }; // removeRule
@@ -1153,56 +1184,6 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
     }
   })();
 
-  /**
-   * @returns {jQuery}
-   */
-  function textInput()
-  {
-    return $('<input type="text"/>').attr('value', this._value);
-  }
-
-  /**
-   * @returns {jQuery}
-   */
-  function numberInput()
-  {
-    return $('<input type="number"/>').attr('value', this._value);
-  }
-
-  /**
-   * @returns {jQuery}
-   */
-  function decimalInput()
-  {
-    return $('<input type="number" step="0.01" />')
-      .attr('value', this.getValue());
-  }
-
-  /**
-   * @returns {jQuery}
-   */
-  function boolInput()
-  {
-    return drawSelect({'1': 'True', '0': 'False'}, this._value);
-  }
-
-  /**
-   *
-   * @returns {jQuery}
-   */
-  function selectInput()
-  {
-    return drawSelect(this.getDefinition().values, this._value);
-  }
-
-  /**
-   * @returns {jQuery}
-   */
-  function dateInput()
-  {
-    return $('<input type="date"/>').attr('value', this._value);
-  }
-
   function drawSelect(options, value)
   {
     var $select = $('<select/>');
@@ -1226,4 +1207,266 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
     );
     return $select;
   } // drawSelect
+
+  var QueryBuilderTextInput = (function ()
+  {
+    function Constructor(rule)
+    {
+      this._rule = rule;
+      if (this._rule._value === null)
+      {
+        this._rule._value = '';
+      }
+    }
+
+    Constructor.prototype.render = function ()
+    {
+      var self = this;
+      return $('<input type="text"/>').attr('value', this._rule._value).on(
+        'change', function ()
+        {
+          self._rule._setValue($(this).val());
+        }
+      );
+    };
+
+    return Constructor;
+  })();
+
+  var QueryBuilderBooleanInput = (function ()
+  {
+    function Constructor(rule)
+    {
+      this._rule = rule;
+      if (this._rule._value === null)
+      {
+        this._rule._value = '1';
+      }
+    }
+
+    Constructor.prototype.render = function ()
+    {
+      var self = this;
+      return drawSelect(
+        {'1': 'True', '0': 'False'}, this._rule._value
+      ).on(
+        'change', function ()
+        {
+          self._rule._setValue($(this).val());
+        }
+      );
+    };
+
+    return Constructor;
+  })();
+
+  var QueryBuilderSelectInput = (function ()
+  {
+    function Constructor(rule)
+    {
+      this._rule = rule;
+      if (this._rule._value === null)
+      {
+        this._rule._value = null;
+      }
+    }
+
+    Constructor.prototype.render = function ()
+    {
+      var self = this;
+      return drawSelect(
+        this._rule.getDefinition().values, this._rule._value
+      ).on(
+        'change', function ()
+        {
+          self._rule._setValue($(this).val());
+        }
+      );
+    };
+
+    return Constructor;
+  })();
+
+  var QueryBuilderDecimalInput = (function ()
+  {
+    function Constructor(rule)
+    {
+      this._rule = rule;
+      if (this._rule._value === null)
+      {
+        this._rule._value = 0;
+      }
+    }
+
+    Constructor.prototype.render = function ()
+    {
+      var self = this;
+      return $('<input type="number" step="0.01" />')
+        .attr(
+          'value', this._rule._value
+        )
+        .on(
+          'change', function ()
+          {
+            self._rule._setValue($(this).val());
+          }
+        );
+    };
+
+    return Constructor;
+  })();
+
+  var QueryBuilderNumberInput = (function ()
+  {
+    function Constructor(rule)
+    {
+      this._rule = rule;
+      if (this._rule._value === null)
+      {
+        this._rule._value = 0;
+      }
+    }
+
+    Constructor.prototype.render = function ()
+    {
+      var self = this;
+      return $('<input type="number" />')
+        .attr(
+          'value', this._rule._value
+        )
+        .on(
+          'change', function ()
+          {
+            self._rule._setValue($(this).val());
+          }
+        );
+    };
+
+    return Constructor;
+  })();
+
+  var QueryBuilderDateInput = (function ()
+  {
+    function Constructor(rule)
+    {
+      this._rule = rule;
+      if (this._rule._value === null)
+      {
+        this._rule._value = getToday();
+      }
+    }
+
+    function getToday()
+    {
+      var d = new Date();
+      var today = d.getFullYear();
+      today += '-' + ("0" + (d.getMonth() + 1)).slice(-2);
+      today += '-' + ("0" + d.getDate()).slice(-2);
+      return today;
+    }
+
+    Constructor.prototype.render = function ()
+    {
+      var self = this;
+      return $('<input type="date" />')
+        .val(this._rule._value)
+        .on(
+          'change', function ()
+          {
+            self._rule._setValue($(this).val());
+          }
+        );
+    };
+
+    return Constructor;
+  })();
+
+  var QueryBuilderAgeInput = (function ()
+  {
+    function Constructor(rule)
+    {
+      this._rule = rule;
+      if (this._rule._value === null)
+      {
+        this._rule._value = -10080;
+      }
+    }
+
+    Constructor.prototype.render = function ()
+    {
+      var self = this,
+        value = this._rule._value,
+        unit = 1,
+        $count = $('<input class="age-count" type="number" />'),
+        $unit = $('<select class="age-unit"/>'),
+        $negate = $('<select class="age-unit"></select>');
+
+      var units = {
+        'Minutes': 1,
+        'Hours':   60,
+        'Days':    1440,
+        'Weeks':   10080
+      };
+      var sortedUnits = [];
+      for (var u in units)
+      {
+        if (units.hasOwnProperty(u))
+        {
+          sortedUnits.push([u, units[u]])
+        }
+      }
+      sortedUnits.sort(function (a, b) {return a[1] - b[1]});
+
+      // find unit and mutate value
+      $.each(
+        sortedUnits.slice().reverse(), function (idx, v)
+        {
+          if (value % v[1] == 0)
+          {
+            unit = v[1];
+            value = value / v[1];
+            return false;
+          }
+        }
+      );
+
+      $.each(
+        sortedUnits, function (idx, v)
+        {
+          var $option = $('<option>').val(v[1]).text(v[0]);
+          if (unit == v[1])
+          {
+            $option.attr('selected', true);
+          }
+          $unit.append($option);
+        }
+      );
+
+      $count.val(Math.abs(value));
+      var $ago = $('<option value="-1">Ago</option>'),
+        $fromNow = $('<option value="1">From now</option>');
+      if (this._rule._value <= 0)
+      {
+        $ago.attr('selected', true);
+      }
+      else
+      {
+        $fromNow.attr('selected', true);
+      }
+      $negate.append($ago, $fromNow);
+
+      // create event to set the value
+      var $return = $().add($count).add($unit).add($negate);
+      $return.on(
+        'change', function ()
+        {
+          self._rule._setValue($count.val() * $unit.val() * $negate.val());
+        }
+      );
+      return $return;
+    };
+
+    return Constructor;
+  })();
+
 })(jQuery);

@@ -4,6 +4,10 @@
 }
 
 .qb-tokenizer.Tokenize ul.TokensContainer {
+  height: auto;
+}
+
+.qb-tokenizer.Tokenize ul.TokensContainer {
   border:  none;
   padding: 0;
   margin:  0;

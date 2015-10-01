@@ -160,7 +160,7 @@
 
             this.searchInput.on('focus click', function(){
                 $this.tokensContainer.addClass('Focused');
-                if($this.options.displayDropdownOnFocus && $this.options.datas == 'select'){
+                if($this.options.displayDropdownOnFocus){
                     $this.search();
                 }
             });
@@ -487,38 +487,13 @@
         search: function(){
 
             var $this = this;
-            var count = 1;
 
             if(this.options.maxElements > 0 && $('li.Token', this.tokensContainer).length >= this.options.maxElements){
                 return false;
             }
 
-            if(this.options.datas == 'select'){
-
-                var found = false, regexp = new RegExp(this.searchInput.val().replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), 'i');
-                this.dropdownReset();
-
-                $('option', this.select).not(':selected, :disabled').each(function(){
-                    if(count <= $this.options.nbDropdownElements){
-                        if(regexp.test($(this).html())){
-                            $this.dropdownAddItem($(this).attr('value'), $(this).html());
-                            found = true;
-                            count++;
-                        }
-                    } else {
-                        return false;
-                    }
-                });
-
-                if(found){
-                    $('li:first', this.dropdown).addClass('Hover');
-                    this.dropdownShow();
-                } else {
-                    this.dropdownHide();
-                }
-
-            } else {
-
+            this.dropdownReset();
+            if(this.options.datas){
                 this.debounce(function(){
                   if (xhr) {
                     xhr.abort();
@@ -541,24 +516,39 @@
                       });
                     }
                 }, this.options.debounce);
-
             }
 
+            var found = false, regexp = new RegExp(this.searchInput.val().replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), 'i');
+
+            $('option', this.select).not(':selected, :disabled').each(function(){
+                if($('li',$this.tokensContainer).length <= $this.options.nbDropdownElements){
+                    if(regexp.test($(this).html())){
+                        $this.dropdownAddItem($(this).attr('value'), $(this).html());
+                        found = true;
+                    }
+                } else {
+                    return false;
+                }
+            });
+
+            if(found){
+                $('li:first', this.dropdown).addClass('Hover');
+                this.dropdownShow();
+            } else {
+                this.dropdownHide();
+            }
         },
 
         fillDropdown: function(data){
           var $this = this;
-          var count = 1;
           if(data){
-            $this.dropdownReset();
             $.each(data, function(key, val){
-              if(count <= $this.options.nbDropdownElements){
+              if($('li',$this.tokensContainer).length <= $this.options.nbDropdownElements){
                 var html = undefined;
                 if(val[$this.options.htmlField]){
                   html = val[$this.options.htmlField];
                 }
                 $this.dropdownAddItem(val[$this.options.valueField], val[$this.options.textField], html);
-                count++;
               } else {
                 return false;
               }
@@ -831,7 +821,7 @@
 
     $.fn.tokenize.defaults = {
 
-        datas: 'select',
+        datas: null,
         placeholder: false,
         searchParam: 'search',
         searchMaxLength: 0,
