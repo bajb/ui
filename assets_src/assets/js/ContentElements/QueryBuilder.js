@@ -1170,6 +1170,10 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
           }
         );
         self._initialisedRules = true;
+        if (!self._rules.length)
+        {
+          self.addRule('', '', null);
+        }
         this.redraw();
       }
     }
