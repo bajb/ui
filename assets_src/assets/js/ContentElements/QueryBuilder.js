@@ -1170,11 +1170,11 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
           }
         );
         self._initialisedRules = true;
+        this.redraw();
         if (!self._rules.length)
         {
           self.addRule('', '', null);
         }
-        this.redraw();
       }
     }
   })();
