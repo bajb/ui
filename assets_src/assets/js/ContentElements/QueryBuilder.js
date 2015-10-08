@@ -33,8 +33,6 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
   QueryBuilderConstants.COMPARATOR_GREATER_EQUAL = 'gte';
   QueryBuilderConstants.COMPARATOR_LESS = 'lt';
   QueryBuilderConstants.COMPARATOR_LESS_EQUAL = 'lte';
-  QueryBuilderConstants.COMPARATOR_BETWEEN = 'bet';
-  QueryBuilderConstants.COMPARATOR_NOT_BETWEEN = 'nbet';
   QueryBuilderConstants.COMPARATOR_LIKE = 'like';
   QueryBuilderConstants.COMPARATOR_NOT_LIKE = 'like';
   QueryBuilderConstants.COMPARATOR_STARTS = 'starts';
@@ -608,36 +606,6 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
       QueryBuilderConstants.INPUT_DECIMAL
     );
     this.setInputType(
-      QueryBuilderConstants.COMPARATOR_BETWEEN,
-      QueryBuilderConstants.DATATYPE_NUMBER,
-      QueryBuilderConstants.INPUT_NUMBER
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_BETWEEN,
-      QueryBuilderConstants.DATATYPE_DATE,
-      QueryBuilderConstants.INPUT_DATE
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_BETWEEN,
-      QueryBuilderConstants.DATATYPE_DECIMAL,
-      QueryBuilderConstants.INPUT_DECIMAL
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_NOT_BETWEEN,
-      QueryBuilderConstants.DATATYPE_NUMBER,
-      QueryBuilderConstants.INPUT_NUMBER
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_NOT_BETWEEN,
-      QueryBuilderConstants.DATATYPE_DATE,
-      QueryBuilderConstants.INPUT_DATE
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_NOT_BETWEEN,
-      QueryBuilderConstants.DATATYPE_DECIMAL,
-      QueryBuilderConstants.INPUT_DECIMAL
-    );
-    this.setInputType(
       QueryBuilderConstants.COMPARATOR_BEFORE,
       QueryBuilderConstants.DATATYPE_NUMBER,
       QueryBuilderConstants.INPUT_AGE
@@ -700,10 +668,6 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_LESS, 'Less Than');
     this.setComparatorName(
       QueryBuilderConstants.COMPARATOR_LESS_EQUAL, 'Less Than or Equal to'
-    );
-    this.setComparatorName(QueryBuilderConstants.COMPARATOR_BETWEEN, 'Between');
-    this.setComparatorName(
-      QueryBuilderConstants.COMPARATOR_NOT_BETWEEN, 'Not Between'
     );
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_LIKE, 'Like');
     this.setComparatorName(

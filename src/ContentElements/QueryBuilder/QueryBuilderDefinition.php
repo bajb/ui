@@ -13,8 +13,6 @@ class QueryBuilderDefinition
   const COMPARATOR_GREATER_OR_EQUAL = 'gte';
   const COMPARATOR_LESS_THAN = 'lt';
   const COMPARATOR_LESS_OR_EQUAL = 'lte';
-  const COMPARATOR_BETWEEN = 'bet';
-  const COMPARATOR_NOT_BETWEEN = 'nbet';
   const COMPARATOR_LIKE = 'like';
   const COMPARATOR_NOT_LIKE = 'nlike';
   const COMPARATOR_STARTS = 'starts';
