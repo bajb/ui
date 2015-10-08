@@ -24,8 +24,9 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
   QueryBuilderConstants.DATATYPE_DATE = 'date';
   QueryBuilderConstants.DATATYPE_BOOL = 'bool';
   QueryBuilderConstants.COMPARATOR_EQUALS = 'eq';
-  QueryBuilderConstants.COMPARATOR_EQUALS_INSENSITIVE = 'eqi';
   QueryBuilderConstants.COMPARATOR_NOT_EQUAL = 'neq';
+  QueryBuilderConstants.COMPARATOR_EQUALS_INSENSITIVE = 'eqi';
+  QueryBuilderConstants.COMPARATOR_NOT_EQUALS_INSENSITIVE = 'neqi';
   QueryBuilderConstants.COMPARATOR_IN = 'in';
   QueryBuilderConstants.COMPARATOR_NOT_IN = 'nin';
   QueryBuilderConstants.COMPARATOR_GREATER = 'gt';
@@ -33,9 +34,13 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
   QueryBuilderConstants.COMPARATOR_LESS = 'lt';
   QueryBuilderConstants.COMPARATOR_LESS_EQUAL = 'lte';
   QueryBuilderConstants.COMPARATOR_BETWEEN = 'bet';
+  QueryBuilderConstants.COMPARATOR_NOT_BETWEEN = 'nbet';
   QueryBuilderConstants.COMPARATOR_LIKE = 'like';
+  QueryBuilderConstants.COMPARATOR_NOT_LIKE = 'like';
   QueryBuilderConstants.COMPARATOR_STARTS = 'starts';
+  QueryBuilderConstants.COMPARATOR_NOT_STARTS = 'not_starts';
   QueryBuilderConstants.COMPARATOR_ENDS = 'ends';
+  QueryBuilderConstants.COMPARATOR_NOT_ENDS = 'not_ends';
   QueryBuilderConstants.COMPARATOR_BEFORE = 'before';
   QueryBuilderConstants.COMPARATOR_AFTER = 'after';
 
@@ -518,19 +523,9 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
       QueryBuilderConstants.INPUT_TEXT
     );
     this.setInputType(
-      QueryBuilderConstants.COMPARATOR_EQUALS_INSENSITIVE,
-      QueryBuilderConstants.DATATYPE_NUMBER,
-      QueryBuilderConstants.INPUT_NUMBER
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_EQUALS_INSENSITIVE,
-      QueryBuilderConstants.DATATYPE_DATE,
-      QueryBuilderConstants.INPUT_DATE
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_EQUALS_INSENSITIVE,
-      QueryBuilderConstants.DATATYPE_BOOL,
-      QueryBuilderConstants.INPUT_BOOL
+      QueryBuilderConstants.COMPARATOR_NOT_EQUALS_INSENSITIVE,
+      QueryBuilderConstants.DATATYPE_STRING,
+      QueryBuilderConstants.INPUT_TEXT
     );
     this.setInputType(
       QueryBuilderConstants.COMPARATOR_NOT_EQUAL,
@@ -624,6 +619,21 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
     );
     this.setInputType(
       QueryBuilderConstants.COMPARATOR_BETWEEN,
+      QueryBuilderConstants.DATATYPE_DECIMAL,
+      QueryBuilderConstants.INPUT_DECIMAL
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_NOT_BETWEEN,
+      QueryBuilderConstants.DATATYPE_NUMBER,
+      QueryBuilderConstants.INPUT_NUMBER
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_NOT_BETWEEN,
+      QueryBuilderConstants.DATATYPE_DATE,
+      QueryBuilderConstants.INPUT_DATE
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_NOT_BETWEEN,
       QueryBuilderConstants.DATATYPE_DECIMAL,
       QueryBuilderConstants.INPUT_DECIMAL
     );
@@ -643,7 +653,17 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
       QueryBuilderConstants.INPUT_TEXT
     );
     this.setInputType(
+      QueryBuilderConstants.COMPARATOR_NOT_LIKE,
+      QueryBuilderConstants.DATATYPE_STRING,
+      QueryBuilderConstants.INPUT_TEXT
+    );
+    this.setInputType(
       QueryBuilderConstants.COMPARATOR_STARTS,
+      QueryBuilderConstants.DATATYPE_STRING,
+      QueryBuilderConstants.INPUT_TEXT
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_NOT_STARTS,
       QueryBuilderConstants.DATATYPE_STRING,
       QueryBuilderConstants.INPUT_TEXT
     );
@@ -652,10 +672,19 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
       QueryBuilderConstants.DATATYPE_STRING,
       QueryBuilderConstants.INPUT_TEXT
     );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_NOT_ENDS,
+      QueryBuilderConstants.DATATYPE_STRING,
+      QueryBuilderConstants.INPUT_TEXT
+    );
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_EQUALS, 'Equals');
     this.setComparatorName(
       QueryBuilderConstants.COMPARATOR_EQUALS_INSENSITIVE,
       'Equals (insensitive)'
+    );
+    this.setComparatorName(
+      QueryBuilderConstants.COMPARATOR_NOT_EQUALS_INSENSITIVE,
+      'Does Not Equal (insensitive)'
     );
     this.setComparatorName(
       QueryBuilderConstants.COMPARATOR_NOT_EQUAL, 'Does Not Equal'
@@ -673,11 +702,23 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
       QueryBuilderConstants.COMPARATOR_LESS_EQUAL, 'Less Than or Equal to'
     );
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_BETWEEN, 'Between');
+    this.setComparatorName(
+      QueryBuilderConstants.COMPARATOR_NOT_BETWEEN, 'Not Between'
+    );
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_LIKE, 'Like');
+    this.setComparatorName(
+      QueryBuilderConstants.COMPARATOR_NOT_LIKE, 'Not Like'
+    );
     this.setComparatorName(
       QueryBuilderConstants.COMPARATOR_STARTS, 'Starts With'
     );
+    this.setComparatorName(
+      QueryBuilderConstants.COMPARATOR_NOT_STARTS, 'Does Not Start With'
+    );
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_ENDS, 'Ends With');
+    this.setComparatorName(
+      QueryBuilderConstants.COMPARATOR_NOT_ENDS, 'Does Not End With'
+    );
     this.setComparatorName(
       QueryBuilderConstants.COMPARATOR_BEFORE, 'Was Before'
     );
