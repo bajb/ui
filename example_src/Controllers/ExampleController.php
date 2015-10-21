@@ -51,12 +51,13 @@ class ExampleController extends LayoutController
   public function qbDefinition()
   {
     $definitions = new QueryBuilderDefinitions();
+
     $browserDefinition = new QBD(
       'browser',
       'Browser',
       QBDT::STRING
     );
-    $browserDefinition->setValues([''=>'']);
+    $browserDefinition->setValues(['' => '']);
     $browserDefinition->setValuesUrl('/querybuilder/browsers');
     $browserDefinition->setComparators(
       [
@@ -65,6 +66,25 @@ class ExampleController extends LayoutController
       ]
     );
     $definitions->addDefinition($browserDefinition);
+
+    $between = new QBD('between_test', 'Between Test', QBDT::DECIMAL);
+    $between->setComparators(
+      [
+        QBD::COMPARATOR_BETWEEN,
+        QBD::COMPARATOR_NOT_BETWEEN
+      ]
+    );
+    $definitions->addDefinition($between);
+
+    $between = new QBD('between_date', 'Between Test (Date)', QBDT::DATE);
+    $between->setComparators(
+      [
+        QBD::COMPARATOR_BETWEEN,
+        QBD::COMPARATOR_NOT_BETWEEN
+      ]
+    );
+    $definitions->addDefinition($between);
+
     $sidDefinition = new QBD(
       'sid',
       'Sub ID',

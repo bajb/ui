@@ -18,6 +18,7 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
   QueryBuilderConstants.INPUT_DATE = 'date';
   QueryBuilderConstants.INPUT_BOOL = 'bool';
   QueryBuilderConstants.INPUT_AGE = 'age';
+  QueryBuilderConstants.INPUT_BETWEEN = 'between';
   QueryBuilderConstants.DATATYPE_STRING = 'string';
   QueryBuilderConstants.DATATYPE_NUMBER = 'number';
   QueryBuilderConstants.DATATYPE_DECIMAL = 'decimal';
@@ -33,6 +34,8 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
   QueryBuilderConstants.COMPARATOR_GREATER_EQUAL = 'gte';
   QueryBuilderConstants.COMPARATOR_LESS = 'lt';
   QueryBuilderConstants.COMPARATOR_LESS_EQUAL = 'lte';
+  QueryBuilderConstants.COMPARATOR_BETWEEN = 'bet';
+  QueryBuilderConstants.COMPARATOR_NOT_BETWEEN = 'nbet';
   QueryBuilderConstants.COMPARATOR_LIKE = 'like';
   QueryBuilderConstants.COMPARATOR_NOT_LIKE = 'like';
   QueryBuilderConstants.COMPARATOR_STARTS = 'starts';
@@ -495,6 +498,9 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
     this.setInputMethod(
       QueryBuilderConstants.INPUT_AGE, QueryBuilderAgeInput
     );
+    this.setInputMethod(
+      QueryBuilderConstants.INPUT_BETWEEN, QueryBuilderBetweenInput
+    );
     this.setInputType(
       QueryBuilderConstants.COMPARATOR_EQUALS,
       QueryBuilderConstants.DATATYPE_STRING,
@@ -604,6 +610,36 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
       QueryBuilderConstants.COMPARATOR_LESS_EQUAL,
       QueryBuilderConstants.DATATYPE_DECIMAL,
       QueryBuilderConstants.INPUT_DECIMAL
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_BETWEEN,
+      QueryBuilderConstants.DATATYPE_NUMBER,
+      QueryBuilderConstants.INPUT_BETWEEN
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_BETWEEN,
+      QueryBuilderConstants.DATATYPE_DECIMAL,
+      QueryBuilderConstants.INPUT_BETWEEN
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_BETWEEN,
+      QueryBuilderConstants.DATATYPE_DATE,
+      QueryBuilderConstants.INPUT_BETWEEN
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_NOT_BETWEEN,
+      QueryBuilderConstants.DATATYPE_NUMBER,
+      QueryBuilderConstants.INPUT_BETWEEN
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_NOT_BETWEEN,
+      QueryBuilderConstants.DATATYPE_DECIMAL,
+      QueryBuilderConstants.INPUT_BETWEEN
+    );
+    this.setInputType(
+      QueryBuilderConstants.COMPARATOR_NOT_BETWEEN,
+      QueryBuilderConstants.DATATYPE_DATE,
+      QueryBuilderConstants.INPUT_BETWEEN
     );
     this.setInputType(
       QueryBuilderConstants.COMPARATOR_BEFORE,
@@ -668,6 +704,10 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_LESS, 'Less Than');
     this.setComparatorName(
       QueryBuilderConstants.COMPARATOR_LESS_EQUAL, 'Less Than or Equal to'
+    );
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_BETWEEN, 'Between');
+    this.setComparatorName(
+      QueryBuilderConstants.COMPARATOR_NOT_BETWEEN, 'Not Between'
     );
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_LIKE, 'Like');
     this.setComparatorName(
@@ -1302,15 +1342,13 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
     {
       var self = this;
       return $('<input type="number" step="0.01" />')
-        .attr(
-          'value', this._rule._value
-        )
+        .attr('value', this._rule._value)
         .on(
-          'change', function ()
-          {
-            self._rule._setValue($(this).val());
-          }
-        );
+        'change', function ()
+        {
+          self._rule._setValue($(this).val());
+        }
+      );
     };
 
     return Constructor;
@@ -1332,14 +1370,14 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
       var self = this;
       return $('<input type="number" />')
         .attr(
-          'value', this._rule._value
-        )
+        'value', this._rule._value
+      )
         .on(
-          'change', function ()
-          {
-            self._rule._setValue($(this).val());
-          }
-        );
+        'change', function ()
+        {
+          self._rule._setValue($(this).val());
+        }
+      );
     };
 
     return Constructor;
@@ -1371,11 +1409,11 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
       return $('<input type="date" />')
         .val(this._rule._value)
         .on(
-          'change', function ()
-          {
-            self._rule._setValue($(this).val());
-          }
-        );
+        'change', function ()
+        {
+          self._rule._setValue($(this).val());
+        }
+      );
     };
 
     return Constructor;
@@ -1461,6 +1499,74 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
         'change', function ()
         {
           self._rule._setValue($count.val() * $unit.val() * $negate.val());
+        }
+      );
+      return $return;
+    };
+
+    return Constructor;
+  })();
+
+  var QueryBuilderBetweenInput = (function ()
+  {
+    function Constructor(rule)
+    {
+      this._rule = rule;
+      if (this._rule._value === null)
+      {
+        if (this._rule.getDefinition().dataType == QueryBuilderConstants.DATATYPE_DATE)
+        {
+          this._rule._value = getToday() + ',' + getToday();
+        }
+        else
+        {
+          this._rule._value = '0,0';
+        }
+      }
+    }
+
+    function getToday()
+    {
+      var d = new Date();
+      var today = d.getFullYear();
+      today += '-' + ("0" + (d.getMonth() + 1)).slice(-2);
+      today += '-' + ("0" + d.getDate()).slice(-2);
+      return today;
+    }
+
+    Constructor.prototype.render = function ()
+    {
+      var self = this,
+        values = this._rule._value.split(','),
+        $min = $('<input class="qb-between-min">'),
+        $max = $('<input class="qb-between-max">');
+
+      switch (this._rule.getDefinition().dataType)
+      {
+        case QueryBuilderConstants.DATATYPE_DECIMAL:
+          $min.attr('type', 'number').attr('step', '0.01').val(values[0]);
+          $max.attr('type', 'number').attr('step', '0.01').val(values[1]);
+          break;
+        case QueryBuilderConstants.DATATYPE_NUMBER:
+          $min.attr('type', 'number').val(values[0]);
+          $max.attr('type', 'number').val(values[1]);
+          break;
+        case QueryBuilderConstants.DATATYPE_DATE:
+          $min.attr('type', 'date').val(values[0]);
+          $max.attr('type', 'date').val(values[1]);
+          break;
+        default:
+          $min.attr('type', 'text').val(values[0]);
+          $max.attr('type', 'text').val(values[1]);
+          break;
+      }
+
+      // create event to set the value
+      var $return = $().add($min).add($max);
+      $return.on(
+        'change', function ()
+        {
+          self._rule._setValue($min.val() + ',' + $max.val());
         }
       );
       return $return;
