@@ -3,7 +3,7 @@ module.exports = function (grunt)
 
   grunt.initConfig(
     {
-      cssmin: {
+      cssmin:  {
         dist:   {
           files: {
             'assets/css/PageElements.min.css':    ['assets_src/assets/css/PageElements/*.css'],
@@ -49,6 +49,28 @@ module.exports = function (grunt)
             dest:   'assets/vendor/'
           }]
         }
+      },
+      replace: {
+        dist: {
+          options: {
+            usePrefix: false,
+            patterns:  [
+              {
+
+                match:       '../../img',
+                replacement: '../img'
+              }
+            ]
+          },
+          files:   [
+            {
+              expand:  true,
+              flatten: true,
+              src:     ['assets/css/*.css'],
+              dest:    'assets/css'
+            }
+          ]
+        }
       }
     }
   );
@@ -56,6 +78,7 @@ module.exports = function (grunt)
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.registerTask('default', ['copy', 'cssmin', 'uglify']);
+  grunt.loadNpmTasks('grunt-replace');
+  grunt.registerTask('default', ['copy', 'cssmin', 'uglify', 'replace']);
 
 };
