@@ -33,7 +33,15 @@ module.exports = function (grunt)
         }
       },
       copy:   {
-        main: {
+        images: {
+          files: [{
+            expand: true,
+            cwd:    'assets_src/assets/img/',
+            src:    ['**'],
+            dest:   'assets/img/'
+          }]
+        },
+        vendor: {
           files: [{
             expand: true,
             cwd:    'assets_src/assets/vendor/',
