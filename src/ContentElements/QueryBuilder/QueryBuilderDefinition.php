@@ -104,6 +104,10 @@ class QueryBuilderDefinition
 
   public function setValues(array $values)
   {
+    if(empty($values))
+    {
+      $values = null;
+    }
     $this->_values = $values;
     return $this;
   }
