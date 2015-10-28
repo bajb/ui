@@ -8,7 +8,7 @@ class QueryBuilderDefinitions
   /**
    * @var QueryBuilderDefinition[]
    */
-  protected $_definitions;
+  protected $_definitions = [];
 
   public function addDefinition(QueryBuilderDefinition $definition)
   {
