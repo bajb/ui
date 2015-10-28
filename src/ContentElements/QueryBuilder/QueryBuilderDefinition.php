@@ -54,13 +54,13 @@ class QueryBuilderDefinition
 
   public function addComparator($comparator)
   {
-    $this->_comparators[$comparator] = $comparator;
+    $this->_comparators[] = $comparator;
     return $this;
   }
 
   public function removeComparator($comparator)
   {
-    unset($this->_comparators[$comparator]);
+    unset($this->_comparators[array_search($comparator, $this->_comparators)]);
     return $this;
   }
 

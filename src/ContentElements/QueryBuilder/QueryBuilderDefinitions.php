@@ -12,13 +12,13 @@ class QueryBuilderDefinitions
 
   public function addDefinition(QueryBuilderDefinition $definition)
   {
-    $this->_definitions[$definition->getKey()] = $definition;
+    $this->_definitions[] = $definition;
     return $this;
   }
 
-  public function removeDefinition($key)
+  public function removeDefinition(QueryBuilderDefinition $definition)
   {
-    unset($this->_definitions[$key]);
+    unset($this->_definitions[array_search($definition, $this->_definitions)]);
     return $this;
   }
 
