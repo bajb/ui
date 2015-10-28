@@ -28,7 +28,7 @@ class QueryBuilderDefinition
   protected $_displayName = '';
   protected $_dataType = QueryBuilderDataType::STRING;
   protected $_inputType = null;
-  protected $_comparators = [self::COMPARATOR_EQUALS => self::COMPARATOR_EQUALS];
+  protected $_comparators = [self::COMPARATOR_EQUALS];
   protected $_required = false;
   protected $_unique = false;
   protected $_values;
