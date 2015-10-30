@@ -162,6 +162,7 @@
 .f-obj-lst-itm-act li a {
   width: 100%;
 }
+
 .f-obj-lst-itm-act li a:hover {
   background: #F5F5F5;
 }
@@ -176,7 +177,6 @@
   left:       5px;
 }
 
-/*
 .f-obj-lst-itm-w-act-1 .f-obj-lst-itm-cntr {
   margin-right: 24px;
 }
@@ -184,7 +184,6 @@
 .f-obj-lst-itm-w-act-2 .f-obj-lst-itm-cntr {
   margin-right: 48px;
 }
-*/
 
 [class*="f-obj-lst-itm-w-act-"] .f-obj-lst-itm-cntr {
   margin-right: 75px;
