@@ -4,6 +4,7 @@ namespace Fortifi\Ui\GlobalElements\Panels;
 use Fortifi\Ui\GlobalElements\Icons\FontIcon;
 use Fortifi\Ui\Ui;
 use Fortifi\Ui\UiElement;
+use Packaged\Glimpse\Core\HtmlTag;
 use Packaged\Glimpse\Tags\Div;
 use Packaged\Glimpse\Tags\Link;
 use Packaged\Glimpse\Tags\Span;
@@ -43,11 +44,11 @@ class PanelHeader extends UiElement
   /**
    * Add singular action to PanelHeading
    *
-   * @param Link $action
+   * @param HtmlTag $action
    *
    * @return $this
    */
-  public function addAction(Link $action)
+  public function addAction(HtmlTag $action)
   {
     $this->_actions[] = $action->addClass(Ui::MARGIN_MEDIUM_LEFT);
     return $this;
@@ -65,7 +66,7 @@ class PanelHeader extends UiElement
   {
     foreach($actions as $action)
     {
-      if($action instanceof Link)
+      if($action instanceof HtmlTag)
       {
         $this->addAction($action);
       }
