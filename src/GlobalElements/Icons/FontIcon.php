@@ -65,9 +65,9 @@ class FontIcon extends Icon
    */
   public static function stack(FontIcon ...$icons)
   {
-    for($i = 0; $i < count($icons); $i++)
+    foreach($icons as $k => $icon)
     {
-      $icons[$i]->addClass('fa-stack-' . ($i + 1) . 'x');
+      $icon->addClass('fa-stack-' . ($k == 0 ? 1 : 2) . 'x');
     }
     return HtmlTag::createTag('i', ['class' => 'fa-stack fa'], $icons);
   }
