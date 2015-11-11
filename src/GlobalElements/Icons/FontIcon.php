@@ -63,7 +63,7 @@ class FontIcon extends Icon
    *
    * @return HtmlTag
    */
-  public static function stack(FontIcon ...$icons)
+  public static function stack(...$icons)
   {
     foreach($icons as $k => $icon)
     {
