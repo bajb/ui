@@ -14,10 +14,13 @@ class FontIcon extends Icon
   const CURRENT_DEFAULT = 'fa-star';
   const TICK = 'fa-check';
   const CROSS = 'fa-times';
+  const BAN = 'fa-ban';
 
+  const USER = 'fa-user';
   const EMAIL = 'fa-at';
   const PORTAL = 'fa-globe';
   const WORKFLOW = 'fa-random';
+  const SECURITY = 'fa-lock';
   const BILLING = 'fa-money';
 
   const QUESTION = 'fa-question';
@@ -53,5 +56,19 @@ class FontIcon extends Icon
   protected function _processIconIncludes(AssetManager $assetManager)
   {
     $assetManager->requireCss('assets/css/GlobalElements/FontIcons');
+  }
+
+  /**
+   * @param FontIcon[] ...$icons
+   *
+   * @return HtmlTag
+   */
+  public static function stack(FontIcon ...$icons)
+  {
+    for($i = 0; $i < count($icons); $i++)
+    {
+      $icons[$i]->addClass('fa-stack-' . ($i + 1) . 'x');
+    }
+    return HtmlTag::createTag('i', ['class' => 'fa-stack fa'], $icons);
   }
 }

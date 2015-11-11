@@ -44,6 +44,17 @@ class IconsView extends AbstractUiExampleView
   }
 
   /**
+   * @group Font Icons
+   */
+  final public function StackedIcons()
+  {
+    return FontIcon::stack(
+      FontIcon::create(FontIcon::USER),
+      FontIcon::create(FontIcon::BAN)->setColor('#cc0000')
+    );
+  }
+
+  /**
    * @group country flags
    */
   final public function AllCountryFlags()
@@ -66,7 +77,7 @@ class IconsView extends AbstractUiExampleView
       'gb',
       'ie',
       'us',
-      'au'
+      'au',
     ];
 
     $flags = [];
