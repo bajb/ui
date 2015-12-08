@@ -143,6 +143,7 @@ class ExampleController extends LayoutController
         'value'      => '"><script>alert(\'break\')</script>'
       ],
       ['key' => 'expiryDate', 'comparator' => 'eq', 'value' => date('Y-m-d')],
+      'sid' => ['12'],
     ];
     return $policy;
   }

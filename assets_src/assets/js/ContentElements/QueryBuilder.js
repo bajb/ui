@@ -1196,16 +1196,17 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
               {
                 self.addRule(key, 'eq', this);
               }
+              else if ('key' in this && 'comparator' in this && 'value' in this)
+              {
+                self.addRule(this.key, this.comparator, this.value)
+              }
+              else if (this.length == 1)
+              {
+                self.addRule(key, 'eq', this[0]);
+              }
               else
               {
-                if ('key' in this && 'comparator' in this && 'value' in this)
-                {
-                  self.addRule(this.key, this.comparator, this.value)
-                }
-                else
-                {
-                  self.addRule(key, 'in', this);
-                }
+                self.addRule(key, 'in', this);
               }
             }
             else
@@ -1344,11 +1345,11 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
       return $('<input type="number" step="0.01" />')
         .attr('value', this._rule._value)
         .on(
-        'change', function ()
-        {
-          self._rule._setValue($(this).val());
-        }
-      );
+          'change', function ()
+          {
+            self._rule._setValue($(this).val());
+          }
+        );
     };
 
     return Constructor;
@@ -1370,14 +1371,14 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
       var self = this;
       return $('<input type="number" />')
         .attr(
-        'value', this._rule._value
-      )
+          'value', this._rule._value
+        )
         .on(
-        'change', function ()
-        {
-          self._rule._setValue($(this).val());
-        }
-      );
+          'change', function ()
+          {
+            self._rule._setValue($(this).val());
+          }
+        );
     };
 
     return Constructor;
@@ -1409,11 +1410,11 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
       return $('<input type="date" />')
         .val(this._rule._value)
         .on(
-        'change', function ()
-        {
-          self._rule._setValue($(this).val());
-        }
-      );
+          'change', function ()
+          {
+            self._rule._setValue($(this).val());
+          }
+        );
     };
 
     return Constructor;
