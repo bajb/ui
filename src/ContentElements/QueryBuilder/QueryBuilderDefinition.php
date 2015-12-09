@@ -165,6 +165,7 @@ class QueryBuilderDefinition
       QueryBuilderDefinition::COMPARATOR_EQUALS,
       QueryBuilderDefinition::COMPARATOR_NOT_EQUALS,
       QueryBuilderDefinition::COMPARATOR_LIKE,
+      QueryBuilderDefinition::COMPARATOR_NOT_LIKE,
       QueryBuilderDefinition::COMPARATOR_STARTS,
       QueryBuilderDefinition::COMPARATOR_ENDS,
       QueryBuilderDefinition::COMPARATOR_EQUALS_INSENSITIVE,
