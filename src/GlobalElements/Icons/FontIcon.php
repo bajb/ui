@@ -6,6 +6,7 @@ use Packaged\Glimpse\Core\HtmlTag;
 
 class FontIcon extends Icon
 {
+  const CREATE = 'fa-plus';
   const EDIT = 'fa-pencil';
   const DELETE = 'fa-times';
   const LOCK = 'fa-lock';
