@@ -1,6 +1,8 @@
 <?php
 namespace Fortifi\Ui\ContentElements\ObjectLists;
 
+use Fortifi\Ui\Traits\DataAttributesTrait;
+use Fortifi\Ui\Traits\SetIdTrait;
 use Fortifi\Ui\UiElement;
 use Packaged\Dispatch\AssetManager;
 use Packaged\Glimpse\Core\SafeHtml;
@@ -8,6 +10,9 @@ use Packaged\Glimpse\Tags\Lists\UnorderedList;
 
 class ObjectList extends UiElement
 {
+  use SetIdTrait;
+  use DataAttributesTrait;
+
   /**
    * @var ObjectListCard[]
    */
@@ -70,6 +75,8 @@ class ObjectList extends UiElement
         $list->addClass('f-obj-lst-stacked-min-border');
       }
     }
+    $this->_applyId($list);
+    $this->_applyDataAttributes($list);
     $list->addItems($this->_items);
     return $list;
   }

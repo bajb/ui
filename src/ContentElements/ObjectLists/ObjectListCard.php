@@ -2,6 +2,8 @@
 namespace Fortifi\Ui\ContentElements\ObjectLists;
 
 use Fortifi\Ui\GlobalElements\Icons\Icon;
+use Fortifi\Ui\Traits\DataAttributesTrait;
+use Fortifi\Ui\Traits\SetIdTrait;
 use Fortifi\Ui\UiElement;
 use Packaged\Dispatch\AssetManager;
 use Packaged\Glimpse\Core\SafeHtml;
@@ -13,6 +15,9 @@ use Packaged\Glimpse\Tags\Span;
 
 class ObjectListCard extends UiElement
 {
+  use SetIdTrait;
+  use DataAttributesTrait;
+
   const STATE_NORMAL = 0;
   const STATE_HIGHLIGHTED = 1;
   const STATE_SELECTED = 2;
@@ -193,6 +198,10 @@ class ObjectListCard extends UiElement
       $col1->appendContent($subTitle);
     }
 
+    $this->_applyDataAttributes($card);
+    $this->_applyId($card);
+
     return $card;
   }
+
 }
