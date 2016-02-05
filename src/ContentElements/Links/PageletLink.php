@@ -12,7 +12,9 @@ class PageletLink extends Link
     return $this;
   }
 
-  public function __construct($uri, $content = null, $selector = 'pagelet-data')
+  public function __construct(
+    $uri, $content = null, $selector = '#pagelet-data'
+  )
   {
     parent::__construct($uri, $content);
     $this->_tag = 'a';
