@@ -7,6 +7,7 @@ use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDataType as QBDT;
 use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDefinition as QBD;
 use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDefinitions;
 use Fortifi\Ui\ProjectSupport\FortifiUiLayout;
+use Fortifi\UiExample\Views\AlertsView;
 use Fortifi\UiExample\Views\ColoursView;
 use Fortifi\UiExample\Views\FlipperView;
 use Fortifi\UiExample\Views\IconsView;
@@ -27,6 +28,8 @@ class ExampleController extends LayoutController
   {
     switch($page)
     {
+      case 'alerts':
+        return new AlertsView();
       case 'panels':
         return new PanelsView();
       case 'colours':
@@ -62,7 +65,7 @@ class ExampleController extends LayoutController
     $browserDefinition->setComparators(
       [
         QBD::COMPARATOR_EQUALS,
-        QBD::COMPARATOR_IN
+        QBD::COMPARATOR_IN,
       ]
     );
     $definitions->addDefinition($browserDefinition);
@@ -71,7 +74,7 @@ class ExampleController extends LayoutController
     $between->setComparators(
       [
         QBD::COMPARATOR_BETWEEN,
-        QBD::COMPARATOR_NOT_BETWEEN
+        QBD::COMPARATOR_NOT_BETWEEN,
       ]
     );
     $definitions->addDefinition($between);
@@ -80,7 +83,7 @@ class ExampleController extends LayoutController
     $between->setComparators(
       [
         QBD::COMPARATOR_BETWEEN,
-        QBD::COMPARATOR_NOT_BETWEEN
+        QBD::COMPARATOR_NOT_BETWEEN,
       ]
     );
     $definitions->addDefinition($between);
@@ -96,7 +99,7 @@ class ExampleController extends LayoutController
         QBD::COMPARATOR_IN,
         QBD::COMPARATOR_LIKE,
         QBD::COMPARATOR_ENDS,
-        QBD::COMPARATOR_STARTS
+        QBD::COMPARATOR_STARTS,
       ]
     );
     $definitions->addDefinition($sidDefinition);
@@ -122,7 +125,7 @@ class ExampleController extends LayoutController
       [
         'unique1' => 'Unique One',
         'unique2' => 'Unique Two',
-        'unique3' => 'Unique Three'
+        'unique3' => 'Unique Three',
       ]
     );
     $definitions->addDefinition($def);
@@ -135,12 +138,12 @@ class ExampleController extends LayoutController
       [
         'key'        => 'browser',
         'comparator' => 'in',
-        'value'      => ['chrome', 'firefox']
+        'value'      => ['chrome', 'firefox'],
       ],
       [
         'key'        => 'browser',
         'comparator' => 'eq',
-        'value'      => '"><script>alert(\'break\')</script>'
+        'value'      => '"><script>alert(\'break\')</script>',
       ],
       ['key' => 'expiryDate', 'comparator' => 'eq', 'value' => date('Y-m-d')],
       'sid' => ['12'],
@@ -159,7 +162,7 @@ class ExampleController extends LayoutController
       ['value' => 'Break 2', 'text' => '"><script>alert(\'break 2\')</script>'],
       [
         'value' => '"><script>alert(\'break 3\')</script>',
-        'text'  => '"><script>alert(\'break 3\')</script>'
+        'text'  => '"><script>alert(\'break 3\')</script>',
       ],
     ];
     return array_filter(

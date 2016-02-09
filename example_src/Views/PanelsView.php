@@ -15,7 +15,9 @@ class PanelsView extends AbstractUiExampleView
    */
   final public function PlainPanel()
   {
-    return Panel::create('Panel only, with no panel-body div, thus no padding or BG colour.');
+    return Panel::create(
+      'Panel only, with no panel-body div, thus no padding or BG colour.'
+    );
   }
 
   /**
@@ -23,7 +25,9 @@ class PanelsView extends AbstractUiExampleView
    */
   final public function ContentPanel()
   {
-    return ContentPanel::create('Content panel. Has BG, border and border-radius.');
+    return ContentPanel::create(
+      'Content panel. Has BG, border and border-radius.'
+    );
   }
 
   /**
@@ -31,7 +35,9 @@ class PanelsView extends AbstractUiExampleView
    */
   final public function ContentPanelWithHeader()
   {
-    $panel = ContentPanel::create(Paragraph::create('Panel with setHeader and setContent'));
+    $panel = ContentPanel::create(
+      Paragraph::create('Panel with setHeader and setContent')
+    );
     $panel->setHeader('Content Panel With Header');
     $panel->prependContent(Paragraph::create('Prepend content'));
     $panel->appendContent(Paragraph::create('Appended content'));
@@ -80,7 +86,9 @@ class PanelsView extends AbstractUiExampleView
    */
   final public function ContentPanelFullMonty()
   {
-    $panel = ContentPanel::create(Paragraph::create('Content panel and header with everything'));
+    $panel = ContentPanel::create(
+      Paragraph::create('Content panel and header with everything')
+    );
     $panel->appendContent(Paragraph::create('appended content'));
     $panel->prependContent(Paragraph::create('prepended content'));
 
