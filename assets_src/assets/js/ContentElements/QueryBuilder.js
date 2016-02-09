@@ -4,7 +4,7 @@
 
 var QueryBuilderConstants = QueryBuilderConstants || {};
 
-(function ($)
+(function ($, window, document, undefined)
 {
   'use strict';
 
@@ -1576,4 +1576,4 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
     return Constructor;
   })();
 
-})(jQuery);
+})(jQuery, window, document);
