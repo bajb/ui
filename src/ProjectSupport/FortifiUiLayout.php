@@ -25,7 +25,8 @@ class FortifiUiLayout extends Layout
       {
         return $this->_sections[$method]->render($args);
       }
-      else if($this->_sections[$method] instanceof ISafeHtmlProducer)
+
+      if($this->_sections[$method] instanceof ISafeHtmlProducer)
       {
         return $this->_sections[$method]->produceSafeHTML();
       }
@@ -41,15 +42,15 @@ class FortifiUiLayout extends Layout
   {
     foreach($this->_sections as $name => $data)
     {
+      $rawData = $data;
       if($data instanceof RenderableInterface)
       {
-        $this->_sections[$name] = $data->render();
+        $this->_sections[$name] = $data = $rawData->render();
       }
-      else if($data instanceof ISafeHtmlProducer)
+      if($data instanceof ISafeHtmlProducer)
       {
         $this->_sections[$name] = $data->produceSafeHTML();
       }
-
       $this->_sections[$name] = (string)$this->_sections[$name];
     }
   }
