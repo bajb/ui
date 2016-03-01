@@ -2,6 +2,7 @@
 namespace Fortifi\Ui\ContentElements\Links;
 
 use Packaged\Glimpse\Tags\Link;
+use Packaged\Helpers\Strings;
 
 class PageletLink extends Link
 {
@@ -19,6 +20,10 @@ class PageletLink extends Link
     parent::__construct($uri, $content);
     $this->_tag = 'a';
     $this->setAttribute('data-uri', $uri);
+    if(!Strings::containsAny($selector, ['#', '.', ' ']))
+    {
+      $selector = '#' . $selector;
+    }
     $this->setAttribute('data-target', $selector);
   }
 }
