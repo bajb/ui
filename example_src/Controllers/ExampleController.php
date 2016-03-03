@@ -91,20 +91,18 @@ class ExampleController extends LayoutController
     $sidDefinition = new QBD(
       'sid',
       'Sub ID',
-      QBDT::STRING
+      QBDT::NUMBER
     );
     $sidDefinition->setComparators(
       [
         QBD::COMPARATOR_EQUALS,
-        QBD::COMPARATOR_IN,
-        QBD::COMPARATOR_LIKE,
-        QBD::COMPARATOR_ENDS,
-        QBD::COMPARATOR_STARTS,
+        QBD::COMPARATOR_BETWEEN,
       ]
     );
     $definitions->addDefinition($sidDefinition);
 
     $expiryDateDefinition = new QBD('expiryDate', 'Expiry Date', QBDT::DATE);
+    $expiryDateDefinition->addComparator(QBD::COMPARATOR_BETWEEN);
     $definitions->addDefinition($expiryDateDefinition);
 
     $hasOrdersDefinition = new QBD('hasOrders', 'Has Orders', QBDT::BOOL);

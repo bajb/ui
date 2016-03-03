@@ -2,11 +2,11 @@
  * Query Builder
  */
 
-var QueryBuilderConstants = QueryBuilderConstants || {};
-
 (function ($, window, document, undefined)
 {
   'use strict';
+
+  window.QueryBuilderConstants = window.QueryBuilderConstants || {};
 
   const QB_DATA_NS = 'querybuilder';
   const QB_DATA_NS_RULE = QB_DATA_NS + '.rule';
@@ -464,7 +464,6 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
 
     this._inputTypeProcessors = [];
     this._inputMethods = {};
-    this._inputTypes = {};
     this._comparatorNames = {};
     this.setInputMethod(
       QueryBuilderConstants.INPUT_TEXT, QueryBuilderTextInput
@@ -489,186 +488,6 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
     );
     this.setInputMethod(
       QueryBuilderConstants.INPUT_BETWEEN, QueryBuilderBetweenInput
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_EQUALS,
-      QueryBuilderConstants.DATATYPE_STRING,
-      QueryBuilderConstants.INPUT_TEXT
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_EQUALS,
-      QueryBuilderConstants.DATATYPE_NUMBER,
-      QueryBuilderConstants.INPUT_NUMBER
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_EQUALS,
-      QueryBuilderConstants.DATATYPE_DATE,
-      QueryBuilderConstants.INPUT_DATE
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_EQUALS,
-      QueryBuilderConstants.DATATYPE_BOOL,
-      QueryBuilderConstants.INPUT_BOOL
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_EQUALS_INSENSITIVE,
-      QueryBuilderConstants.DATATYPE_STRING,
-      QueryBuilderConstants.INPUT_TEXT
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_NOT_EQUALS_INSENSITIVE,
-      QueryBuilderConstants.DATATYPE_STRING,
-      QueryBuilderConstants.INPUT_TEXT
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_NOT_EQUAL,
-      QueryBuilderConstants.DATATYPE_STRING,
-      QueryBuilderConstants.INPUT_TEXT
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_NOT_EQUAL,
-      QueryBuilderConstants.DATATYPE_NUMBER,
-      QueryBuilderConstants.INPUT_NUMBER
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_NOT_EQUAL,
-      QueryBuilderConstants.DATATYPE_DATE,
-      QueryBuilderConstants.INPUT_DATE
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_NOT_EQUAL,
-      QueryBuilderConstants.DATATYPE_BOOL,
-      QueryBuilderConstants.INPUT_BOOL
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_GREATER,
-      QueryBuilderConstants.DATATYPE_NUMBER,
-      QueryBuilderConstants.INPUT_NUMBER
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_GREATER,
-      QueryBuilderConstants.DATATYPE_DATE,
-      QueryBuilderConstants.INPUT_DATE
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_GREATER,
-      QueryBuilderConstants.DATATYPE_DECIMAL,
-      QueryBuilderConstants.INPUT_DECIMAL
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_GREATER_EQUAL,
-      QueryBuilderConstants.DATATYPE_NUMBER,
-      QueryBuilderConstants.INPUT_NUMBER
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_GREATER_EQUAL,
-      QueryBuilderConstants.DATATYPE_DATE,
-      QueryBuilderConstants.INPUT_DATE
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_GREATER_EQUAL,
-      QueryBuilderConstants.DATATYPE_DECIMAL,
-      QueryBuilderConstants.INPUT_DECIMAL
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_LESS,
-      QueryBuilderConstants.DATATYPE_NUMBER,
-      QueryBuilderConstants.INPUT_NUMBER
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_LESS,
-      QueryBuilderConstants.DATATYPE_DATE,
-      QueryBuilderConstants.INPUT_DATE
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_LESS,
-      QueryBuilderConstants.DATATYPE_DECIMAL,
-      QueryBuilderConstants.INPUT_DECIMAL
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_LESS_EQUAL,
-      QueryBuilderConstants.DATATYPE_NUMBER,
-      QueryBuilderConstants.INPUT_NUMBER
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_LESS_EQUAL,
-      QueryBuilderConstants.DATATYPE_DATE,
-      QueryBuilderConstants.INPUT_DATE
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_LESS_EQUAL,
-      QueryBuilderConstants.DATATYPE_DECIMAL,
-      QueryBuilderConstants.INPUT_DECIMAL
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_BETWEEN,
-      QueryBuilderConstants.DATATYPE_NUMBER,
-      QueryBuilderConstants.INPUT_BETWEEN
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_BETWEEN,
-      QueryBuilderConstants.DATATYPE_DECIMAL,
-      QueryBuilderConstants.INPUT_BETWEEN
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_BETWEEN,
-      QueryBuilderConstants.DATATYPE_DATE,
-      QueryBuilderConstants.INPUT_BETWEEN
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_NOT_BETWEEN,
-      QueryBuilderConstants.DATATYPE_NUMBER,
-      QueryBuilderConstants.INPUT_BETWEEN
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_NOT_BETWEEN,
-      QueryBuilderConstants.DATATYPE_DECIMAL,
-      QueryBuilderConstants.INPUT_BETWEEN
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_NOT_BETWEEN,
-      QueryBuilderConstants.DATATYPE_DATE,
-      QueryBuilderConstants.INPUT_BETWEEN
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_BEFORE,
-      QueryBuilderConstants.DATATYPE_NUMBER,
-      QueryBuilderConstants.INPUT_AGE
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_AFTER,
-      QueryBuilderConstants.DATATYPE_NUMBER,
-      QueryBuilderConstants.INPUT_AGE
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_LIKE,
-      QueryBuilderConstants.DATATYPE_STRING,
-      QueryBuilderConstants.INPUT_TEXT
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_NOT_LIKE,
-      QueryBuilderConstants.DATATYPE_STRING,
-      QueryBuilderConstants.INPUT_TEXT
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_STARTS,
-      QueryBuilderConstants.DATATYPE_STRING,
-      QueryBuilderConstants.INPUT_TEXT
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_NOT_STARTS,
-      QueryBuilderConstants.DATATYPE_STRING,
-      QueryBuilderConstants.INPUT_TEXT
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_ENDS,
-      QueryBuilderConstants.DATATYPE_STRING,
-      QueryBuilderConstants.INPUT_TEXT
-    );
-    this.setInputType(
-      QueryBuilderConstants.COMPARATOR_NOT_ENDS,
-      QueryBuilderConstants.DATATYPE_STRING,
-      QueryBuilderConstants.INPUT_TEXT
     );
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_EQUALS, 'Equals');
     this.setComparatorName(
@@ -717,15 +536,67 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
     );
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_AFTER, 'Was After');
 
-    this.addInputTypeProcessor(textToSelect);
-    function textToSelect(rule)
-    {
-      var definition = rule.getDefinition();
-      if(definition && definition.hasValues() && (!definition.hasAjaxValues()))
+    this.addInputTypeProcessor(
+      function (comparator, dataType)
       {
-        return QueryBuilderConstants.INPUT_SELECT;
+        if(dataType == QueryBuilderConstants.DATATYPE_NUMBER)
+        {
+          return QueryBuilderConstants.INPUT_NUMBER;
+        }
+        else if(dataType == QueryBuilderConstants.DATATYPE_DECIMAL)
+        {
+          return QueryBuilderConstants.INPUT_DECIMAL;
+        }
       }
-    }
+    );
+    this.addInputTypeProcessor(
+      function (comparator, dataType)
+      {
+        if(dataType == QueryBuilderConstants.DATATYPE_BOOL)
+        {
+          return QueryBuilderConstants.INPUT_BOOL;
+        }
+      }
+    );
+    this.addInputTypeProcessor(
+      function (comparator, dataType)
+      {
+        if(dataType == QueryBuilderConstants.DATATYPE_DATE)
+        {
+          return QueryBuilderConstants.INPUT_DATE;
+        }
+      }
+    );
+    this.addInputTypeProcessor(
+      function (comparator, dataType)
+      {
+        if(comparator == QueryBuilderConstants.COMPARATOR_BETWEEN
+          || comparator == QueryBuilderConstants.COMPARATOR_NOT_BETWEEN)
+        {
+          return QueryBuilderConstants.INPUT_BETWEEN;
+        }
+      }
+    );
+    this.addInputTypeProcessor(
+      function (comparator, dataType)
+      {
+        if(comparator == QueryBuilderConstants.COMPARATOR_BEFORE
+          || comparator == QueryBuilderConstants.COMPARATOR_AFTER)
+        {
+          return QueryBuilderConstants.INPUT_AGE;
+        }
+      }
+    );
+    this.addInputTypeProcessor(
+      function (comparator, dataType, rule)
+      {
+        var definition = rule.getDefinition();
+        if(definition && definition.hasValues() && (!definition.hasAjaxValues()))
+        {
+          return QueryBuilderConstants.INPUT_SELECT;
+        }
+      }
+    );
   }
 
   (function ()
@@ -740,24 +611,6 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
     QueryBuilder.prototype.getInputMethod = function (ident)
     {
       return this._inputMethods[ident];
-    };
-
-    QueryBuilder.prototype.setInputType = function (comparator, dataType, ident)
-    {
-      if(!this._inputTypes[comparator])
-      {
-        this._inputTypes[comparator] = {};
-      }
-      this._inputTypes[comparator][dataType] = ident;
-    };
-
-    QueryBuilder.prototype.getInputType = function (comparator, dataType)
-    {
-      if(this._inputTypes[comparator] && this._inputTypes[comparator][dataType])
-      {
-        return this._inputTypes[comparator][dataType];
-      }
-      return this._inputTypes[QueryBuilderConstants.COMPARATOR_EQUALS][QueryBuilderConstants.DATATYPE_STRING];
     };
 
     QueryBuilder.prototype.setComparatorName = function (comparator, text)
@@ -781,22 +634,18 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
 
     QueryBuilder.prototype.getInputTypeForRule = function (rule)
     {
-      var definition = rule.getDefinition(),
-        inputType = definition && definition.inputType ? definition.inputType : null;
-      if(!inputType)
+      var definition = rule.getDefinition();
+      if(definition && definition.inputType)
       {
-        var dataType = definition && definition.dataType ? definition.dataType : QueryBuilderConstants.DATATYPE_STRING;
-        inputType = this.getInputType(rule.getComparator(), dataType);
+        return definition.inputType;
       }
+      var dataType = definition && definition.dataType ? definition.dataType : QueryBuilderConstants.DATATYPE_STRING;
 
+      var inputType = QueryBuilderConstants.INPUT_TEXT;
       $(this._inputTypeProcessors).each(
         function ()
         {
-          var it = this(rule);
-          if(it)
-          {
-            inputType = it;
-          }
+          inputType = this(rule.getComparator(), dataType, rule) || inputType;
         }
       );
       return inputType;

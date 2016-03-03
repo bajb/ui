@@ -1,9 +1,11 @@
-var QueryBuilderConstants = QueryBuilderConstants || {};
-
-(function ($, window, document, undefined)
+(function ($, window, document)
 {
+  'use strict';
+
+  window.QueryBuilderConstants = window.QueryBuilderConstants || {};
+
   // add tokenizer input
-  QueryBuilderConstants.INPUT_TOKEN = 'token';
+  const INPUT_TOKEN = 'token';
 
   var QueryBuilderTokenInput = (function ()
   {
@@ -118,39 +120,17 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
   $(document).on(
     'init.querybuilder', function (e, qb)
     {
-      qb.setInputMethod(
-        QueryBuilderConstants.INPUT_TOKEN, QueryBuilderTokenInput
-      );
-      qb.setInputType(
-        QueryBuilderConstants.COMPARATOR_IN,
-        QueryBuilderConstants.DATATYPE_STRING,
-        QueryBuilderConstants.INPUT_TOKEN
-      );
-      qb.setInputType(
-        QueryBuilderConstants.COMPARATOR_IN,
-        QueryBuilderConstants.DATATYPE_NUMBER,
-        QueryBuilderConstants.INPUT_TOKEN
-      );
-      qb.setInputType(
-        QueryBuilderConstants.COMPARATOR_NOT_IN,
-        QueryBuilderConstants.DATATYPE_STRING,
-        QueryBuilderConstants.INPUT_TOKEN
-      );
-      qb.setInputType(
-        QueryBuilderConstants.COMPARATOR_NOT_IN,
-        QueryBuilderConstants.DATATYPE_NUMBER,
-        QueryBuilderConstants.INPUT_TOKEN
-      );
+      qb.setInputMethod(INPUT_TOKEN, QueryBuilderTokenInput);
       qb.addInputTypeProcessor(tokenIfAjax);
     }
   );
 
-  function tokenIfAjax(rule)
+  function tokenIfAjax(comparator, dataType, rule)
   {
     var definition = rule.getDefinition();
-    if(definition && (definition.hasAjaxValues() || (definition.hasValues() && !definition.isStrict())))
+    if(definition && definition.hasAjaxValues())
     {
-      return QueryBuilderConstants.INPUT_TOKEN;
+      return INPUT_TOKEN;
     }
   }
 }(jQuery, window, document));
