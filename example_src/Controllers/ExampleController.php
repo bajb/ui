@@ -60,7 +60,6 @@ class ExampleController extends LayoutController
       'Browser',
       QBDT::STRING
     );
-    $browserDefinition->setValues(['' => '']);
     $browserDefinition->setValuesUrl('/querybuilder/browsers');
     $browserDefinition->setComparators(
       [

@@ -12,7 +12,7 @@
     function Constructor(rule)
     {
       this._rule = rule;
-      this._token = null;
+      this._selectBox = null;
       if(this._rule._value === null)
       {
         this._rule._value = '';
@@ -21,15 +21,13 @@
 
     Constructor.prototype.tokenChanged = function (value, text, e)
     {
-      var val = this._token.tokenize().toArray();
+      var val = this._selectBox.tokenize().toArray();
       this._rule._setValue(val.length ? val : '');
     };
 
     Constructor.prototype.render = function ()
     {
-      var $token = $('<select class="qb-tokenizer qb-input"/>');
-      this._token = $token;
-      return $token;
+      return this._selectBox = $('<select class="qb-tokenizer qb-input"/>');
     };
 
     Constructor.prototype.postRender = function ()
@@ -76,12 +74,14 @@
           {
             if(idx)
             {
-              var $option = $('<option/>').val(encodeURIComponent(idx));
+              var $option = $('<option/>')
+                .text(encodeURIComponent(idx))
+                .val(encodeURIComponent(defVals[idx]));
               if(vals.indexOf(idx) > -1)
               {
                 $option.attr('selected', 'selected');
               }
-              self._token.append($option);
+              self._selectBox.append($option);
             }
           }
         );
@@ -104,11 +104,13 @@
       {
         options.maxElements = 1;
       }
-      this._token.tokenize(options);
+      this._selectBox.tokenize(options);
       $.each(
         vals, function (idx, val)
         {
-          self._token.tokenize().dropdownAddItem(val, val).tokenAdd(val, val);
+          self._selectBox.tokenize()
+              .dropdownAddItem(val, val)
+              .tokenAdd(val, val);
         }
       );
     };

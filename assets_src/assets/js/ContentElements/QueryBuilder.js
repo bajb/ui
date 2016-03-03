@@ -141,14 +141,14 @@
     this.inputType = null;
     this.required = false;
     this.unique = false;
-    this.values = '';
+    this.values = null;
     this.valuesUrl = '';
     this.strictValues = true;
     this.count = 0;
 
+    var self = this;
     if(data)
     {
-      var self = this;
       $.each(
         data,
         function (k, v)
@@ -159,6 +159,18 @@
           }
         }
       );
+    }
+    if(this.values && this.values instanceof Array)
+    {
+      // convert array to object
+      var newValues = {};
+      $(this.values).each(
+        function (idx)
+        {
+          newValues[self.values[idx]] = self.values[idx];
+        }
+      );
+      this.values = newValues;
     }
   }
 
