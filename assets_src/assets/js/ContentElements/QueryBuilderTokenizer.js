@@ -75,8 +75,8 @@
             if(idx)
             {
               var $option = $('<option/>')
-                .text(encodeURIComponent(idx))
-                .val(encodeURIComponent(defVals[idx]));
+                .text(encodeURIComponent(defVals[idx]))
+                .val(encodeURIComponent(idx));
               if(vals.indexOf(idx) > -1)
               {
                 $option.attr('selected', 'selected');
