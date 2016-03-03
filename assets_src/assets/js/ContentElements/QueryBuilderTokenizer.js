@@ -128,10 +128,16 @@
   function tokenIfAjax(comparator, dataType, rule)
   {
     var definition = rule.getDefinition();
-    if(definition && definition.hasAjaxValues()
-      || (definition.hasValues() && !definition.isStrict()))
+    if(definition)
     {
-      return INPUT_TOKEN;
+      if(definition.hasAjaxValues()
+        || (definition.hasValues() && !definition.isStrict())
+        || comparator == QueryBuilderConstants.COMPARATOR_IN
+        || comparator == QueryBuilderConstants.COMPARATOR_NOT_IN
+      )
+      {
+        return INPUT_TOKEN;
+      }
     }
   }
 }(jQuery, window, document));
