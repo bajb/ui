@@ -591,7 +591,7 @@
       function (comparator, dataType, rule)
       {
         var definition = rule.getDefinition();
-        if(definition && definition.hasValues() && (!definition.hasAjaxValues()))
+        if(definition && definition.hasValues() && definition.isStrict())
         {
           return QueryBuilderConstants.INPUT_SELECT;
         }
