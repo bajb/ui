@@ -1,6 +1,6 @@
 var QueryBuilderConstants = QueryBuilderConstants || {};
 
-(function ()
+(function ($, window, document, undefined)
 {
   // add tokenizer input
   QueryBuilderConstants.INPUT_TOKEN = 'token';
@@ -11,7 +11,7 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
     {
       this._rule = rule;
       this._token = null;
-      if (this._rule._value === null)
+      if(this._rule._value === null)
       {
         this._rule._value = '';
       }
@@ -52,18 +52,18 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
                          }
         };
 
-      if (!(vals instanceof Object))
+      if(!(vals instanceof Object))
       {
         vals = [vals];
       }
 
-      if (def.hasValues())
+      if(def.hasValues())
       {
         var defVals = $.extend({}, def.values);
         $.each(
           vals, function (idx, val)
           {
-            if (Object.keys(defVals).indexOf(val) == -1)
+            if(Object.keys(defVals).indexOf(val) == -1)
             {
               defVals[val] = val;
             }
@@ -72,10 +72,10 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
         $.each(
           defVals, function (idx)
           {
-            if (idx)
+            if(idx)
             {
               var $option = $('<option/>').val(encodeURIComponent(idx));
-              if (vals.indexOf(idx) > -1)
+              if(vals.indexOf(idx) > -1)
               {
                 $option.attr('selected', 'selected');
               }
@@ -85,18 +85,20 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
         );
       }
 
-      if (def.isStrict())
+      if(def.isStrict())
       {
         options.newElements = false;
       }
-      if (def.hasAjaxValues())
+      if(def.hasAjaxValues())
       {
         options.datas = def.valuesUrl;
       }
       // in = multiple values
       // eq = single value
-      if ([QueryBuilderConstants.COMPARATOR_IN, QueryBuilderConstants.COMPARATOR_NOT_IN]
-          .indexOf(this._rule.getComparator()) < 0)
+      if([
+          QueryBuilderConstants.COMPARATOR_IN,
+          QueryBuilderConstants.COMPARATOR_NOT_IN
+        ].indexOf(this._rule.getComparator()) < 0)
       {
         options.maxElements = 1;
       }
@@ -146,9 +148,9 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
   function tokenIfAjax(rule)
   {
     var definition = rule.getDefinition();
-    if (definition && (definition.hasAjaxValues() || (definition.hasValues() && !definition.isStrict())))
+    if(definition && (definition.hasAjaxValues() || (definition.hasValues() && !definition.isStrict())))
     {
       return QueryBuilderConstants.INPUT_TOKEN;
     }
   }
-})();
+}(jQuery, window, document));
