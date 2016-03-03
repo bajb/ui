@@ -75,7 +75,7 @@
             if(idx)
             {
               var $option = $('<option/>')
-                .text(encodeURIComponent(defVals[idx]))
+                .text(defVals[idx])
                 .val(encodeURIComponent(idx));
               if(vals.indexOf(idx) > -1)
               {
