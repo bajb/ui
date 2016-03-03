@@ -130,17 +130,6 @@ var QueryBuilderConstants = QueryBuilderConstants || {};
   );
 
   /**
-   * @property {String} key
-   * @property {String} displayName
-   * @property {String[]} comparators
-   * @property {String} dataType
-   * @property {String} inputType
-   * @property {Boolean} required
-   * @property {Boolean} unique
-   * @property {String} values
-   * @property {String} valuesUrl
-   * @property {Boolean} strictValues
-   * @property {Number} count
    * @constructor
    */
   function QueryBuilderDefinition(data)
