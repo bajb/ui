@@ -95,7 +95,9 @@ class ObjectListCard extends UiElement
     return $this;
   }
 
-  public function addAction($link = null, Icon $icon, $highlight = false)
+  public function addAction(
+    $link = null, Icon $icon, $highlight = false, $tooltip = ''
+  )
   {
     if(count($this->_actions) > 2)
     {
@@ -108,6 +110,13 @@ class ObjectListCard extends UiElement
     {
       $link = Span::create();
     }
+
+    if(!empty($tooltip))
+    {
+      $link->setAttribute('data-toggle', 'tooltip');
+      $link->setAttribute('title', $tooltip);
+    }
+
     $this->_actions[] = [$link->setContent($icon), $highlight];
 
     return $this;
