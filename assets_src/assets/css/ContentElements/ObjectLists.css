@@ -4,7 +4,6 @@
 .f-obj-lst-itm {
   border-left:     4px solid #C7CCD9;
   margin:          5px 0 4px 0;
-  overflow:        hidden;
   background:      #fff;
   list-style-type: none;
 }
@@ -74,7 +73,6 @@
   border-left-width: 0;
   position:          relative;
   min-height:        33px;
-  overflow:          hidden;
 }
 
 .f-obj-lst-itm-cntr {
