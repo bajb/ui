@@ -70,6 +70,6 @@ class FontIcon extends Icon
     {
       $icon->addClass('fa-stack-' . ($k == 0 ? 1 : 2) . 'x');
     }
-    return HtmlTag::createTag('i', ['class' => 'fa-stack fa'], $icons);
+    return HtmlTag::createTag('i', ['class' => ['fa-stack', 'fa']], $icons);
   }
 }
