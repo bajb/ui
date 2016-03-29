@@ -21,7 +21,13 @@
 
     Constructor.prototype.tokenChanged = function (value, text, e)
     {
-      var val = this._selectBox.tokenize().toArray();
+      var $tok = this._selectBox.tokenize(),
+        val = $tok.toArray();
+
+      if($tok.options.maxElements === 1 && val.length === 1)
+      {
+        val = val[0];
+      }
       this._rule._setValue(val.length ? val : '');
     };
 
@@ -40,15 +46,11 @@
           autosize:      true,
           onAddToken:    function (value, text, e)
                          {
-                           self.tokenChanged(
-                             value, text, e
-                           )
+                           self.tokenChanged(value, text, e);
                          },
           onRemoveToken: function (value, text, e)
                          {
-                           self.tokenChanged(
-                             value, text, e
-                           )
+                           self.tokenChanged(value, text, e);
                          }
         };
 
