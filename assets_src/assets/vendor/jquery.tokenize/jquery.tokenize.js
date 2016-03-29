@@ -306,7 +306,7 @@
                 html = text;
             }
 
-            if(!$('li[data-value="' + encodeURIComponent(value) + '"]', this.tokensContainer).length){
+            if(!$('li[data-value="' + encodeURIComponent(value) + '"]', this.dropdown).length){
                 var $this = this;
                 var item = $('<li />')
                     .attr('data-value', encodeURIComponent(value))
