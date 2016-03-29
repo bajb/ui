@@ -523,7 +523,7 @@
             $('option', this.select).not(':selected, :disabled').each(function(){
                 if($('li',$this.tokensContainer).length <= $this.options.nbDropdownElements){
                     if(regexp.test($(this).html())){
-                        $this.dropdownAddItem(decodeURIComponent($(this).attr('value')), $(this).html());
+                        $this.dropdownAddItem(decodeURIComponent($(this).attr('value')), $(this).text());
                         found = true;
                     }
                 } else {
@@ -755,7 +755,7 @@
             this.clear();
 
             tmp.each(function(){
-                $this.tokenAdd(decodeURIComponent($(this).val()), $(this).html(), first);
+                $this.tokenAdd(decodeURIComponent($(this).val()), $(this).text(), first);
             });
 
             return this;
