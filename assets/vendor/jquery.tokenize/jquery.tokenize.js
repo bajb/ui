@@ -523,7 +523,7 @@
             $('option', this.select).not(':selected, :disabled').each(function(){
                 if($('li',$this.tokensContainer).length <= $this.options.nbDropdownElements){
                     if(regexp.test($(this).html())){
-                        $this.dropdownAddItem($(this).attr('value'), $(this).html());
+                        $this.dropdownAddItem(decodeURIComponent($(this).attr('value')), $(this).html());
                         found = true;
                     }
                 } else {
