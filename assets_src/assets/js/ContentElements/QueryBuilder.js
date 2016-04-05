@@ -8,8 +8,8 @@
 
   window.QueryBuilderConstants = window.QueryBuilderConstants || {};
 
-  const QB_DATA_NS = 'querybuilder';
-  const QB_DATA_NS_RULE = QB_DATA_NS + '.rule';
+  var QB_DATA_NS = 'querybuilder';
+  var QB_DATA_NS_RULE = QB_DATA_NS + '.rule';
 
   QueryBuilderConstants.INPUT_TEXT = 'text';
   QueryBuilderConstants.INPUT_NUMBER = 'number';

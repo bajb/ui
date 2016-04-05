@@ -5,7 +5,7 @@
   window.QueryBuilderConstants = window.QueryBuilderConstants || {};
 
   // add tokenizer input
-  const INPUT_TOKEN = 'token';
+  var INPUT_TOKEN = 'token';
 
   var QueryBuilderTokenInput = (function ()
   {
