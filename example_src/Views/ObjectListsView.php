@@ -7,7 +7,6 @@ use Fortifi\Ui\GlobalElements\Icons\FontIcon;
 use Fortifi\Ui\Ui;
 use Packaged\Glimpse\Elements\LineBreak;
 use Packaged\Glimpse\Tags\Link;
-use Packaged\Glimpse\Tags\Text\HeadingOne;
 
 class ObjectListsView extends AbstractUiExampleView
 {
@@ -45,28 +44,64 @@ class ObjectListsView extends AbstractUiExampleView
    */
   final public function actionCards()
   {
-    $result = [];
+    $objectList = ObjectList::i();
 
     $card = ObjectListCard::i();
     $card->setTitle('One Action');
+    $card->setRightContent("Right Content");
     $card->addAction(new Link('#'), FontIcon::create(FontIcon::EDIT));
-    $result[] = $card;
+    $objectList->addCard($card);
 
     $card = ObjectListCard::i();
     $card->setTitle('Two Actions');
+    $card->setRightContent("Right Content");
     $card->addAction(new Link('#'), FontIcon::create(FontIcon::EDIT));
     $card->addAction(new Link('#'), FontIcon::create(FontIcon::DELETE));
-    $result[] = $card;
+    $objectList->addCard($card);
 
     $card = ObjectListCard::i();
     $card->setTitle('Three Actions');
+    $card->setRightContent("Right Content");
     $card->setColour(ObjectListCard::COLOUR_RED);
     $card->addAction(new Link('#'), FontIcon::create(FontIcon::EDIT));
     $card->addAction(new Link('#'), FontIcon::create(FontIcon::DELETE));
     $card->addAction(new Link('#'), FontIcon::create(FontIcon::LOCK), true);
-    $result[] = $card;
+    $objectList->addCard($card);
 
-    return $result;
+    return $objectList;
+  }
+
+  /**
+   * @group Actions
+   */
+  final public function alignedActionCards()
+  {
+    $objectList = ObjectList::i();
+    $objectList->alignActions(true);
+
+    $card = ObjectListCard::i();
+    $card->setTitle('One Action');
+    $card->setRightContent("Right Content");
+    $card->addAction(new Link('#'), FontIcon::create(FontIcon::EDIT));
+    $objectList->addCard($card);
+
+    $card = ObjectListCard::i();
+    $card->setTitle('Two Actions');
+    $card->setRightContent("Right Content");
+    $card->addAction(new Link('#'), FontIcon::create(FontIcon::EDIT));
+    $card->addAction(new Link('#'), FontIcon::create(FontIcon::DELETE));
+    $objectList->addCard($card);
+
+    $card = ObjectListCard::i();
+    $card->setTitle('Three Actions');
+    $card->setRightContent("Right Content");
+    $card->setColour(ObjectListCard::COLOUR_RED);
+    $card->addAction(new Link('#'), FontIcon::create(FontIcon::EDIT));
+    $card->addAction(new Link('#'), FontIcon::create(FontIcon::DELETE));
+    $card->addAction(new Link('#'), FontIcon::create(FontIcon::LOCK), true);
+    $objectList->addCard($card);
+
+    return $objectList;
   }
 
   /**

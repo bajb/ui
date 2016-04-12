@@ -42,6 +42,7 @@ class ObjectListCard extends UiElement
   protected $_state;
   protected $_subTitle;
   protected $_rightContent;
+  protected $_actionCount = 0;
   protected $_midColumns = [];
 
   public function processIncludes(AssetManager $assetManager, $vendor = false)
@@ -118,8 +119,27 @@ class ObjectListCard extends UiElement
     }
 
     $this->_actions[] = [$link->setContent($icon), $highlight];
+    $this->_actionCount = count($this->_actions);
 
     return $this;
+  }
+
+  /**
+   * Force the action count to a specific number for styling
+   *
+   * @param int $count (null for calculate)
+   *
+   * @return $this
+   */
+  public function setActionCount($count = null)
+  {
+    $this->_actionCount = $count > 0 ? (int)$count : count($this->_actions);
+    return $this;
+  }
+
+  public function getActionCount()
+  {
+    return $this->_actionCount;
   }
 
   public function setRightContent($content)
@@ -146,7 +166,7 @@ class ObjectListCard extends UiElement
     $frame = Div::create('')->addClass('f-obj-lst-itm-frm');
     $card->appendContent($frame);
 
-    $actionCount = count($this->_actions);
+    $actionCount = $this->_actionCount;
     if($actionCount > 0)
     {
       $actions = UnorderedList::create();

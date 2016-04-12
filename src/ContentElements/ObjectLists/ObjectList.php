@@ -7,6 +7,7 @@ use Fortifi\Ui\UiElement;
 use Packaged\Dispatch\AssetManager;
 use Packaged\Glimpse\Core\SafeHtml;
 use Packaged\Glimpse\Tags\Lists\UnorderedList;
+use Packaged\Helpers\Objects;
 
 class ObjectList extends UiElement
 {
@@ -20,6 +21,8 @@ class ObjectList extends UiElement
 
   //0 = false, 1 = true, 2 = std border
   protected $_stacked = 0;
+
+  protected $_alignActions = false;
 
   public function processIncludes(AssetManager $assetManager, $vendor = false)
   {
@@ -60,6 +63,12 @@ class ObjectList extends UiElement
     return $this;
   }
 
+  public function alignActions($align = true)
+  {
+    $this->_alignActions = $align;
+    return $this;
+  }
+
   /**
    * @return SafeHtml|SafeHtml[]
    */
@@ -77,8 +86,27 @@ class ObjectList extends UiElement
     }
     $this->_applyId($list);
     $this->_applyDataAttributes($list);
+
+    if($this->_alignActions)
+    {
+      $this->_processAlign();
+    }
+
     $list->addItems($this->_items);
     return $list;
+  }
+
+  protected function _processAlign()
+  {
+    if(!empty($this->_items))
+    {
+      $counts = Objects::mpull($this->_items, 'getActionCount');
+      $maxActions = max($counts);
+      foreach($this->_items as $card)
+      {
+        $card->setActionCount($maxActions);
+      }
+    }
   }
 
   /**
