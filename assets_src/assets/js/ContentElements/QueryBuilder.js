@@ -39,9 +39,9 @@
   QueryBuilderConstants.COMPARATOR_LIKE = 'like';
   QueryBuilderConstants.COMPARATOR_NOT_LIKE = 'nlike';
   QueryBuilderConstants.COMPARATOR_STARTS = 'starts';
-  QueryBuilderConstants.COMPARATOR_NOT_STARTS = 'not_starts';
+  QueryBuilderConstants.COMPARATOR_NOT_STARTS = 'nstarts';
   QueryBuilderConstants.COMPARATOR_ENDS = 'ends';
-  QueryBuilderConstants.COMPARATOR_NOT_ENDS = 'not_ends';
+  QueryBuilderConstants.COMPARATOR_NOT_ENDS = 'nends';
   QueryBuilderConstants.COMPARATOR_BEFORE = 'before';
   QueryBuilderConstants.COMPARATOR_AFTER = 'after';
 

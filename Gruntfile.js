@@ -1,6 +1,5 @@
 module.exports = function (grunt)
 {
-
   grunt.initConfig(
     {
       cssmin:  {
@@ -13,16 +12,18 @@ module.exports = function (grunt)
           }
         },
         target: {
-          files: [{
-            expand: true,
-            cwd:    'assets_src/assets/css/',
-            src:    ['*.css', '!*.min.css'],
-            dest:   'assets/css/',
-            ext:    '.min.css'
-          }]
+          files: [
+            {
+              expand: true,
+              cwd:    'assets_src/assets/css/',
+              src:    ['*.css', '!*.min.css'],
+              dest:   'assets/css/',
+              ext:    '.min.css'
+            }
+          ]
         }
       },
-      uglify: {
+      uglify:  {
         dist: {
           files: {
             'assets/js/PageElements.min.js':    ['assets_src/assets/js/PageElements/*.js'],
@@ -32,22 +33,26 @@ module.exports = function (grunt)
           }
         }
       },
-      copy:   {
+      copy:    {
         images: {
-          files: [{
-            expand: true,
-            cwd:    'assets_src/assets/img/',
-            src:    ['**'],
-            dest:   'assets/img/'
-          }]
+          files: [
+            {
+              expand: true,
+              cwd:    'assets_src/assets/img/',
+              src:    ['**'],
+              dest:   'assets/img/'
+            }
+          ]
         },
         vendor: {
-          files: [{
-            expand: true,
-            cwd:    'assets_src/assets/vendor/',
-            src:    ['**'],
-            dest:   'assets/vendor/'
-          }]
+          files: [
+            {
+              expand: true,
+              cwd:    'assets_src/assets/vendor/',
+              src:    ['**'],
+              dest:   'assets/vendor/'
+            }
+          ]
         }
       },
       replace: {
@@ -80,5 +85,4 @@ module.exports = function (grunt)
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-replace');
   grunt.registerTask('default', ['copy', 'cssmin', 'uglify', 'replace']);
-
 };
