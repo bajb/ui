@@ -33,7 +33,9 @@
 
     Constructor.prototype.render = function ()
     {
-      return this._selectBox = $('<select class="qb-tokenizer qb-input"/>');
+      return this._selectBox = $(
+        '<select class="qb-tokenizer qb-input" multiple="multiple"/>'
+      );
     };
 
     Constructor.prototype.postRender = function ()
@@ -102,7 +104,7 @@
       if([
           QueryBuilderConstants.COMPARATOR_IN,
           QueryBuilderConstants.COMPARATOR_NOT_IN
-        ].indexOf(this._rule.getComparator()) < 0)
+        ].indexOf(this._rule.getComparator()) == -1)
       {
         options.maxElements = 1;
       }
