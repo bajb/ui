@@ -202,6 +202,23 @@
     this._queryBuilder = queryBuilder;
     this._key = key || '';
     this._comparator = comparator || '';
+
+    // normalise value to remove invalid values if array
+    if(value instanceof Object)
+    {
+      value = $.grep(value, function (n) { return (!!n); });
+      if(value.length)
+      {
+        var definition = this.getDefinition();
+        if(definition && definition.values)
+        {
+          value = $.grep(
+            value, function (n) { return definition.values.hasOwnProperty(n); }
+          );
+        }
+      }
+    }
+
     this._value = value !== null ? value : null;
     this._valCache = {};
     this._valCache[this._comparator] = this._value;
@@ -1040,11 +1057,13 @@
         $.each(
           data, function (key)
           {
+            var definition = self.getDefinition(key),
+              defaultComparator = definition ? definition.comparators[0] : 'eq';
             if(typeof this == 'object')
             {
               if(this instanceof String)
               {
-                self.addRule(key, 'eq', this);
+                self.addRule(key, defaultComparator, this);
               }
               else if('key' in this && 'comparator' in this && 'value' in this)
               {
@@ -1052,7 +1071,7 @@
               }
               else if(this.length == 1)
               {
-                self.addRule(key, 'eq', this[0]);
+                self.addRule(key, defaultComparator, this[0]);
               }
               else
               {
@@ -1061,7 +1080,7 @@
             }
             else
             {
-              self.addRule(key, 'eq', this);
+              self.addRule(key, defaultComparator, this);
             }
           }
         );
