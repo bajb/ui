@@ -35,7 +35,7 @@ class ObjectListCard extends UiElement
   const COLOUR_BLACK = 'black';
   const COLOUR_DEFAULT = 'default';
 
-  protected $_actions; //Limit 3
+  protected $_actions = []; //Limit 3
   protected $_colour = self::COLOUR_DEFAULT;
   protected $_title;
   protected $_image;
