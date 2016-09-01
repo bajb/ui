@@ -167,7 +167,15 @@
       $(this.values).each(
         function (idx)
         {
-          newValues[self.values[idx]] = self.values[idx];
+          if(self.dataType == QueryBuilderConstants.DATATYPE_NUMBER
+            || self.dataType == QueryBuilderConstants.DATATYPE_BOOL)
+          {
+            newValues[idx] = self.values[idx];
+          }
+          else
+          {
+            newValues[self.values[idx]] = self.values[idx];
+          }
         }
       );
       this.values = newValues;
