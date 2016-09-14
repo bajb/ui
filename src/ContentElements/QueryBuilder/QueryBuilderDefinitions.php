@@ -43,6 +43,6 @@ class QueryBuilderDefinitions
 
     $this->_definitions = Objects::msort($this->_definitions, 'getDisplayName');
 
-    return Objects::mpull($this->_definitions, 'toArray');
+    return array_values(Objects::mpull($this->_definitions, 'toArray'));
   }
 }
