@@ -159,6 +159,13 @@ class QueryBuilderDefinition
     ];
   }
 
+  public static function boolComparators()
+  {
+    return [
+      QueryBuilderDefinition::COMPARATOR_EQUALS,
+    ];
+  }
+
   public static function textComparators()
   {
     return [
