@@ -297,7 +297,7 @@
       }
       else
       {
-        this.setValue(null);
+        this.render();
       }
     };
 
