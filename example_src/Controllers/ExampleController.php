@@ -69,6 +69,14 @@ class ExampleController extends LayoutController
     );
     $definitions->addDefinition($browserDefinition);
 
+    $browserDefinition = new QBD(
+      'dropdown_test',
+      'DropTest',
+      QBDT::STRING
+    );
+    $browserDefinition->setValues(['drop1','drop2','drop3']);
+    $definitions->addDefinition($browserDefinition);
+
     $between = new QBD('between_test', 'Between Test', QBDT::DECIMAL);
     $between->setComparators(
       [

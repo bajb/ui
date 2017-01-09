@@ -1183,7 +1183,7 @@
     function Constructor(rule)
     {
       this._rule = rule;
-      if(this._rule._value === null)
+      if(this._rule._value === null || this._rule._value === undefined)
       {
         this._rule._value = null;
       }
