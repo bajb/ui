@@ -60,6 +60,7 @@ class ExampleController extends LayoutController
       'Browser',
       QBDT::STRING
     );
+    $browserDefinition->setValues(['arg' => 'moo']);
     $browserDefinition->setValuesUrl('/querybuilder/browsers');
     $browserDefinition->setComparators(
       [
@@ -74,7 +75,7 @@ class ExampleController extends LayoutController
       'DropTest',
       QBDT::STRING
     );
-    $browserDefinition->setValues(['drop1','drop2','drop3']);
+    $browserDefinition->setValues(['drop1', 'drop2', 'drop3']);
     $definitions->addDefinition($browserDefinition);
 
     $between = new QBD('between_test', 'Between Test', QBDT::DECIMAL);
@@ -143,7 +144,7 @@ class ExampleController extends LayoutController
       [
         'key'        => 'browser',
         'comparator' => 'in',
-        'value'      => ['chrome', 'firefox'],
+        'value'      => ['chrome', 'firefox', 'kdsfgkjsdgohwego'],
       ],
       [
         'key'        => 'browser',
@@ -175,7 +176,7 @@ class ExampleController extends LayoutController
       function ($var) use ($query)
       {
         return stripos($var['value'], $query) !== false
-        && stripos($var['text'], $query) !== false;
+          && stripos($var['text'], $query) !== false;
       }
     );
   }

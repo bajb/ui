@@ -218,7 +218,7 @@
       if(value.length)
       {
         var definition = this.getDefinition();
-        if(definition && definition.values)
+        if(definition && definition.values && (!definition.valuesUrl))
         {
           value = $.grep(
             value, function (n) { return definition.values.hasOwnProperty(n); }
@@ -1083,6 +1083,7 @@
               }
               else
               {
+                console.log(key, this);
                 self.addRule(key, 'in', this);
               }
             }
