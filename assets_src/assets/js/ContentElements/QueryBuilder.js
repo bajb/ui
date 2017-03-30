@@ -227,7 +227,7 @@
       }
     }
 
-    this._value = value !== null ? value : null;
+    this._value = value === null || value === undefined ? null : value;
     this._valCache = {};
     this._valCache[this._comparator] = this._value;
     this._element = null;
@@ -1134,7 +1134,7 @@
       this._rule = rule;
       if(this._rule._value === null)
       {
-        this._rule._value = '';
+        this._rule.setValue('');
       }
     }
 
@@ -1159,7 +1159,7 @@
       this._rule = rule;
       if(this._rule._value === null)
       {
-        this._rule._value = '1';
+        this._rule.setValue('1');
       }
     }
 
@@ -1184,9 +1184,9 @@
     function Constructor(rule)
     {
       this._rule = rule;
-      if(this._rule._value === null || this._rule._value === undefined)
+      if(this._rule._value === null)
       {
-        this._rule._value = null;
+        this._rule.setValue(Object.keys(this._rule.getDefinition().values)[0]);
       }
     }
 
@@ -1213,7 +1213,7 @@
       this._rule = rule;
       if(this._rule._value === null)
       {
-        this._rule._value = 0;
+        this._rule.setValue(0);
       }
     }
 
@@ -1240,7 +1240,7 @@
       this._rule = rule;
       if(this._rule._value === null)
       {
-        this._rule._value = 0;
+        this._rule.setValue(0);
       }
     }
 
@@ -1269,7 +1269,7 @@
       this._rule = rule;
       if(this._rule._value === null)
       {
-        this._rule._value = getToday();
+        this._rule.setValue(getToday());
       }
     }
 
@@ -1305,7 +1305,7 @@
       this._rule = rule;
       if(this._rule._value === null)
       {
-        this._rule._value = -10080;
+        this._rule.setValue(-10080);
       }
     }
 
@@ -1395,11 +1395,11 @@
       {
         if(this._rule.getDefinition().dataType == QueryBuilderConstants.DATATYPE_DATE)
         {
-          this._rule._value = getToday() + ',' + getToday();
+          this._rule.setValue(getToday() + ',' + getToday());
         }
         else
         {
-          this._rule._value = '0,0';
+          this._rule.setValue('0,0');
         }
       }
     }
