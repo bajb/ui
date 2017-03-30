@@ -1,6 +1,0 @@
-{
-  "project.name" : "Fortifi UI",
-  "phabricator.uri" : "http://phabricator.jdi.io/",
-  "unit.engine": "PhpunitTestEngine",
-  "phpunit_config": "phpunit.xml.dist"
-}
