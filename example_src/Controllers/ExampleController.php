@@ -96,19 +96,40 @@ class ExampleController extends LayoutController
     );
     $definitions->addDefinition($between);
 
+    // SID
+    //    $sidDefinition = new QBD(
+    //      'sid',
+    //      'Sub ID',
+    //      QBDT::NUMBER
+    //    );
+    //    $sidDefinition->setComparators(
+    //      [
+    //        QBD::COMPARATOR_EQUALS,
+    //        QBD::COMPARATOR_BETWEEN,
+    //      ]
+    //    );
+    //    $definitions->addDefinition($sidDefinition);
+
+    //
     $sidDefinition = new QBD(
       'sid',
       'Sub ID',
-      QBDT::NUMBER
+      QBDT::STRING
     );
+    $sidDefinition->setValuesUrl('/querybuilder/sids');
     $sidDefinition->setComparators(
       [
         QBD::COMPARATOR_EQUALS,
-        QBD::COMPARATOR_BETWEEN,
+        QBD::COMPARATOR_NOT_EQUALS,
+        QBD::COMPARATOR_NOT_EQUALS_INSENSITIVE,
+        QBD::COMPARATOR_LIKE_IN,
+        QBD::COMPARATOR_IN,
+        QBD::COMPARATOR_NOT_IN,
       ]
     );
     $definitions->addDefinition($sidDefinition);
 
+    //
     $expiryDateDefinition = new QBD('expiryDate', 'Expiry Date', QBDT::DATE);
     $expiryDateDefinition->addComparator(QBD::COMPARATOR_BETWEEN);
     $definitions->addDefinition($expiryDateDefinition);
@@ -181,12 +202,35 @@ class ExampleController extends LayoutController
     );
   }
 
+  public function qbSids()
+  {
+    $query = $this->_getRequest()->query->get('search');
+    $values = [
+      ['value' => 'malware15IT', 'text' => 'malware15IT'],
+      ['value' => 'malware16IS', 'text' => 'malware16IS'],
+      ['value' => 'malware17IG', 'text' => 'malware17IG'],
+      ['value' => '2015adware', 'text' => '2015adware'],
+      ['value' => '2016adware', 'text' => '2016adware'],
+      ['value' => 'spyware15', 'text' => 'spyware15'],
+      ['value' => 'spyware16', 'text' => 'spyware16'],
+    ];
+    return array_filter(
+      $values,
+      function ($var) use ($query)
+      {
+        return stripos($var['value'], $query) !== false
+          && stripos($var['text'], $query) !== false;
+      }
+    );
+  }
+
   public function getRoutes()
   {
     return [
       'querybuilder/definition' => 'qbDefinition',
       'querybuilder/policy'     => 'qbPolicyData',
       'querybuilder/browsers'   => 'qbBrowsers',
+      'querybuilder/sids'       => 'qbSids',
       ':page'                   => 'defaultAction',
     ];
   }
