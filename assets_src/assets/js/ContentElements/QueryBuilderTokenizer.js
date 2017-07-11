@@ -104,7 +104,8 @@
       if([
           QueryBuilderConstants.COMPARATOR_IN,
           QueryBuilderConstants.COMPARATOR_NOT_IN,
-          QueryBuilderConstants.COMPARATOR_LIKE_IN
+          QueryBuilderConstants.COMPARATOR_LIKE_IN,
+          QueryBuilderConstants.COMPARATOR_NOT_LIKE_IN
         ].indexOf(this._rule.getComparator()) == -1)
       {
         options.maxElements = 1;
@@ -142,6 +143,7 @@
         || comparator == QueryBuilderConstants.COMPARATOR_IN
         || comparator == QueryBuilderConstants.COMPARATOR_NOT_IN
         || comparator == QueryBuilderConstants.COMPARATOR_LIKE_IN
+        || comparator == QueryBuilderConstants.COMPARATOR_NOT_LIKE_IN
       )
       {
         return INPUT_TOKEN;

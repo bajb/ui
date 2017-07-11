@@ -104,12 +104,14 @@ class ExampleController extends LayoutController
       QBDT::STRING
     );
     $sidDefinition->setValues($this->qbSids());
+    $sidDefinition->setStrict(false);
     $sidDefinition->setComparators(
       [
         QBD::COMPARATOR_EQUALS,
         QBD::COMPARATOR_NOT_EQUALS,
         QBD::COMPARATOR_NOT_EQUALS_INSENSITIVE,
         QBD::COMPARATOR_LIKE_IN,
+        QBD::COMPARATOR_NOT_LIKE_IN,
         QBD::COMPARATOR_IN,
         QBD::COMPARATOR_NOT_IN,
       ]
