@@ -18,6 +18,7 @@ class QueryBuilderDefinition
   const COMPARATOR_LIKE = 'like';
   const COMPARATOR_NOT_LIKE = 'nlike';
   const COMPARATOR_LIKE_IN = 'likein';
+  const COMPARATOR_NOT_LIKE_IN = 'nlikein';
   const COMPARATOR_STARTS = 'starts';
   const COMPARATOR_NOT_STARTS = 'nstarts';
   const COMPARATOR_ENDS = 'ends';

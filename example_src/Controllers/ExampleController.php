@@ -16,6 +16,7 @@ use Fortifi\UiExample\Views\PageNavigationView;
 use Fortifi\UiExample\Views\PanelsView;
 use Fortifi\UiExample\Views\QueryBuilderView;
 use Fortifi\UiExample\Views\TextView;
+use Packaged\Helpers\Arrays;
 
 class ExampleController extends LayoutController
 {
@@ -97,32 +98,20 @@ class ExampleController extends LayoutController
     $definitions->addDefinition($between);
 
     // SID
-    //    $sidDefinition = new QBD(
-    //      'sid',
-    //      'Sub ID',
-    //      QBDT::NUMBER
-    //    );
-    //    $sidDefinition->setComparators(
-    //      [
-    //        QBD::COMPARATOR_EQUALS,
-    //        QBD::COMPARATOR_BETWEEN,
-    //      ]
-    //    );
-    //    $definitions->addDefinition($sidDefinition);
-
-    //
     $sidDefinition = new QBD(
       'sid',
       'Sub ID',
       QBDT::STRING
     );
-    $sidDefinition->setValuesUrl('/querybuilder/sids');
+    $sidDefinition->setValues($this->qbSids());
+    $sidDefinition->setStrict(false);
     $sidDefinition->setComparators(
       [
         QBD::COMPARATOR_EQUALS,
         QBD::COMPARATOR_NOT_EQUALS,
         QBD::COMPARATOR_NOT_EQUALS_INSENSITIVE,
         QBD::COMPARATOR_LIKE_IN,
+        QBD::COMPARATOR_NOT_LIKE_IN,
         QBD::COMPARATOR_IN,
         QBD::COMPARATOR_NOT_IN,
       ]
@@ -204,7 +193,6 @@ class ExampleController extends LayoutController
 
   public function qbSids()
   {
-    $query = $this->_getRequest()->query->get('search');
     $values = [
       ['value' => 'malware15IT', 'text' => 'malware15IT'],
       ['value' => 'malware16IS', 'text' => 'malware16IS'],
@@ -214,14 +202,23 @@ class ExampleController extends LayoutController
       ['value' => 'spyware15', 'text' => 'spyware15'],
       ['value' => 'spyware16', 'text' => 'spyware16'],
     ];
-    return array_filter(
-      $values,
-      function ($var) use ($query)
-      {
-        return stripos($var['value'], $query) !== false
-          && stripos($var['text'], $query) !== false;
-      }
-    );
+
+    $query = $this->_getRequest()->query->get('search');
+    if($query)
+    {
+      return array_filter(
+        $values,
+        function ($var) use ($query)
+        {
+          return stripos($var['value'], $query) !== false
+            && stripos($var['text'], $query) !== false;
+        }
+      );
+    }
+    else
+    {
+      return Arrays::ipull($values, 'text');
+    }
   }
 
   public function getRoutes()
