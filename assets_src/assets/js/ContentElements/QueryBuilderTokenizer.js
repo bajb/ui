@@ -140,11 +140,18 @@
       {
         options.maxElements = 1;
       }
-      this._selectBox.tokenize(options);
+
+      var tokenized = this._selectBox.tokenize(options);
+      $(this._selectBox)
+        .next('.qb-tokenizer.Tokenize')
+        .on('blur', '.TokenSearch input', function ()
+        {
+          tokenized.tokenAdd($(this).val(), '');
+        });
       $.each(
         vals, function (idx, val)
         {
-          self._selectBox.tokenize()
+          tokenized
             .dropdownAddItem(val, val)
             .tokenAdd(val, val);
         }
