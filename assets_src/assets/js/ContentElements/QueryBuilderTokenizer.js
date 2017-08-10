@@ -13,11 +13,30 @@
     {
       this._rule = rule;
       this._selectBox = null;
-      if(this._rule._value === null)
-      {
-        this._rule._value = '';
-      }
     }
+
+    Constructor.prototype.sanitize = function (value)
+    {
+      if(typeof(value) === 'string'
+        && this._rule.comparator !== QueryBuilderConstants.COMPARATOR_EQUALS
+        && this._rule.comparator !== QueryBuilderConstants.COMPARATOR_EQUALS_INSENSITIVE
+        && this._rule.comparator !== QueryBuilderConstants.COMPARATOR_NOT_EQUALS
+        && this._rule.comparator !== QueryBuilderConstants.COMPARATOR_NOT_EQUALS_INSENSITIVE
+      )
+      {
+        return [value];
+      }
+      if(typeof(value) === 'object'
+        && this._rule.comparator === QueryBuilderConstants.COMPARATOR_EQUALS
+        && this._rule.comparator === QueryBuilderConstants.COMPARATOR_EQUALS_INSENSITIVE
+        && this._rule.comparator === QueryBuilderConstants.COMPARATOR_NOT_EQUALS
+        && this._rule.comparator === QueryBuilderConstants.COMPARATOR_NOT_EQUALS_INSENSITIVE
+      )
+      {
+        return value[0];
+      }
+      return value;
+    };
 
     Constructor.prototype.tokenChanged = function (value, text, e)
     {
@@ -28,13 +47,24 @@
       {
         val = val[0];
       }
-      this._rule._setValue(val.length ? val : '');
+      var comparator = this._rule.getComparator();
+      if(comparator === QueryBuilderConstants.COMPARATOR_IN
+        || comparator === QueryBuilderConstants.COMPARATOR_NOT_IN
+        || comparator === QueryBuilderConstants.COMPARATOR_LIKE_IN
+        || comparator === QueryBuilderConstants.COMPARATOR_NOT_LIKE_IN)
+      {
+        this._rule._setValue(val.length ? val : undefined);
+      }
+      else
+      {
+        this._rule._setValue(val.length ? val : '');
+      }
     };
 
     Constructor.prototype.render = function ()
     {
       return this._selectBox = $(
-        '<select class="qb-tokenizer qb-input" multiple="multiple"/>'
+        '<select class="qb-tokenizer qb-input" multiple/>'
       );
     };
 
@@ -67,7 +97,7 @@
         $.each(
           vals, function (idx, val)
           {
-            if(Object.keys(defVals).indexOf(val) == -1)
+            if(Object.keys(defVals).indexOf(val) === -1)
             {
               defVals[val] = val;
             }
@@ -106,7 +136,7 @@
           QueryBuilderConstants.COMPARATOR_NOT_IN,
           QueryBuilderConstants.COMPARATOR_LIKE_IN,
           QueryBuilderConstants.COMPARATOR_NOT_LIKE_IN
-        ].indexOf(this._rule.getComparator()) == -1)
+        ].indexOf(this._rule.getComparator()) === -1)
       {
         options.maxElements = 1;
       }
@@ -115,8 +145,8 @@
         vals, function (idx, val)
         {
           self._selectBox.tokenize()
-              .dropdownAddItem(val, val)
-              .tokenAdd(val, val);
+            .dropdownAddItem(val, val)
+            .tokenAdd(val, val);
         }
       );
     };
@@ -140,10 +170,10 @@
     {
       if(definition.hasAjaxValues()
         || (definition.hasValues() && !definition.isStrict())
-        || comparator == QueryBuilderConstants.COMPARATOR_IN
-        || comparator == QueryBuilderConstants.COMPARATOR_NOT_IN
-        || comparator == QueryBuilderConstants.COMPARATOR_LIKE_IN
-        || comparator == QueryBuilderConstants.COMPARATOR_NOT_LIKE_IN
+        || comparator === QueryBuilderConstants.COMPARATOR_IN
+        || comparator === QueryBuilderConstants.COMPARATOR_NOT_IN
+        || comparator === QueryBuilderConstants.COMPARATOR_LIKE_IN
+        || comparator === QueryBuilderConstants.COMPARATOR_NOT_LIKE_IN
       )
       {
         return INPUT_TOKEN;
