@@ -276,9 +276,6 @@
     QueryBuilderRule.prototype.setValue = function (value)
     {
       this._setValue(this.sanitizeValue(value));
-      $(this._queryBuilder._ele).trigger(
-        'change.querybuilder', [this._queryBuilder.rules()]
-      );
     };
 
     QueryBuilderRule.prototype._setValue = function (value)
