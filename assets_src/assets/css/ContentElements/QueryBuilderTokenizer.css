@@ -1,48 +1,18 @@
-.qb-tokenizer.Tokenize {
-  height:  auto;
-  padding: 4px 12px;
+
+.qb-tokenizer + .tokenize {
+  display: inline-block;
+  margin-top: 2px;
 }
 
-.qb-tokenizer.Tokenize ul.TokensContainer {
-  height: auto;
+.qb-tokenizer + .tokenize > .tokens-container {
+  padding: 0 0 3px 3px;
+  min-height: 0;
 }
 
-.qb-tokenizer.Tokenize ul.TokensContainer {
-  border:  none;
-  padding: 0;
-  margin:  0;
+.qb-tokenizer + .tokenize > .tokens-container > .token-search {
+  display: inline-block;
 }
 
-.qb-tokenizer.Tokenize ul.Dropdown {
-  position:   absolute;
-  left:       0;
-  margin-top: 4px;
-  width:      auto;
-}
-
-.qb-tokenizer.Tokenize ul.TokensContainer li.Token, .qb-tokenizer.Tokenize ul.TokensContainer li.TokenSearch {
-  margin: 2px 5px 2px 0;
-}
-
-.qb-tokenizer.Tokenize ul.TokensContainer li.TokenSearch input {
-  line-height: inherit;
-  height:      auto;
-  padding:     2px 0;
-}
-
-.qb-tokenizer.Tokenize.OnlyOne ul.TokensContainer li.TokenSearch input {
-  min-width: 0;
-}
-
-.qb-tokenizer.Tokenize.OnlyOne ul.TokensContainer {
-  min-width: 85px;
-}
-
-.qb-tokenizer.Tokenize.OnlyOne ul.TokensContainer .Token[data-value] + .TokenSearch {
-  display: none;
-}
-
-.qb-tokenizer.Tokenize.OnlyOne ul.TokensContainer li.Token, .qb-tokenizer.Tokenize.OnlyOne ul.TokensContainer li.TokenSearch {
-  border:     none;
-  background: transparent;
+.qb-tokenizer + .tokenize > .tokens-container > .token-search > input {
+  height: 20px;
 }

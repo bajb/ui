@@ -229,7 +229,9 @@
       }
     }
 
-    this._value = value === null || value === undefined ? null : value;
+    this._value = this.sanitizeValue(
+      value === null || value === undefined ? null : value
+    );
     this._valCache = {};
     this._element = null;
   }
@@ -284,10 +286,11 @@
       {
         value = null;
       }
-      this._value = this._valCache[this._comparator] = value;
-      $(this._queryBuilder._ele).trigger(
-        'change.querybuilder', [this._queryBuilder.rules()]
-      );
+      if(this._value !== value)
+      {
+        this._value = this._valCache[this._comparator] = value;
+        this._queryBuilder._triggerChangeEvent();
+      }
     };
 
     QueryBuilderRule.prototype.getComparator = function ()
@@ -311,6 +314,7 @@
         this.setValue(this.getValue());
       }
       this.render();
+      this._queryBuilder._triggerChangeEvent();
     };
 
     QueryBuilderRule.prototype.getKey = function ()
@@ -329,7 +333,7 @@
 
       // if comparator doesnt exist
       var comparators = this.getDefinition().comparators;
-      if(comparators.indexOf(this.getComparator()) == -1)
+      if(comparators.indexOf(this.getComparator()) === -1)
       {
         this.setComparator(comparators[0]);
       }
@@ -337,6 +341,8 @@
       {
         this.setValue(null);
       }
+      this.render();
+      this._queryBuilder._triggerChangeEvent();
     };
 
     QueryBuilderRule.prototype.render = function ()
@@ -508,9 +514,6 @@
     this._ele = ele;
     this._options = {};
     this._definitions = [];
-    this._rules = [new QueryBuilderRule(this, '', '', null)];
-    this._initialisedRules = false;
-    this._initialisedDefinitions = false;
 
     this._inputTypeProcessors = [];
     this._inputMethods = {};
@@ -652,6 +655,10 @@
         }
       }
     );
+
+    this._rules = [new QueryBuilderRule(this, '', '', null)];
+    this._initialisedRules = false;
+    this._initialisedDefinitions = false;
   }
 
   (function ()
@@ -814,6 +821,17 @@
     };
 
     /**
+     * Triggeres the event notifying of rule data
+     * @private
+     */
+    QueryBuilder.prototype._triggerChangeEvent = function ()
+    {
+      $(this._ele).trigger(
+        'change.querybuilder', [this.rules()]
+      );
+    };
+
+    /**
      * Set/Get rules
      * Set triggers redraw
      *
@@ -956,7 +974,7 @@
       }
       if(this._initialisedRules)
       {
-        $(self._ele).trigger('change.querybuilder', [self.rules()]);
+        self._triggerChangeEvent();
       }
     }; // redraw
 
@@ -978,7 +996,7 @@
       {
         this.addRule('', '', null);
       }
-      $(this._ele).trigger('change.querybuilder', [this.rules()]);
+      this._triggerChangeEvent();
     }; // removeRule
 
     QueryBuilder.prototype.getCount = function (key)

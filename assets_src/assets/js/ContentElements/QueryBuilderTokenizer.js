@@ -7,43 +7,54 @@
   // add tokenizer input
   var INPUT_TOKEN = 'token';
 
+  const ALL_EQ = [
+    QueryBuilderConstants.COMPARATOR_EQUALS,
+    QueryBuilderConstants.COMPARATOR_EQUALS_INSENSITIVE,
+    QueryBuilderConstants.COMPARATOR_NOT_EQUALS,
+    QueryBuilderConstants.COMPARATOR_NOT_EQUALS_INSENSITIVE
+  ];
+
   var QueryBuilderTokenInput = (function ()
   {
     function Constructor(rule)
     {
       this._rule = rule;
       this._selectBox = null;
+      //this._rule._value = this.sanitize(this._rule._value);
     }
 
     Constructor.prototype.sanitize = function (value)
     {
-      if(typeof(value) === 'string'
-        && this._rule.comparator !== QueryBuilderConstants.COMPARATOR_EQUALS
-        && this._rule.comparator !== QueryBuilderConstants.COMPARATOR_EQUALS_INSENSITIVE
-        && this._rule.comparator !== QueryBuilderConstants.COMPARATOR_NOT_EQUALS
-        && this._rule.comparator !== QueryBuilderConstants.COMPARATOR_NOT_EQUALS_INSENSITIVE
-      )
+      if(ALL_EQ.indexOf(this._rule.getComparator()) > -1)
       {
-        return [value];
+        if(typeof(value) === 'object')
+        {
+          value = value && value[0] ? value[0] : '';
+        }
+        value = value || '';
       }
-      if(typeof(value) === 'object'
-        && this._rule.comparator === QueryBuilderConstants.COMPARATOR_EQUALS
-        && this._rule.comparator === QueryBuilderConstants.COMPARATOR_EQUALS_INSENSITIVE
-        && this._rule.comparator === QueryBuilderConstants.COMPARATOR_NOT_EQUALS
-        && this._rule.comparator === QueryBuilderConstants.COMPARATOR_NOT_EQUALS_INSENSITIVE
-      )
+      else
       {
-        return value[0];
+        if(typeof(value) === 'string')
+        {
+          value = value ? [value] : null;
+        }
+        if(value && value.length === 0)
+        {
+          value = null;
+        }
       }
+
+      console.log('computed', value);
       return value;
     };
 
     Constructor.prototype.tokenChanged = function (value, text, e)
     {
-      var $tok = this._selectBox.tokenize(),
+      var $tok = this._selectBox.tokenize2(),
         val = $tok.toArray();
 
-      if($tok.options.maxElements === 1 && val.length === 1)
+      if($tok.options.tokensMaxItems === 1 && val.length === 1)
       {
         val = val[0];
       }
@@ -70,22 +81,10 @@
 
     Constructor.prototype.postRender = function ()
     {
-      var self = this,
-        def = this._rule.getDefinition(),
-        vals = this._rule._value,
-        options = {
-          debounce:      250,
-          autosize:      true,
-          onAddToken:    function (value, text, e)
-                         {
-                           self.tokenChanged(value, text, e);
-                         },
-          onRemoveToken: function (value, text, e)
-                         {
-                           self.tokenChanged(value, text, e);
-                         }
-        };
+      var self = this, def = this._rule.getDefinition();
 
+      /* VALUES */
+      var vals = this._rule._value;
       if(!(vals instanceof Object))
       {
         vals = [vals];
@@ -121,39 +120,47 @@
         );
       }
 
-      if(def.isStrict())
-      {
-        options.newElements = false;
-      }
+      /* OPTIONS */
+      var options = {debounce: 250};
+      options.tokensAllowCustom = !def.isStrict();
       if(def.hasAjaxValues())
       {
-        options.datas = def.valuesUrl;
+        options.dataSource = def.valuesUrl;
       }
       // in = multiple values
       // eq = single value
-      if([
-          QueryBuilderConstants.COMPARATOR_IN,
-          QueryBuilderConstants.COMPARATOR_NOT_IN,
-          QueryBuilderConstants.COMPARATOR_LIKE_IN,
-          QueryBuilderConstants.COMPARATOR_NOT_LIKE_IN
-        ].indexOf(this._rule.getComparator()) === -1)
+      if(ALL_EQ.indexOf(this._rule.getComparator()) > -1)
       {
-        options.maxElements = 1;
+        options.tokensMaxItems = 1;
       }
 
-      var tokenized = this._selectBox.tokenize(options);
-      $(this._selectBox)
-        .next('.qb-tokenizer.Tokenize')
-        .on('blur', '.TokenSearch input', function ()
-        {
-          tokenized.tokenAdd($(this).val(), '');
-        });
+      /* TOKENIZE */
+      this._selectBox.tokenize2(options);
+
+      /* ADD VALUES */
       $.each(
         vals, function (idx, val)
         {
-          tokenized
-            .dropdownAddItem(val, val)
-            .tokenAdd(val, val);
+          if(val !== null)
+          {
+            self._selectBox.trigger(
+              'tokenize:dropdown:itemAdd',
+              {value: val, text: val}
+            );
+            self._selectBox.trigger(
+              'tokenize:tokens:add',
+              [val, val, true]
+            );
+          }
+        }
+      );
+
+      /* EVENTS */
+      $(this._selectBox).on(
+        'tokenize:tokens:add tokenize:tokens:remove tokenize:clear',
+        function (e, value, text)
+        {
+          self.tokenChanged(value, text, e);
         }
       );
     };
