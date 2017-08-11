@@ -1230,7 +1230,7 @@
 
     Constructor.prototype.sanitize = function (value)
     {
-      if(value && value.length)
+      if(typeof(value) === 'object' && value && value.length)
       {
         return value.length > 0 ? value[0] : null;
       }

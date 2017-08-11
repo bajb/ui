@@ -145,6 +145,16 @@ class ExampleController extends LayoutController
       ]
     );
     $definitions->addDefinition($def);
+
+    $def = new QBD('aaa', 'aaa', QBDT::STRING);
+    $def->setValues(
+      [
+        'test1' => 'Test One',
+        'test2' => 'Test Two',
+        'test3' => 'Test Three',
+      ]
+    );
+    $definitions->addDefinition($def);
     return new Response(json_encode($definitions->forOutput()));
   }
 
@@ -163,6 +173,7 @@ class ExampleController extends LayoutController
       ],
       ['key' => 'expiryDate', 'comparator' => 'eq', 'value' => date('Y-m-d')],
       'sid' => ['12'],
+      ['key' => 'aaa', 'comparator' => 'eq', 'value' => 'test3'],
     ];
     return $policy;
   }
