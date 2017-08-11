@@ -44,8 +44,6 @@
           value = null;
         }
       }
-
-      console.log('computed', value);
       return value;
     };
 
