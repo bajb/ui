@@ -171,6 +171,7 @@ class ExampleController extends LayoutController
   {
     $query = $this->_getRequest()->query->get('search');
     $values = [
+      ['value' => '', 'text' => 'No Browser'],
       ['value' => 'chrome', 'text' => 'Chrome'],
       ['value' => 'firefox', 'text' => 'Firefox'],
       ['value' => 'safari', 'text' => 'Safari'],
@@ -183,10 +184,9 @@ class ExampleController extends LayoutController
     ];
     return array_filter(
       $values,
-      function ($var) use ($query)
-      {
+      function ($var) use ($query) {
         return stripos($var['value'], $query) !== false
-          && stripos($var['text'], $query) !== false;
+          || stripos($var['text'], $query) !== false;
       }
     );
   }
@@ -208,8 +208,7 @@ class ExampleController extends LayoutController
     {
       return array_filter(
         $values,
-        function ($var) use ($query)
-        {
+        function ($var) use ($query) {
           return stripos($var['value'], $query) !== false
             && stripos($var['text'], $query) !== false;
         }
