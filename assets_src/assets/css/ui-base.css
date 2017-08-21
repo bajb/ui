@@ -24,6 +24,10 @@ body ul, body ol {
   padding: 4px !important;
 }
 
+.f-pn {
+  padding: 0 !important;
+}
+
 .f-ml {
   margin: 16px !important;
 }
