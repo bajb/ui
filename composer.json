@@ -10,14 +10,14 @@
     }
   ],
   "require": {
-    "packaged/dispatch": "~1.1",
+    "packaged/dispatch": "~1.6",
     "packaged/glimpse": "~0.6",
     "nesbot/carbon": "~1.14"
   },
   "require-dev": {
-    "cubex/framework": "~2.3",
+    "cubex/framework": "~2.6",
     "stack/builder": "~1.0",
-    "phpunit/phpunit": "~4.1.0"
+    "phpunit/phpunit": "~6.3"
   },
   "autoload": {
     "psr-4": {

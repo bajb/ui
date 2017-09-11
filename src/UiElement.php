@@ -1,13 +1,13 @@
 <?php
 namespace Fortifi\Ui;
 
-use Illuminate\Support\Contracts\RenderableInterface;
+use Illuminate\Contracts\Support\Renderable;
 use Packaged\Dispatch\AssetManager;
 use Packaged\Dispatch\DirectoryMapper;
 use Packaged\Glimpse\Core\ISafeHtmlProducer;
 use Packaged\Glimpse\Core\SafeHtml;
 
-abstract class UiElement implements ISafeHtmlProducer, RenderableInterface
+abstract class UiElement implements ISafeHtmlProducer, Renderable
 {
   protected $_processedIncludes = false;
 
@@ -23,11 +23,12 @@ abstract class UiElement implements ISafeHtmlProducer, RenderableInterface
 
   /**
    * Create a new instance of this UI Element
+   *
    * @return static
    */
   public static function i()
   {
-    $i = new static;
+    $i = new static();
     return $i;
   }
 

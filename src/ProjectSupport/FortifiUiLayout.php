@@ -2,7 +2,7 @@
 namespace Fortifi\Ui\ProjectSupport;
 
 use Cubex\View\Layout;
-use Illuminate\Support\Contracts\RenderableInterface;
+use Illuminate\Contracts\Support\Renderable;
 use Packaged\Glimpse\Core\ISafeHtmlProducer;
 
 class FortifiUiLayout extends Layout
@@ -21,7 +21,7 @@ class FortifiUiLayout extends Layout
   {
     if(isset($this->_sections[$method]))
     {
-      if($this->_sections[$method] instanceof RenderableInterface)
+      if($this->_sections[$method] instanceof Renderable)
       {
         return $this->_sections[$method]->render($args);
       }
@@ -43,7 +43,7 @@ class FortifiUiLayout extends Layout
     foreach($this->_sections as $name => $data)
     {
       $rawData = $data;
-      if($data instanceof RenderableInterface)
+      if($data instanceof Renderable)
       {
         $this->_sections[$name] = $data = $rawData->render();
       }
