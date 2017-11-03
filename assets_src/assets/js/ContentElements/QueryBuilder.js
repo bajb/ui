@@ -196,7 +196,7 @@
     };
     QueryBuilderDefinition.prototype.isStrict = function ()
     {
-      return !!this.strictValues;
+      return this.strictValues && (this.values || this.valuesUrl);
     };
   })();
 
