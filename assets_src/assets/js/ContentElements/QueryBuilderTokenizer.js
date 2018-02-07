@@ -110,7 +110,7 @@
                 .val(encodeURIComponent(idx));
               if(vals.indexOf(idx) > -1)
               {
-                $option.attr('selected', 'selected');
+                $option.prop('selected', true);
               }
               self._selectBox.append($option);
             }

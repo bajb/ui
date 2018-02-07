@@ -44,6 +44,10 @@ body ul, body ol {
   margin: 0 !important;
 }
 
+.f-pn {
+  padding: 0 !important;
+}
+
 /* left */
 .f-pll {
   padding-left: 16px !important;
