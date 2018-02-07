@@ -268,12 +268,14 @@ final class Ui
     $am->requireJs('assets/js/ui-base');
 
     if($jquery)
-    {    //Require JQuery
-      $am->requireJs('assets/vendor/jquery/2.1.4.min');
+    {
+      // Require JQuery
+      $am->requireJs('assets/vendor/jquery/3.3.1.min');
     }
 
     if($bootstrap)
-    {   //Require Bootstrap
+    {
+      // Require Bootstrap
       $am->requireCss('assets/vendor/bootstrap/3.3.4.min');
       $am->requireJs('assets/vendor/bootstrap/3.3.4.min');
     }
