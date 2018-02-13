@@ -380,14 +380,14 @@
           );
           if(ruleKey == def.key)
           {
-            $option.attr('selected', 'selected');
+            $option.prop('selected', true);
           }
           if(def.unique)
           {
             $option.addClass('unique-' + def.key);
             if(self._queryBuilder.getCount(def.key))
             {
-              $option.attr('disabled', 'disabled');
+              $option.prop('disabled', true);
             }
           }
           $propertySel.append($option);
@@ -398,7 +398,7 @@
       {
         if(definition && definition.required && definition.count <= 1)
         {
-          $propertySel.attr('disabled', 'disabled');
+          $propertySel.prop('disabled', true);
         }
         if(definition && !definition.dataType)
         {
@@ -455,9 +455,9 @@
 
       if(!definition && this.getKey())
       {
-        $propertySel.attr('disabled', 'disabled');
-        $comparatorSel.attr('disabled', 'disabled');
-        $value.attr('disabled', 'disabled');
+        $propertySel.prop('disabled', true);
+        $comparatorSel.prop('disabled', true);
+        $value.prop('disabled', true);
       }
 
       if(this._element)
@@ -1023,7 +1023,7 @@
         def.count++;
         if(def.unique)
         {
-          $('.qb-key .unique-' + key, this._ele).attr('disabled', 'disabled');
+          $('.qb-key .unique-' + key, this._ele).prop('disabled', true);
         }
         if(def.required && def.count > 1)
         {
@@ -1033,7 +1033,7 @@
               if(this.getKey() == key)
               {
                 $('.qb-remove-rule', this.getElement()).show();
-                $('.qb-key', this.getElement()).attr('disabled', false);
+                $('.qb-key', this.getElement()).prop('disabled', false);
               }
             }
           );
@@ -1050,7 +1050,7 @@
         if(def.unique && def.count == 0)
         {
           // allow this on all again
-          $('.qb-key .unique-' + key, this._ele).attr('disabled', null);
+          $('.qb-key .unique-' + key, this._ele).prop('disabled', false);
         }
         if(def.required && def.count == 1)
         {
@@ -1147,8 +1147,8 @@
     if(value && Object.keys(options).indexOf(value) == -1)
     {
       var $option = $('<option/>').text(value).attr('value', value);
-      $option.attr('selected', 'selected');
-      $option.attr('disabled', 'disabled');
+      $option.prop('selected', true);
+      $option.prop('disabled', true);
       $select.append($option);
     }
     $.each(
@@ -1157,7 +1157,7 @@
         var $option = $('<option/>').text(this).attr('value', idx);
         if(idx == value)
         {
-          $option.attr('selected', 'selected');
+          $option.prop('selected', true);
         }
         $select.append($option);
       }
@@ -1400,7 +1400,7 @@
           var $option = $('<option>').val(v[1]).text(v[0]);
           if(unit === v[1])
           {
-            $option.attr('selected', true);
+            $option.prop('selected', true);
           }
           $unit.append($option);
         }
@@ -1411,11 +1411,11 @@
         $fromNow = $('<option value="1">From now</option>');
       if(this._rule._value <= 0)
       {
-        $ago.attr('selected', true);
+        $ago.prop('selected', true);
       }
       else
       {
-        $fromNow.attr('selected', true);
+        $fromNow.prop('selected', true);
       }
       $negate.append($ago, $fromNow);
 
