@@ -22,10 +22,12 @@
 /* content */
 .ui-cards > .card > .content {
   padding: 15px;
+  position: relative;
   background: #fff;
 }
 
 .ui-cards > .card > .content > .label {
+  white-space: pre-wrap;
   margin: 0 0 6px;
   text-align: left;
 }
@@ -45,6 +47,29 @@
 
 .ui-cards > .card > .content > .description {
   margin-top: 6px;
+}
+
+/* icons */
+.ui-cards > .card .icons {
+  padding: 5px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  border-radius: 30px;
+  background: #fff;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.ui-cards > .card:hover .icons {
+  opacity: 0;
+}
+
+.ui-cards > .card .icons:hover {
+  opacity: 1;
+}
+
+.ui-cards > .card .icons > [class*="fa-"] {
+  transform: scale(0.9);
 }
 
 /* properties */

@@ -7,10 +7,10 @@ use Fortifi\Ui\Enums\UiIcon;
 use Fortifi\Ui\GlobalElements\Icons\FontIcon;
 use Fortifi\Ui\Interfaces\IColours;
 use Fortifi\Ui\UiElement;
+use Packaged\Glimpse\Core\HtmlTag;
 use Packaged\Glimpse\Tags\Div;
 use Packaged\Glimpse\Tags\Lists\ListItem;
 use Packaged\Glimpse\Tags\Text\Paragraph;
-use Packaged\Helpers\Strings;
 
 class Card extends UiElement implements IColours
 {
@@ -65,18 +65,6 @@ class Card extends UiElement implements IColours
   }
 
   /**
-   * @param $content
-   *
-   * @return $this
-   */
-  public function setAvatar($content)
-  {
-    throw new \Exception('Need to create something for this');
-    $this->_avatar = $content;
-    return $this;
-  }
-
-  /**
    * @param string $label
    * @param string $value
    * @param array  $options
@@ -87,17 +75,20 @@ class Card extends UiElement implements IColours
   {
     if(is_string($label) && is_string($value))
     {
-      $id = Strings::randomString(8);
-
       $property = Div::create(
         [
           Paragraph::create($value)->addClass('value'),
           Paragraph::create($label)->addClass('label'),
         ]
       );
-      $property->setId($id);
+
       $property->addClass('property');
-      $property->setAttribute('data-copy', base64_encode("#{$id} .value"));
+
+      // stuff for copy-to-clipboard
+      if(!$options)
+      {
+        $property->setAttribute('data-copy', $value);
+      }
 
       $this->_properties[] = $property;
     }
@@ -147,7 +138,12 @@ class Card extends UiElement implements IColours
    */
   protected function _produceHtml()
   {
+    // create Card
+    $card = ListItem::create()->addClass('card');
+
+    // create Title, Label, Description content
     $content = Div::create()->addClass('content');
+
     if($this->_label)
     {
       $label = Paragraph::create($this->_label)->addClass('label');
@@ -166,12 +162,17 @@ class Card extends UiElement implements IColours
       $content->appendContent($description);
     }
 
+    // Add Label, Title, Description and Icons.
+    $card->appendContent($content);
+
+    // add icons to Card
     if($this->_icons)
     {
-      $icons = Div::create($this->_description)->addClass('icons');
+      $icons = Div::create()->addClass('icons');
       foreach($this->_icons as $icon)
       {
-        if($icon instanceof FontIcon)
+        // if is HtmlTag object and $tag is 'i', we can assume that this should be considered an icon
+        if(($icon instanceof FontIcon) || (($icon instanceof HtmlTag) && $icon->getTag() === 'i'))
         {
           $icons->appendContent($icon);
         }
@@ -184,9 +185,6 @@ class Card extends UiElement implements IColours
       }
       $content->appendContent($icons);
     }
-
-    // create Card. Add Label, Title, Description and Icons.
-    $card = ListItem::create($content)->addClass('card');
 
     // add border colour class
     if(Colour::isValid($this->_colour))

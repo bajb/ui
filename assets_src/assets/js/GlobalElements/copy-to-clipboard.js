@@ -7,6 +7,11 @@
 
   function copyText(text)
   {
+    if(text === undefined)
+    {
+      throw new Error('No text passed to copyText method in Project: Ui; File: copy-to-clipboard.js;');
+    }
+
     function selectElementText(element)
     {
       if(document.selection)
@@ -32,40 +37,12 @@
     element.remove();
   }
 
-  function isBase64Encoded(content)
-  {
-    if(content !== undefined)
-    {
-      try
-      {
-        return btoa(atob(content)) === content;
-      }
-      catch(err)
-      {
-      }
-    }
-
-    return false;
-  }
-
   $(document).on('click', selector, function ()
   {
-    var selector = $(this).data('copy');
+    copyText($(this).data('copy'));
 
-    if(selector !== undefined)
-    {
-      if(!isBase64Encoded(selector))
-      {
-        selector = btoa(selector);
-      }
-
-      var target = atob(selector);
-
-      copyText($(target).text());
-
-      $(this).prop('title', 'Copied!');
-      $(this).tooltip('show');
-    }
+    $(this).prop('title', 'Copied!');
+    $(this).tooltip('show');
   });
 
   $(document).on('mouseout', selector, function ()
