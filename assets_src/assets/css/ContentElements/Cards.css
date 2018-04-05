@@ -45,9 +45,6 @@
 }
 
 /* list */
-.ui-cards.list {
-}
-
 .ui-cards.list > .card {
   width: 100%;
   border: 1px solid #ddd;
