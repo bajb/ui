@@ -65,6 +65,17 @@ class Card extends UiElement implements IColours
   }
 
   /**
+   * @param $content
+   *
+   * @return $this
+   */
+  public function setAvatar($content)
+  {
+    $this->_avatar = $content;
+    return $this;
+  }
+
+  /**
    * @param string $label
    * @param string $value
    * @param array  $options
@@ -144,6 +155,12 @@ class Card extends UiElement implements IColours
 
     // create Title, Label, Description content
     $content = Div::create()->addClass('content');
+
+    if($this->_avatar)
+    {
+      $avatar = Div::create($this->_avatar)->addClass('avatar');
+      $content->appendContent($avatar);
+    }
 
     if($this->_label)
     {

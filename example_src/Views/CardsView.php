@@ -7,6 +7,7 @@ use Fortifi\Ui\GlobalElements\Cards\Card;
 use Fortifi\Ui\GlobalElements\Cards\Cards;
 use Fortifi\Ui\GlobalElements\Icons\FontIcon;
 use Fortifi\Ui\Ui;
+use Packaged\Glimpse\Core\HtmlTag;
 use Packaged\Helpers\Arrays;
 
 class CardsView extends AbstractUiExampleView
@@ -60,6 +61,14 @@ class CardsView extends AbstractUiExampleView
       'because we would not want it to break the layout now, would we, eh?'
     );
     $this->_addCardProperties($card);
+
+    $card->setAvatar(
+      HtmlTag::createTag(
+        'img',
+        ['src' => 'https://pbs.twimg.com/profile_images/943069281171968000/UNiJSeWn_400x400.jpg']
+      )
+    );
+    $card->setAvatar(FontIcon::create(FontIcon::USER));
 
     // add actions
     $card->addAction(CardActionType::ACTION_TYPE_EDIT, '/edit', '/edit-ajax');
