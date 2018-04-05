@@ -1,0 +1,93 @@
+.ui-cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ui-cards > .card {
+  display: flex;
+  flex: auto;
+  border: 1px solid #ddd;
+  background: #fff;
+}
+
+.ui-cards > .card > .content {
+  padding: 15px;
+}
+
+.ui-cards > .card .label {
+  width: 100%;
+  padding: 0;
+  margin: 0 0 6px;
+  display: block;
+  text-align: left;
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: bold;
+  color: #999;
+}
+
+.ui-cards > .card .title {
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+  font-weight: normal;
+  color: #999;
+}
+
+.ui-cards > .card .description {
+  margin-top: 6px;
+}
+
+.ui-cards > .card .actions > * {
+  padding: 10px 6px;
+  border-left: 1px solid rgba(0, 0, 0, 0.08);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+/* list */
+.ui-cards.list > .card {
+  width: 100%;
+  margin-bottom: 3px;
+  flex-direction: row;
+}
+
+.ui-cards.list > .card .content,
+.ui-cards.list > .card .actions {
+  display: flex;
+}
+
+.ui-cards.list > .card .content {
+  flex-direction: column;
+  flex: auto;
+}
+
+.ui-cards.list > .card .actions {
+  flex-direction: row;
+}
+
+.ui-cards.list > .card .actions > * {
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+}
+
+/* grid */
+.ui-cards.grid {
+  flex: auto;
+}
+
+.ui-cards.grid > .card {
+  flex-basis: 200px;
+  flex-direction: column;
+}
+
+.ui-cards.grid > .card .content {
+}
+
+.ui-cards.grid > .card .actions {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  background: #eee;
+}
