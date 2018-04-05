@@ -12,6 +12,8 @@ class Cards extends UiElement implements ILayout
   protected $_cards = [];
   /** @var string */
   protected $_layout = self::LAYOUT_LIST;
+  /** @var int */
+  protected $_columns = 4;
 
   /**
    * @param Card $card
@@ -55,6 +57,17 @@ class Cards extends UiElement implements ILayout
     return $this;
   }
 
+  /**
+   * @param int $columns
+   *
+   * @return $this
+   */
+  public function setGridColumnCount($columns = 4)
+  {
+    $this->_columns = $columns;
+    return $this;
+  }
+
   public function processIncludes(AssetManager $assetManager, $vendor = false)
   {
     if($vendor)
@@ -74,6 +87,11 @@ class Cards extends UiElement implements ILayout
   {
     $cards = UnorderedList::create()->addClass('ui-cards');
     $cards->addClass($this->_layout);
+
+    if($this->_layout === self::LAYOUT_GRID)
+    {
+      $cards->setAttribute('data-columns', $this->_columns);
+    }
 
     if($this->_cards)
     {

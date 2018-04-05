@@ -6,12 +6,11 @@
 .ui-cards > .card {
   display: flex;
   flex: auto;
-  border: 1px solid #ddd;
-  background: #fff;
 }
 
 .ui-cards > .card > .content {
   padding: 15px;
+  background: #fff;
 }
 
 .ui-cards > .card .label {
@@ -46,8 +45,12 @@
 }
 
 /* list */
+.ui-cards.list {
+}
+
 .ui-cards.list > .card {
   width: 100%;
+  border: 1px solid #ddd;
   margin-bottom: 3px;
   flex-direction: row;
 }
@@ -74,20 +77,43 @@
 
 /* grid */
 .ui-cards.grid {
+  margin: -10px -10px 0;
   flex: auto;
+  justify-content: space-between;
 }
 
 .ui-cards.grid > .card {
-  flex-basis: 200px;
+  min-width: 200px;
+  border: 10px solid transparent;
   flex-direction: column;
 }
 
 .ui-cards.grid > .card .content {
+  border: 1px solid #ddd;
+  border-bottom: none;
 }
 
 .ui-cards.grid > .card .actions {
   display: flex;
   justify-content: flex-end;
+  border: 1px solid #ddd;
   border-top: 1px solid rgba(0, 0, 0, 0.08);
   background: #eee;
+}
+
+/* define grid columns */
+.ui-cards.grid[data-columns="2"] > .card {
+  flex: 1 50%;
+}
+.ui-cards.grid[data-columns="3"] > .card {
+  flex: 1 33%;
+}
+.ui-cards.grid[data-columns="4"] > .card {
+  flex: 1 25%;
+}
+.ui-cards.grid[data-columns="5"] > .card {
+  flex: 1 20%;
+}
+.ui-cards.grid[data-columns="6"] > .card {
+  flex: 1 16.66%;
 }
