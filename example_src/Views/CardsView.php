@@ -113,7 +113,7 @@ class CardsView extends AbstractUiExampleView
     $cards = Cards::i();
     $cards->setLayout($cards::LAYOUT_GRID);
     $cards->addCards($this->_getCards());
-    $cards->setGridColumnCount(5);
+    $cards->setGridColumnCount(3);
 
     return $cards;
   }
