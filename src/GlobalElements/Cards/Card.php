@@ -79,6 +79,7 @@ class Card extends UiElement implements IColours
         [
           Paragraph::create($value)->addClass('value'),
           Paragraph::create($label)->addClass('label'),
+          FontIcon::create('fa-files-o')->addClass('copy'),
         ]
       );
 

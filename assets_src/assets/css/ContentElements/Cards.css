@@ -60,11 +60,11 @@
   transition: opacity 0.3s ease-in-out;
 }
 
-.ui-cards > .card:hover .icons {
+.ui-cards > .card > .content:hover .icons {
   opacity: 0;
 }
 
-.ui-cards > .card .icons:hover {
+.ui-cards > .card > .content .icons:hover {
   opacity: 1;
 }
 
@@ -82,6 +82,7 @@
 .ui-cards > .card > .properties .property {
   padding: 15px;
   border-left: 1px solid #ddd;
+  position: relative;
   text-align: center;
   cursor: copy;
   /**/
@@ -104,6 +105,21 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.ui-cards > .card > .properties .property .copy {
+  padding: 5px;
+  border-radius: 20px;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  background: #f9f9f9;
+}
+
+.ui-cards > .card > .properties .property:hover .copy {
+  opacity: 1;
 }
 
 /* actions */
