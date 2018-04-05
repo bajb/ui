@@ -10,6 +10,7 @@ use Fortifi\Ui\UiElement;
 use Packaged\Glimpse\Tags\Div;
 use Packaged\Glimpse\Tags\Lists\ListItem;
 use Packaged\Glimpse\Tags\Text\Paragraph;
+use Packaged\Helpers\Strings;
 
 class Card extends UiElement implements IColours
 {
@@ -17,6 +18,8 @@ class Card extends UiElement implements IColours
   protected $_title;
   /** @var  array */
   protected $_actions = [];
+  /** @var  array */
+  protected $_properties = [];
   /** @var  array */
   protected $_icons = [];
   /** @var  string */
@@ -70,6 +73,34 @@ class Card extends UiElement implements IColours
   {
     throw new \Exception('Need to create something for this');
     $this->_avatar = $content;
+    return $this;
+  }
+
+  /**
+   * @param string $label
+   * @param string $value
+   * @param array  $options
+   *
+   * @return $this
+   */
+  public function addProperty($label, $value, array $options = [])
+  {
+    if(is_string($label) && is_string($value))
+    {
+      $id = Strings::randomString(8);
+
+      $property = Div::create(
+        [
+          Paragraph::create($value)->addClass('value'),
+          Paragraph::create($label)->addClass('label'),
+        ]
+      );
+      $property->setId($id);
+      $property->addClass('property');
+      $property->setAttribute('data-copy', base64_encode("#{$id} .value"));
+
+      $this->_properties[] = $property;
+    }
     return $this;
   }
 
@@ -161,6 +192,14 @@ class Card extends UiElement implements IColours
     if(Colour::isValid($this->_colour))
     {
       $card->addClass($this->_colour);
+    }
+
+    // append properties
+    if($this->_properties)
+    {
+      $card->appendContent(
+        Div::create($this->_properties)->addClass('properties')
+      );
     }
 
     // append actions

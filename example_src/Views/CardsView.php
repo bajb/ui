@@ -8,6 +8,28 @@ use Fortifi\Ui\GlobalElements\Cards\Cards;
 
 class CardsView extends AbstractUiExampleView
 {
+  protected $_props = [
+    'name'            => 'Chris Sparshott',
+    'email'           => 'chris.sparshott@fortifi.io',
+    'role'            => 'Admin',
+    'created'         => '2015-11-26',
+    'auto responders' => '26',
+    'mailshots'       => '7',
+  ];
+
+  protected function _addCardProperties(Card $card, $propertyCount = 2)
+  {
+    $x = 1;
+    foreach($this->_props as $name => $value)
+    {
+      if($x >= $propertyCount)
+      {
+        break;
+      }
+      $card->addProperty($name, $value);
+    }
+    return $card;
+  }
 
   /**
    * @return Card
@@ -22,6 +44,7 @@ class CardsView extends AbstractUiExampleView
     $card->setTitle($title);
     $card->setLabel('Label');
     $card->setDescription('The description');
+    $this->_addCardProperties($card);
 
     // add actions
     $card->addAction();

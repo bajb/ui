@@ -8,43 +8,92 @@
   flex: auto;
 }
 
+.ui-cards > .card .label {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  display: block;
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 700;
+  color: #999;
+}
+
+/* content */
 .ui-cards > .card > .content {
   padding: 15px;
   background: #fff;
 }
 
-.ui-cards > .card .label {
-  width: 100%;
-  padding: 0;
+.ui-cards > .card > .content > .label {
   margin: 0 0 6px;
-  display: block;
   text-align: left;
-  text-transform: uppercase;
-  font-size: 10px;
-  font-weight: bold;
-  color: #999;
 }
 
-.ui-cards > .card .title {
+.ui-cards > .card > .content > .title {
   padding: 0;
   margin: 0;
-  font-size: 18px;
-  font-weight: normal;
+  font-size: 20px;
+  font-weight: 200;
   color: #999;
 }
 
-.ui-cards > .card .description {
+.ui-cards > .card > .content > .title a:hover {
+  border-bottom: 1px solid;
+  text-decoration: none;
+}
+
+.ui-cards > .card > .content > .description {
   margin-top: 6px;
 }
 
-.ui-cards > .card .actions > * {
+/* properties */
+.ui-cards > .card > .properties {
+  display: flex;
+  flex-direction: row;
+  background: #f9f9f9;
+}
+
+.ui-cards > .card > .properties .property {
+  padding: 15px;
+  border-left: 1px solid #ddd;
+  text-align: center;
+  cursor: copy;
+  /**/
+  display: flex;
+  flex: auto 1;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ui-cards > .card > .properties .property > * {
+  margin: 0;
+}
+
+.ui-cards > .card > .properties .property .value {
+  margin-bottom: 6px;
+  font-size: 14px;
+  /**/
+  max-width: 100%;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* actions */
+.ui-cards > .card > .actions {
+  background: #eee;
+}
+
+.ui-cards > .card > .actions > * {
   padding: 10px 6px;
   border-left: 1px solid rgba(0, 0, 0, 0.08);
   text-decoration: none;
   font-size: 14px;
 }
 
-/* list */
+/* =list */
 .ui-cards.list > .card {
   width: 100%;
   border: 1px solid #ddd;
@@ -52,27 +101,34 @@
   flex-direction: row;
 }
 
-.ui-cards.list > .card .content,
-.ui-cards.list > .card .actions {
+.ui-cards.list > .card > .content,
+.ui-cards.list > .card > .actions {
   display: flex;
 }
 
-.ui-cards.list > .card .content {
+/* =list content */
+.ui-cards.list > .card > .content {
   flex-direction: column;
   flex: auto;
 }
 
-.ui-cards.list > .card .actions {
+/* =list actions */
+.ui-cards.list > .card > .actions {
   flex-direction: row;
 }
 
-.ui-cards.list > .card .actions > * {
+.ui-cards.list > .card > .actions > * {
   display: flex;
   align-self: stretch;
   align-items: center;
 }
 
-/* grid */
+/* =list properties */
+.ui-cards.list > .card > .properties .property {
+  max-width: 150px;
+}
+
+/* =grid */
 .ui-cards.grid {
   margin: -10px -10px 0;
   flex: auto;
@@ -85,17 +141,28 @@
   flex-direction: column;
 }
 
-.ui-cards.grid > .card .content {
+/* =grid content */
+.ui-cards.grid > .card > .content {
   border: 1px solid #ddd;
   border-bottom: none;
 }
 
-.ui-cards.grid > .card .actions {
+/* =grid properties */
+.ui-cards.grid > .card > .properties {
+  flex-wrap: wrap;
+  border-right: 1px solid #ddd;
+}
+
+.ui-cards.grid > .card > .properties .property {
+  border-top: 1px solid #ddd;
+}
+
+/* =grid actions */
+.ui-cards.grid > .card > .actions {
   display: flex;
   justify-content: flex-end;
   border: 1px solid #ddd;
   border-top: 1px solid rgba(0, 0, 0, 0.08);
-  background: #eee;
 }
 
 /* define grid columns */
