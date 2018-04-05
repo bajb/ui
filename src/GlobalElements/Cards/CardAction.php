@@ -58,6 +58,13 @@ class CardAction extends UiElement implements ICardActionType
     return $this;
   }
 
+  /**
+   * @param string      $type
+   * @param null|string $url
+   * @param null|string $ajaxUrl
+   *
+   * @return static
+   */
   public static function create($type = self::ACTION_TYPE_VIEW, $url = null, $ajaxUrl = null)
   {
     $self = new static();
@@ -171,6 +178,8 @@ class CardAction extends UiElement implements ICardActionType
     {
       $this->_link->setContent($this->_icon);
     }
+
+    $this->_link->setAttribute('data-type', $this->_type);
 
     return $this->_link;
   }

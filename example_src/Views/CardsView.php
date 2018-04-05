@@ -18,6 +18,11 @@ class CardsView extends AbstractUiExampleView
     'mailshots'       => '7',
   ];
 
+  /**
+   * @param Card $card
+   *
+   * @return Card
+   */
   protected function _addCardProperties(Card $card)
   {
     $properties = Arrays::shuffleAssoc($this->_props);
@@ -55,9 +60,10 @@ class CardsView extends AbstractUiExampleView
     $this->_addCardProperties($card);
 
     // add actions
-    $card->addAction();
     $card->addAction(CardActionType::ACTION_TYPE_EDIT, '/edit', '/edit-ajax');
+    $card->addAction(CardActionType::ACTION_TYPE_IS_DEFAULT, '/is-default', '/is-default-ajax');
     $card->addAction(CardActionType::ACTION_TYPE_CREATE, '/create', '/create-ajax');
+    $card->addAction(CardActionType::ACTION_TYPE_DELETE, '/delete', '/delete-ajax');
 
     return $card;
   }
