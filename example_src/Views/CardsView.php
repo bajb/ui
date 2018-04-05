@@ -5,6 +5,7 @@ use Fortifi\Ui\ContentElements\Links\PageletLink;
 use Fortifi\Ui\Enums\Cards\CardActionType;
 use Fortifi\Ui\GlobalElements\Cards\Card;
 use Fortifi\Ui\GlobalElements\Cards\Cards;
+use Packaged\Helpers\Arrays;
 
 class CardsView extends AbstractUiExampleView
 {
@@ -17,16 +18,19 @@ class CardsView extends AbstractUiExampleView
     'mailshots'       => '7',
   ];
 
-  protected function _addCardProperties(Card $card, $propertyCount = 2)
+  protected function _addCardProperties(Card $card)
   {
-    $x = 1;
-    foreach($this->_props as $name => $value)
+    $properties = Arrays::shuffleAssoc($this->_props);
+    $propertyCount = rand(0, count($this->_props));
+    $x = 0;
+    foreach($properties as $name => $value)
     {
       if($x >= $propertyCount)
       {
         break;
       }
       $card->addProperty($name, $value);
+      $x++;
     }
     return $card;
   }
@@ -43,7 +47,11 @@ class CardsView extends AbstractUiExampleView
     $card = Card::i();
     $card->setTitle($title);
     $card->setLabel('Label');
-    $card->setDescription('The description');
+    $card->setDescription(
+      'The description. This could be really long, or it could be really shirt. ' .
+      'Either way, we should make sure it looks ok when used inside a card, ' .
+      'because we would not want it to break the layout now, would we, eh?'
+    );
     $this->_addCardProperties($card);
 
     // add actions
