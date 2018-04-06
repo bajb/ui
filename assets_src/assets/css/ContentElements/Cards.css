@@ -162,7 +162,7 @@
   background: #eee;
 }
 
-.ui-cards > .card > .actions > * {
+.ui-cards > .card > .actions > [data-type] {
   padding: 10px 6px;
   border-left: 1px solid rgba(0, 0, 0, 0.08);
   text-decoration: none;
@@ -193,7 +193,7 @@
   flex-direction: row;
 }
 
-.ui-cards.list > .card > .actions > * {
+.ui-cards.list > .card > .actions > [data-type] {
   display: flex;
   align-self: stretch;
   align-items: center;
