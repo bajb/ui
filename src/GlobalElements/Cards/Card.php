@@ -155,23 +155,24 @@ class Card extends UiElement implements IColours
 
     // create Title, Label, Description content
     $content = Div::create()->addClass('content');
+    $intro = Div::create()->addClass('intro');
 
     if($this->_avatar)
     {
       $avatar = Div::create($this->_avatar)->addClass('avatar');
-      $content->appendContent($avatar);
+      $intro->appendContent($avatar);
     }
 
     if($this->_label)
     {
       $label = Paragraph::create($this->_label)->addClass('label');
-      $content->appendContent($label);
+      $intro->appendContent($label);
     }
 
     if($this->_title)
     {
       $title = Div::create($this->_title)->addClass('title');
-      $content->appendContent($title);
+      $intro->appendContent($title);
     }
 
     if($this->_description)
@@ -181,6 +182,7 @@ class Card extends UiElement implements IColours
     }
 
     // Add Label, Title, Description and Icons.
+    $content->prependContent($intro);
     $card->appendContent($content);
 
     // add icons to Card

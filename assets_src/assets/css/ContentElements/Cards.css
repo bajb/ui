@@ -27,13 +27,14 @@
   background: #fff;
 }
 
-.ui-cards > .card > .content > .avatar {
+.ui-cards > .card > .content > .intro > .avatar {
   width: 48px;
   height: 48px;
   overflow: hidden;
   border-radius: 50%;
   float: left;
-  margin-right: 6px;
+  margin-right: 10px;
+  margin-bottom: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,17 +42,17 @@
   background: #eee;
 }
 
-.ui-cards > .card > .content > .avatar > * {
+.ui-cards > .card > .content > .intro > .avatar > * {
   max-width: 100%;
 }
 
-.ui-cards > .card > .content > .label {
+.ui-cards > .card > .content > .intro > .label {
   white-space: pre-wrap;
   margin: 0 0 6px;
   text-align: left;
 }
 
-.ui-cards > .card > .content > .title {
+.ui-cards > .card > .content > .intro > .title {
   padding: 0;
   margin: 0;
   font-size: 20px;
@@ -59,7 +60,7 @@
   color: #999;
 }
 
-.ui-cards > .card > .content > .title a:hover {
+.ui-cards > .card > .content > .intro > .title a:hover {
   border-bottom: 1px solid;
   text-decoration: none;
 }
@@ -170,6 +171,10 @@
 .ui-cards.list > .card > .content {
   flex-direction: column;
   flex: auto;
+}
+
+.ui-cards.list > .card > .content > .intro .avatar {
+
 }
 
 /* =list actions */
