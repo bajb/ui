@@ -78,29 +78,33 @@ class Card extends UiElement implements IColours, ICardActionType
 
   /**
    * @param string $label
-   * @param string $value
+   * @param mixed  $value
    * @param array  $options
    *
    * @return $this
    */
   public function addProperty($label, $value, array $options = [])
   {
-    if(is_string($label) && is_string($value))
+    if(is_string($label))
     {
       $property = Div::create(
-        [
-          Paragraph::create($value)->addClass('value'),
-          Paragraph::create($label)->addClass('label'),
-          FontIcon::create('fa-files-o')->addClass('copy'),
-        ]
-      );
+        Paragraph::create($value)->addClass('value')
+      )->addClass('property');
 
-      $property->addClass('property');
+      if(is_string($value))
+      {
+        $value = Paragraph::create($label)->addClass('label');
+      }
+
+      $property->appendContent($value);
 
       // stuff for copy-to-clipboard
       if(!$options)
       {
         $property->setAttribute('data-copy', $value);
+        $property->appendContent(
+          FontIcon::create('fa-files-o')->addClass('copy')
+        );
       }
 
       $this->_properties[] = $property;
