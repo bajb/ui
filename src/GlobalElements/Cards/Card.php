@@ -24,7 +24,7 @@ class Card extends UiElement implements IColours, ICardActionType
   /** @var  array */
   protected $_icons = [];
   /** @var  string */
-  protected $_colour = Colour::COLOUR_DEFAULT;
+  protected $_colour = self::COLOUR_DEFAULT;
   /** @var  null|string */
   protected $_label = null;
   /** @var  null|mixed */

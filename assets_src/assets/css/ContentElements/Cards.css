@@ -67,7 +67,6 @@
 }
 
 .ui-cards > .card > .content > .intro > .title a:hover {
-  border-bottom: 1px solid;
   text-decoration: none;
 }
 
