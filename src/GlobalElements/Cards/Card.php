@@ -114,7 +114,7 @@ class Card extends UiElement implements IColours, ICardActionType
    *
    * @return $this
    */
-  public function addAction($type = CardActionType::ACTION_TYPE_VIEW, Link $link = null)
+  public function addAction($type = self::ACTION_TYPE_VIEW, Link $link = null)
   {
     if(CardActionType::isValid($type))
     {
