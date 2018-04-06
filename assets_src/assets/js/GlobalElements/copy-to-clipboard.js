@@ -50,7 +50,6 @@
     if($(this).data('bs.tooltip'))
     {
       $(this).tooltip('hide');
-      $(this).tooltip('destroy');
     }
   });
 
