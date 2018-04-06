@@ -47,8 +47,11 @@
 
   $(document).on('mouseout', selector, function ()
   {
-    $(this).tooltip('hide');
-    $(this).tooltip('destroy');
+    if($(this).data('bs.tooltip'))
+    {
+      $(this).tooltip('hide');
+      $(this).tooltip('destroy');
+    }
   });
 
 })(jQuery, window, document);
