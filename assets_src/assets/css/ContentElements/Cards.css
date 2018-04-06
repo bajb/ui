@@ -110,13 +110,16 @@
   border-left: 1px solid #ddd;
   position: relative;
   text-align: center;
-  cursor: copy;
   /**/
   display: flex;
   flex: auto 1;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.ui-cards > .card > .properties .property[data-copy] {
+  cursor: copy;
 }
 
 .ui-cards > .card > .properties .property > * {

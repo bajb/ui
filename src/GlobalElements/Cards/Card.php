@@ -89,6 +89,15 @@ class Card extends UiElement implements IColours, ICardActionType
     {
       $property = Div::create()->addClass('property');
 
+      // stuff for copy-to-clipboard
+      if(!$options && is_string($value))
+      {
+        $property->setAttribute('data-copy', $value);
+        $property->appendContent(
+          FontIcon::create('fa-files-o')->addClass('copy')
+        );
+      }
+
       if(is_string($value))
       {
         $value = Paragraph::create($value)->addClass('value');
@@ -99,16 +108,7 @@ class Card extends UiElement implements IColours, ICardActionType
         $label = Paragraph::create($label)->addClass('label');
       }
 
-      $property->appendContent([$value, $label]);
-
-      // stuff for copy-to-clipboard
-      if(!$options && is_string($value))
-      {
-        $property->setAttribute('data-copy', $value);
-        $property->appendContent(
-          FontIcon::create('fa-files-o')->addClass('copy')
-        );
-      }
+      $property->prependContent([$value, $label]);
 
       $this->_properties[] = $property;
     }
