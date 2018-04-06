@@ -4,7 +4,6 @@ namespace Fortifi\Ui\GlobalElements\Cards;
 use Fortifi\Ui\Enums\Cards\CardActionTooltip;
 use Fortifi\Ui\Enums\Cards\CardActionType;
 use Fortifi\Ui\GlobalElements\Icons\FontIcon;
-use Fortifi\Ui\Ui;
 use Fortifi\Ui\UiElement;
 use Packaged\Glimpse\Tags\Link;
 use Packaged\Glimpse\Tags\Span;
@@ -71,7 +70,6 @@ class CardAction extends UiElement implements ICardActionType
     {
       case self::ACTION_TYPE_IS_DEFAULT:
         $this->_icon = FontIcon::create(FontIcon::CURRENT_DEFAULT);
-        $this->_icon->addClass(Ui::TEXT_YELLOW);
         $this->_tooltip = CardActionTooltip::IS_DEFAULT;
         break;
       case self::ACTION_TYPE_MAKE_DEFAULT:
@@ -112,23 +110,27 @@ class CardAction extends UiElement implements ICardActionType
         break;
       case self::ACTION_TYPE_DELETE:
         $this->_icon = FontIcon::create(FontIcon::DELETE);
-        $this->_icon->addClass(Ui::TEXT_DANGER);
         $this->_tooltip = CardActionTooltip::DELETE;
         break;
       case self::ACTION_TYPE_RESTORE:
         $this->_icon = FontIcon::create(FontIcon::TICK);
-        $this->_icon->addClass(Ui::TEXT_SUCCESS);
         $this->_tooltip = CardActionTooltip::RESTORE;
         break;
       case self::ACTION_TYPE_DISABLE:
         $this->_icon = FontIcon::create(FontIcon::TOGGLE_ON);
-        $this->_icon->addClass(Ui::TEXT_SUCCESS);
         $this->_tooltip = CardActionTooltip::DISABLE;
         break;
       case self::ACTION_TYPE_ENABLE:
         $this->_icon = FontIcon::create(FontIcon::TOGGLE_OFF);
-        $this->_icon->addClass(Ui::TEXT_DANGER);
         $this->_tooltip = CardActionTooltip::ENABLE;
+        break;
+      case self::ACTION_TYPE_RESUME:
+        $this->_icon = FontIcon::create(FontIcon::PLAY);
+        $this->_tooltip = CardActionTooltip::RESUME;
+        break;
+      case self::ACTION_TYPE_PAUSE:
+        $this->_icon = FontIcon::create(FontIcon::PAUSE);
+        $this->_tooltip = CardActionTooltip::PAUSE;
         break;
     }
   }

@@ -18,4 +18,6 @@ interface ICardActionType
   const ACTION_TYPE_UNLOCK = 'unlock';
   const ACTION_TYPE_IS_DEFAULT = 'is-default';
   const ACTION_TYPE_MAKE_DEFAULT = 'make-default';
+  const ACTION_TYPE_PAUSE = 'pause';
+  const ACTION_TYPE_RESUME = 'resume';
 }

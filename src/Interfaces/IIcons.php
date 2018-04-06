@@ -16,6 +16,8 @@ interface IIcons
   const VIEW = 'fa-eye';
   const TOGGLE_ON = 'fa-toggle-on';
   const TOGGLE_OFF = 'fa-toggle-off';
+  const PAUSE = 'fa-pause';
+  const PLAY = 'fa-play';
 
   const USER = 'fa-user';
   const EMAIL = 'fa-at';
