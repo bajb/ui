@@ -91,12 +91,12 @@ class Card extends UiElement implements IColours, ICardActionType
         Paragraph::create($value)->addClass('value')
       )->addClass('property');
 
-      if(is_string($value))
+      if(is_string($label))
       {
-        $value = Paragraph::create($label)->addClass('label');
+        $label = Paragraph::create($label)->addClass('label');
       }
 
-      $property->appendContent($value);
+      $property->appendContent($label);
 
       // stuff for copy-to-clipboard
       if(!$options)
