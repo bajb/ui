@@ -37,20 +37,35 @@
     element.remove();
   }
 
+  function removeTooltip($tooltip)
+  {
+    if(($tooltip !== undefined))
+    {
+      if(($tooltip.attr('data-toggle') !== undefined) && ($tooltip.attr('data-toggle') === 'tooltip'))
+      {
+        $tooltip.removeAttr('data-toggle');
+        $tooltip.tooltip('hide');
+        $tooltip.tooltip('destroy');
+      }
+    }
+  }
+
   $(document).on('click', selector, function ()
   {
+    var self = this;
+
     copyText($(this).data('copy'));
 
     $(this).prop('title', 'Copied!');
     $(this).tooltip('show');
+    $(this).attr('data-toggle', 'tooltip');
+
+    setTimeout(function() {removeTooltip($(self))}, 5000);
   });
 
   $(document).on('mouseout', selector, function ()
   {
-    if($(this).data('bs.tooltip'))
-    {
-      $(this).tooltip('hide');
-    }
+    removeTooltip($(this));
   });
 
 })(jQuery, window, document);
