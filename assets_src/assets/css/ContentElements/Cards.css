@@ -118,10 +118,6 @@
   align-items: center;
 }
 
-.ui-cards > .card > .properties .property[data-copy] {
-  cursor: copy;
-}
-
 .ui-cards > .card > .properties .property > * {
   margin: 0;
 }
@@ -150,6 +146,15 @@
 
 .ui-cards > .card > .properties .property:hover .copy {
   opacity: 1;
+}
+
+/* styles for when property can be copied to clipboard */
+.ui-cards > .card > .properties .property[data-copy] {
+  cursor: copy;
+}
+
+.ui-cards > .card > .properties .property[data-copy] .value {
+  margin-bottom: 4px;
 }
 
 /* actions */
