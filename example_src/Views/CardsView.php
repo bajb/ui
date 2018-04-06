@@ -3,6 +3,7 @@ namespace Fortifi\UiExample\Views;
 
 use Fortifi\Ui\ContentElements\Links\PageletLink;
 use Fortifi\Ui\Enums\Cards\CardActionType;
+use Fortifi\Ui\Enums\Colour;
 use Fortifi\Ui\GlobalElements\Cards\Card;
 use Fortifi\Ui\GlobalElements\Cards\Cards;
 use Fortifi\Ui\GlobalElements\Icons\FontIcon;
@@ -107,6 +108,10 @@ class CardsView extends AbstractUiExampleView
 
     $card->addIcon($banUser);
     $card->addIcon($insecure);
+
+    // set border colour
+    $colours = Colour::getValues();
+    $card->setColour($colours[rand(0, (count($colours) - 1))]);
 
     return $card;
   }

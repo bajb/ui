@@ -4,8 +4,10 @@
 }
 
 .ui-cards > .card {
+  height: 100%;
   display: flex;
   flex: auto;
+  position: relative;
 }
 
 .ui-cards > .card .label {
@@ -283,4 +285,64 @@
 .ui-cards .card .actions a[data-type="is-default"] {
   color: #f1c40f;
   background: #fff;
+}
+
+/* card border left colour */
+.ui-cards > .card:before {
+  content: '';
+  width: 3px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+  background-color: #C7CCD9;
+}
+
+.ui-cards .card.default:before {
+  background-color: #C7CCD9;
+}
+
+.ui-cards .card.red:before {
+  background-color: #c0392b;
+}
+
+.ui-cards .card.orange:before {
+  background-color: #e67e22;
+}
+
+.ui-cards .card.yellow:before {
+  background-color: #f1c40f;
+}
+
+.ui-cards .card.green:before {
+  background-color: #139543;
+}
+
+.ui-cards .card.sky:before {
+  background-color: #3498db;
+}
+
+.ui-cards .card.blue:before {
+  background-color: #2980b9;
+}
+
+.ui-cards .card.indigo:before {
+  background-color: #6e5cb6;
+}
+
+.ui-cards .card.violet:before {
+  background-color: #8e44ad;
+}
+
+.ui-cards .card.pink:before {
+  background-color: #da49be;
+}
+
+.ui-cards .card.grey:before {
+  background-color: #bdc3c7;
+}
+
+.ui-cards .card.black:before {
+  background-color: #333333;
 }
