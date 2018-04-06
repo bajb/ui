@@ -62,13 +62,32 @@ class CardsView extends AbstractUiExampleView
     );
     $this->_addCardProperties($card);
 
-    $card->setAvatar(
+    // add avatar
+    $avatars = [
+      FontIcon::create(FontIcon::USER),
       HtmlTag::createTag(
         'img',
         ['src' => 'https://pbs.twimg.com/profile_images/943069281171968000/UNiJSeWn_400x400.jpg']
-      )
-    );
-    $card->setAvatar(FontIcon::create(FontIcon::USER));
+      ),
+      HtmlTag::createTag(
+        'img',
+        ['src' => 'https://media.giphy.com/media/5UMFdWbgwa3rtfYbXK/giphy.gif']
+      ),
+      HtmlTag::createTag(
+        'img',
+        ['src' => 'https://media.giphy.com/media/xUOwGiewfQAm3tcIA8/giphy.gif']
+      ),
+      HtmlTag::createTag(
+        'img',
+        ['src' => 'https://media.giphy.com/media/26DN81TqLPIzBlksw/giphy.gif']
+      ),
+      HtmlTag::createTag(
+        'img',
+        ['src' => 'https://media.giphy.com/media/xUOwFXS9fm76vBcuTC/giphy.gif']
+      ),
+    ];
+
+    $card->setAvatar($avatars[rand(0, (count($avatars) - 1))]);
 
     // add actions
     $card->addAction(CardActionType::ACTION_TYPE_EDIT, '/edit', '/edit-ajax');
