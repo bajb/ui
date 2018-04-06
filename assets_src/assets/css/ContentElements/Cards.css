@@ -263,6 +263,7 @@
 
 /* define button styles based on action type */
 .ui-cards .card .actions [data-type] {
+  border-radius: 0 !important;
   color: #4B4D51;
 }
 
