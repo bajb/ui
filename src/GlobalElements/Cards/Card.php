@@ -13,7 +13,7 @@ use Packaged\Glimpse\Tags\Link;
 use Packaged\Glimpse\Tags\Lists\ListItem;
 use Packaged\Glimpse\Tags\Text\Paragraph;
 
-class Card extends UiElement implements IColours
+class Card extends UiElement implements IColours, ICardActionType
 {
   /** @var  mixed */
   protected $_title;
