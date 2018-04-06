@@ -102,6 +102,10 @@ class Card extends UiElement implements IColours, ICardActionType
       {
         $value = Paragraph::create($value)->addClass('value');
       }
+      else
+      {
+        $value = Div::create($value)->addClass('value');
+      }
 
       if(is_string($label))
       {
