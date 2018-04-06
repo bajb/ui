@@ -293,6 +293,7 @@
 
 .ui-cards .card .actions [data-type="is-default"] {
   color: #f1c40f;
+  border-color: rgba(0, 0, 0, 0.15);
   background: #fff;
 }
 
