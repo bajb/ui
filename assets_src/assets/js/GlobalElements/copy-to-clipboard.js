@@ -54,18 +54,20 @@
   {
     var self = this;
 
+    // copy text to clipboard
     copyText($(this).data('copy'));
 
+    // remove all pre-existing tooltips
+    removeTooltip($('[data-toggle="tooltip"]'));
+
+    // create tooltip for this object
     $(this).prop('title', 'Copied!');
-    $(this).tooltip('show');
     $(this).attr('data-toggle', 'tooltip');
+    $(this).attr('data-trigger', 'focus');
+    $(this).tooltip('show');
 
-    setTimeout(function() {removeTooltip($(self))}, 5000);
-  });
-
-  $(document).on('mouseout', selector, function ()
-  {
-    removeTooltip($(this));
+    // automatically remove this tooltip after timeout
+    setTimeout(function() {removeTooltip($(self))}, 3000);
   });
 
 })(jQuery, window, document);
