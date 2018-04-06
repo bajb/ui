@@ -116,6 +116,7 @@
   flex: auto 1;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 .ui-cards > .card > .properties .property > * {
