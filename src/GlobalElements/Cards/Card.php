@@ -97,15 +97,18 @@ class Card extends UiElement implements IColours, ICardActionType
       // stuff for copy-to-clipboard
       if(($copyValue !== false) && ($copyValue !== null) && !$options)
       {
-        if(!is_string($copyValue))
+        if($copyValue === true)
         {
           $copyValue = $value;
         }
 
-        $property->setAttribute('data-copy', $copyValue);
-        $property->appendContent(
-          FontIcon::create('fa-files-o')->addClass('copy')
-        );
+        if(is_string($copyValue))
+        {
+          $property->setAttribute('data-copy', $copyValue);
+          $property->appendContent(
+            FontIcon::create('fa-files-o')->addClass('copy')
+          );
+        }
       }
 
       if(is_string($value))
