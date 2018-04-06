@@ -87,19 +87,22 @@ class Card extends UiElement implements IColours, ICardActionType
   {
     if(is_string($label))
     {
-      $property = Div::create(
-        Paragraph::create($value)->addClass('value')
-      )->addClass('property');
+      $property = Div::create()->addClass('property');
+
+      if(is_string($value))
+      {
+        $value = Paragraph::create($value)->addClass('value');
+      }
 
       if(is_string($label))
       {
         $label = Paragraph::create($label)->addClass('label');
       }
 
-      $property->appendContent($label);
+      $property->appendContent([$value, $label]);
 
       // stuff for copy-to-clipboard
-      if(!$options)
+      if(!$options && is_string($value))
       {
         $property->setAttribute('data-copy', $value);
         $property->appendContent(
