@@ -9,6 +9,7 @@ use Fortifi\Ui\GlobalElements\Cards\Cards;
 use Fortifi\Ui\GlobalElements\Icons\FontIcon;
 use Fortifi\Ui\Ui;
 use Packaged\Glimpse\Core\HtmlTag;
+use Packaged\Glimpse\Tags\Link;
 use Packaged\Helpers\Arrays;
 
 class CardsView extends AbstractUiExampleView
@@ -91,10 +92,13 @@ class CardsView extends AbstractUiExampleView
     $card->setAvatar($avatars[rand(0, (count($avatars) - 1))]);
 
     // add actions
-    $card->addAction(CardActionType::ACTION_TYPE_EDIT, '/edit', '/edit-ajax');
-    $card->addAction(CardActionType::ACTION_TYPE_IS_DEFAULT, '/is-default', '/is-default-ajax');
-    $card->addAction(CardActionType::ACTION_TYPE_CREATE, '/create', '/create-ajax');
-    $card->addAction(CardActionType::ACTION_TYPE_DELETE, '/delete', '/delete-ajax');
+    $link = new PageletLink('/some-url', null);
+    $link->setAjaxUri('/some-ajax-url');
+
+    $card->addAction(CardActionType::ACTION_TYPE_EDIT, $link);
+    $card->addAction(CardActionType::ACTION_TYPE_IS_DEFAULT, $link);
+    $card->addAction(CardActionType::ACTION_TYPE_CREATE, $link);
+    $card->addAction(CardActionType::ACTION_TYPE_DELETE, $link);
 
     // add icons
     $banUser = FontIcon::stack(

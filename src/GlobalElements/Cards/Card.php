@@ -9,6 +9,7 @@ use Fortifi\Ui\Interfaces\IColours;
 use Fortifi\Ui\UiElement;
 use Packaged\Glimpse\Core\HtmlTag;
 use Packaged\Glimpse\Tags\Div;
+use Packaged\Glimpse\Tags\Link;
 use Packaged\Glimpse\Tags\Lists\ListItem;
 use Packaged\Glimpse\Tags\Text\Paragraph;
 
@@ -108,17 +109,16 @@ class Card extends UiElement implements IColours
   }
 
   /**
-   * @param string      $type
-   * @param string|null $url
-   * @param string|null $ajaxUrl
+   * @param string    $type
+   * @param Link|null $link
    *
    * @return $this
    */
-  public function addAction($type = CardActionType::ACTION_TYPE_VIEW, $url = null, $ajaxUrl = null)
+  public function addAction($type = CardActionType::ACTION_TYPE_VIEW, Link $link = null)
   {
     if(CardActionType::isValid($type))
     {
-      $this->_actions[] = CardAction::create($type, $url, $ajaxUrl);
+      $this->_actions[] = CardAction::create($type, $link);
     }
     return $this;
   }

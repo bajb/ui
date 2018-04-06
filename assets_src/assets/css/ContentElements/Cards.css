@@ -253,36 +253,36 @@
 }
 
 /* define button styles based on action type */
-.ui-cards .card .actions a[data-type] {
+.ui-cards .card .actions [data-type] {
   color: #4B4D51;
 }
 
-.ui-cards .card .actions a[data-type] [class*="fa-"] {
+.ui-cards .card .actions [data-type] [class*="fa-"] {
   color: inherit;
 }
 
-.ui-cards .card .actions a[data-type="unlock"],
-.ui-cards .card .actions a[data-type="approve"],
-.ui-cards .card .actions a[data-type="restore"],
-.ui-cards .card .actions a[data-type="enable"],
-.ui-cards .card .actions a[data-type="verify"],
-.ui-cards .card .actions a[data-type="create"] {
+.ui-cards .card .actions [data-type="unlock"],
+.ui-cards .card .actions [data-type="approve"],
+.ui-cards .card .actions [data-type="restore"],
+.ui-cards .card .actions [data-type="enable"],
+.ui-cards .card .actions [data-type="verify"],
+.ui-cards .card .actions [data-type="create"] {
   color: #3c763d;
   border-color: #d6e9c6;
   background: #dff0d8;
 }
 
-.ui-cards .card .actions a[data-type="lock"],
-.ui-cards .card .actions a[data-type="decline"],
-.ui-cards .card .actions a[data-type="archive"],
-.ui-cards .card .actions a[data-type="disable"],
-.ui-cards .card .actions a[data-type="delete"] {
+.ui-cards .card .actions [data-type="lock"],
+.ui-cards .card .actions [data-type="decline"],
+.ui-cards .card .actions [data-type="archive"],
+.ui-cards .card .actions [data-type="disable"],
+.ui-cards .card .actions [data-type="delete"] {
   color: #a94442;
   border-color: #ebccd1;
   background: #f2dede;
 }
 
-.ui-cards .card .actions a[data-type="is-default"] {
+.ui-cards .card .actions [data-type="is-default"] {
   color: #f1c40f;
   background: #fff;
 }

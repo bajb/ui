@@ -1,7 +1,6 @@
 <?php
 namespace Fortifi\Ui\GlobalElements\Cards;
 
-use Fortifi\Ui\ContentElements\Links\PageletLink;
 use Fortifi\Ui\Enums\Cards\CardActionTooltip;
 use Fortifi\Ui\Enums\Cards\CardActionType;
 use Fortifi\Ui\GlobalElements\Icons\FontIcon;
@@ -22,29 +21,6 @@ class CardAction extends UiElement implements ICardActionType
   protected $_tooltip = null;
 
   /**
-   * @param string      $url
-   * @param null|string $ajaxUrl
-   *
-   * @return $this
-   */
-  public function setUrl($url, $ajaxUrl = null)
-  {
-    if(is_string($url))
-    {
-      if(is_string($ajaxUrl))
-      {
-        $this->_link = PageletLink::create($url);
-        $this->_link->setAjaxUri($ajaxUrl);
-      }
-      else
-      {
-        $this->_link = Link::create($url);
-      }
-    }
-    return $this;
-  }
-
-  /**
    * @param string $type
    *
    * @return $this
@@ -59,17 +35,16 @@ class CardAction extends UiElement implements ICardActionType
   }
 
   /**
-   * @param string      $type
-   * @param null|string $url
-   * @param null|string $ajaxUrl
+   * @param string    $type
+   * @param Link|null $link
    *
    * @return static
    */
-  public static function create($type = self::ACTION_TYPE_VIEW, $url = null, $ajaxUrl = null)
+  public static function create($type = self::ACTION_TYPE_VIEW, Link $link = null)
   {
     $self = new static();
     $self->setType($type);
-    $self->setUrl($url, $ajaxUrl);
+    $self->_link = $link;
     $self->_prepare();
     return $self;
   }
