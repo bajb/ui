@@ -85,7 +85,7 @@ class Card extends UiElement implements IColours, ICardActionType
    */
   public function addProperty($label, $value, array $options = [])
   {
-    if(is_string($label))
+    if(is_string($label) && $value)
     {
       $property = Div::create()->addClass('property');
 

@@ -138,7 +138,7 @@
   border-radius: 20px;
   position: absolute;
   right: 10px;
-  bottom: 10px;
+  bottom: 0;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
   background: #f9f9f9;
