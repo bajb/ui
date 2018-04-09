@@ -293,7 +293,7 @@
   color: #f1c40f;
 }
 
-.ui-cards .card .actions [data-type="enable"],
+.ui-cards .card .actions [data-type="disable"],
 .ui-cards .card .actions [data-type="unlock"],
 .ui-cards .card .actions [data-type="approve"],
 .ui-cards .card .actions [data-type="restore"],
@@ -301,7 +301,7 @@
   color: #3c763d;
 }
 
-.ui-cards .card .actions [data-type="disable"],
+.ui-cards .card .actions [data-type="enable"],
 .ui-cards .card .actions [data-type="lock"],
 .ui-cards .card .actions [data-type="decline"] {
   color: #a94442;

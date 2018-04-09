@@ -9,7 +9,6 @@ use Fortifi\Ui\GlobalElements\Cards\Cards;
 use Fortifi\Ui\GlobalElements\Icons\FontIcon;
 use Fortifi\Ui\Ui;
 use Packaged\Glimpse\Core\HtmlTag;
-use Packaged\Glimpse\Tags\Link;
 use Packaged\Helpers\Arrays;
 
 class CardsView extends AbstractUiExampleView
@@ -99,6 +98,8 @@ class CardsView extends AbstractUiExampleView
     $card->addAction(CardActionType::ACTION_TYPE_IS_DEFAULT, $link);
     $card->addAction(CardActionType::ACTION_TYPE_CREATE, $link);
     $card->addAction(CardActionType::ACTION_TYPE_DELETE, $link);
+    $card->addAction(CardActionType::ACTION_TYPE_DISABLE, $link);
+    $card->addAction(CardActionType::ACTION_TYPE_ENABLE, $link);
 
     // add icons
     $banUser = FontIcon::stack(
