@@ -273,7 +273,6 @@
 }
 
 /* it may seem odd that disable is in this 'positive' list, but that is because of it's intended display usage */
-.ui-cards .card .actions [data-type="disable"],
 .ui-cards .card .actions [data-type="unlock"],
 .ui-cards .card .actions [data-type="approve"],
 .ui-cards .card .actions [data-type="restore"],
@@ -285,7 +284,6 @@
 }
 
 /* it may seem odd that enable is in this 'negative' list, but that is because of it's intended display usage */
-.ui-cards .card .actions [data-type="enable"],
 .ui-cards .card .actions [data-type="lock"],
 .ui-cards .card .actions [data-type="decline"],
 .ui-cards .card .actions [data-type="archive"],
