@@ -187,6 +187,7 @@
 .ui-cards.list > .card > .content {
   flex-direction: column;
   flex: auto;
+  justify-content: center;
 }
 
 /* =list actions */
