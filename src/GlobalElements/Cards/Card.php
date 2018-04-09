@@ -77,9 +77,10 @@ class Card extends UiElement implements IColours, ICardActionType
   }
 
   /**
-   * $copyValue is true by default. This suggests that $value will be copied to clipboard on click.
+   * $copyValue is functionality to copy string to clipboard on click of property object.
    * If $copyValue is_string, $copyValue content will be stored in clipboard on click.
-   * If $copyValue is false or null OR options exist, click/copy functionality is disabled.
+   * If $copyValue is false OR options exist, click/copy functionality is disabled.
+   * $copyValue is false (off) by default.
    *
    * @param             $label
    * @param             $value
@@ -88,7 +89,7 @@ class Card extends UiElement implements IColours, ICardActionType
    *
    * @return $this
    */
-  public function addProperty($label, $value, $copyValue = true, array $options = [])
+  public function addProperty($label, $value, $copyValue = false, array $options = [])
   {
     if(is_string($label) && $value)
     {
