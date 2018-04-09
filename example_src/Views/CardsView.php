@@ -94,12 +94,21 @@ class CardsView extends AbstractUiExampleView
     $link = new PageletLink('/some-url', null);
     $link->setAjaxUri('/some-ajax-url');
 
-    $card->addAction(CardActionType::ACTION_TYPE_EDIT, $link);
-    $card->addAction(CardActionType::ACTION_TYPE_IS_DEFAULT, $link);
-    $card->addAction(CardActionType::ACTION_TYPE_CREATE, $link);
-    $card->addAction(CardActionType::ACTION_TYPE_DELETE, $link);
-    $card->addAction(CardActionType::ACTION_TYPE_DISABLE, $link);
-    $card->addAction(CardActionType::ACTION_TYPE_ENABLE, $link);
+    if(false)
+    {
+      foreach(CardActionType::getValues() as $type)
+      {
+        $card->addAction($type);
+      }
+    }
+    else
+    {
+      $card->addAction(CardActionType::ACTION_TYPE_VIEW, $link);
+      $card->addAction(CardActionType::ACTION_TYPE_MAKE_DEFAULT, $link);
+      $card->addAction(CardActionType::ACTION_TYPE_IS_DEFAULT, $link);
+      $card->addAction(CardActionType::ACTION_TYPE_CREATE, $link);
+      $card->addAction(CardActionType::ACTION_TYPE_DELETE, $link);
+    }
 
     // add icons
     $banUser = FontIcon::stack(

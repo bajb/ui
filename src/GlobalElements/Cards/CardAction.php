@@ -34,6 +34,14 @@ class CardAction extends UiElement implements ICardActionType
   }
 
   /**
+   * @return string
+   */
+  public function getType()
+  {
+    return $this->_type;
+  }
+
+  /**
    * @param string    $type
    * @param Link|null $link
    *

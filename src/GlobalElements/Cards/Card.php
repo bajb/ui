@@ -171,6 +171,41 @@ class Card extends UiElement implements IColours, ICardActionType
   }
 
   /**
+   * @return CardAction[]
+   */
+  protected function _sortActionsOrder()
+  {
+    $sorted = [];
+    $sortOrder = [
+      self::ACTION_TYPE_VIEW => 1,
+      self::ACTION_TYPE_EDIT => 2,
+      self::ACTION_TYPE_RESTORE => 1,
+      self::ACTION_TYPE_IS_DEFAULT   => 10,
+      self::ACTION_TYPE_MAKE_DEFAULT => 11,
+      self::ACTION_TYPE_LOCK => 20,
+      self::ACTION_TYPE_UNLOCK => 21,
+      self::ACTION_TYPE_PAUSE  => 30,
+      self::ACTION_TYPE_RESUME => 31,
+      self::ACTION_TYPE_APPROVE => 70,
+      self::ACTION_TYPE_VERIFY  => 70,
+      self::ACTION_TYPE_DECLINE => 71,
+      self::ACTION_TYPE_DISABLE => 80,
+      self::ACTION_TYPE_ENABLE  => 81,
+      self::ACTION_TYPE_CREATE => 98,
+      self::ACTION_TYPE_DELETE => 99,
+    ];
+
+    /** @var CardAction $action */
+    foreach($this->_actions as $action)
+    {
+      $sorted[$sortOrder[$action->getType()]] = $action;
+    }
+    ksort($sorted);
+
+    return $this->_actions = $sorted;
+  }
+
+  /**
    * @return ListItem
    */
   protected function _produceHtml()
@@ -248,6 +283,8 @@ class Card extends UiElement implements IColours, ICardActionType
     // append actions
     if($this->_actions)
     {
+      $this->_sortActionsOrder();
+
       $actions = Div::create()->addClass('actions');
       foreach($this->_actions as $action)
       {
