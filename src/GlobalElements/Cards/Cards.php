@@ -8,7 +8,7 @@ use Packaged\Glimpse\Tags\Lists\UnorderedList;
 
 class Cards extends UiElement implements ILayout
 {
-  /** @var array */
+  /** @var Card[] */
   protected $_cards = [];
   /** @var string */
   protected $_layout = self::LAYOUT_LIST;
@@ -44,6 +44,14 @@ class Cards extends UiElement implements ILayout
       }
     }
     return $this;
+  }
+
+  /**
+   * @return Card[]
+   */
+  public function getCards()
+  {
+    return $this->_cards;
   }
 
   /**
