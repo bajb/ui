@@ -5,6 +5,7 @@ interface ICardActionType
 {
   const ACTION_TYPE_CREATE = 'create';
   const ACTION_TYPE_EDIT = 'edit';
+  const ACTION_TYPE_ASSIGN = 'assign';
   const ACTION_TYPE_REMOVE = 'remove';
   const ACTION_TYPE_DELETE = 'delete';
   const ACTION_TYPE_RESTORE = 'restore';
