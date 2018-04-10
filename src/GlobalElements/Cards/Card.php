@@ -223,24 +223,32 @@ class Card extends UiElement implements IColours, ICardActionType
     {
       $avatar = Div::create($this->_avatar)->addClass('avatar');
       $intro->appendContent($avatar);
+
+      $card->addClass('has-avatar');
     }
 
     if($this->_label)
     {
       $label = Paragraph::create($this->_label)->addClass('label');
       $intro->appendContent($label);
+
+      $card->addClass('has-label');
     }
 
     if($this->_title)
     {
       $title = Div::create($this->_title)->addClass('title');
       $intro->appendContent($title);
+
+      $card->addClass('has-title');
     }
 
     if($this->_description)
     {
       $description = Div::create($this->_description)->addClass('description');
       $content->appendContent($description);
+
+      $card->addClass('has-description');
     }
 
     // Add Label, Title, Description and Icons.
@@ -266,6 +274,8 @@ class Card extends UiElement implements IColours, ICardActionType
         }
       }
       $content->appendContent($icons);
+
+      $card->addClass('has-icons');
     }
 
     // add border colour class
@@ -280,6 +290,8 @@ class Card extends UiElement implements IColours, ICardActionType
       $card->appendContent(
         Div::create($this->_properties)->addClass('properties')
       );
+
+      $card->addClass('has-properties');
     }
 
     // append actions
@@ -294,6 +306,8 @@ class Card extends UiElement implements IColours, ICardActionType
         }
       }
       $card->appendContent($actions);
+
+      $card->addClass('has-actions');
     }
 
     return $card;

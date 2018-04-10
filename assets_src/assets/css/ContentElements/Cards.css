@@ -243,6 +243,19 @@
   border-top: 1px solid rgba(0, 0, 0, 0.08);
 }
 
+/* =grid conditional styles */
+.ui-cards.grid > .card:not(.has-actions) > .properties {
+  border-bottom: 1px solid #ddd;
+}
+
+.ui-cards.grid > .card:not(.has-properties) > .actions {
+  border-bottom: 1px solid #ddd;
+}
+
+.ui-cards.grid > .card:not(.has-properties):not(.has-actions) > .content {
+  border-bottom: 1px solid #ddd;
+}
+
 /* define grid columns */
 .ui-cards.grid[data-columns="1"] > .card {
   flex: 1 auto;

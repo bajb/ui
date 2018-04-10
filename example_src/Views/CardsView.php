@@ -30,7 +30,7 @@ class CardsView extends AbstractUiExampleView
   protected function _addCardProperties(Card $card)
   {
     $properties = Arrays::shuffleAssoc($this->_props);
-    $propertyCount = rand(0, count($this->_props));
+    $propertyCount = mt_rand(0, count($this->_props));
     $x = 0;
     foreach($properties as $name => $value)
     {
@@ -94,20 +94,13 @@ class CardsView extends AbstractUiExampleView
     $link = new PageletLink('/some-url', null);
     $link->setAjaxUri('/some-ajax-url');
 
-    if(false)
+    $actions = CardActionType::getValues();
+    $idx = mt_rand(0, count($actions) - 1);
+    $limit = 5;
+    for($n = 0; $n < $limit; $n++)
     {
-      foreach(CardActionType::getValues() as $type)
-      {
-        $card->addAction($type);
-      }
-    }
-    else
-    {
-      $card->addAction(CardActionType::ACTION_TYPE_VIEW, $link);
-      $card->addAction(CardActionType::ACTION_TYPE_MAKE_DEFAULT, $link);
-      $card->addAction(CardActionType::ACTION_TYPE_IS_DEFAULT, $link);
-      $card->addAction(CardActionType::ACTION_TYPE_CREATE, $link);
-      $card->addAction(CardActionType::ACTION_TYPE_DELETE, $link);
+      $card->addAction($actions[$idx]);
+      $idx = mt_rand(0, count($actions) - 1);
     }
 
     // add icons
