@@ -3,6 +3,10 @@ namespace Fortifi\Ui\GlobalElements\Cards;
 
 interface ICardActionType
 {
+  /**
+   * If adding new actions, be sure to update the action display order.
+   * This is found in the _getSortedActions of the Card class
+   */
   const ACTION_TYPE_CREATE = 'create';
   const ACTION_TYPE_EDIT = 'edit';
   const ACTION_TYPE_ASSIGN = 'assign';
