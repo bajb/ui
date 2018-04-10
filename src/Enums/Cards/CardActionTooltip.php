@@ -12,8 +12,8 @@ class CardActionTooltip extends AbstractUiEnum
   const REMOVE = 'Remove';
   const RESTORE = 'Restore';
   const VIEW = 'View';
-  const IS_DEFAULT = 'Is Default';
-  const SET_DEFAULT = 'Click to set Default';
+  const IS_DEFAULT = 'Is default';
+  const SET_DEFAULT = 'Set as default';
   const PAUSE = 'Pause';
   const RESUME = 'Resume';
   const MOVE_UP = 'Move Up';
