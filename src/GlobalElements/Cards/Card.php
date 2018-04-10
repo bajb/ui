@@ -186,7 +186,7 @@ class Card extends UiElement implements IColours, ICardActionType
       self::ACTION_TYPE_UNLOCK       => 21,
       self::ACTION_TYPE_PAUSE        => 30,
       self::ACTION_TYPE_RESUME       => 31,
-      self::ACTION_TYPE_ASSIGN       => 40,
+      self::ACTION_TYPE_ADD          => 40,
       self::ACTION_TYPE_REMOVE       => 41,
       self::ACTION_TYPE_APPROVE      => 70,
       self::ACTION_TYPE_VERIFY       => 70,

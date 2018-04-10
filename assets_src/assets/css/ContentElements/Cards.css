@@ -296,8 +296,7 @@
 .ui-cards .card .actions [data-type="disable"],
 .ui-cards .card .actions [data-type="approve"],
 .ui-cards .card .actions [data-type="restore"],
-.ui-cards .card .actions [data-type="verify"],
-.ui-cards .card .actions [data-type="assign"] {
+.ui-cards .card .actions [data-type="verify"] {
   color: #3c763d;
 }
 
