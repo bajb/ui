@@ -96,6 +96,10 @@ class CardAction extends UiElement implements ICardActionType
         $this->_icon = FontIcon::create(FontIcon::DELETE);
         $this->_tooltip = CardActionTooltip::DECLINE;
         break;
+      case self::ACTION_TYPE_REMOVE:
+        $this->_icon = FontIcon::create(FontIcon::DELETE);
+        $this->_tooltip = CardActionTooltip::REMOVE;
+        break;
       case self::ACTION_TYPE_APPROVE:
         $this->_icon = FontIcon::create(FontIcon::TICK);
         $this->_tooltip = CardActionTooltip::APPROVE;
