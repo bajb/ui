@@ -2,12 +2,17 @@
 namespace Fortifi\Ui\GlobalElements\Cards;
 
 use Fortifi\Ui\Interfaces\ILayout;
+use Fortifi\Ui\Traits\DataAttributesTrait;
+use Fortifi\Ui\Traits\SetIdTrait;
 use Fortifi\Ui\UiElement;
 use Packaged\Dispatch\AssetManager;
 use Packaged\Glimpse\Tags\Lists\UnorderedList;
 
 class Cards extends UiElement implements ILayout
 {
+  use SetIdTrait;
+  use DataAttributesTrait;
+
   /** @var Card[] */
   protected $_cards = [];
   /** @var string */

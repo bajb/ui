@@ -6,6 +6,8 @@ use Fortifi\Ui\Enums\Colour;
 use Fortifi\Ui\Enums\UiIcon;
 use Fortifi\Ui\GlobalElements\Icons\FontIcon;
 use Fortifi\Ui\Interfaces\IColours;
+use Fortifi\Ui\Traits\DataAttributesTrait;
+use Fortifi\Ui\Traits\SetIdTrait;
 use Fortifi\Ui\UiElement;
 use Packaged\Glimpse\Core\HtmlTag;
 use Packaged\Glimpse\Tags\Div;
@@ -15,6 +17,9 @@ use Packaged\Glimpse\Tags\Text\Paragraph;
 
 class Card extends UiElement implements IColours, ICardActionType
 {
+  use SetIdTrait;
+  use DataAttributesTrait;
+
   /** @var  mixed */
   protected $_title;
   /** @var  array */
