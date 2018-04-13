@@ -118,6 +118,10 @@ class Cards extends UiElement implements ILayout
         }
       }
     }
+
+    $this->_applyDataAttributes($cards);
+    $this->_applyId($cards);
+
     return $cards;
   }
 
