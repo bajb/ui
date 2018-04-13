@@ -315,6 +315,9 @@ class Card extends UiElement implements IColours, ICardActionType
       $card->addClass('has-actions');
     }
 
+    $this->_applyDataAttributes($card);
+    $this->_applyId($card);
+
     return $card;
   }
 
