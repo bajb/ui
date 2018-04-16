@@ -154,6 +154,20 @@ class Card extends UiElement implements IColours, ICardActionType
   }
 
   /**
+   * @param CardAction $action
+   *
+   * @return $this
+   */
+  public function addCustomAction(CardAction $action)
+  {
+    if($action instanceof CardAction)
+    {
+      $this->_actions[] = $action;
+    }
+    return $this;
+  }
+
+  /**
    * @param $icon
    *
    * @return $this
@@ -185,6 +199,7 @@ class Card extends UiElement implements IColours, ICardActionType
       self::ACTION_TYPE_VIEW         => 1,
       self::ACTION_TYPE_EDIT         => 2,
       self::ACTION_TYPE_RESTORE      => 3,
+      self::ACTION_TYPE_OPTIONS      => 4,
       self::ACTION_TYPE_IS_DEFAULT   => 10,
       self::ACTION_TYPE_MAKE_DEFAULT => 11,
       self::ACTION_TYPE_LOCK         => 20,

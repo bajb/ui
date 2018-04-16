@@ -3,6 +3,7 @@ namespace Fortifi\Ui\Interfaces;
 
 interface IIcons
 {
+  const SETTINGS = 'fa-cogs';
   const CREATE = 'fa-plus';
   const EDIT = 'fa-pencil';
   const DELETE = 'fa-times';
