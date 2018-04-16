@@ -6,7 +6,7 @@ use Fortifi\Ui\Traits\DataAttributesTrait;
 use Fortifi\Ui\Traits\SetIdTrait;
 use Fortifi\Ui\UiElement;
 use Packaged\Dispatch\AssetManager;
-use Packaged\Glimpse\Tags\Lists\UnorderedList;
+use Packaged\Glimpse\Tags\Div;
 
 class Cards extends UiElement implements ILayout
 {
@@ -96,11 +96,11 @@ class Cards extends UiElement implements ILayout
   }
 
   /**
-   * @return UnorderedList
+   * @return Div
    */
   protected function _produceHtml()
   {
-    $cards = UnorderedList::create()->addClass('ui-cards');
+    $cards = Div::create()->addClass('ui-cards');
     $cards->addClass($this->_layout);
 
     if($this->_layout === self::LAYOUT_GRID)

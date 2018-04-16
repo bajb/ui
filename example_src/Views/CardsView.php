@@ -54,8 +54,8 @@ class CardsView extends AbstractUiExampleView
     $title->setAjaxUri('/some-ajax-url');
 
     $card = Card::i();
-    $card->setTitle($title);
     $card->setLabel('Label that could be really long and obscure icons that appear');
+    $card->setTitle($title);
     $card->setDescription(
       'The description. This could be really long, or it could be really shirt. ' .
       'Either way, we should make sure it looks ok when used inside a card, ' .

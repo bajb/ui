@@ -12,7 +12,6 @@ use Fortifi\Ui\UiElement;
 use Packaged\Glimpse\Core\HtmlTag;
 use Packaged\Glimpse\Tags\Div;
 use Packaged\Glimpse\Tags\Link;
-use Packaged\Glimpse\Tags\Lists\ListItem;
 use Packaged\Glimpse\Tags\Text\Paragraph;
 
 class Card extends UiElement implements IColours, ICardActionType
@@ -234,16 +233,17 @@ class Card extends UiElement implements IColours, ICardActionType
   }
 
   /**
-   * @return ListItem
+   * @return Div
    */
   protected function _produceHtml()
   {
     // create Card
-    $card = ListItem::create()->addClass('card');
+    $card = Div::create()->addClass('card');
 
     // create Title, Label, Description content
     $content = Div::create()->addClass('content');
     $intro = Div::create()->addClass('intro');
+    $text = Div::create()->addClass('text');
 
     if($this->_avatar)
     {
@@ -252,19 +252,27 @@ class Card extends UiElement implements IColours, ICardActionType
 
       $card->addClass('has-avatar');
     }
+    else
+    {
+      $card->addClass('no-avatar');
+    }
 
     if($this->_label)
     {
       $label = Paragraph::create($this->_label)->addClass('label');
-      $intro->appendContent($label);
+      $text->appendContent($label);
 
       $card->addClass('has-label');
+    }
+    else
+    {
+      $card->addClass('no-label');
     }
 
     if($this->_title)
     {
       $title = Div::create($this->_title)->addClass('title');
-      $intro->appendContent($title);
+      $text->appendContent($title);
 
       $card->addClass('has-title');
     }
@@ -276,8 +284,15 @@ class Card extends UiElement implements IColours, ICardActionType
 
       $card->addClass('has-description');
     }
+    else
+    {
+      $card->addClass('no-description');
+    }
 
-    // Add Label, Title, Description and Icons.
+    // Add Label and Title
+    $intro->appendContent($text);
+
+    // Add Description and Icons.
     $content->prependContent($intro);
     $card->appendContent($content);
 
@@ -319,6 +334,10 @@ class Card extends UiElement implements IColours, ICardActionType
 
       $card->addClass('has-properties');
     }
+    else
+    {
+      $card->addClass('no-properties');
+    }
 
     // append actions
     if($this->_actions)
@@ -334,6 +353,10 @@ class Card extends UiElement implements IColours, ICardActionType
       $card->appendContent($actions);
 
       $card->addClass('has-actions');
+    }
+    else
+    {
+      $card->addClass('no-actions');
     }
 
     $this->_applyDataAttributes($card);

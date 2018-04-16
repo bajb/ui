@@ -29,16 +29,20 @@
   background: #fff;
 }
 
+.ui-cards > .card > .content > .intro {
+  display: flex;
+  flex-direction: row;
+}
+
 .ui-cards > .card > .content > .intro > .avatar {
   width: 48px;
   height: 48px;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 50%;
-  float: left;
   margin-right: 10px;
-  margin-bottom: 5px;
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -52,13 +56,18 @@
   color: inherit;
 }
 
-.ui-cards > .card > .content > .intro > .label {
+.ui-cards > .card > .content > .intro .text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ui-cards > .card > .content > .intro .label {
   white-space: pre-wrap;
-  margin: 0 0 6px;
   text-align: left;
 }
 
-.ui-cards > .card > .content > .intro > .title {
+.ui-cards > .card > .content > .intro .title {
   padding: 0;
   margin: 0;
   font-size: 20px;
@@ -66,9 +75,9 @@
   color: #999;
 }
 
-.ui-cards > .card > .content > .intro > .title a:hover,
-.ui-cards > .card > .content > .intro > .title a:active,
-.ui-cards > .card > .content > .intro > .title a:focus {
+.ui-cards > .card > .content > .intro .title a:hover,
+.ui-cards > .card > .content > .intro .title a:active,
+.ui-cards > .card > .content > .intro .title a:focus {
   text-decoration: none;
 }
 
