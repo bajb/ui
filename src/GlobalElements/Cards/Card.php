@@ -225,7 +225,8 @@ class Card extends UiElement implements IColours, ICardActionType
     /** @var CardAction $action */
     foreach($this->_actions as $idx => $action)
     {
-      $sorted[$sortOrder[$action->getType() ?: $idx]] = $action;
+      $order = $sortOrder[$action->getType()] ?? $idx;
+      $sorted[$order] = $action;
     }
     ksort($sorted);
 
