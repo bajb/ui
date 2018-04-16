@@ -155,14 +155,18 @@ class Card extends UiElement implements IColours, ICardActionType
 
   /**
    * @param CardAction $action
+   * @param int        $sortOrder
    *
    * @return $this
    */
-  public function addCustomAction(CardAction $action)
+  public function addCustomAction(CardAction $action, $sortOrder = 50)
   {
     if($action instanceof CardAction)
     {
-      $this->_actions[] = $action;
+      // Define min/max value of custom sort order.
+      // This is to ensure an element consistency for the most part.
+      $sortOrder = max(3, min($sortOrder, 399));
+      $this->_actions[$sortOrder] = $action;
     }
     return $this;
   }
@@ -198,28 +202,30 @@ class Card extends UiElement implements IColours, ICardActionType
     $sortOrder = [
       self::ACTION_TYPE_VIEW         => 1,
       self::ACTION_TYPE_EDIT         => 2,
-      self::ACTION_TYPE_RESTORE      => 3,
-      self::ACTION_TYPE_IS_DEFAULT   => 10,
-      self::ACTION_TYPE_MAKE_DEFAULT => 11,
-      self::ACTION_TYPE_LOCK         => 20,
-      self::ACTION_TYPE_UNLOCK       => 21,
-      self::ACTION_TYPE_PAUSE        => 30,
-      self::ACTION_TYPE_RESUME       => 31,
-      self::ACTION_TYPE_ADD          => 40,
-      self::ACTION_TYPE_REMOVE       => 41,
-      self::ACTION_TYPE_APPROVE      => 70,
-      self::ACTION_TYPE_VERIFY       => 70,
-      self::ACTION_TYPE_DECLINE      => 71,
-      self::ACTION_TYPE_DISABLE      => 80,
-      self::ACTION_TYPE_ENABLE       => 81,
-      self::ACTION_TYPE_CREATE       => 98,
-      self::ACTION_TYPE_DELETE       => 99,
+      // custom actions can appear after here
+      self::ACTION_TYPE_IS_DEFAULT   => 100,
+      self::ACTION_TYPE_MAKE_DEFAULT => 110,
+      self::ACTION_TYPE_LOCK         => 200,
+      self::ACTION_TYPE_UNLOCK       => 210,
+      self::ACTION_TYPE_PAUSE        => 300,
+      self::ACTION_TYPE_RESUME       => 310,
+      // custom actions can appear before here
+      self::ACTION_TYPE_ADD          => 400,
+      self::ACTION_TYPE_REMOVE       => 410,
+      self::ACTION_TYPE_APPROVE      => 700,
+      self::ACTION_TYPE_VERIFY       => 700,
+      self::ACTION_TYPE_DECLINE      => 710,
+      self::ACTION_TYPE_DISABLE      => 800,
+      self::ACTION_TYPE_ENABLE       => 810,
+      self::ACTION_TYPE_RESTORE      => 997,
+      self::ACTION_TYPE_CREATE       => 998,
+      self::ACTION_TYPE_DELETE       => 999,
     ];
 
     /** @var CardAction $action */
-    foreach($this->_actions as $action)
+    foreach($this->_actions as $idx => $action)
     {
-      $sorted[$sortOrder[$action->getType()]] = $action;
+      $sorted[$sortOrder[$action->getType() ?: $idx]] = $action;
     }
     ksort($sorted);
 
