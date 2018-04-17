@@ -63,6 +63,7 @@
 }
 
 .ui-cards > .card > .content > .intro .label {
+  margin-bottom: 4px;
   white-space: pre-wrap;
   text-align: left;
 }
