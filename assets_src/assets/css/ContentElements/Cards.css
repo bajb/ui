@@ -22,9 +22,14 @@
   color: #999;
 }
 
+/* global padding */
+.ui-cards > .card > .content,
+.ui-cards > .card > .properties .property {
+  padding: 10px 15px;
+}
+
 /* content */
 .ui-cards > .card > .content {
-  padding: 15px;
   position: relative;
   background: #fff;
 }
@@ -105,7 +110,6 @@
 }
 
 .ui-cards > .card > .properties .property {
-  padding: 15px;
   border-left: 1px solid #ddd;
   position: relative;
   text-align: center;
