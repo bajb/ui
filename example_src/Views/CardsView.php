@@ -45,25 +45,10 @@ class CardsView extends AbstractUiExampleView
   }
 
   /**
-   * @return Card
+   * @return mixed
    */
-  protected function _getCard()
+  protected function _getAvatar()
   {
-    // create Title
-    $title = PageletLink::create('/some-url', 'Some Title');
-    $title->setAjaxUri('/some-ajax-url');
-
-    $card = Card::i();
-    $card->setLabel('Label that could be really long and obscure icons that appear');
-    $card->setTitle($title);
-    $card->setDescription(
-      'The description. This could be really long, or it could be really shirt. ' .
-      'Either way, we should make sure it looks ok when used inside a card, ' .
-      'because we would not want it to break the layout now, would we, eh?'
-    );
-    $this->_addCardProperties($card);
-
-    // add avatar
     $avatars = [
       FontIcon::create(FontIcon::USER),
       HtmlTag::createTag(
@@ -88,7 +73,30 @@ class CardsView extends AbstractUiExampleView
       ),
     ];
 
-    $card->setAvatar($avatars[rand(0, (count($avatars) - 1))]);
+    return $avatars[rand(0, (count($avatars) - 1))];
+  }
+
+  /**
+   * @return Card
+   */
+  protected function _getCard()
+  {
+    // create Title
+    $title = PageletLink::create('/some-url', 'Some Title');
+    $title->setAjaxUri('/some-ajax-url');
+
+    $card = Card::i();
+    $card->setLabel('Label that could be really long and obscure icons that appear');
+    $card->setTitle($title);
+    $card->setDescription(
+      'The description. This could be really long, or it could be really shirt. ' .
+      'Either way, we should make sure it looks ok when used inside a card, ' .
+      'because we would not want it to break the layout now, would we, eh?'
+    );
+    $this->_addCardProperties($card);
+
+    // add avatar
+    $card->setAvatar($this->_getAvatar());
 
     // add actions
     $link = new PageletLink('/some-url', null);
@@ -153,7 +161,16 @@ class CardsView extends AbstractUiExampleView
     $cards = Cards::i();
     $cards->setLayout($cards::LAYOUT_GRID);
     $cards->addCards($this->_getCards());
-    $cards->setGridColumnCount(3);
+
+    if(false)
+    {
+      $cards->setGridColumnCount(1);
+      $cards->stacked();
+    }
+    else
+    {
+      $cards->setGridColumnCount(3);
+    }
 
     return $cards;
   }
@@ -166,6 +183,7 @@ class CardsView extends AbstractUiExampleView
     $cards = Cards::i();
     $cards->setLayout($cards::LAYOUT_LIST);
     $cards->addCards($this->_getCards());
+    $cards->stacked();
 
     return $cards;
   }

@@ -57,9 +57,7 @@
 }
 
 .ui-cards > .card > .content > .intro .text {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  width: 100%;
 }
 
 .ui-cards > .card > .content > .intro .label {
@@ -88,21 +86,11 @@
 
 /* icons */
 .ui-cards > .card .icons {
-  padding: 5px;
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  border-radius: 30px;
-  background: #fff;
+  padding-left: 6px;
+  float: right;
+  position: relative;
+  top: -3px;
   transition: opacity 0.3s ease-in-out;
-}
-
-.ui-cards > .card > .content:hover .icons {
-  opacity: 0;
-}
-
-.ui-cards > .card > .content .icons:hover {
-  opacity: 1;
 }
 
 .ui-cards > .card .icons > [class*="fa-"] {
@@ -113,7 +101,7 @@
 .ui-cards > .card > .properties {
   display: flex;
   flex-direction: row;
-  background: #f9f9f9;
+  background: #fbfbfb;
 }
 
 .ui-cards > .card > .properties .property {
@@ -239,6 +227,8 @@
 .ui-cards.grid > .card > .properties {
   flex-wrap: wrap;
   border-right: 1px solid #ddd;
+  /**/
+  flex-direction: row;
 }
 
 .ui-cards.grid > .card > .properties .property {
@@ -388,4 +378,23 @@
 
 .ui-cards .card.black:before {
   background-color: #333333;
+}
+
+/* =stacked */
+.ui-cards.grid.stacked[data-columns="1"] > .card,
+.ui-cards.list.stacked > .card {
+  margin-bottom: 0;
+}
+
+.ui-cards.list.stacked > .card + .card {
+  border-top: none;
+}
+
+.ui-cards.grid.stacked[data-columns="1"] > .card {
+  border-top: none;
+  border-bottom: none;
+}
+
+.ui-cards.grid.stacked[data-columns="1"] > .card + .card > .content {
+  border-top: none;
 }

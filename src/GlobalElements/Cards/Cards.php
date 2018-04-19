@@ -19,6 +19,8 @@ class Cards extends UiElement implements ILayout
   protected $_layout = self::LAYOUT_LIST;
   /** @var int */
   protected $_columns = 4;
+  /** @var bool */
+  protected $_stacked = false;
 
   /**
    * @param Card $card
@@ -71,6 +73,15 @@ class Cards extends UiElement implements ILayout
   }
 
   /**
+   * @return $this
+   */
+  public function stacked()
+  {
+    $this->_stacked = true;
+    return $this;
+  }
+
+  /**
    * @param int $columns
    *
    * @return $this
@@ -100,12 +111,22 @@ class Cards extends UiElement implements ILayout
    */
   protected function _produceHtml()
   {
+    $isGrid = ($this->_layout === self::LAYOUT_GRID);
+    $isList = ($this->_layout === self::LAYOUT_LIST);
+    $isSingleColumn = ($this->_columns == 1);
+
     $cards = Div::create()->addClass('ui-cards');
     $cards->addClass($this->_layout);
 
-    if($this->_layout === self::LAYOUT_GRID)
+    if($isGrid)
     {
       $cards->setAttribute('data-columns', $this->_columns);
+    }
+
+    // stack cards
+    if($this->_stacked && ($isList || ($isGrid && $isSingleColumn)))
+    {
+      $cards->addClass('stacked');
     }
 
     if($this->_cards)

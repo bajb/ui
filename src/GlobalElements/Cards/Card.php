@@ -257,6 +257,29 @@ class Card extends UiElement implements IColours, ICardActionType
       $card->addClass('no-avatar');
     }
 
+    // add icons to Card
+    if($this->_icons)
+    {
+      $icons = Div::create()->addClass('icons');
+      foreach($this->_icons as $icon)
+      {
+        // if is HtmlTag object and $tag is 'i', we can assume that this should be considered an icon
+        if(($icon instanceof FontIcon) || (($icon instanceof HtmlTag) && $icon->getTag() === 'i'))
+        {
+          $icons->appendContent($icon);
+        }
+        else if(is_string($icon) && UiIcon::isValid($icon))
+        {
+          $icons->appendContent(
+            FontIcon::create($icon)
+          );
+        }
+      }
+      $text->appendContent($icons);
+
+      $card->addClass('has-icons');
+    }
+
     if($this->_label)
     {
       $label = Paragraph::create($this->_label)->addClass('label');
@@ -295,29 +318,6 @@ class Card extends UiElement implements IColours, ICardActionType
     // Add Description and Icons.
     $content->prependContent($intro);
     $card->appendContent($content);
-
-    // add icons to Card
-    if($this->_icons)
-    {
-      $icons = Div::create()->addClass('icons');
-      foreach($this->_icons as $icon)
-      {
-        // if is HtmlTag object and $tag is 'i', we can assume that this should be considered an icon
-        if(($icon instanceof FontIcon) || (($icon instanceof HtmlTag) && $icon->getTag() === 'i'))
-        {
-          $icons->appendContent($icon);
-        }
-        else if(is_string($icon) && UiIcon::isValid($icon))
-        {
-          $icons->appendContent(
-            FontIcon::create($icon)
-          );
-        }
-      }
-      $content->appendContent($icons);
-
-      $card->addClass('has-icons');
-    }
 
     // add border colour class
     if(Colour::isValid($this->_colour))
