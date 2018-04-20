@@ -31,7 +31,7 @@ class CardsView extends AbstractUiExampleView
   protected function _addCardProperties(Card $card)
   {
     $properties = Arrays::shuffleAssoc($this->_props);
-    $propertyCount = mt_rand(0, count($this->_props));
+    $propertyCount = mt_rand(0, 3);
     $x = 0;
     foreach($properties as $name => $value)
     {
@@ -221,7 +221,7 @@ class CardsView extends AbstractUiExampleView
     $link = new PageletLink('/some-url', null);
     $link->setAjaxUri('/some-ajax-url');
 
-    $this->_addRandomActions($card, 5);
+    $this->_addRandomActions($card);
 
     // add icons
     $card->addIcon($this->_getArchivedUserIcon());
@@ -297,44 +297,44 @@ class CardsView extends AbstractUiExampleView
    * ================================================
    */
 
-  /**
-   * @group Cards
-   */
-  final public function employeeRolesCards()
-  {
-    $items = [];
-    while(count($items) < 5)
-    {
-      $card = $this->_createQuickCard($this->_getRandomJobTitle());
-      $this->_addRandomActions($card, 1);
+//  /**
+//   * @group Cards
+//   */
+//  final public function employeeRolesCards()
+//  {
+//    $items = [];
+//    while(count($items) < 5)
+//    {
+//      $card = $this->_createQuickCard($this->_getRandomJobTitle());
+//      $this->_addRandomActions($card, 1);
+//
+//      $items[] = $card;
+//    }
+//
+//    $cards = Cards::i();
+//    $cards->addCards($items);
+//    return $cards;
+//  }
 
-      $items[] = $card;
-    }
-
-    $cards = Cards::i();
-    $cards->addCards($items);
-    return $cards;
-  }
-
-  /**
-   * @group Cards
-   */
-  final public function departmentQueueCards()
-  {
-    $items = [];
-    while(count($items) < 5)
-    {
-      $card = $this->_createQuickCard($this->_getRandomJobTitle());
-      $card->addProperty('Created', $this->_getRandomHumanDate());
-      $this->_addRandomActions($card, 1);
-
-      $items[] = $card;
-    }
-
-    $cards = Cards::i();
-    $cards->addCards($items);
-    return $cards;
-  }
+//  /**
+//   * @group Cards
+//   */
+//  final public function departmentQueueCards()
+//  {
+//    $items = [];
+//    while(count($items) < 5)
+//    {
+//      $card = $this->_createQuickCard($this->_getRandomJobTitle());
+//      $card->addProperty('Created', $this->_getRandomHumanDate());
+//      $this->_addRandomActions($card, 1);
+//
+//      $items[] = $card;
+//    }
+//
+//    $cards = Cards::i();
+//    $cards->addCards($items);
+//    return $cards;
+//  }
 
   /**
    * @group Cards
@@ -414,18 +414,9 @@ class CardsView extends AbstractUiExampleView
   final public function cardsGrid()
   {
     $cards = Cards::i();
-    $cards->setLayout($cards::LAYOUT_GRID);
     $cards->addCards($this->_getCards());
-
-    if(false)
-    {
-      $cards->setGridColumnCount(1);
-      $cards->stacked();
-    }
-    else
-    {
-      $cards->setGridColumnCount(3);
-    }
+    $cards->setLayout($cards::LAYOUT_GRID);
+    $cards->setGridColumnCount(3);
 
     return $cards;
   }

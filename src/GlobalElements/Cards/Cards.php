@@ -131,13 +131,25 @@ class Cards extends UiElement implements ILayout
 
     if($this->_cards)
     {
+      $minActionsCount = 0;
+      $minPropertiesCount = 0;
       foreach($this->_cards as $card)
       {
         if($card instanceof Card)
         {
+          // define action count for all cards in this collection
+          $actionsItems = count($card->getActionTypes());
+          $minActionsCount = (($actionsItems > $minActionsCount) ? $actionsItems : $minActionsCount);
+
+          // define property count for all cards in this collection
+          $propertyCount = $card->getPropertyCount();
+          $minPropertiesCount = (($propertyCount > $minPropertiesCount) ? $propertyCount : $minPropertiesCount);
+
           $cards->appendContent($card);
         }
       }
+      $cards->setAttribute('data-action-count', $minActionsCount);
+      $cards->setAttribute('data-property-count', $minPropertiesCount);
     }
 
     $this->_applyDataAttributes($cards);

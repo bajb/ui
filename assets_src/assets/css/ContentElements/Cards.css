@@ -1,3 +1,8 @@
+:root {
+  --action-width: 31px;
+  --property-width: 125px;
+}
+
 .ui-cards {
   display: flex;
   flex-wrap: wrap;
@@ -105,7 +110,6 @@
 /* properties */
 .ui-cards > .card > .properties {
   display: flex;
-  flex-direction: row;
   background: #fbfbfb;
 }
 
@@ -115,7 +119,6 @@
   text-align: center;
   /**/
   display: flex;
-  flex: auto 1;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -162,10 +165,10 @@
 
 /* actions */
 .ui-cards > .card > .actions {
-  background: #eee;
+  background: #fff;
 }
 
-.ui-cards > .card > .actions > [data-type] {
+.ui-cards > .card > .actions [data-type] {
   padding: 10px 6px;
   border-left: 1px solid transparent;
   text-decoration: none;
@@ -181,31 +184,84 @@
 }
 
 .ui-cards.list > .card > .content,
-.ui-cards.list > .card > .actions {
+.ui-cards.list > .card > .actions,
+.ui-cards.list > .card > .properties {
   display: flex;
+  flex-direction: column;
 }
 
 /* =list content */
 .ui-cards.list > .card > .content {
-  flex-direction: column;
+  width: 50%;
   flex: auto;
   justify-content: center;
 }
 
 /* =list actions */
 .ui-cards.list > .card > .actions {
+  border-left: 1px solid #ddd;
+  overflow: hidden;
+}
+
+.ui-cards.list > .card > .properties > .items,
+.ui-cards.list > .card > .actions > .items {
+  display: flex;
+  flex: auto 1;
   flex-direction: row;
 }
 
-.ui-cards.list > .card > .actions > [data-type] {
+.ui-cards.list > .card > .actions > .items {
+  justify-content: flex-end;
+}
+
+/* =list actions width */
+.ui-cards.list[data-action-count] > .card > .actions {
+  width: calc(5 * var(--action-width));
+}
+.ui-cards.list[data-action-count="4"] > .card > .actions {
+  width: calc(4 * var(--action-width));
+}
+
+.ui-cards.list[data-action-count="3"] > .card > .actions {
+  width: calc(3 * var(--action-width));
+}
+
+.ui-cards.list[data-action-count="2"] > .card > .actions {
+  width: calc(2 * var(--action-width));
+}
+
+.ui-cards.list[data-action-count="1"] > .card > .actions {
+  width: var(--action-width);
+}
+
+.ui-cards.list > .card > .actions > .items [data-type] {
   display: flex;
   align-self: stretch;
   align-items: center;
 }
 
 /* =list properties */
+.ui-cards.list[data-property-count="6"] > .card > .properties {
+  max-width: calc(6 * var(--property-width));
+}
+.ui-cards.list[data-property-count="5"] > .card > .properties {
+  max-width: calc(5 * var(--property-width));
+}
+.ui-cards.list[data-property-count="4"] > .card > .properties {
+  max-width: calc(4 * var(--property-width));
+}
+.ui-cards.list[data-property-count="3"] > .card > .properties {
+  max-width: calc(3 * var(--property-width));
+}
+.ui-cards.list[data-property-count="2"] > .card > .properties {
+  max-width: calc(2 * var(--property-width));
+}
+.ui-cards.list[data-property-count="1"] > .card > .properties {
+  max-width: calc(1 * var(--property-width));
+}
+
 .ui-cards.list > .card > .properties .property {
-  max-width: 150px;
+  width: var(--property-width);
 }
 
 /* =grid */
@@ -235,16 +291,30 @@
   flex-direction: row;
 }
 
+.ui-cards.grid > .card > .properties > .items {
+  display: flex;
+  flex: auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 .ui-cards.grid > .card > .properties .property {
   border-top: 1px solid #ddd;
+  flex-grow: 1;
 }
 
 /* =grid actions */
 .ui-cards.grid > .card > .actions {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
   border: 1px solid #ddd;
   border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.ui-cards.grid > .card > .actions .items {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 }
 
 /* =grid conditional styles */

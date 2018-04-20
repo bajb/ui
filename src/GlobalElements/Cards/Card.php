@@ -92,11 +92,17 @@ class Card extends UiElement implements IColours, ICardActionType
    * @param array       $options
    *
    * @return $this
+   * @throws \Exception
    */
   public function addProperty($label, $value, $copyValue = false, array $options = [])
   {
     if(is_string($label) && $value)
     {
+      if(count($this->_properties) >= 3)
+      {
+        throw new \Exception('A card should have a no more than 3 properties.');
+      }
+
       $property = Div::create()->addClass('property');
 
       // stuff for copy-to-clipboard
@@ -142,12 +148,18 @@ class Card extends UiElement implements IColours, ICardActionType
    * @param Link|null $link
    *
    * @return $this
+   * @throws \Exception
    */
   public function addAction($type = self::ACTION_TYPE_VIEW, Link $link = null)
   {
+    if(count($this->_actions) >= 3)
+    {
+      throw new \Exception('A card must have no more than 3 actions.');
+    }
+
     if(CardActionType::isValid($type))
     {
-      $this->_actions[] = CardAction::create($type, $link);
+      $this->_actions[$type] = CardAction::create($type, $link);
     }
     return $this;
   }
@@ -233,6 +245,84 @@ class Card extends UiElement implements IColours, ICardActionType
   }
 
   /**
+   * @return array
+   */
+  public function getActionTypes()
+  {
+    return array_keys($this->_actions);
+  }
+
+  /**
+   * @return int
+   */
+  public function getPropertyCount()
+  {
+    return count($this->_properties);
+  }
+
+  /**
+   * @param HtmlTag $container
+   * @param HtmlTag $card
+   *
+   * @return HtmlTag
+   */
+  protected function _applyIcons(HtmlTag $container, HtmlTag $card)
+  {
+    if($this->_icons)
+    {
+      $icons = Div::create()->addClass('icons');
+      foreach($this->_icons as $icon)
+      {
+        // if is HtmlTag object and $tag is 'i', we can assume that this should be considered an icon
+        if(($icon instanceof FontIcon) || (($icon instanceof HtmlTag) && $icon->getTag() === 'i'))
+        {
+          $icons->appendContent($icon);
+        }
+        else if(is_string($icon) && UiIcon::isValid($icon))
+        {
+          $icons->appendContent(
+            FontIcon::create($icon)
+          );
+        }
+      }
+      $container->appendContent($icons);
+
+      $card->addClass('has-icons');
+    }
+
+    return $card;
+  }
+
+  /**
+   * @param HtmlTag $card
+   *
+   * @return HtmlTag
+   */
+  protected function _applyActions(HtmlTag $card)
+  {
+    if($this->_actions)
+    {
+      $items = Div::create()->addClass('items');
+      foreach($this->_getSortedActions() as $action)
+      {
+        if($action instanceof CardAction)
+        {
+          $items->appendContent($action);
+        }
+      }
+      $actions = Div::create($items)->addClass('actions');
+      $card->appendContent($actions);
+      $card->addClass('has-actions');
+    }
+    else
+    {
+      $card->addClass('no-actions');
+    }
+
+    return $card;
+  }
+
+  /**
    * @return Div
    */
   protected function _produceHtml()
@@ -258,27 +348,7 @@ class Card extends UiElement implements IColours, ICardActionType
     }
 
     // add icons to Card
-    if($this->_icons)
-    {
-      $icons = Div::create()->addClass('icons');
-      foreach($this->_icons as $icon)
-      {
-        // if is HtmlTag object and $tag is 'i', we can assume that this should be considered an icon
-        if(($icon instanceof FontIcon) || (($icon instanceof HtmlTag) && $icon->getTag() === 'i'))
-        {
-          $icons->appendContent($icon);
-        }
-        else if(is_string($icon) && UiIcon::isValid($icon))
-        {
-          $icons->appendContent(
-            FontIcon::create($icon)
-          );
-        }
-      }
-      $text->appendContent($icons);
-
-      $card->addClass('has-icons');
-    }
+    $this->_applyIcons($text, $card);
 
     if($this->_label)
     {
@@ -328,9 +398,9 @@ class Card extends UiElement implements IColours, ICardActionType
     // append properties
     if($this->_properties)
     {
-      $card->appendContent(
-        Div::create($this->_properties)->addClass('properties')
-      );
+      $items = Div::create($this->_properties)->addClass('items');
+      $properties = Div::create($items)->addClass('properties');
+      $card->appendContent($properties);
 
       $card->addClass('has-properties');
     }
@@ -340,25 +410,9 @@ class Card extends UiElement implements IColours, ICardActionType
     }
 
     // append actions
-    if($this->_actions)
-    {
-      $actions = Div::create()->addClass('actions');
-      foreach($this->_getSortedActions() as $action)
-      {
-        if($action instanceof CardAction)
-        {
-          $actions->appendContent($action);
-        }
-      }
-      $card->appendContent($actions);
+    $this->_applyActions($card);
 
-      $card->addClass('has-actions');
-    }
-    else
-    {
-      $card->addClass('no-actions');
-    }
-
+    // apply data attributes
     $this->_applyDataAttributes($card);
     $this->_applyId($card);
 
