@@ -309,6 +309,7 @@
   flex-direction: column;
   border: 1px solid #ddd;
   border-top: 1px solid rgba(0, 0, 0, 0.08);
+  background: #eee;
 }
 
 .ui-cards.grid > .card > .actions .items {
