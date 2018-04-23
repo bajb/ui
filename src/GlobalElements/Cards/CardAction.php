@@ -173,6 +173,7 @@ class CardAction extends UiElement implements ICardActionType
     }
 
     $this->_link->setAttribute('data-type', $this->_type);
+    $this->_link->addClass('action');
 
     return $this->_link;
   }

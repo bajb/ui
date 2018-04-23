@@ -291,74 +291,25 @@ class Card extends UiElement implements IColours, ICardActionType
   }
 
   /**
-   * @param HtmlTag $card
-   *
-   * @return HtmlTag
-   */
-  protected function _applyActions(HtmlTag $card)
-  {
-    if($this->_actions)
-    {
-      $items = Div::create()->addClass('items');
-      foreach($this->_getSortedActions() as $action)
-      {
-        if($action instanceof CardAction)
-        {
-          $items->appendContent($action);
-        }
-      }
-      $actions = Div::create($items)->addClass('actions');
-      $card->appendContent($actions);
-      $card->addClass('has-actions');
-    }
-    else
-    {
-      $card->addClass('no-actions');
-    }
-
-    return $card;
-  }
-
-  /**
-   * @param HtmlTag $card
-   *
-   * @return HtmlTag
-   */
-  protected function _applyProperties(HtmlTag $card)
-  {
-    if($this->_properties)
-    {
-      $items = Div::create($this->_properties)->addClass('items');
-      $properties = Div::create($items)->addClass('properties');
-      $card->appendContent($properties);
-
-      $card->addClass('has-properties');
-    }
-    else
-    {
-      $card->addClass('no-properties');
-    }
-
-    return $card;
-  }
-
-  /**
    * @return Div
    */
   protected function _produceHtml()
   {
     // create Card
-    $card = Div::create()->addClass('card');
+    $card = Div::create()->addClass('ui-card');
 
-    // create Title, Label, Description content
-    $content = Div::create()->addClass('content');
-    $intro = Div::create()->addClass('intro');
+    // Avatar, Label, Title and Description
+    $primary = Div::create()->addClass('primary');
+    // Properties and Actions
+    $secondary = Div::create()->addClass('secondary');
+
+    // Title, Label, Description content
     $text = Div::create()->addClass('text');
 
     if($this->_avatar)
     {
       $avatar = Div::create($this->_avatar)->addClass('avatar');
-      $intro->appendContent($avatar);
+      $primary->appendContent($avatar);
 
       $card->addClass('has-avatar');
     }
@@ -393,7 +344,7 @@ class Card extends UiElement implements IColours, ICardActionType
     if($this->_description)
     {
       $description = Div::create($this->_description)->addClass('description');
-      $content->appendContent($description);
+      $text->appendContent($description);
 
       $card->addClass('has-description');
     }
@@ -402,12 +353,9 @@ class Card extends UiElement implements IColours, ICardActionType
       $card->addClass('no-description');
     }
 
-    // Add Label and Title
-    $intro->appendContent($text);
-
-    // Add Description and Icons.
-    $content->prependContent($intro);
-    $card->appendContent($content);
+    // Add Label, Title, Description and Icons.
+    $primary->appendContent($text);
+    $card->appendContent($primary);
 
     // add border colour class
     if(Colour::isValid($this->_colour))
@@ -416,10 +364,34 @@ class Card extends UiElement implements IColours, ICardActionType
     }
 
     // append properties
-    $this->_applyProperties($card);
+    if($this->_properties)
+    {
+      $properties = Div::create($this->_properties)->addClass('properties');
+      $secondary->appendContent($properties);
+      $card->addClass('has-properties');
+    }
+    else
+    {
+      $card->addClass('no-properties');
+    }
 
     // append actions
-    $this->_applyActions($card);
+    if($this->_actions)
+    {
+      $actions = Div::create($this->_getSortedActions())->addClass('actions');
+      $secondary->appendContent($actions);
+      $card->addClass('has-actions');
+    }
+    else
+    {
+      $card->addClass('no-actions');
+    }
+
+    // Add Secondary content (Properties and Actions)
+    if($secondary->getContent())
+    {
+      $card->appendContent($secondary);
+    }
 
     // apply data attributes
     $this->_applyDataAttributes($card);

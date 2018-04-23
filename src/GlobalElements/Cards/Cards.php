@@ -87,7 +87,7 @@ class Cards extends UiElement implements ILayout
    *
    * @return $this
    */
-  public function setGridColumnCount($columns = 4)
+  public function setGridColumnCount($columns = 1)
   {
     $this->_columns = $columns;
     return $this;

@@ -283,9 +283,9 @@ class CardsView extends AbstractUiExampleView
     $card->addIcon($this->_getArchivedUserIcon());
 
     $card->addProperty('role', $this->_getRandomJobTitle());
-    $card->addProperty('email address', $this->_getRandomEmail());
-    $card->addProperty('email address', $this->_getRandomEmail());
-    $card->addProperty('email address', $this->_getRandomEmail());
+    $card->addProperty('email address', $this->_getRandomEmail(), true);
+    $card->addProperty('email address', $this->_getRandomEmail(), true);
+    $card->addProperty('email address', $this->_getRandomEmail(), true);
 
     $this->_addRandomActions($card);
 
@@ -354,6 +354,9 @@ class CardsView extends AbstractUiExampleView
         'CUSTOMER.SUBSCRIPTION.RENEWAL.HARD.FAIL'
       );
       $card->addProperty('type', $type[(mt_rand(0, count($type) - 1))]);
+      $card->addProperty('type', $type[(mt_rand(0, count($type) - 1))]);
+      $card->addProperty('type', $type[(mt_rand(0, count($type) - 1))]);
+      $card->addProperty('type', $type[(mt_rand(0, count($type) - 1))]);
       $this->_addRandomActions($card, 2);
 
       $items[] = $card;
@@ -361,6 +364,7 @@ class CardsView extends AbstractUiExampleView
 
     $cards = Cards::i();
     $cards->addCards($items);
+    $cards->stacked();
     return $cards;
   }
 
@@ -431,6 +435,8 @@ class CardsView extends AbstractUiExampleView
   {
     $cards = Cards::i();
     $cards->addCards($this->_getCards());
+    $cards->setLayout($cards::LAYOUT_GRID);
+    $cards->setGridColumnCount();
 
     return $cards;
   }
