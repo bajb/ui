@@ -4,6 +4,7 @@ namespace Fortifi\UiExample\Views;
 use Carbon\Carbon;
 use Fortifi\Ui\ContentElements\Links\PageletLink;
 use Fortifi\Ui\Enums\Cards\CardActionType;
+use Fortifi\Ui\Enums\Cards\CardMaxProperties;
 use Fortifi\Ui\Enums\Colour;
 use Fortifi\Ui\GlobalElements\Cards\Card;
 use Fortifi\Ui\GlobalElements\Cards\Cards;
@@ -31,7 +32,7 @@ class CardsView extends AbstractUiExampleView
   protected function _addCardProperties(Card $card)
   {
     $properties = Arrays::shuffleAssoc($this->_props);
-    $propertyCount = mt_rand(0, 3);
+    $propertyCount = mt_rand(0, CardMaxProperties::LIST_CARD);
     $x = 0;
     foreach($properties as $name => $value)
     {
@@ -282,6 +283,8 @@ class CardsView extends AbstractUiExampleView
     $card->addIcon($this->_getArchivedUserIcon());
 
     $card->addProperty('role', $this->_getRandomJobTitle());
+    $card->addProperty('email address', $this->_getRandomEmail());
+    $card->addProperty('email address', $this->_getRandomEmail());
     $card->addProperty('email address', $this->_getRandomEmail());
 
     $this->_addRandomActions($card);

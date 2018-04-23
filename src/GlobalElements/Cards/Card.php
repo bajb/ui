@@ -35,6 +35,8 @@ class Card extends UiElement implements IColours, ICardActionType
   protected $_description = null;
   /** @var  null|mixed */
   protected $_avatar = null;
+  /** @var bool */
+  protected $_isGridLayout = false;
 
   /**
    * @param $content
@@ -98,11 +100,6 @@ class Card extends UiElement implements IColours, ICardActionType
   {
     if(is_string($label) && $value)
     {
-      if(count($this->_properties) >= 3)
-      {
-        throw new \Exception('A card should have a no more than 3 properties.');
-      }
-
       $property = Div::create()->addClass('property');
 
       // stuff for copy-to-clipboard
@@ -323,6 +320,29 @@ class Card extends UiElement implements IColours, ICardActionType
   }
 
   /**
+   * @param HtmlTag $card
+   *
+   * @return HtmlTag
+   */
+  protected function _applyProperties(HtmlTag $card)
+  {
+    if($this->_properties)
+    {
+      $items = Div::create($this->_properties)->addClass('items');
+      $properties = Div::create($items)->addClass('properties');
+      $card->appendContent($properties);
+
+      $card->addClass('has-properties');
+    }
+    else
+    {
+      $card->addClass('no-properties');
+    }
+
+    return $card;
+  }
+
+  /**
    * @return Div
    */
   protected function _produceHtml()
@@ -396,18 +416,7 @@ class Card extends UiElement implements IColours, ICardActionType
     }
 
     // append properties
-    if($this->_properties)
-    {
-      $items = Div::create($this->_properties)->addClass('items');
-      $properties = Div::create($items)->addClass('properties');
-      $card->appendContent($properties);
-
-      $card->addClass('has-properties');
-    }
-    else
-    {
-      $card->addClass('no-properties');
-    }
+    $this->_applyProperties($card);
 
     // append actions
     $this->_applyActions($card);

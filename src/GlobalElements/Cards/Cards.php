@@ -1,6 +1,7 @@
 <?php
 namespace Fortifi\Ui\GlobalElements\Cards;
 
+use Fortifi\Ui\Enums\Cards\CardMaxProperties;
 use Fortifi\Ui\Interfaces\ILayout;
 use Fortifi\Ui\Traits\DataAttributesTrait;
 use Fortifi\Ui\Traits\SetIdTrait;
@@ -111,45 +112,64 @@ class Cards extends UiElement implements ILayout
    */
   protected function _produceHtml()
   {
-    $isGrid = ($this->_layout === self::LAYOUT_GRID);
-    $isList = ($this->_layout === self::LAYOUT_LIST);
-    $isSingleColumn = ($this->_columns == 1);
-
     $cards = Div::create()->addClass('ui-cards');
-    $cards->addClass($this->_layout);
-
-    if($isGrid)
-    {
-      $cards->setAttribute('data-columns', $this->_columns);
-    }
-
-    // stack cards
-    if($this->_stacked && ($isList || ($isGrid && $isSingleColumn)))
-    {
-      $cards->addClass('stacked');
-    }
 
     if($this->_cards)
     {
       $minActionsCount = 0;
       $minPropertiesCount = 0;
+
       foreach($this->_cards as $card)
       {
         if($card instanceof Card)
         {
-          // define action count for all cards in this collection
+          /**
+           * Define action count for all cards in this collection.
+           * This is required for consistent .actions column widths.
+           */
           $actionsItems = count($card->getActionTypes());
           $minActionsCount = (($actionsItems > $minActionsCount) ? $actionsItems : $minActionsCount);
 
-          // define property count for all cards in this collection
+          /**
+           * Define property count for all cards in this collection.
+           * This is predominantly used as a tag for now.
+           */
           $propertyCount = $card->getPropertyCount();
           $minPropertiesCount = (($propertyCount > $minPropertiesCount) ? $propertyCount : $minPropertiesCount);
 
           $cards->appendContent($card);
         }
       }
+
+      // If any child card contains more than CardMaxProperties, Layout type is GRID and column display should be 1
+      if($minPropertiesCount > CardMaxProperties::LIST_CARD)
+      {
+        $this->_layout = self::LAYOUT_GRID;
+        $this->_columns = 1;
+      }
+
+      // define local layout vars
+      $isGrid = ($this->_layout === self::LAYOUT_GRID);
+      $isList = ($this->_layout === self::LAYOUT_LIST);
+      $isSingleColumn = ($this->_columns == 1);
+
+      // set layout style
+      $cards->addClass($this->_layout);
+
+      if($isGrid)
+      {
+        $cards->setAttribute('data-columns', $this->_columns);
+      }
+
+      // additional attributes for potential styling
       $cards->setAttribute('data-action-count', $minActionsCount);
       $cards->setAttribute('data-property-count', $minPropertiesCount);
+
+      // stack cards
+      if($this->_stacked && ($isList || ($isGrid && $isSingleColumn)))
+      {
+        $cards->addClass('stacked');
+      }
     }
 
     $this->_applyDataAttributes($cards);
