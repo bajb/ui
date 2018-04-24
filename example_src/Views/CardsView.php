@@ -4,7 +4,6 @@ namespace Fortifi\UiExample\Views;
 use Carbon\Carbon;
 use Fortifi\Ui\ContentElements\Links\PageletLink;
 use Fortifi\Ui\Enums\Cards\CardActionType;
-use Fortifi\Ui\Enums\Cards\CardMaxProperties;
 use Fortifi\Ui\Enums\Colour;
 use Fortifi\Ui\GlobalElements\Cards\Card;
 use Fortifi\Ui\GlobalElements\Cards\Cards;
@@ -16,8 +15,8 @@ use Packaged\Helpers\Arrays;
 class CardsView extends AbstractUiExampleView
 {
   protected $_props = [
-    'name'            => 'Chris Sparshott',
-    'email'           => 'chris.sparshott@fortifi.io',
+    'name'            => 'Richard Gooding',
+    'email'           => 'richard.gooding@fortifi.io',
     'role'            => 'Admin',
     'created'         => '2015-11-26',
     'auto responders' => '26',
@@ -300,44 +299,44 @@ class CardsView extends AbstractUiExampleView
    * ================================================
    */
 
-//  /**
-//   * @group Cards
-//   */
-//  final public function employeeRolesCards()
-//  {
-//    $items = [];
-//    while(count($items) < 5)
-//    {
-//      $card = $this->_createQuickCard($this->_getRandomJobTitle());
-//      $this->_addRandomActions($card, 1);
-//
-//      $items[] = $card;
-//    }
-//
-//    $cards = Cards::i();
-//    $cards->addCards($items);
-//    return $cards;
-//  }
+  /**
+   * @group Cards
+   */
+  final public function employeeRolesCards()
+  {
+    $items = [];
+    while(count($items) < 5)
+    {
+      $card = $this->_createQuickCard($this->_getRandomJobTitle());
+      $this->_addRandomActions($card, 1);
 
-//  /**
-//   * @group Cards
-//   */
-//  final public function departmentQueueCards()
-//  {
-//    $items = [];
-//    while(count($items) < 5)
-//    {
-//      $card = $this->_createQuickCard($this->_getRandomJobTitle());
-//      $card->addProperty('Created', $this->_getRandomHumanDate());
-//      $this->_addRandomActions($card, 1);
-//
-//      $items[] = $card;
-//    }
-//
-//    $cards = Cards::i();
-//    $cards->addCards($items);
-//    return $cards;
-//  }
+      $items[] = $card;
+    }
+
+    $cards = Cards::i();
+    $cards->addCards($items);
+    return $cards;
+  }
+
+  /**
+   * @group Cards
+   */
+  final public function departmentQueueCards()
+  {
+    $items = [];
+    while(count($items) < 5)
+    {
+      $card = $this->_createQuickCard($this->_getRandomJobTitle());
+      $card->addProperty('Created', $this->_getRandomHumanDate());
+      $this->_addRandomActions($card, 1);
+
+      $items[] = $card;
+    }
+
+    $cards = Cards::i();
+    $cards->addCards($items);
+    return $cards;
+  }
 
   /**
    * @group Cards
@@ -412,32 +411,6 @@ class CardsView extends AbstractUiExampleView
 
     $cards = Cards::i();
     $cards->addCards($items);
-    return $cards;
-  }
-
-  /**
-   * @group defaults
-   */
-  final public function cardsGrid()
-  {
-    $cards = Cards::i();
-    $cards->addCards($this->_getCards());
-    $cards->setLayout($cards::LAYOUT_GRID);
-    $cards->setGridColumnCount(3);
-
-    return $cards;
-  }
-
-  /**
-   * @group defaults
-   */
-  final public function cardsList()
-  {
-    $cards = Cards::i();
-    $cards->addCards($this->_getCards());
-    $cards->setLayout($cards::LAYOUT_GRID);
-    $cards->setGridColumnCount();
-
     return $cards;
   }
 }
