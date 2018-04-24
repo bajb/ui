@@ -32,7 +32,7 @@ class CardsView extends AbstractUiExampleView
   protected function _addCardProperties(Card $card)
   {
     $properties = Arrays::shuffleAssoc($this->_props);
-    $propertyCount = mt_rand(0, CardMaxProperties::LIST_CARD);
+    $propertyCount = mt_rand(0, count($properties));
     $x = 0;
     foreach($properties as $name => $value)
     {
