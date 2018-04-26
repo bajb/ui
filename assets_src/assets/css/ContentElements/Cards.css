@@ -295,21 +295,21 @@
 }
 
 /* =.list .actions */
-.ui-cards[data-action-count="4"] > .ui-card .actions {
-  min-width: calc(4 * var(--action-width));
-}
+/*.ui-cards[data-action-count="4"] > .ui-card .actions {*/
+  /*min-width: calc(4 * var(--action-width));*/
+/*}*/
 
-.ui-cards[data-action-count="3"] > .ui-card .actions {
-  min-width: calc(3 * var(--action-width));
-}
+/*.ui-cards[data-action-count="3"] > .ui-card .actions {*/
+  /*min-width: calc(3 * var(--action-width));*/
+/*}*/
 
-.ui-cards[data-action-count="2"] > .ui-card .actions {
-  min-width: calc(2 * var(--action-width));
-}
+/*.ui-cards[data-action-count="2"] > .ui-card .actions {*/
+  /*min-width: calc(2 * var(--action-width));*/
+/*}*/
 
-.ui-cards[data-action-count="1"] > .ui-card .actions {
-  min-width: var(--action-width);
-}
+/*.ui-cards[data-action-count="1"] > .ui-card .actions {*/
+  /*min-width: var(--action-width);*/
+/*}*/
 
 /* columns */
 .ui-cards.grid[data-columns="1"] > .ui-card {
