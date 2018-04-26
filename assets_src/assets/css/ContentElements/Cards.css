@@ -113,7 +113,7 @@
 }
 
 .ui-card .properties .property {
-  min-width: var(--property-width);
+  width: var(--property-width);
   flex-basis: 33%;
   box-sizing: border-box;
   flex-grow: 1;
@@ -287,7 +287,7 @@
 }
 
 .ui-cards.list .ui-card .secondary .property {
-  min-width: var(--property-width);
+  width: var(--property-width);
   height: 100%;
   justify-content: center;
   align-items: center;
