@@ -7,7 +7,7 @@
   // add tokenizer input
   var INPUT_TOKEN = 'token';
 
-  const MULTI_INPUT_COMPARATORS = [
+  var MULTI_INPUT_COMPARATORS = [
     QueryBuilderConstants.COMPARATOR_LIKE,
     QueryBuilderConstants.COMPARATOR_NOT_LIKE,
     QueryBuilderConstants.COMPARATOR_LIKE_IN,
