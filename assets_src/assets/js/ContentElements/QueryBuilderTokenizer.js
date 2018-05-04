@@ -8,8 +8,8 @@
   var INPUT_TOKEN = 'token';
 
   var MULTI_INPUT_COMPARATORS = [
-    QueryBuilderConstants.COMPARATOR_LIKE,
-    QueryBuilderConstants.COMPARATOR_NOT_LIKE,
+    QueryBuilderConstants.COMPARATOR_IN,
+    QueryBuilderConstants.COMPARATOR_NOT_IN,
     QueryBuilderConstants.COMPARATOR_LIKE_IN,
     QueryBuilderConstants.COMPARATOR_NOT_LIKE_IN
   ];
