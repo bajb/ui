@@ -7,11 +7,11 @@
   // add tokenizer input
   var INPUT_TOKEN = 'token';
 
-  const ALL_EQ = [
-    QueryBuilderConstants.COMPARATOR_EQUALS,
-    QueryBuilderConstants.COMPARATOR_EQUALS_INSENSITIVE,
-    QueryBuilderConstants.COMPARATOR_NOT_EQUALS,
-    QueryBuilderConstants.COMPARATOR_NOT_EQUALS_INSENSITIVE
+  const MULTI_INPUT_COMPARATORS = [
+    QueryBuilderConstants.COMPARATOR_LIKE,
+    QueryBuilderConstants.COMPARATOR_NOT_LIKE,
+    QueryBuilderConstants.COMPARATOR_LIKE_IN,
+    QueryBuilderConstants.COMPARATOR_NOT_LIKE_IN
   ];
 
   var QueryBuilderTokenInput = (function ()
@@ -25,7 +25,7 @@
 
     Constructor.prototype.sanitize = function (value)
     {
-      if(ALL_EQ.indexOf(this._rule.getComparator()) > -1)
+      if(MULTI_INPUT_COMPARATORS.indexOf(this._rule.getComparator()) === -1)
       {
         if(typeof(value) === 'object')
         {
@@ -127,7 +127,7 @@
       }
       // in = multiple values
       // eq = single value
-      if(ALL_EQ.indexOf(this._rule.getComparator()) > -1)
+      if(MULTI_INPUT_COMPARATORS.indexOf(this._rule.getComparator()) === -1)
       {
         options.tokensMaxItems = 1;
       }
@@ -182,10 +182,7 @@
     {
       if(definition.hasAjaxValues()
         || (definition.hasValues() && !definition.isStrict())
-        || comparator === QueryBuilderConstants.COMPARATOR_IN
-        || comparator === QueryBuilderConstants.COMPARATOR_NOT_IN
-        || comparator === QueryBuilderConstants.COMPARATOR_LIKE_IN
-        || comparator === QueryBuilderConstants.COMPARATOR_NOT_LIKE_IN
+        || (MULTI_INPUT_COMPARATORS.indexOf(comparator) > -1)
       )
       {
         return INPUT_TOKEN;
