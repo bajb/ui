@@ -38,6 +38,20 @@ class Cards extends UiElement implements ILayout
   }
 
   /**
+   * @param Card $card
+   *
+   * @return $this
+   */
+  public function prependCard(Card $card)
+  {
+    if($card instanceof Card)
+    {
+      array_unshift($this->_cards, $card);
+    }
+    return $this;
+  }
+
+  /**
    * @param Card[] $cards
    *
    * @return $this
