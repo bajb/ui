@@ -87,6 +87,10 @@
   color: #999;
 }
 
+.ui-card > .primary .description {
+  margin-top: 8px;
+}
+
 /**/
 .ui-cards .ui-card.no-avatar.no-label.no-description .primary {
   display: flex;
