@@ -60,17 +60,22 @@
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 50%;
   margin-right: 10px;
-  display: inline-block;
+  display: flex;
   float: left;
-  text-align: center;
-  font-size: 32px;
+  justify-items: center;
+  align-items: center;
   color: rgba(0, 0, 0, 0.5);
   background: #eee;
 }
 
 .ui-card > .primary .avatar > * {
-  max-width: 100%;
+  width: 100%;
+  height: auto;
   color: inherit;
+}
+
+.ui-card > .primary .avatar > [class*="fa-"] {
+  padding: 12px;
 }
 
 .ui-card > .primary .label {
@@ -139,6 +144,7 @@
   max-width: 100%;
   display: block;
   overflow: hidden;
+  margin-bottom: 4px;
   white-space: nowrap;
   text-overflow: ellipsis;
   font-size: 14px;
