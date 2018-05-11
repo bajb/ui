@@ -70,8 +70,12 @@
 
 .ui-card > .primary .avatar > * {
   width: 100%;
-  height: auto;
+  height: 100%;
   color: inherit;
+}
+
+.ui-card > .primary .avatar  img {
+  height: auto !important;
 }
 
 .ui-card > .primary .avatar > [class*="fa-"] {
