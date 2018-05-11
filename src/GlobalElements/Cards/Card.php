@@ -218,6 +218,14 @@ class Card extends UiElement implements IColours, ICardActionType
   }
 
   /**
+   * @return string
+   */
+  public function getColour()
+  {
+    return $this->_colour;
+  }
+
+  /**
    * @return CardAction[]
    */
   protected function _getSortedActions()
