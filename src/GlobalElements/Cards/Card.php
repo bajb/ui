@@ -1,17 +1,19 @@
 <?php
 namespace Fortifi\Ui\GlobalElements\Cards;
 
+use Fortifi\FontAwesome\FaIcon;
 use Fortifi\Ui\Enums\Cards\CardActionType;
 use Fortifi\Ui\Enums\Colour;
 use Fortifi\Ui\Enums\UiIcon;
-use Fortifi\Ui\GlobalElements\Icons\FontIcon;
 use Fortifi\Ui\Interfaces\IColours;
 use Fortifi\Ui\Traits\DataAttributesTrait;
 use Fortifi\Ui\Traits\SetIdTrait;
 use Fortifi\Ui\UiElement;
+use Packaged\Dispatch\AssetManager;
 use Packaged\Glimpse\Core\HtmlTag;
 use Packaged\Glimpse\Tags\Div;
 use Packaged\Glimpse\Tags\Link;
+use Packaged\Glimpse\Tags\Span;
 use Packaged\Glimpse\Tags\Text\Paragraph;
 
 class Card extends UiElement implements IColours, ICardActionType
@@ -35,8 +37,22 @@ class Card extends UiElement implements IColours, ICardActionType
   protected $_description = null;
   /** @var  null|mixed */
   protected $_avatar = null;
-  /** @var bool */
+  /** @var  bool */
   protected $_isGridLayout = false;
+
+  /**
+   * Require Assets
+   *
+   * @param AssetManager $assetManager
+   * @param bool         $vendor
+   */
+  public function processIncludes(AssetManager $assetManager, $vendor = false)
+  {
+    if(!$vendor)
+    {
+      $assetManager->requireJs('https://use.fontawesome.com/releases/v5.0.13/js/all.js');
+    }
+  }
 
   /**
    * @param $content
@@ -114,7 +130,7 @@ class Card extends UiElement implements IColours, ICardActionType
         {
           $property->setAttribute('data-copy', $copyValue);
           $property->appendContent(
-            FontIcon::create('fa-files-o')->addClass('copy')
+            FaIcon::create(FaIcon::FILE_ALT_O)->addClass('copy')
           );
         }
       }
@@ -271,14 +287,19 @@ class Card extends UiElement implements IColours, ICardActionType
       foreach($this->_icons as $icon)
       {
         // if is HtmlTag object and $tag is 'i', we can assume that this should be considered an icon
-        if(($icon instanceof FontIcon) || (($icon instanceof HtmlTag) && $icon->getTag() === 'i'))
+        if(($icon instanceof FaIcon) || (($icon instanceof HtmlTag) && $icon->getTag() === 'i'))
+        {
+          $icons->appendContent($icon);
+        }
+        // is it a layered icon?
+        else if(($icon instanceof Span) && ($icon->hasClass('fa-layers')))
         {
           $icons->appendContent($icon);
         }
         else if(is_string($icon) && UiIcon::isValid($icon))
         {
           $icons->appendContent(
-            FontIcon::create($icon)
+            FaIcon::create($icon)
           );
         }
       }

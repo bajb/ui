@@ -2,6 +2,7 @@
 namespace Fortifi\UiExample\Views;
 
 use Carbon\Carbon;
+use Fortifi\FontAwesome\FaIcon;
 use Fortifi\Ui\ContentElements\Links\PageletLink;
 use Fortifi\Ui\Enums\Cards\CardActionType;
 use Fortifi\Ui\Enums\Colour;
@@ -10,6 +11,7 @@ use Fortifi\Ui\GlobalElements\Cards\Cards;
 use Fortifi\Ui\GlobalElements\Icons\FontIcon;
 use Fortifi\Ui\Ui;
 use Packaged\Glimpse\Core\HtmlTag;
+use Packaged\Glimpse\Tags\Span;
 use Packaged\Helpers\Arrays;
 
 class CardsView extends AbstractUiExampleView
@@ -27,6 +29,7 @@ class CardsView extends AbstractUiExampleView
    * @param Card $card
    *
    * @return Card
+   * @throws \Exception
    */
   protected function _addCardProperties(Card $card)
   {
@@ -78,25 +81,25 @@ class CardsView extends AbstractUiExampleView
   }
 
   /**
-   * @return HtmlTag
+   * @return Span
    */
   protected function _getInsecureIcon()
   {
-    return FontIcon::stack(
-      FontIcon::create(FontIcon::LOCK),
-      FontIcon::create('fa-circle-o')->addClass(Ui::TEXT_ORANGE)
-    );
+    return FaIcon::layers(
+      FaIcon::create(FaIcon::LOCK),
+      FaIcon::create(FaIcon::CIRCLE_NOTCH)->grow(16)->addClass(Ui::TEXT_ORANGE)
+    )->addClass(Ui::MARGIN_MEDIUM_LEFT);
   }
 
   /**
-   * @return HtmlTag
+   * @return Span
    */
   protected function _getArchivedUserIcon()
   {
-    return FontIcon::stack(
-      FontIcon::create(FontIcon::USER),
-      FontIcon::create(FontIcon::BAN)->addClass(Ui::TEXT_RED)
-    );
+    return FaIcon::layers(
+      FaIcon::create(FaIcon::USER),
+      FaIcon::create(FaIcon::BAN)->grow(16)->addClass(Ui::TEXT_RED)
+    )->addClass(Ui::MARGIN_MEDIUM_LEFT);
   }
 
   /**
@@ -172,6 +175,7 @@ class CardsView extends AbstractUiExampleView
    * @param int  $qty
    *
    * @return Card
+   * @throws \Exception
    */
   protected function _addRandomActions(Card $card, $qty = 3)
   {
@@ -197,6 +201,7 @@ class CardsView extends AbstractUiExampleView
 
   /**
    * @return Card
+   * @throws \Exception
    */
   protected function _getCard()
   {
@@ -259,7 +264,8 @@ class CardsView extends AbstractUiExampleView
   }
 
   /**
-   * @return Cards[]
+   * @return Card[]
+   * @throws \Exception
    */
   protected function _getCards()
   {
@@ -273,6 +279,7 @@ class CardsView extends AbstractUiExampleView
 
   /**
    * @return Card
+   * @throws \Exception
    */
   protected function _createEmployeeCard()
   {
@@ -300,7 +307,8 @@ class CardsView extends AbstractUiExampleView
    */
 
   /**
-   * @group Cards
+   * @return Cards
+   * @throws \Exception
    */
   final public function employeeRolesCards()
   {
@@ -321,6 +329,7 @@ class CardsView extends AbstractUiExampleView
 
   /**
    * @group Cards
+   * @throws \Exception
    */
   final public function departmentQueueCards()
   {
@@ -341,6 +350,7 @@ class CardsView extends AbstractUiExampleView
 
   /**
    * @group Cards
+   * @throws \Exception
    */
   final public function eventManagementCards()
   {
@@ -370,6 +380,7 @@ class CardsView extends AbstractUiExampleView
 
   /**
    * @group Cards
+   * @throws \Exception
    */
   final public function employeeCards()
   {
@@ -386,6 +397,7 @@ class CardsView extends AbstractUiExampleView
 
   /**
    * @group Cards
+   * @throws \Exception
    */
   final public function paymentMethodCards()
   {
@@ -397,12 +409,7 @@ class CardsView extends AbstractUiExampleView
         null,
         'Automatic, PayPal ID: FER2RX8U6SNTW, Email: sales-lowbuyer@fortifi.uk'
       );
-
-      $icon = HtmlTag::createTag('i');
-      $icon->addClass('fa', 'fa-icon', 'fa-cc-paypal');
-      $icon->setAttribute('style', 'font-size: 28px;');
-
-      $card->addProperty('Payment Method', $icon);
+      $card->addProperty('Payment Method', FaIcon::create(FaIcon::CC_PAYPAL)->sizeX2());
 
       // create actions
       $this->_addRandomActions($card);

@@ -1,9 +1,9 @@
 <?php
 namespace Fortifi\Ui\GlobalElements\Cards;
 
+use Fortifi\FontAwesome\FaIcon;
 use Fortifi\Ui\Enums\Cards\CardActionTooltip;
 use Fortifi\Ui\Enums\Cards\CardActionType;
-use Fortifi\Ui\GlobalElements\Icons\FontIcon;
 use Fortifi\Ui\UiElement;
 use Packaged\Glimpse\Tags\Link;
 use Packaged\Glimpse\Tags\Span;
@@ -14,7 +14,7 @@ class CardAction extends UiElement implements ICardActionType
   protected $_link;
   /** @var string */
   protected $_type;
-  /** @var FontIcon */
+  /** @var FaIcon */
   protected $_icon;
   /** @var string|null */
   protected $_tooltip = null;
@@ -77,75 +77,76 @@ class CardAction extends UiElement implements ICardActionType
     switch($this->_type)
     {
       case self::ACTION_TYPE_IS_DEFAULT:
-        $this->_icon = FontIcon::create(FontIcon::CURRENT_DEFAULT);
+        $this->_icon = FaIcon::create(FaIcon::STAR);
         $this->_tooltip = CardActionTooltip::IS_DEFAULT;
         break;
       case self::ACTION_TYPE_MAKE_DEFAULT:
-        $this->_icon = FontIcon::create(FontIcon::MAKE_DEFAULT);
+        $this->_icon = FaIcon::create(FaIcon::STAR);
+        $this->_icon->setColour('#bbb');
         $this->_tooltip = CardActionTooltip::SET_DEFAULT;
         break;
       case self::ACTION_TYPE_UNLOCK:
-        $this->_icon = FontIcon::create(FontIcon::UNLOCK);
+        $this->_icon = FaIcon::create(FaIcon::UNLOCK);
         $this->_tooltip = CardActionTooltip::UNLOCK;
         break;
       case self::ACTION_TYPE_LOCK:
-        $this->_icon = FontIcon::create(FontIcon::LOCK);
+        $this->_icon = FaIcon::create(FaIcon::LOCK);
         $this->_tooltip = CardActionTooltip::LOCK;
         break;
       case self::ACTION_TYPE_DECLINE:
-        $this->_icon = FontIcon::create(FontIcon::DELETE);
+        $this->_icon = FaIcon::create(FaIcon::TIMES);
         $this->_tooltip = CardActionTooltip::DECLINE;
         break;
       case self::ACTION_TYPE_REMOVE:
-        $this->_icon = FontIcon::create(FontIcon::DELETE);
+        $this->_icon = FaIcon::create(FaIcon::TIMES);
         $this->_tooltip = CardActionTooltip::REMOVE;
         break;
       case self::ACTION_TYPE_ADD:
-        $this->_icon = FontIcon::create(FontIcon::CREATE);
+        $this->_icon = FaIcon::create(FaIcon::PLUS);
         $this->_tooltip = CardActionTooltip::ADD;
         break;
       case self::ACTION_TYPE_APPROVE:
-        $this->_icon = FontIcon::create(FontIcon::TICK);
+        $this->_icon = FaIcon::create(FaIcon::CHECK);
         $this->_tooltip = CardActionTooltip::APPROVE;
         break;
       case self::ACTION_TYPE_VERIFY:
-        $this->_icon = FontIcon::create(FontIcon::TICK);
+        $this->_icon = FaIcon::create(FaIcon::CHECK);
         $this->_tooltip = CardActionTooltip::VERIFY;
         break;
       case self::ACTION_TYPE_CREATE:
-        $this->_icon = FontIcon::create(FontIcon::CREATE);
+        $this->_icon = FaIcon::create(FaIcon::PLUS);
         $this->_tooltip = CardActionTooltip::CREATE;
         break;
       case self::ACTION_TYPE_EDIT:
-        $this->_icon = FontIcon::create(FontIcon::EDIT);
+        $this->_icon = FaIcon::create(FaIcon::PENCIL_ALT);
         $this->_tooltip = CardActionTooltip::EDIT;
         break;
       case self::ACTION_TYPE_VIEW:
-        $this->_icon = FontIcon::create(FontIcon::VIEW);
+        $this->_icon = FaIcon::create(FaIcon::EYE);
         $this->_tooltip = CardActionTooltip::VIEW;
         break;
       case self::ACTION_TYPE_DELETE:
-        $this->_icon = FontIcon::create('fa-trash');
+        $this->_icon = FaIcon::create(FaIcon::TRASH);
         $this->_tooltip = CardActionTooltip::DELETE;
         break;
       case self::ACTION_TYPE_RESTORE:
-        $this->_icon = FontIcon::create(FontIcon::TICK);
+        $this->_icon = FaIcon::create(FaIcon::CHECK);
         $this->_tooltip = CardActionTooltip::RESTORE;
         break;
       case self::ACTION_TYPE_DISABLE:
-        $this->_icon = FontIcon::create(FontIcon::TOGGLE_ON);
+        $this->_icon = FaIcon::create(FaIcon::TOGGLE_ON);
         $this->_tooltip = CardActionTooltip::DISABLE;
         break;
       case self::ACTION_TYPE_ENABLE:
-        $this->_icon = FontIcon::create(FontIcon::TOGGLE_OFF);
+        $this->_icon = FaIcon::create(FaIcon::TOGGLE_OFF);
         $this->_tooltip = CardActionTooltip::ENABLE;
         break;
       case self::ACTION_TYPE_RESUME:
-        $this->_icon = FontIcon::create(FontIcon::PLAY);
+        $this->_icon = FaIcon::create(FaIcon::PLAY);
         $this->_tooltip = CardActionTooltip::RESUME;
         break;
       case self::ACTION_TYPE_PAUSE:
-        $this->_icon = FontIcon::create(FontIcon::PAUSE);
+        $this->_icon = FaIcon::create(FaIcon::PAUSE);
         $this->_tooltip = CardActionTooltip::PAUSE;
         break;
     }
