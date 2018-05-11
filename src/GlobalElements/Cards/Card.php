@@ -130,7 +130,7 @@ class Card extends UiElement implements IColours, ICardActionType
         {
           $property->setAttribute('data-copy', $copyValue);
           $property->appendContent(
-            FaIcon::create(FaIcon::FILE_ALT_O)->addClass('copy')
+            FaIcon::create(FaIcon::COPY)->styleRegular()->fixedWidth()->addClass('copy')
           );
         }
       }

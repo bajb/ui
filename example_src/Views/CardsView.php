@@ -337,7 +337,11 @@ class CardsView extends AbstractUiExampleView
     while(count($items) < 5)
     {
       $card = $this->_createQuickCard($this->_getRandomJobTitle());
-      $card->addProperty('Created', $this->_getRandomHumanDate());
+      $card->addProperty(
+        'Created',
+        $this->_getRandomHumanDate(),
+        date('Y-m-d H:i', strtotime('-' . mt_rand(1, 48) . ' months'))
+      );
       $this->_addRandomActions($card, 1);
 
       $items[] = $card;
