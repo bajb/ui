@@ -1,0 +1,369 @@
+:root {
+  --action-width:   30px;
+  --property-width: 125px;
+  --gutter:         10px;
+  --negativeGutter: calc(--gutter * -1);
+  --border-color:   #ccc;
+}
+
+.ui-cards {
+  display:         flex;
+  flex-wrap:       wrap;
+  justify-content: space-between;
+}
+
+.ui-card {
+  height:        100%;
+  border:        1px solid var(--border-color);
+  margin-bottom: 5px;
+  display:       flex;
+  position:      relative;
+}
+
+.ui-card .label {
+  padding:        0;
+  margin:         0;
+  border-radius:  0;
+  display:        block;
+  line-height:    normal;
+  text-align:     inherit;
+  text-transform: uppercase;
+  font-size:      10px;
+  font-weight:    700;
+  color:          #999;
+  opacity:        0.6;
+}
+
+/* global padding */
+.ui-card .primary,
+.ui-card .properties .property {
+  padding: 10px;
+}
+
+.ui-card .actions .action {
+  padding: 10px 0;
+}
+
+/* =primary */
+.ui-card > .primary {
+  min-width:  35%;
+  flex-basis: 50%;
+  flex-grow:  1;
+  position:   relative;
+  background: #fff;
+}
+
+.ui-card > .primary .avatar {
+  width:         48px;
+  height:        48px;
+  box-sizing:    content-box;
+  overflow:      hidden;
+  border:        1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  margin-right:  10px;
+  display:       flex;
+  float:         left;
+  justify-items: center;
+  align-items:   center;
+  color:         rgba(0, 0, 0, 0.5);
+  background:    #eee;
+}
+
+.ui-card > .primary .avatar > * {
+  width:  100%;
+  height: 100%;
+  margin: 0;
+  color:  inherit;
+}
+
+.ui-card > .primary .avatar img {
+  height: auto !important;
+}
+
+.ui-card > .primary .avatar > [class*="fa-"] {
+  padding: 12px;
+}
+
+.ui-card > .primary .label {
+  margin-bottom: 4px;
+  white-space:   pre-wrap;
+  text-align:    left;
+}
+
+.ui-card > .primary .title {
+  padding:   0;
+  margin:    0;
+  font-size: 16px;
+  /*font-weight: 200;*/
+  color:     #999;
+}
+
+.ui-card > .primary .description {
+  margin-top: 4px;
+}
+
+/**/
+.ui-cards .ui-card.no-avatar.no-label.no-description .primary {
+  display:     flex;
+  align-items: center;
+}
+
+/* icons */
+.ui-card .icons {
+  padding-left: 6px;
+  float:        right;
+  position:     relative;
+  top:          -3px;
+}
+
+.ui-card .icons > [class*="fa-"] {
+  transform: scale(0.75);
+}
+
+/* =secondary */
+.ui-card .properties {
+  display:   flex;
+  max-width: 50%;
+  flex-grow: 1;
+}
+
+/* =properties */
+.ui-card .properties {
+  display:   flex;
+  flex-wrap: wrap;
+  flex-grow: 1;
+}
+
+.ui-card .properties .property {
+  min-width:  var(--property-width);
+  flex-basis: 33%;
+  box-sizing: border-box;
+  flex-grow:  1;
+  position:   relative;
+  text-align: inherit;
+  background: #f9f9f9;
+  width:      0;
+}
+
+.ui-card .properties .property p {
+  margin-bottom: 0;
+}
+
+.ui-card .properties .property .value {
+  max-width:     100%;
+  display:       block;
+  overflow:      hidden;
+  margin-bottom: 4px;
+  white-space:   nowrap;
+  text-overflow: ellipsis;
+  font-size:     14px;
+}
+
+/* styles for when property can be copied to clipboard */
+.ui-card .properties .property .copy {
+  padding:       5px;
+  border-radius: 20px;
+  position:      absolute;
+  right:         0;
+  bottom:        0;
+  opacity:       0;
+  transition:    opacity 0.3s ease-in-out;
+  font-size:     22px;
+  background:    #f9f9f9;
+}
+
+.ui-card .properties .property:hover .copy {
+  opacity: 1;
+}
+
+.ui-card .properties .property[data-copy] {
+  cursor: copy;
+}
+
+.ui-card .properties .property[data-copy] .value {
+  margin-bottom: 4px;
+}
+
+/* =actions */
+.ui-card .actions {
+  box-sizing:      content-box;
+  display:         flex;
+  justify-content: flex-end;
+  align-content:   flex-end;
+  align-items:     stretch;
+  z-index:         2;
+  background:      #fff;
+}
+
+.ui-card .actions .action {
+  width:           var(--action-width);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  font-size:       14px;
+  text-decoration: none;
+  background:      #fff;
+}
+
+/* card border left colour */
+.ui-card:before {
+  content:          '';
+  width:            3px;
+  position:         absolute;
+  top:              0;
+  left:             0;
+  bottom:           0;
+  z-index:          2;
+  background-color: #C7CCD9;
+}
+
+.ui-card.default:before {
+  background-color: #C7CCD9;
+}
+
+.ui-card.red:before {
+  background-color: #c0392b;
+}
+
+.ui-card.orange:before {
+  background-color: #e67e22;
+}
+
+.ui-card.yellow:before {
+  background-color: #f1c40f;
+}
+
+.ui-card.green:before {
+  background-color: #139543;
+}
+
+.ui-card.sky:before {
+  background-color: #3498db;
+}
+
+.ui-card.blue:before {
+  background-color: #2980b9;
+}
+
+.ui-card.indigo:before {
+  background-color: #6e5cb6;
+}
+
+.ui-card.violet:before {
+  background-color: #8e44ad;
+}
+
+.ui-card.pink:before {
+  background-color: #da49be;
+}
+
+.ui-card.grey:before {
+  background-color: #bdc3c7;
+}
+
+.ui-card.black:before {
+  background-color: #333333;
+}
+
+/* define button styles based on action type */
+.ui-card .actions .action {
+  height:        100%;
+  border-radius: 0 !important;
+  color:         #4B4D51;
+  background:    #fff;
+}
+
+.ui-card .actions .action [class*="fa-"] {
+  color: inherit;
+}
+
+/**/
+.ui-card .actions .action[data-type="create"] {
+  color:        #3c763d;
+  border-color: #d6e9c6;
+  background:   #dff0d8;
+}
+
+.ui-card .actions .action[data-type="delete"] {
+  color:        #a94442;
+  border-color: #ebccd1;
+  background:   #f2dede;
+}
+
+/* icon colour change only */
+.ui-card .actions .action[data-type="is-default"] {
+  color: #f1c40f;
+}
+
+.ui-card .actions .action[data-type="disable"],
+.ui-card .actions .action[data-type="approve"],
+.ui-card .actions .action[data-type="restore"],
+.ui-card .actions .action[data-type="verify"],
+.ui-card .actions .action[data-type="add"] {
+  color: #3c763d;
+}
+
+.ui-card .actions .action[data-type="enable"],
+.ui-card .actions .action[data-type="decline"],
+.ui-card .actions .action[data-type="remove"] {
+  color: #a94442;
+}
+
+/* =.list */
+.ui-cards.list .ui-card {
+  width:         100%;
+  margin-top:    0;
+  margin-bottom: 5px;
+}
+
+.ui-cards.list .ui-card .properties .property {
+  min-width:       var(--property-width);
+  height:          100%;
+  justify-content: center;
+  align-items:     center;
+  text-align:      center;
+}
+
+/* columns */
+.ui-cards.grid[data-columns="1"] > .ui-card {
+  flex: 1 100%;
+}
+
+/* =stacked */
+.ui-cards.grid.stacked[data-columns="1"] .ui-card,
+.ui-cards.list.stacked .ui-card {
+  margin-top:    -2px;
+  margin-bottom: 0;
+  z-index:       1;
+}
+
+/* borders */
+.ui-cards.stacked .ui-card .actions {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.ui-card .properties {
+  border-left: 1px solid var(--border-color);
+  margin-top:  -1px;
+  background:  var(--border-color);
+}
+
+.ui-card .properties .property {
+  border-top:  1px solid var(--border-color);
+  border-left: 1px solid var(--border-color);
+  margin-left: -1px;
+}
+
+.ui-card .actions {
+  margin-left: -2px;
+  border-left: 1px solid var(--border-color);
+  z-index:     2;
+}
+
+.ui-card .actions .action {
+  border-left: 1px solid var(--border-color);
+}
+
+.ui-card .actions .action:first-child {
+  margin-left: -1px;
+}

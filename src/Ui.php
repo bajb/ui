@@ -283,7 +283,7 @@ final class Ui
     if($fontAwesome)
     {
       $am->requireCss(
-        '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'
+        'assets/vendor/fonts/fontawesome/css/font-awesome.min'
       );
     }
   }

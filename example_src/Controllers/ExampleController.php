@@ -8,6 +8,7 @@ use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDefinition as QBD;
 use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDefinitions;
 use Fortifi\Ui\ProjectSupport\FortifiUiLayout;
 use Fortifi\UiExample\Views\AlertsView;
+use Fortifi\UiExample\Views\CardsView;
 use Fortifi\UiExample\Views\ColoursView;
 use Fortifi\UiExample\Views\FlipperView;
 use Fortifi\UiExample\Views\IconsView;
@@ -47,6 +48,8 @@ class ExampleController extends LayoutController
         return new FlipperView();
       case 'icons':
         return new IconsView();
+      case 'cards':
+        return new CardsView();
       default:
         return 'Coming Soon';
     }

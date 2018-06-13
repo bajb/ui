@@ -12,7 +12,8 @@
   "require": {
     "packaged/dispatch": "~1.6",
     "packaged/glimpse": "~0.6",
-    "nesbot/carbon": "~1.14"
+    "nesbot/carbon": "~1.14",
+    "fortifi/fontawesome": "2.0.1"
   },
   "require-dev": {
     "cubex/framework": "~2.6",
@@ -28,5 +29,11 @@
     "psr-4": {
       "Fortifi\\UiExample\\": "example_src/"
     }
-  }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:fortifi/fontawesome.git"
+    }
+  ]
 }
