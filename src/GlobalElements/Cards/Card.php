@@ -110,7 +110,6 @@ class Card extends UiElement implements IColours, ICardActionType
    * @param array       $options
    *
    * @return $this
-   * @throws \Exception
    */
   public function addProperty($label, $value, $copyValue = false, array $options = [])
   {
