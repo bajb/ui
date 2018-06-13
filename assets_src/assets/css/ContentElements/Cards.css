@@ -121,7 +121,7 @@
 }
 
 /* =secondary */
-.ui-card .secondary {
+.ui-card .properties {
   display:   flex;
   max-width: 50%;
   flex-grow: 1;
@@ -142,6 +142,7 @@
   position:   relative;
   text-align: inherit;
   background: #f9f9f9;
+  width:      0;
 }
 
 .ui-card .properties .property p {
@@ -185,7 +186,6 @@
 
 /* =actions */
 .ui-card .actions {
-  height:          100%;
   box-sizing:      content-box;
   display:         flex;
   justify-content: flex-end;
@@ -316,7 +316,7 @@
   margin-bottom: 5px;
 }
 
-.ui-cards.list .ui-card .secondary .property {
+.ui-cards.list .ui-card .properties .property {
   min-width:       var(--property-width);
   height:          100%;
   justify-content: center;

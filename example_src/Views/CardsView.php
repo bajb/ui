@@ -307,6 +307,28 @@ class CardsView extends AbstractUiExampleView
    */
 
   /**
+   * @group Cards
+   * @return Cards
+   * @throws \Exception
+   */
+  final public function noPropertiesCards()
+  {
+    $items = [];
+    while(count($items) < 5)
+    {
+      $card = $this->_createQuickCard($this->_getRandomJobTitle());
+      $this->_addRandomActions($card, 2);
+
+      $items[] = $card;
+    }
+
+    $cards = Cards::i();
+    $cards->addCards($items);
+    return $cards;
+  }
+
+  /**
+   * @group Cards
    * @return Cards
    * @throws \Exception
    */
