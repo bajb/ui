@@ -1,23 +1,19 @@
 :root {
   --action-width:   30px;
   --property-width: 125px;
-  --gutter:         10px;
-  --negativeGutter: calc(--gutter * -1);
+  --gutter:         5px;
   --border-color:   #ccc;
 }
 
 .ui-cards {
-  display:         flex;
-  flex-wrap:       wrap;
-  justify-content: space-between;
+  display:   flex;
+  flex-wrap: wrap;
 }
 
 .ui-card {
-  height:        100%;
-  border:        1px solid var(--border-color);
-  margin-bottom: 5px;
-  display:       flex;
-  position:      relative;
+  height:   100%;
+  display:  flex;
+  position: relative;
 }
 
 .ui-card .label {
@@ -40,12 +36,10 @@
   padding: 10px;
 }
 
-.ui-card .actions .action {
-  padding: 10px 0;
-}
-
 /* =primary */
 .ui-card > .primary {
+  border:     1px solid var(--border-color);
+  margin-top: -1px;
   min-width:  35%;
   flex-basis: 50%;
   flex-grow:  1;
@@ -120,29 +114,40 @@
   transform: scale(0.75);
 }
 
-/* =secondary */
-.ui-card .properties {
-  display:   flex;
-  max-width: 50%;
-  flex-grow: 1;
+.ui-cards.stacked .ui-card {
+  margin-bottom: 0;
+  margin-right:  0;
+  z-index:       1;
 }
 
-/* =properties */
+.ui-cards.list .ui-card > .properties {
+  margin-left: -1px;
+}
+
+/* =secondary */
 .ui-card .properties {
-  display:   flex;
-  flex-wrap: wrap;
-  flex-grow: 1;
+  display:      flex;
+  flex-grow:    1;
+  flex-wrap:    wrap;
+  background:   var(--border-color);
+  border-right: 1px solid var(--border-color);
+  overflow:     hidden;
+  border-top:   1px solid var(--border-color);
+  margin-top:   -1px;
 }
 
 .ui-card .properties .property {
-  min-width:  var(--property-width);
-  flex-basis: 33%;
-  box-sizing: border-box;
-  flex-grow:  1;
-  position:   relative;
-  text-align: inherit;
-  background: #f9f9f9;
-  width:      0;
+  display:        flex;
+  flex-direction: column;
+  flex-basis:     33%;
+  box-sizing:     border-box;
+  flex-grow:      1;
+  position:       relative;
+  text-align:     inherit;
+  background:     #f9f9f9;
+  width:          0;
+  border-left:    1px solid var(--border-color);
+  border-bottom:  1px solid var(--border-color);
 }
 
 .ui-card .properties .property p {
@@ -184,38 +189,20 @@
   margin-bottom: 4px;
 }
 
-/* =actions */
-.ui-card .actions {
-  box-sizing:      content-box;
-  display:         flex;
-  justify-content: flex-end;
-  align-content:   flex-end;
-  align-items:     stretch;
-  z-index:         2;
-  background:      #fff;
-}
-
-.ui-card .actions .action {
-  width:           var(--action-width);
-  display:         flex;
-  align-items:     center;
-  justify-content: center;
-  font-size:       14px;
-  text-decoration: none;
-  background:      #fff;
-}
-
 /* card border left colour */
+
 .ui-card:before {
   content:          '';
   width:            3px;
   position:         absolute;
   top:              0;
   left:             0;
-  bottom:           0;
+  bottom:           var(--gutter);
   z-index:          2;
   background-color: #C7CCD9;
 }
+
+.ui-card.stacked:before { bottom: 0; }
 
 .ui-card.default:before {
   background-color: #C7CCD9;
@@ -266,11 +253,34 @@
 }
 
 /* define button styles based on action type */
+
+/* =actions */
+.ui-card .actions {
+  box-sizing:      content-box;
+  display:         flex;
+  justify-content: flex-end;
+  align-content:   flex-end;
+  align-items:     stretch;
+  background:      #eeeef1;
+  border-bottom:   1px solid var(--border-color);
+}
+
 .ui-card .actions .action {
-  height:        100%;
-  border-radius: 0 !important;
-  color:         #4B4D51;
-  background:    #fff;
+  display:         flex;
+  width:           var(--action-width);
+  align-items:     center;
+  justify-content: center;
+  font-size:       14px;
+  text-decoration: none;
+  background:      #fff;
+  padding:         10px 0;
+  border-top:      1px solid var(--border-color);
+  border-left:     1px solid var(--border-color);
+  border-right:    1px solid var(--border-color);
+  margin-top:      -1px;
+  margin-left:     -1px;
+  border-radius:   0 !important;
+  color:           #4B4D51;
 }
 
 .ui-card .actions .action [class*="fa-"] {
@@ -279,15 +289,13 @@
 
 /**/
 .ui-card .actions .action[data-type="create"] {
-  color:        #3c763d;
-  border-color: #d6e9c6;
-  background:   #dff0d8;
+  color:      #3c763d;
+  background: #dff0d8;
 }
 
 .ui-card .actions .action[data-type="delete"] {
-  color:        #a94442;
-  border-color: #ebccd1;
-  background:   #f2dede;
+  color:      #a94442;
+  background: #f2dede;
 }
 
 /* icon colour change only */
@@ -311,59 +319,35 @@
 
 /* =.list */
 .ui-cards.list .ui-card {
-  width:         100%;
-  margin-top:    0;
-  margin-bottom: 5px;
+  width:          100%;
+  padding-bottom: var(--gutter);
 }
 
 .ui-cards.list .ui-card .properties .property {
   min-width:       var(--property-width);
-  height:          100%;
   justify-content: center;
   align-items:     center;
   text-align:      center;
 }
 
-/* columns */
-.ui-cards.grid[data-columns="1"] > .ui-card {
-  flex: 1 100%;
+/* =.list */
+.ui-cards.grid .ui-card {
+  flex-direction: column;
+  flex-basis:     auto;
+  flex-grow:      1;
+  width:          33%;
+}
+
+.ui-cards.grid .ui-card {
+  padding-right:  var(--gutter);
+  padding-bottom: var(--gutter);
 }
 
 /* =stacked */
-.ui-cards.grid.stacked[data-columns="1"] .ui-card,
-.ui-cards.list.stacked .ui-card {
-  margin-top:    -2px;
-  margin-bottom: 0;
-  z-index:       1;
-}
 
-/* borders */
-.ui-cards.stacked .ui-card .actions {
-  border-bottom: 1px solid var(--border-color);
-}
-
-.ui-card .properties {
-  border-left: 1px solid var(--border-color);
-  margin-top:  -1px;
-  background:  var(--border-color);
-}
-
-.ui-card .properties .property {
-  border-top:  1px solid var(--border-color);
-  border-left: 1px solid var(--border-color);
-  margin-left: -1px;
-}
-
-.ui-card .actions {
-  margin-left: -2px;
-  border-left: 1px solid var(--border-color);
-  z-index:     2;
-}
-
-.ui-card .actions .action {
-  border-left: 1px solid var(--border-color);
-}
-
-.ui-card .actions .action:first-child {
-  margin-left: -1px;
+.ui-cards.stacked .ui-card:before,
+.ui-cards.stacked .ui-card {
+  bottom:         0;
+  padding-bottom: 0;
+  padding-right:  0;
 }

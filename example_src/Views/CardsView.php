@@ -364,12 +364,14 @@ class CardsView extends AbstractUiExampleView
         $this->_getRandomHumanDate(),
         date('Y-m-d H:i', strtotime('-' . mt_rand(1, 48) . ' months'))
       );
+      $card->addProperty('Email Address', $this->_getRandomEmail());
       $this->_addRandomActions($card, 1);
 
       $items[] = $card;
     }
 
     $cards = Cards::i();
+    $cards->stacked();
     $cards->addCards($items);
     return $cards;
   }
@@ -389,7 +391,6 @@ class CardsView extends AbstractUiExampleView
         'Customer Subscription Renewal Hard Fail',
         'CUSTOMER.SUBSCRIPTION.RENEWAL.HARD.FAIL'
       );
-      $card->addProperty('type', $type[(mt_rand(0, count($type) - 1))]);
       $card->addProperty('type', $type[(mt_rand(0, count($type) - 1))]);
       $card->addProperty('type', $type[(mt_rand(0, count($type) - 1))]);
       $card->addProperty('type', $type[(mt_rand(0, count($type) - 1))]);
@@ -417,6 +418,7 @@ class CardsView extends AbstractUiExampleView
     }
 
     $cards = Cards::i();
+    $cards->setLayout($cards::LAYOUT_GRID);
     $cards->addCards($items);
     return $cards;
   }

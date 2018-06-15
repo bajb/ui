@@ -18,8 +18,6 @@ class Cards extends UiElement implements ILayout
   protected $_cards = [];
   /** @var string */
   protected $_layout = self::LAYOUT_LIST;
-  /** @var int */
-  protected $_columns = 4;
   /** @var bool */
   protected $_stacked = false;
 
@@ -88,22 +86,13 @@ class Cards extends UiElement implements ILayout
   }
 
   /**
-   * @return $this
-   */
-  public function stacked()
-  {
-    $this->_stacked = true;
-    return $this;
-  }
-
-  /**
-   * @param int $columns
+   * @param bool $value
    *
    * @return $this
    */
-  public function setGridColumnCount($columns = 1)
+  public function stacked($value = true)
   {
-    $this->_columns = $columns;
+    $this->_stacked = $value;
     return $this;
   }
 
@@ -155,32 +144,14 @@ class Cards extends UiElement implements ILayout
         }
       }
 
-      // If any child card contains more than CardMaxProperties, Layout type is GRID and column display should be 1
-      if($minPropertiesCount > CardMaxProperties::LIST_CARD)
-      {
-        $this->_layout = self::LAYOUT_GRID;
-        $this->_columns = 1;
-      }
-
-      // define local layout vars
-      $isGrid = ($this->_layout === self::LAYOUT_GRID);
-      $isList = ($this->_layout === self::LAYOUT_LIST);
-      $isSingleColumn = ($this->_columns == 1);
-
       // set layout style
       $cards->addClass($this->_layout);
-
-      if($isGrid)
-      {
-        $cards->setAttribute('data-columns', $this->_columns);
-      }
 
       // additional attributes for potential styling
       $cards->setAttribute('data-action-count', $minActionsCount);
       $cards->setAttribute('data-property-count', $minPropertiesCount);
 
-      // stack cards
-      if($this->_stacked && ($isList || ($isGrid && $isSingleColumn)))
+      if($this->_stacked)
       {
         $cards->addClass('stacked');
       }
