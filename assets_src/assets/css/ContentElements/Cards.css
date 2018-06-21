@@ -26,7 +26,7 @@
   text-transform: uppercase;
   font-size:      10px;
   font-weight:    700;
-  color:          #999;
+  color:          #5a5a5a;
   opacity:        0.6;
 }
 
@@ -89,7 +89,7 @@
   margin:    0;
   font-size: 16px;
   /*font-weight: 200;*/
-  color:     #999;
+  color:     #5a5a5a;
 }
 
 .ui-card > .primary .description {
@@ -144,6 +144,7 @@
   position:       relative;
   text-align:     inherit;
   background:     #f9f9f9;
+  color:          #5a5a5a;
   width:          0;
   border-left:    1px solid var(--border-color);
   border-bottom:  1px solid var(--border-color);
