@@ -460,6 +460,7 @@ class CardsView extends AbstractUiExampleView
   final public function contentCards()
   {
     $cards = Cards::i();
+    //$cards = Cards::i()->setLayout(Cards::LAYOUT_GRID);
 
     $longDesc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque suscipit tortor ut leo pharetra dignissim. Fusce nunc nibh, dictum nec neque in, interdum iaculis quam. Vestibulum finibus, quam quis euismod sollicitudin, dui velit tempus felis, sit amet consequat nunc lacus sit amet ante. Aenean vitae justo interdum quam consequat mollis sed at lectus. Cras auctor a metus eget ultricies. Vestibulum ut mattis quam. Mauris hendrerit facilisis purus, et maximus quam dapibus vel. Sed hendrerit, magna sit amet tempus sagittis, purus velit finibus neque, non aliquet tortor ipsum eu risus. Donec dapibus massa odio, eget rutrum neque euismod eget. Sed vitae dui justo. Pellentesque ac felis dictum, tempor magna in, pulvinar est. Nulla at purus ligula.
 
@@ -468,13 +469,25 @@ Donec porttitor, turpis ac varius posuere, sem dolor aliquam nunc, nec bibendum 
 Pellentesque elementum velit sed nulla rutrum, eget porttitor orci efficitur. Donec sollicitudin blandit iaculis. Quisque vitae enim eu enim aliquet porttitor tristique at velit. Sed vulputate dolor id enim finibus placerat. Vestibulum ligula turpis, luctus ac laoreet a, tempor eu nunc. Vestibulum ac aliquet magna. Cras porttitor vel augue ut tristique.";
 
     $card = Card::i();
+    $card->setAvatar($this->_getAvatar());
+    $card->setLabel("Label Here");
+    $card->setTitle("This is a title");
     $cards->addCard($card);
     $card->setDescription($longDesc);
     $card->addProperty("ABC", "DESHDKHF ");
+    $card->addProperty("ABC", "DESHDKHF ");
+    $card->addIcon($this->_getArchivedUserIcon());
+    $this->_addRandomActions($card);
     $card = ContentCard::i();
     $cards->addCard($card);
+    $card->setAvatar($this->_getAvatar());
+    $card->addIcon($this->_getInsecureIcon());
+    $card->setLabel("Label Here");
+    $card->setTitle("This is a title");
     $card->setDescription($longDesc);
-    $card->addProperty("ABC", "DESHDKHF ");
+    $card->addProperty("ABC", "DESHDKHFF ");
+    $card->addProperty("ABC", "DESHDKHFF ");
+    $this->_addRandomActions($card);
     return $cards;
   }
 }

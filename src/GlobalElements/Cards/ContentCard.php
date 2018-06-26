@@ -20,4 +20,11 @@ class ContentCard extends Card
     return $return;
   }
 
+  protected function _produceHtml()
+  {
+    $card = parent::_produceHtml();
+    $card->addClass("content-card");
+    return $card;
+  }
+
 }
