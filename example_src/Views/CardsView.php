@@ -3,6 +3,7 @@ namespace Fortifi\UiExample\Views;
 
 use Carbon\Carbon;
 use Fortifi\FontAwesome\FaIcon;
+use Fortifi\Ui\ContentElements\Avatar\TextAvatar;
 use Fortifi\Ui\ContentElements\Links\PageletLink;
 use Fortifi\Ui\Enums\Cards\CardActionType;
 use Fortifi\Ui\Enums\Colour;
@@ -76,6 +77,8 @@ class CardsView extends AbstractUiExampleView
         'img',
         ['src' => 'https://media.giphy.com/media/xUOwFXS9fm76vBcuTC/giphy.gif']
       ),
+      TextAvatar::create("Brooke Bryan")->setColour(TextAvatar::COLOUR_GREEN),
+      TextAvatar::create("John Smith")->setColour(TextAvatar::COLOUR_RED),
     ];
 
     return $avatars[rand(0, (count($avatars) - 1))];
