@@ -9,6 +9,8 @@ use Packaged\Glimpse\Tags\Div;
 class Avatar extends UiElement implements IColours
 {
   protected $_colour = self::COLOUR_DEFAULT;
+  protected $_content;
+  protected $_style = [];
   protected $_size = "x1";
 
   public function processIncludes(AssetManager $assetManager, $vendor = false)
@@ -28,8 +30,19 @@ class Avatar extends UiElement implements IColours
    */
   protected function _produceHtml()
   {
-    $div = Div::create()->addClass('favatar', $this->_colour, $this->_size);
+    $div = Div::create($this->_content)->addClass('favatar', $this->_colour, $this->_size);
+    if(!empty($this->_style))
+    {
+      $div->setAttribute('style', implode(',', $this->_style));
+    }
     return $div;
+  }
+
+  public static function image($imgUrl)
+  {
+    $av = new static();
+    $av->_style['background'] = 'background-image: url(\'' . $imgUrl . '\');';
+    return $av;
   }
 
   /**

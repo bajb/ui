@@ -1,11 +1,19 @@
 .favatar {
-  width: 48px;
-  height: 48px;
+  width: 48px !important;
+  height: 48px !important;
   box-sizing: content-box;
   overflow: hidden;
   border: 1px solid;
   border-radius: 50%;
   display: inline-block;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.favatar > img {
+  width: 100% !important;
+  height: auto !important;
 }
 
 .text-avatar {
@@ -17,8 +25,8 @@
 }
 
 .favatar.x2 {
-  width: 64px;
-  height: 64px;
+  width: 64px !important;
+  height: 64px !important;
 }
 
 .favatar.x2.text-avatar {

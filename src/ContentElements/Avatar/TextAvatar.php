@@ -6,7 +6,6 @@ use Packaged\Helpers\Strings;
 class TextAvatar extends Avatar
 {
   protected $_text;
-  protected $_initials;
   protected $_initialCount = 2;
 
   /**
@@ -25,7 +24,7 @@ class TextAvatar extends Avatar
   public function setText($text)
   {
     $this->_text = $text;
-    $this->_initials = substr(
+    $this->_content = substr(
       preg_replace('/[^A-Z]/', '', Strings::stringToPascalCase($this->_text)),
       0,
       $this->_initialCount
@@ -44,8 +43,6 @@ class TextAvatar extends Avatar
   {
     $avatar = parent::_produceHtml();
     $avatar->addClass('text-avatar');
-
-    $avatar->setContent($this->_initials);
     return $avatar;
   }
 

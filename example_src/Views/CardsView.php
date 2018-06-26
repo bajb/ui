@@ -3,6 +3,7 @@ namespace Fortifi\UiExample\Views;
 
 use Carbon\Carbon;
 use Fortifi\FontAwesome\FaIcon;
+use Fortifi\Ui\ContentElements\Avatar\Avatar;
 use Fortifi\Ui\ContentElements\Avatar\TextAvatar;
 use Fortifi\Ui\ContentElements\Links\PageletLink;
 use Fortifi\Ui\Enums\Cards\CardActionType;
@@ -12,7 +13,6 @@ use Fortifi\Ui\GlobalElements\Cards\Cards;
 use Fortifi\Ui\GlobalElements\Cards\ContentCard;
 use Fortifi\Ui\GlobalElements\Icons\FontIcon;
 use Fortifi\Ui\Ui;
-use Packaged\Glimpse\Core\HtmlTag;
 use Packaged\Glimpse\Tags\Span;
 use Packaged\Helpers\Arrays;
 
@@ -57,26 +57,11 @@ class CardsView extends AbstractUiExampleView
   {
     $avatars = [
       FontIcon::create(FontIcon::USER),
-      HtmlTag::createTag(
-        'img',
-        ['src' => 'https://pbs.twimg.com/profile_images/943069281171968000/UNiJSeWn_400x400.jpg']
-      ),
-      HtmlTag::createTag(
-        'img',
-        ['src' => 'https://media.giphy.com/media/5UMFdWbgwa3rtfYbXK/giphy.gif']
-      ),
-      HtmlTag::createTag(
-        'img',
-        ['src' => 'https://media.giphy.com/media/xUOwGiewfQAm3tcIA8/giphy.gif']
-      ),
-      HtmlTag::createTag(
-        'img',
-        ['src' => 'https://media.giphy.com/media/26DN81TqLPIzBlksw/giphy.gif']
-      ),
-      HtmlTag::createTag(
-        'img',
-        ['src' => 'https://media.giphy.com/media/xUOwFXS9fm76vBcuTC/giphy.gif']
-      ),
+      Avatar::image('https://pbs.twimg.com/profile_images/943069281171968000/UNiJSeWn_400x400.jpg'),
+      Avatar::image('https://media.giphy.com/media/5UMFdWbgwa3rtfYbXK/giphy.gif'),
+      Avatar::image('https://media.giphy.com/media/xUOwGiewfQAm3tcIA8/giphy.gif'),
+      Avatar::image('https://media.giphy.com/media/26DN81TqLPIzBlksw/giphy.gif'),
+      Avatar::image('https://media.giphy.com/media/xUOwFXS9fm76vBcuTC/giphy.gif'),
       TextAvatar::create("Brooke Bryan")->setColour(TextAvatar::COLOUR_GREEN),
       TextAvatar::create("John Smith")->setColour(TextAvatar::COLOUR_RED),
     ];
