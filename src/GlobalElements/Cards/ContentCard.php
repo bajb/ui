@@ -5,8 +5,6 @@ use Packaged\Glimpse\Elements\LineBreak;
 
 class ContentCard extends Card
 {
-  protected $_maxDescription = 1024000;
-
   protected function _produceDescription()
   {
     $return = [];
