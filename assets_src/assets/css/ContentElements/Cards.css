@@ -399,6 +399,10 @@
   width: 33%;
 }
 
+.ui-cards.grid.fullwidth .ui-card {
+  width: 100%;
+}
+
 .ui-cards.grid .ui-card {
   padding-right: var(--gutter);
   padding-bottom: var(--gutter);
