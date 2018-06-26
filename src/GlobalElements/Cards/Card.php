@@ -98,7 +98,7 @@ class Card extends UiElement implements IColours, ICardActionType
    *
    * @return $this
    */
-  public function setAvatar(Avatar $avatar)
+  public function setAvatar($avatar)
   {
     $this->_avatar = $avatar;
     return $this;
