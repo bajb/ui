@@ -38,6 +38,13 @@ class Avatar extends UiElement implements IColours
     return $div;
   }
 
+  public static function content($content)
+  {
+    $av = new static();
+    $av->setContent($content);
+    return $av;
+  }
+
   public static function image($imgUrl)
   {
     $av = new static();
@@ -62,6 +69,25 @@ class Avatar extends UiElement implements IColours
   public function getColour()
   {
     return $this->_colour;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getContent()
+  {
+    return $this->_content;
+  }
+
+  /**
+   * @param mixed $content
+   *
+   * @return Avatar
+   */
+  public function setContent($content)
+  {
+    $this->_content = $content;
+    return $this;
   }
 
   public function sizeDefault()

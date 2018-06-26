@@ -3,6 +3,7 @@ namespace Fortifi\UiExample\Views;
 
 use Fortifi\Ui\ContentElements\Avatar\Avatar;
 use Fortifi\Ui\ContentElements\Avatar\TextAvatar;
+use Fortifi\Ui\GlobalElements\Icons\FontIcon;
 use Packaged\Glimpse\Tags\Div;
 
 class AvatarView extends AbstractUiExampleView
@@ -95,6 +96,18 @@ class AvatarView extends AbstractUiExampleView
     $divs->appendContent(TextAvatar::create("Brooke Bryan")->setColour(TextAvatar::COLOUR_GREY)->sizeX2());
     $divs->appendContent(TextAvatar::create("BB")->setColour(TextAvatar::COLOUR_BLACK)->sizeX2());
     $divs->appendContent(TextAvatar::create("Somereallylongname")->setColour(TextAvatar::COLOUR_DEFAULT)->sizeX2());
+    return $divs;
+  }
+
+  /**
+   * @group Content Avatars
+   * @throws \Exception
+   */
+  final public function contentTextAvatars()
+  {
+    $divs = Div::create([]);
+    $divs->appendContent(Avatar::i()->setContent(FontIcon::create(FontIcon::USER)));
+    $divs->appendContent(Avatar::i()->setContent(FontIcon::create(FontIcon::USER))->sizeX2());
     return $divs;
   }
 }

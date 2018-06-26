@@ -56,7 +56,7 @@ class CardsView extends AbstractUiExampleView
   protected function _getAvatar()
   {
     $avatars = [
-      FontIcon::create(FontIcon::USER),
+      Avatar::i()->setContent(FontIcon::create(FontIcon::USER)),
       Avatar::image('https://pbs.twimg.com/profile_images/943069281171968000/UNiJSeWn_400x400.jpg'),
       Avatar::image('https://media.giphy.com/media/5UMFdWbgwa3rtfYbXK/giphy.gif'),
       Avatar::image('https://media.giphy.com/media/xUOwGiewfQAm3tcIA8/giphy.gif'),

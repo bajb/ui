@@ -2,6 +2,7 @@
 namespace Fortifi\Ui\GlobalElements\Cards;
 
 use Fortifi\FontAwesome\FaIcon;
+use Fortifi\Ui\ContentElements\Avatar\Avatar;
 use Fortifi\Ui\Enums\Cards\CardActionType;
 use Fortifi\Ui\Enums\Colour;
 use Fortifi\Ui\Enums\UiIcon;
@@ -93,13 +94,13 @@ class Card extends UiElement implements IColours, ICardActionType
   }
 
   /**
-   * @param $content
+   * @param Avatar $avatar
    *
    * @return $this
    */
-  public function setAvatar($content)
+  public function setAvatar(Avatar $avatar)
   {
-    $this->_avatar = $content;
+    $this->_avatar = $avatar;
     return $this;
   }
 
