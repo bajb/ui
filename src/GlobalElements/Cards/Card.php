@@ -476,7 +476,11 @@ class Card extends UiElement implements IColours, ICardActionType
 
   protected function _produceDescription()
   {
-    return Strings::excerpt($this->getDescription(), $this->_maxDescription);
+    if(is_string($this->getDescription()))
+    {
+      return Strings::excerpt($this->getDescription(), $this->_maxDescription);
+    }
+    return $this->getDescription();
   }
 
 }

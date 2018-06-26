@@ -7,15 +7,19 @@ class ContentCard extends Card
 {
   protected function _produceDescription()
   {
-    $return = [];
-    $desc = $this->getDescription();
-    $lines = explode("\n", $desc);
-    foreach($lines as $line)
+    if(is_string($this->getDescription()))
     {
-      $return[] = $line;
-      $return[] = new LineBreak();
+      $return = [];
+      $desc = $this->getDescription();
+      $lines = explode("\n", $desc);
+      foreach($lines as $line)
+      {
+        $return[] = $line;
+        $return[] = new LineBreak();
+      }
+      return $return;
     }
-    return $return;
+    return $this->getDescription();
   }
 
   protected function _produceHtml()
