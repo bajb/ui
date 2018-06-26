@@ -1,0 +1,107 @@
+.favatar {
+  width: 48px !important;
+  height: 48px !important;
+  box-sizing: content-box;
+  overflow: hidden;
+  border: 1px solid;
+  border-radius: 50%;
+  display: inline-block;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.favatar > img {
+  width: 100% !important;
+  height: auto !important;
+}
+
+.text-avatar {
+  font-size: 20px;
+  line-height: 48px;
+  text-align: center;
+  letter-spacing: 2px;
+  padding-left: 2px;
+}
+
+.favatar.x2 {
+  width: 64px !important;
+  height: 64px !important;
+}
+
+.favatar.x2.text-avatar {
+  line-height: 64px;
+  font-size: 25px;
+}
+
+.favatar.default {
+  border-color: rgb(199, 204, 217);
+  color: rgb(132, 134, 144);
+  background-color: rgba(199, 204, 217, 0.4);
+}
+
+.favatar.red {
+  border-color: rgb(192, 57, 43);
+  color: rgb(192, 57, 43);
+  background-color: rgba(192, 57, 43, 0.4);
+}
+
+.favatar.orange {
+  border-color: rgb(230, 126, 34);
+  color: rgb(230, 63, 27);
+  background-color: rgba(230, 126, 34, 0.4);
+}
+
+.favatar.yellow {
+  border-color: rgb(241, 196, 15);
+  color: rgb(241, 131, 11);
+  background-color: rgba(241, 196, 15, 0.4);
+}
+
+.favatar.green {
+  border-color: rgb(19, 149, 67);
+  color: rgb(19, 149, 67);
+  background-color: rgba(19, 149, 67, 0.4);
+}
+
+.favatar.sky {
+  border-color: rgb(52, 152, 219);
+  color: rgb(52, 152, 219);
+  background-color: rgba(52, 152, 219, 0.4);
+}
+
+.favatar.blue {
+  border-color: rgb(41, 128, 185);
+  color: rgb(41, 128, 185);
+  background-color: rgba(41, 128, 185, 0.4);
+}
+
+.favatar.indigo {
+  border-color: rgb(110, 92, 182);
+  color: rgb(110, 92, 182);
+  background-color: rgba(110, 92, 182, 0.4);
+}
+
+.favatar.violet {
+  border-color: rgb(142, 68, 173);
+  color: rgb(142, 68, 173);
+  background-color: rgba(142, 68, 173, 0.4);
+}
+
+.favatar.pink {
+  border-color: rgb(218, 73, 190);
+  color: rgb(159, 55, 136);
+  background-color: rgba(218, 73, 190, 0.4);
+}
+
+.favatar.grey {
+  border-color: rgb(189, 195, 199);
+  color: rgb(109, 113, 116);
+  background-color: rgba(189, 195, 199, 0.4);
+}
+
+.favatar.black {
+  border-color: rgb(51, 51, 51);
+  color: rgb(6, 6, 6);
+  background-color: rgba(51, 51, 51, 0.4);
+}
