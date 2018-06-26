@@ -20,53 +20,18 @@ class CardAction extends UiElement implements ICardActionType
   protected $_tooltip = null;
 
   /**
-   * @param string $type
-   *
-   * @return $this
-   */
-  public function setType($type)
-  {
-    if(CardActionType::isValid($type))
-    {
-      $this->_type = $type;
-    }
-    return $this;
-  }
-
-  /**
-   * @return string
-   */
-  public function getType()
-  {
-    return $this->_type;
-  }
-
-  /**
    * @param string    $type
    * @param Link|null $link
    *
    * @return static
    */
-  public static function create($type = self::ACTION_TYPE_VIEW, Link $link = null)
+  public static function builtIn($type = self::ACTION_TYPE_VIEW, Link $link = null)
   {
     $self = new static();
     $self->setType($type);
-    $self->_link = $link;
+    $self->setLink($link);
     $self->_prepare();
     return $self;
-  }
-
-  /**
-   * You should never really need to do this. But just in case...
-   *
-   * @param string $text
-   *
-   * @return $this
-   */
-  public function setTooltip($text)
-  {
-    $this->_tooltip = $text;
-    return $this;
   }
 
   /**
@@ -177,6 +142,87 @@ class CardAction extends UiElement implements ICardActionType
     $this->_link->addClass('action');
 
     return $this->_link;
+  }
+
+  /**
+   * @param string $type
+   *
+   * @return $this
+   */
+  public function setType($type)
+  {
+    if(CardActionType::isValid($type))
+    {
+      $this->_type = $type;
+    }
+    return $this;
+  }
+
+  /**
+   * @return string
+   */
+  public function getType()
+  {
+    return $this->_type;
+  }
+
+  /**
+   * @return Link|Span
+   */
+  public function getLink()
+  {
+    return $this->_link;
+  }
+
+  /**
+   * @param Link|Span $link
+   *
+   * @return CardAction
+   */
+  public function setLink(Link $link)
+  {
+    $this->_link = $link;
+    return $this;
+  }
+
+  /**
+   * @return FaIcon
+   */
+  public function getIcon()
+  {
+    return $this->_icon;
+  }
+
+  /**
+   * @param FaIcon $icon
+   *
+   * @return CardAction
+   */
+  public function setIcon($icon)
+  {
+    $this->_icon = $icon;
+    return $this;
+  }
+
+  /**
+   * You should never really need to do this. But just in case...
+   *
+   * @param string $text
+   *
+   * @return $this
+   */
+  public function setTooltip($text)
+  {
+    $this->_tooltip = $text;
+    return $this;
+  }
+
+  /**
+   * @return null|string
+   */
+  public function getTooltip()
+  {
+    return $this->_tooltip;
   }
 
 }
