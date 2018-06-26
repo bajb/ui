@@ -37,6 +37,10 @@
 }
 
 /* =primary */
+.ui-card.content-card > .primary {
+  flex-basis: 75%;
+}
+
 .ui-card > .primary {
   border: 1px solid var(--border-color);
   margin-top: -1px;
@@ -45,18 +49,23 @@
   flex-grow: 1;
   position: relative;
   background: #fff;
+  display: flex;
+}
+
+.ui-card > .primary .text {
+  flex-grow: 1;
 }
 
 .ui-card > .primary .avatar {
   width: 48px;
   height: 48px;
+  flex-shrink: 0;
   box-sizing: content-box;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 50%;
   margin-right: 10px;
   display: flex;
-  float: left;
   justify-items: center;
   align-items: center;
   color: rgba(0, 0, 0, 0.5);

@@ -8,6 +8,7 @@ use Fortifi\Ui\Enums\Cards\CardActionType;
 use Fortifi\Ui\Enums\Colour;
 use Fortifi\Ui\GlobalElements\Cards\Card;
 use Fortifi\Ui\GlobalElements\Cards\Cards;
+use Fortifi\Ui\GlobalElements\Cards\ContentCard;
 use Fortifi\Ui\GlobalElements\Icons\FontIcon;
 use Fortifi\Ui\Ui;
 use Packaged\Glimpse\Core\HtmlTag;
@@ -449,6 +450,44 @@ class CardsView extends AbstractUiExampleView
 
     $cards = Cards::i();
     $cards->addCards($items);
+    return $cards;
+  }
+
+  /**
+   * @group Cards
+   * @throws \Exception
+   */
+  final public function contentCards()
+  {
+    $cards = Cards::i();
+    //$cards = Cards::i()->setLayout(Cards::LAYOUT_GRID);
+
+    $longDesc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque suscipit tortor ut leo pharetra dignissim. Fusce nunc nibh, dictum nec neque in, interdum iaculis quam. Vestibulum finibus, quam quis euismod sollicitudin, dui velit tempus felis, sit amet consequat nunc lacus sit amet ante. Aenean vitae justo interdum quam consequat mollis sed at lectus. Cras auctor a metus eget ultricies. Vestibulum ut mattis quam. Mauris hendrerit facilisis purus, et maximus quam dapibus vel. Sed hendrerit, magna sit amet tempus sagittis, purus velit finibus neque, non aliquet tortor ipsum eu risus. Donec dapibus massa odio, eget rutrum neque euismod eget. Sed vitae dui justo. Pellentesque ac felis dictum, tempor magna in, pulvinar est. Nulla at purus ligula.
+
+Donec porttitor, turpis ac varius posuere, sem dolor aliquam nunc, nec bibendum tortor mi ac mi. Cras quam sapien, tristique sed nisl ut, rhoncus pretium quam. Vivamus porta varius molestie. Donec et justo nisi. Aenean a pretium nunc, ut ornare nunc. Ut ullamcorper lacus lectus, in ultrices mi pharetra at. Cras fermentum ultrices nisi posuere rhoncus. Proin bibendum metus nunc, vitae bibendum dui cursus sit amet. Aliquam erat volutpat. Integer commodo nibh justo, laoreet pulvinar metus imperdiet vel. Etiam a lobortis dolor, a gravida neque. Nam nec tellus lacus.
+
+Pellentesque elementum velit sed nulla rutrum, eget porttitor orci efficitur. Donec sollicitudin blandit iaculis. Quisque vitae enim eu enim aliquet porttitor tristique at velit. Sed vulputate dolor id enim finibus placerat. Vestibulum ligula turpis, luctus ac laoreet a, tempor eu nunc. Vestibulum ac aliquet magna. Cras porttitor vel augue ut tristique.";
+
+    $card = Card::i();
+    $card->setAvatar($this->_getAvatar());
+    $card->setLabel("Label Here");
+    $card->setTitle("This is a title");
+    $cards->addCard($card);
+    $card->setDescription($longDesc);
+    $card->addProperty("ABC", "DESHDKHF ");
+    $card->addProperty("ABC", "DESHDKHF ");
+    $card->addIcon($this->_getArchivedUserIcon());
+    $this->_addRandomActions($card);
+    $card = ContentCard::i();
+    $cards->addCard($card);
+    $card->setAvatar($this->_getAvatar());
+    $card->addIcon($this->_getInsecureIcon());
+    $card->setLabel("Label Here");
+    $card->setTitle("This is a title");
+    $card->setDescription($longDesc);
+    $card->addProperty("ABC", "DESHDKHFF ");
+    $card->addProperty("ABC", "DESHDKHFF ");
+    $this->_addRandomActions($card);
     return $cards;
   }
 }
