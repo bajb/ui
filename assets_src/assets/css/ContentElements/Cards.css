@@ -1,33 +1,33 @@
 :root {
-  --action-width:   30px;
+  --action-width: 30px;
   --property-width: 125px;
-  --gutter:         5px;
-  --border-color:   #ccc;
+  --gutter: 5px;
+  --border-color: #ccc;
 }
 
 .ui-cards {
-  display:   flex;
+  display: flex;
   flex-wrap: wrap;
 }
 
 .ui-card {
-  height:   100%;
-  display:  flex;
+  height: 100%;
+  display: flex;
   position: relative;
 }
 
 .ui-card .label {
-  padding:        0;
-  margin:         0;
-  border-radius:  0;
-  display:        block;
-  line-height:    normal;
-  text-align:     inherit;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  display: block;
+  line-height: normal;
+  text-align: inherit;
   text-transform: uppercase;
-  font-size:      10px;
-  font-weight:    700;
-  color:          #5a5a5a;
-  opacity:        0.6;
+  font-size: 10px;
+  font-weight: 700;
+  color: #5a5a5a;
+  opacity: 0.6;
 }
 
 /* global padding */
@@ -38,36 +38,36 @@
 
 /* =primary */
 .ui-card > .primary {
-  border:     1px solid var(--border-color);
+  border: 1px solid var(--border-color);
   margin-top: -1px;
-  min-width:  35%;
+  min-width: 35%;
   flex-basis: 50%;
-  flex-grow:  1;
-  position:   relative;
+  flex-grow: 1;
+  position: relative;
   background: #fff;
 }
 
 .ui-card > .primary .avatar {
-  width:         48px;
-  height:        48px;
-  box-sizing:    content-box;
-  overflow:      hidden;
-  border:        1px solid rgba(0, 0, 0, 0.1);
+  width: 48px;
+  height: 48px;
+  box-sizing: content-box;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 50%;
-  margin-right:  10px;
-  display:       flex;
-  float:         left;
+  margin-right: 10px;
+  display: flex;
+  float: left;
   justify-items: center;
-  align-items:   center;
-  color:         rgba(0, 0, 0, 0.5);
-  background:    #eee;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.5);
+  background: #eee;
 }
 
 .ui-card > .primary .avatar > * {
-  width:  100%;
+  width: 100%;
   height: 100%;
   margin: 0;
-  color:  inherit;
+  color: inherit;
 }
 
 .ui-card > .primary .avatar img {
@@ -80,16 +80,16 @@
 
 .ui-card > .primary .label {
   margin-bottom: 4px;
-  white-space:   pre-wrap;
-  text-align:    left;
+  white-space: pre-wrap;
+  text-align: left;
 }
 
 .ui-card > .primary .title {
-  padding:   0;
-  margin:    0;
+  padding: 0;
+  margin: 0;
   font-size: 16px;
   /*font-weight: 200;*/
-  color:     #5a5a5a;
+  color: #5a5a5a;
 }
 
 .ui-card > .primary .description {
@@ -98,16 +98,16 @@
 
 /**/
 .ui-cards .ui-card.no-avatar.no-label.no-description .primary {
-  display:     flex;
+  display: flex;
   align-items: center;
 }
 
 /* icons */
 .ui-card .icons {
   padding-left: 6px;
-  float:        right;
-  position:     relative;
-  top:          -3px;
+  float: right;
+  position: relative;
+  top: -3px;
 }
 
 .ui-card .icons > [class*="fa-"] {
@@ -116,8 +116,8 @@
 
 .ui-cards.stacked .ui-card {
   margin-bottom: 0;
-  margin-right:  0;
-  z-index:       1;
+  margin-right: 0;
+  z-index: 1;
 }
 
 .ui-cards.list .ui-card > .properties {
@@ -126,28 +126,28 @@
 
 /* =secondary */
 .ui-card .properties {
-  display:      flex;
-  flex-grow:    1;
-  flex-wrap:    wrap;
-  background:   var(--border-color);
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  background: var(--border-color);
   border-right: 1px solid var(--border-color);
-  border-top:   1px solid var(--border-color);
-  margin-top:   -1px;
+  border-top: 1px solid var(--border-color);
+  margin-top: -1px;
 }
 
 .ui-card .properties .property {
-  display:        flex;
+  display: flex;
   flex-direction: column;
-  flex-basis:     33%;
-  box-sizing:     border-box;
-  flex-grow:      1;
-  position:       relative;
-  text-align:     inherit;
-  background:     #f9f9f9;
-  color:          #5a5a5a;
-  width:          0;
-  border-left:    1px solid var(--border-color);
-  border-bottom:  1px solid var(--border-color);
+  flex-basis: 33%;
+  box-sizing: border-box;
+  flex-grow: 1;
+  position: relative;
+  text-align: inherit;
+  background: #f9f9f9;
+  color: #5a5a5a;
+  width: 0;
+  border-left: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .ui-card .properties .property p {
@@ -155,26 +155,26 @@
 }
 
 .ui-card .properties .property .value {
-  max-width:     100%;
-  display:       block;
-  overflow:      hidden;
+  max-width: 100%;
+  display: block;
+  overflow: hidden;
   margin-bottom: 4px;
-  white-space:   nowrap;
+  white-space: nowrap;
   text-overflow: ellipsis;
-  font-size:     14px;
+  font-size: 14px;
 }
 
 /* styles for when property can be copied to clipboard */
 .ui-card .properties .property .copy {
-  padding:       5px;
+  padding: 5px;
   border-radius: 20px;
-  position:      absolute;
-  right:         0;
-  bottom:        0;
-  opacity:       0;
-  transition:    opacity 0.3s ease-in-out;
-  font-size:     22px;
-  background:    #f9f9f9;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  font-size: 22px;
+  background: #f9f9f9;
 }
 
 .ui-card .properties .property:hover .copy {
@@ -192,95 +192,145 @@
 /* card border left colour */
 
 .ui-card:before {
-  content:          '';
-  width:            3px;
-  position:         absolute;
-  top:              0;
-  left:             0;
-  bottom:           var(--gutter);
-  z-index:          2;
+  content: '';
+  width: 3px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: var(--gutter);
+  z-index: 2;
   background-color: #C7CCD9;
 }
 
-.ui-card.stacked:before { bottom: 0; }
+.ui-card.stacked:before {
+  bottom: 0;
+}
 
 .ui-card.default:before {
-  background-color: #C7CCD9;
+  background-color: rgb(199, 204, 217);
+}
+
+.ui-card.default.colour-bg .primary {
+  background-color: rgba(199, 204, 217, 0.06);
 }
 
 .ui-card.red:before {
-  background-color: #c0392b;
+  background-color: rgb(192, 57, 43);
+}
+
+.ui-card.red.colour-bg .primary {
+  background-color: rgba(192, 57, 43, 0.06);
 }
 
 .ui-card.orange:before {
-  background-color: #e67e22;
+  background-color: rgb(230, 126, 34);
+}
+
+.ui-card.orange.colour-bg .primary {
+  background-color: rgba(230, 126, 34, 0.06);
 }
 
 .ui-card.yellow:before {
-  background-color: #f1c40f;
+  background-color: rgb(241, 196, 15);
+}
+
+.ui-card.yellow.colour-bg .primary {
+  background-color: rgba(241, 196, 15, 0.06);
 }
 
 .ui-card.green:before {
-  background-color: #139543;
+  background-color: rgb(19, 149, 67);
+}
+
+.ui-card.green.colour-bg .primary {
+  background-color: rgba(19, 149, 67, 0.06);
 }
 
 .ui-card.sky:before {
-  background-color: #3498db;
+  background-color: rgb(52, 152, 219);
+}
+
+.ui-card.sky.colour-bg .primary {
+  background-color: rgba(52, 152, 219, 0.06);
 }
 
 .ui-card.blue:before {
-  background-color: #2980b9;
+  background-color: rgb(41, 128, 185);
+}
+
+.ui-card.blue.colour-bg .primary {
+  background-color: rgba(41, 128, 185, 0.06);
 }
 
 .ui-card.indigo:before {
-  background-color: #6e5cb6;
+  background-color: rgb(110, 92, 182);
+}
+
+.ui-card.indigo.colour-bg .primary {
+  background-color: rgba(110, 92, 182, 0.06);
 }
 
 .ui-card.violet:before {
-  background-color: #8e44ad;
+  background-color: rgb(142, 68, 173);
+}
+
+.ui-card.violet.colour-bg .primary {
+  background-color: rgba(142, 68, 173, 0.06);
 }
 
 .ui-card.pink:before {
-  background-color: #da49be;
+  background-color: rgb(218, 73, 190);
+}
+
+.ui-card.pink.colour-bg .primary {
+  background-color: rgba(218, 73, 190, 0.06);
 }
 
 .ui-card.grey:before {
-  background-color: #bdc3c7;
+  background-color: rgb(189, 195, 199);
+}
+
+.ui-card.grey.colour-bg .primary {
+  background-color: rgba(189, 195, 199, 0.06);
 }
 
 .ui-card.black:before {
-  background-color: #333333;
+  background-color: rgb(51, 51, 51);
+}
+
+.ui-card.black.colour-bg .primary {
+  background-color: rgba(51, 51, 51, 0.06);
 }
 
 /* define button styles based on action type */
 
 /* =actions */
 .ui-card .actions {
-  box-sizing:      content-box;
-  display:         flex;
+  box-sizing: content-box;
+  display: flex;
   justify-content: flex-end;
-  align-content:   flex-end;
-  align-items:     stretch;
-  background:      #eeeef1;
-  border-bottom:   1px solid var(--border-color);
+  align-content: flex-end;
+  align-items: stretch;
+  background: #eeeef1;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .ui-card .actions .action {
-  display:         flex;
-  width:           var(--action-width);
-  align-items:     center;
+  display: flex;
+  width: var(--action-width);
+  align-items: center;
   justify-content: center;
-  font-size:       14px;
+  font-size: 14px;
   text-decoration: none;
-  background:      #fff;
-  padding:         10px 0;
-  border-top:      1px solid var(--border-color);
-  border-left:     1px solid var(--border-color);
-  border-right:    1px solid var(--border-color);
-  margin-top:      -1px;
-  margin-left:     -1px;
-  border-radius:   0 !important;
-  color:           #4B4D51;
+  background: #fff;
+  padding: 10px 0;
+  border-top: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  margin-top: -1px;
+  margin-left: -1px;
+  border-radius: 0 !important;
+  color: #4B4D51;
 }
 
 .ui-card .actions .action [class*="fa-"] {
@@ -289,12 +339,12 @@
 
 /**/
 .ui-card .actions .action[data-type="create"] {
-  color:      #3c763d;
+  color: #3c763d;
   background: #dff0d8;
 }
 
 .ui-card .actions .action[data-type="delete"] {
-  color:      #a94442;
+  color: #a94442;
   background: #f2dede;
 }
 
@@ -319,27 +369,27 @@
 
 /* =.list */
 .ui-cards.list .ui-card {
-  width:          100%;
+  width: 100%;
   padding-bottom: var(--gutter);
 }
 
 .ui-cards.list .ui-card .properties .property {
-  min-width:       var(--property-width);
+  min-width: var(--property-width);
   justify-content: center;
-  align-items:     center;
-  text-align:      center;
+  align-items: center;
+  text-align: center;
 }
 
 /* =.list */
 .ui-cards.grid .ui-card {
   flex-direction: column;
-  flex-basis:     auto;
-  flex-grow:      1;
-  width:          33%;
+  flex-basis: auto;
+  flex-grow: 1;
+  width: 33%;
 }
 
 .ui-cards.grid .ui-card {
-  padding-right:  var(--gutter);
+  padding-right: var(--gutter);
   padding-bottom: var(--gutter);
 }
 
@@ -347,7 +397,7 @@
 
 .ui-cards.stacked .ui-card:before,
 .ui-cards.stacked .ui-card {
-  bottom:         0;
+  bottom: 0;
   padding-bottom: 0;
-  padding-right:  0;
+  padding-right: 0;
 }

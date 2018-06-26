@@ -391,6 +391,8 @@ class CardsView extends AbstractUiExampleView
         'Customer Subscription Renewal Hard Fail',
         'CUSTOMER.SUBSCRIPTION.RENEWAL.HARD.FAIL'
       );
+      $card->setColour(Card::COLOUR_RED);
+      $card->setColourBackground(true);
       $card->addProperty('type', $type[(mt_rand(0, count($type) - 1))]);
       $card->addProperty('type', $type[(mt_rand(0, count($type) - 1))]);
       $card->addProperty('type', $type[(mt_rand(0, count($type) - 1))]);
