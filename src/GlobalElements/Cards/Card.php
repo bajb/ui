@@ -39,6 +39,8 @@ class Card extends UiElement implements IColours, ICardActionType
   protected $_avatar = null;
   /** @var  bool */
   protected $_isGridLayout = false;
+  /** @var  bool */
+  protected $_colourBackground = false;
 
   /**
    * Require Assets
@@ -222,6 +224,25 @@ class Card extends UiElement implements IColours, ICardActionType
   public function getColour()
   {
     return $this->_colour;
+  }
+
+  /**
+   * @return bool
+   */
+  public function hasColourBackground()
+  {
+    return $this->_colourBackground;
+  }
+
+  /**
+   * @param bool $colourBackground
+   *
+   * @return Card
+   */
+  public function setColourBackground($colourBackground)
+  {
+    $this->_colourBackground = $colourBackground;
+    return $this;
   }
 
   /**
@@ -410,6 +431,11 @@ class Card extends UiElement implements IColours, ICardActionType
     else
     {
       $card->addClass('no-actions');
+    }
+
+    if($this->_colourBackground)
+    {
+      $card->addClass("colour-bg");
     }
 
     // apply data attributes
