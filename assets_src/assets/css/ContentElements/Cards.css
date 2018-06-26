@@ -91,6 +91,7 @@
   margin-bottom: 3px;
   white-space: pre-wrap;
   text-align: left;
+  z-index: 0;
 }
 
 .ui-card > .primary .title {
@@ -117,6 +118,7 @@
   float: right;
   position: relative;
   top: -3px;
+  z-index: 1;
 }
 
 .ui-card .icons > [class*="fa-"] {
