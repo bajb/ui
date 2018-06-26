@@ -57,19 +57,12 @@
 }
 
 .ui-card > .primary .avatar {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   flex-shrink: 0;
   box-sizing: content-box;
   overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 50%;
-  margin-right: 10px;
-  display: flex;
-  justify-items: center;
-  align-items: center;
-  color: rgba(0, 0, 0, 0.5);
-  background: #eee;
+  margin-right: 8px;
 }
 
 .ui-card > .primary .avatar > * {
