@@ -15,6 +15,7 @@ use Packaged\Glimpse\Tags\Div;
 use Packaged\Glimpse\Tags\Link;
 use Packaged\Glimpse\Tags\Span;
 use Packaged\Glimpse\Tags\Text\Paragraph;
+use Packaged\Helpers\Strings;
 
 class Card extends UiElement implements IColours, ICardActionType
 {
@@ -41,6 +42,8 @@ class Card extends UiElement implements IColours, ICardActionType
   protected $_isGridLayout = false;
   /** @var  bool */
   protected $_colourBackground = false;
+  /** @var int */
+  protected $_maxDescription = 512;
 
   /**
    * Require Assets
@@ -370,7 +373,7 @@ class Card extends UiElement implements IColours, ICardActionType
 
     if($this->_label)
     {
-      $label = Paragraph::create($this->_label)->addClass('label');
+      $label = Paragraph::create($this->getLabel())->addClass('label');
       $text->appendContent($label);
 
       $card->addClass('has-label');
@@ -382,7 +385,7 @@ class Card extends UiElement implements IColours, ICardActionType
 
     if($this->_title)
     {
-      $title = Div::create($this->_title)->addClass('title');
+      $title = Div::create($this->getTitle())->addClass('title');
       $text->appendContent($title);
 
       $card->addClass('has-title');
@@ -390,7 +393,9 @@ class Card extends UiElement implements IColours, ICardActionType
 
     if($this->_description)
     {
-      $description = Div::create($this->_description)->addClass('description');
+      $description = Div::create(
+        $this->_produceDescription()
+      )->addClass('description');
       $text->appendContent($description);
 
       $card->addClass('has-description');
@@ -443,6 +448,35 @@ class Card extends UiElement implements IColours, ICardActionType
     $this->_applyId($card);
 
     return $card;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getTitle()
+  {
+    return $this->_title;
+  }
+
+  /**
+   * @return null|string
+   */
+  public function getLabel()
+  {
+    return $this->_label;
+  }
+
+  /**
+   * @return mixed|null
+   */
+  public function getDescription()
+  {
+    return $this->_description;
+  }
+
+  protected function _produceDescription()
+  {
+    return Strings::excerpt($this->getDescription(), $this->_maxDescription);
   }
 
 }
