@@ -6,7 +6,6 @@ use Packaged\Helpers\Strings;
 class TextAvatar extends Avatar
 {
   protected $_text;
-  protected $_initialCount = 2;
 
   /**
    * @return mixed
@@ -24,11 +23,12 @@ class TextAvatar extends Avatar
   public function setText($text)
   {
     $this->_text = $text;
-    $this->_content = substr(
-      preg_replace('/[^A-Z]/', '', Strings::stringToPascalCase($this->_text)),
-      0,
-      $this->_initialCount
-    );
+    $initials = preg_replace('/[^A-Z]/', '', Strings::stringToPascalCase($this->_text));
+    $this->_content = substr($initials, 0, 1);
+    if(strlen($initials) > 1)
+    {
+      $this->_content .= substr($initials, -1);
+    }
     return $this;
   }
 
