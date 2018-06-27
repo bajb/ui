@@ -25,7 +25,7 @@ class CardAction extends UiElement implements ICardActionType
    *
    * @return static
    */
-  public static function builtIn($type = self::ACTION_TYPE_VIEW, Link $link = null)
+  public static function create($type = self::ACTION_TYPE_VIEW, Link $link = null)
   {
     $self = new static();
     $self->setType($type);
