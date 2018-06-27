@@ -29,7 +29,10 @@ class CardAction extends UiElement implements ICardActionType
   {
     $self = new static();
     $self->setType($type);
-    $self->setLink($link);
+    if($link)
+    {
+      $self->setLink($link);
+    }
     $self->_prepare();
     return $self;
   }
