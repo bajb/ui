@@ -1,0 +1,10 @@
+.auto-complete-text {
+
+}
+
+.auto-complete-text .current-text {
+}
+
+.auto-complete-text .remaining-text {
+  opacity: 0.6;
+}
