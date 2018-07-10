@@ -57,10 +57,9 @@
 }
 
 .ui-card > .primary .avatar {
-  width: 52px;
-  height: 52px;
   flex-shrink: 0;
   box-sizing: content-box;
+  display: inline-flex;
   overflow: hidden;
   margin-right: 8px;
 }
