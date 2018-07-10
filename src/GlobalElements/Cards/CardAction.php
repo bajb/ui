@@ -33,14 +33,13 @@ class CardAction extends UiElement implements ICardActionType
     {
       $self->setLink($link);
     }
-    $self->_prepare();
     return $self;
   }
 
   /**
    * Define Icon and Tooltip content
    */
-  protected function _prepare()
+  protected function _prepareFromType()
   {
     switch($this->_type)
     {
@@ -157,6 +156,7 @@ class CardAction extends UiElement implements ICardActionType
     if(CardActionType::isValid($type))
     {
       $this->_type = $type;
+      $this->_prepareFromType();
     }
     return $this;
   }
