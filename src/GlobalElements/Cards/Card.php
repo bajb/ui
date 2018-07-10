@@ -170,14 +170,9 @@ class Card extends UiElement implements IColours, ICardActionType
    */
   public function addAction($type = self::ACTION_TYPE_VIEW, Link $link = null)
   {
-    if(count($this->_actions) >= 3)
-    {
-      throw new \Exception('A card must have no more than 3 actions.');
-    }
-
     if(CardActionType::isValid($type))
     {
-      $this->_actions[$type] = CardAction::create($type, $link);
+      $this->addCustomAction(CardAction::create($type, $link), $type);
     }
     return $this;
   }
@@ -187,14 +182,23 @@ class Card extends UiElement implements IColours, ICardActionType
    * @param int        $sortOrder
    *
    * @return $this
+   * @throws \Exception
    */
   public function addCustomAction(CardAction $action, $sortOrder = 50)
   {
+    if(count($this->_actions) >= 3)
+    {
+      throw new \Exception('A card must have no more than 3 actions.');
+    }
+
     if($action instanceof CardAction)
     {
       // Define min/max value of custom sort order.
       // This is to ensure an element consistency for the most part.
-      $sortOrder = max(3, min($sortOrder, 399));
+      if(is_int($sortOrder))
+      {
+        $sortOrder = max(3, min($sortOrder, 399));
+      }
       $this->_actions[$sortOrder] = $action;
     }
     return $this;
