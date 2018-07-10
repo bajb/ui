@@ -37,6 +37,17 @@
   font-size: 25px;
 }
 
+.favatar.x0 {
+  width: 22px !important;
+  height: 22px !important;
+  line-height: 21px;
+  font-size: 15px;
+}
+
+.favatar.x0.text-avatar {
+  font-size: 15px;
+}
+
 .favatar.default {
   border-color: rgb(199, 204, 217);
   color: rgb(132, 134, 144);

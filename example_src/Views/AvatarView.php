@@ -103,11 +103,26 @@ class AvatarView extends AbstractUiExampleView
    * @group Content Avatars
    * @throws \Exception
    */
-  final public function contentTextAvatars()
+  final public function contentAvatars()
   {
     $divs = Div::create([]);
     $divs->appendContent(Avatar::i()->setContent(FontIcon::create(FontIcon::USER)));
     $divs->appendContent(Avatar::i()->setContent(FontIcon::create(FontIcon::USER))->sizeX2());
+    return $divs;
+  }
+
+  /**
+   * @group Small Avatars
+   * @throws \Exception
+   */
+  final public function smallAvatars()
+  {
+    $divs = Div::create([]);
+    $divs->appendContent(
+      Avatar::image('https://media.giphy.com/media/5UMFdWbgwa3rtfYbXK/giphy.gif')->setColour(TextAvatar::COLOUR_INDIGO)
+        ->sizeSmall()
+    );
+    $divs->appendContent(Avatar::i()->setContent(FontIcon::create(FontIcon::USER))->sizeSmall());
     return $divs;
   }
 }

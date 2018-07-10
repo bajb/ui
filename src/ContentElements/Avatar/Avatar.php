@@ -90,6 +90,12 @@ class Avatar extends UiElement implements IColours
     return $this;
   }
 
+  public function sizeSmall()
+  {
+    $this->_size = 'x0';
+    return $this;
+  }
+
   public function sizeDefault()
   {
     $this->_size = 'x1';
