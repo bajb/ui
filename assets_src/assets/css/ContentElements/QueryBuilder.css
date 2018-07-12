@@ -5,33 +5,33 @@
 
 .qb-rule {
   position: relative;
-  width:    100%;
-  padding:  1px;
+  width: 100%;
+  padding: 1px;
 }
 
 .qb-rule input, .qb-rule select, .qb-rule .qb-input {
-  position:       relative;
-  display:        inline-block;
-  height:         32px;
-  padding:        6px 12px;
-  font-size:      13px;
-  color:          #555;
-  border:         1px solid #d6d6d6;
-  border-radius:  5px;
-  margin:         2px 5px 2px 0;
-  background:     white;
+  position: relative;
+  display: inline-block;
+  height: 32px;
+  padding: 6px 12px;
+  font-size: 13px;
+  color: #555;
+  border: 1px solid #d6d6d6;
+  border-radius: 5px;
+  margin: 2px 5px 2px 0;
+  background: white;
   vertical-align: top;
 }
 
 .qb-button {
-  border-radius:    15px;
-  font-size:        18px;
-  border:           1px solid #d7dada;
-  height:           30px;
-  width:            30px;
-  font-weight:      bold;
-  color:            #333;
-  padding-top:      0;
+  border-radius: 15px;
+  font-size: 18px;
+  border: 1px solid #d7dada;
+  height: 30px;
+  width: 30px;
+  font-weight: bold;
+  color: #333;
+  padding-top: 0;
   background-color: #f4f5f5; background-image: -webkit-gradient(linear, left top, left bottom, from(#f4f5f5), to(#dfdddd));
   background-image: -webkit-linear-gradient(top, #f4f5f5, #dfdddd);
   background-image: -moz-linear-gradient(top, #f4f5f5, #dfdddd);
@@ -45,12 +45,12 @@
 }
 
 .qb-remove-rule {
-  position:   absolute;
-  top:        0;
-  right:      0;
-  border:     0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 0;
   background: transparent;
-  color:      #949494;
+  color: #949494;
 }
 
 .qb-remove-rule:hover {
@@ -58,17 +58,18 @@
 }
 
 .qb-add-rule {
-  margin:   13px 0 2px 15px;
+  margin: 13px 0 2px 15px;
   position: relative;
+  line-height: 1em;
 }
 
 .qb-add-rule:before {
-  content:     " ";
+  content: " ";
   font-weight: normal;
-  position:    absolute;
-  top:         -16px;
-  left:        13px;
+  position: absolute;
+  top: -16px;
+  left: 13px;
   border-left: 1px solid #9B9999;
-  height:      16px;
-  width:       10px;
+  height: 16px;
+  width: 10px;
 }
