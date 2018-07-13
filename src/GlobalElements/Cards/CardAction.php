@@ -18,6 +18,7 @@ class CardAction extends UiElement implements ICardActionType
   protected $_icon;
   /** @var string|null */
   protected $_tooltip = null;
+  protected $_isDisabled = false;
 
   /**
    * @param string    $type
@@ -29,10 +30,7 @@ class CardAction extends UiElement implements ICardActionType
   {
     $self = new static();
     $self->setType($type);
-    if($link)
-    {
-      $self->setLink($link);
-    }
+    $self->setLink($link);
     return $self;
   }
 
@@ -124,7 +122,7 @@ class CardAction extends UiElement implements ICardActionType
    */
   protected function _produceHtml()
   {
-    if(!($this->_link instanceof Link))
+    if($this->_isDisabled || (!($this->_link instanceof Link)))
     {
       $this->_link = Span::create();
     }
@@ -138,6 +136,10 @@ class CardAction extends UiElement implements ICardActionType
     if($this->_icon !== null)
     {
       $this->_link->setContent($this->_icon);
+      if($this->_isDisabled)
+      {
+        $this->_icon->setColour('#ccc');
+      }
     }
 
     $this->_link->setAttribute('data-type', $this->_type);
@@ -182,7 +184,7 @@ class CardAction extends UiElement implements ICardActionType
    *
    * @return CardAction
    */
-  public function setLink(Link $link)
+  public function setLink(Link $link = null)
   {
     $this->_link = $link;
     return $this;
@@ -228,4 +230,14 @@ class CardAction extends UiElement implements ICardActionType
     return $this->_tooltip;
   }
 
+  public function setDisabled($disabled)
+  {
+    $this->_isDisabled = $disabled;
+    return $this;
+  }
+
+  public function isDisabled()
+  {
+    return $this->_isDisabled;
+  }
 }
