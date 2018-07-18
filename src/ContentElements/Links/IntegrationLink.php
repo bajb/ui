@@ -11,7 +11,7 @@ class IntegrationLink extends PageletLink
   {
     $parent = new static(Path::buildUnix($baseUrl, $uri), $content, $selector);
     $parent->_baseUrl = $baseUrl;
-    $parent->setAjaxUri(Path::buildUnix($parent->_baseUrl, 'integration', $uri));
+    $parent->setAjaxUri(Path::buildUnix($parent->_baseUrl, 'pagelet', $uri));
     return $parent;
   }
 }
