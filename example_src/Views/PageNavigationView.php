@@ -12,6 +12,7 @@ class PageNavigationView extends AbstractUiExampleView
   final public function standardMenu()
   {
     $nav = PageNavigation::create();
+    $nav->setTitle('Menu Title');
     $nav->addItem(new Link('#', 'Item One'));
     $nav->addItem(new Link('#', 'Item Two'), true);
     return $nav;

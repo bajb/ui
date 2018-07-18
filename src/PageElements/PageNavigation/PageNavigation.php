@@ -1,18 +1,41 @@
 <?php
 namespace Fortifi\Ui\PageElements\PageNavigation;
 
-use Fortifi\Ui\ContentElements\ObjectLists\ObjectList;
-use Fortifi\Ui\ContentElements\ObjectLists\ObjectListCard;
+use Fortifi\Ui\GlobalElements\Panels\ContentPanel;
+use Fortifi\Ui\GlobalElements\Panels\PanelHeader;
 use Fortifi\Ui\UiElement;
 use Packaged\Dispatch\AssetManager;
 use Packaged\Glimpse\Core\HtmlTag;
 use Packaged\Glimpse\Core\ISafeHtmlProducer;
 use Packaged\Glimpse\Core\SafeHtml;
+use Packaged\Glimpse\Tags\Div;
+use Packaged\Glimpse\Tags\Lists\ListItem;
+use Packaged\Glimpse\Tags\Lists\UnorderedList;
 
 class PageNavigation extends UiElement
 {
   protected $_items;
+  protected $_title;
   protected $_currentLink;
+
+  /**
+   * @return mixed
+   */
+  public function getTitle()
+  {
+    return $this->_title;
+  }
+
+  /**
+   * @param mixed $title
+   *
+   * @return PageNavigation
+   */
+  public function setTitle($title)
+  {
+    $this->_title = $title;
+    return $this;
+  }
 
   /**
    * Require Assets
@@ -34,7 +57,7 @@ class PageNavigation extends UiElement
 
   public static function create($currentLink = null)
   {
-    $nav = new static;
+    $nav = new static();
     $nav->_currentLink = $currentLink;
     return $nav;
   }
@@ -57,18 +80,22 @@ class PageNavigation extends UiElement
    */
   protected function _produceHtml()
   {
-    $list = ObjectList::i();
-    $list->setStacked(true, false);
+    $ul = new UnorderedList();
+    $ul->addClass('menu-panel-items');
+    $menu = ContentPanel::create($ul)->setStyle();
     foreach($this->_items as $item)
     {
-      $card = ObjectListCard::i();
-      $card->setTitle($item[0]);
-      if($item[1])
+      $listItem = ListItem::create($item[0]);
+      if(isset($item[1]) && $item[1])
       {
-        $card->setColour($card::COLOUR_SKY);
+        $listItem->addClass('selected');
       }
-      $list->addCard($card);
+      $ul->addItem($listItem);
     }
-    return $list;
+    /** @var Div $header */
+    $header = PanelHeader::create($this->getTitle())->produceSafeHTML();
+    $header->removeClass('f-panel-heading');
+    $menu->prependContent($header);
+    return $menu;
   }
 }
