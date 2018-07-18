@@ -93,9 +93,12 @@ class PageNavigation extends UiElement
       $ul->addItem($listItem);
     }
     /** @var Div $header */
-    $header = PanelHeader::create($this->getTitle())->produceSafeHTML();
-    $header->removeClass('f-panel-heading');
-    $menu->prependContent($header);
+    if(!empty($this->getTitle()))
+    {
+      $header = PanelHeader::create($this->getTitle())->produceSafeHTML();
+      $header->removeClass('f-panel-heading');
+      $menu->prependContent($header);
+    }
     return $menu;
   }
 }
