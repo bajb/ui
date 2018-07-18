@@ -33,6 +33,10 @@
   margin-bottom: 15px;
 }
 
+.f-page-navigation > .panel-heading h2 {
+  font-size: 14px;
+}
+
 .f-page-navigation > .panel-heading {
   background: 0 0;
   border: none;
