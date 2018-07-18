@@ -1,7 +1,7 @@
 <?php
 namespace Fortifi\Ui\PageElements\PageNavigation;
 
-use Fortifi\Ui\GlobalElements\Panels\ContentPanel;
+use Fortifi\Ui\GlobalElements\Panels\Panel;
 use Fortifi\Ui\GlobalElements\Panels\PanelHeader;
 use Fortifi\Ui\UiElement;
 use Packaged\Dispatch\AssetManager;
@@ -45,14 +45,14 @@ class PageNavigation extends UiElement
    */
   public function processIncludes(AssetManager $assetManager, $vendor = false)
   {
-    /*if($vendor)
+    if($vendor)
     {
       $assetManager->requireCss('assets/css/PageElements');
     }
     else
     {
       $assetManager->requireCss('assets/css/PageElements/PageNavigation');
-    }*/
+    }
   }
 
   public static function create($currentLink = null)
@@ -81,8 +81,7 @@ class PageNavigation extends UiElement
   protected function _produceHtml()
   {
     $ul = new UnorderedList();
-    $ul->addClass('f-page-navigation');
-    $menu = ContentPanel::create($ul)->setStyle();
+    $menu = Panel::create($ul)->addClass('f-page-navigation')->setStyle();
     foreach($this->_items as $item)
     {
       $listItem = ListItem::create($item[0]);
