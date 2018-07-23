@@ -467,6 +467,7 @@
     this._ele = ele;
     this._options = {};
     this._definitions = [];
+    this._hasRunInit = false;
 
     this._inputTypeProcessors = [];
     this._inputMethods = {};
@@ -675,55 +676,60 @@
      */
     QueryBuilder.prototype.init = function (options)
     {
-      var $ele = $(this._ele);
-      $ele
-        .addClass('qb-container')
-        .html($('<div class="qb-rules"/>'))
-        .append($('<button class="qb-button qb-add-rule">+</button>'))
-        .on(
-          'change', '.qb-rule .qb-key', function ()
-          {
-            var $rule = $(this).closest('.qb-rule'),
-              qbr = $rule.data(QB_DATA_NS_RULE);
-            qbr.setKey($(this).val());
-          }
-        )
-        .on(
-          'change', '.qb-rule .qb-comparator', function ()
-          {
-            var $rule = $(this).closest('.qb-rule'),
-              qbr = $rule.data(QB_DATA_NS_RULE);
-            qbr.setComparator($(this).val());
-          }
-        )
-        /*.on(
-         'change', '.qb-container .qb-value', function ()
-         {
-         var $container = $(this).closest('.qb-container'),
-         qb = $container.data(QB_DATA_NS),
-         $rule = $(this).closest('.qb-rule'),
-         qbr = $rule.data(QB_DATA_NS_RULE);
-         qbr.setValue($(this).val());
-         }
-         )*/
-        .on(
-          'click', 'button.qb-remove-rule', function ()
-          {
-            var $container = $(this).closest('.qb-container'),
-              qb = $container.data(QB_DATA_NS),
-              $rule = $(this).closest('.qb-rule'),
-              qbr = $rule.data(QB_DATA_NS_RULE);
-            qb.removeRule(qbr);
-          }
-        )
-        .on(
-          'click', 'button.qb-add-rule', function ()
-          {
-            $(this).closest('.qb-container').QueryBuilder('addRule');
-          }
-        );
+      if(!this._hasRunInit)
+      {
+        var $ele = $(this._ele);
+        $ele
+          .addClass('qb-container')
+          .html($('<div class="qb-rules"/>'))
+          .append($('<button class="qb-button qb-add-rule">+</button>'))
+          .on(
+            'change', '.qb-rule .qb-key', function ()
+            {
+              var $rule = $(this).closest('.qb-rule'),
+                qbr = $rule.data(QB_DATA_NS_RULE);
+              qbr.setKey($(this).val());
+            }
+          )
+          .on(
+            'change', '.qb-rule .qb-comparator', function ()
+            {
+              var $rule = $(this).closest('.qb-rule'),
+                qbr = $rule.data(QB_DATA_NS_RULE);
+              qbr.setComparator($(this).val());
+            }
+          )
+          /*.on(
+           'change', '.qb-container .qb-value', function ()
+           {
+           var $container = $(this).closest('.qb-container'),
+           qb = $container.data(QB_DATA_NS),
+           $rule = $(this).closest('.qb-rule'),
+           qbr = $rule.data(QB_DATA_NS_RULE);
+           qbr.setValue($(this).val());
+           }
+           )*/
+          .on(
+            'click', 'button.qb-remove-rule', function ()
+            {
+              var $container = $(this).closest('.qb-container'),
+                qb = $container.data(QB_DATA_NS),
+                $rule = $(this).closest('.qb-rule'),
+                qbr = $rule.data(QB_DATA_NS_RULE);
+              qb.removeRule(qbr);
+            }
+          )
+          .on(
+            'click', 'button.qb-add-rule', function ()
+            {
+              $(this).closest('.qb-container').QueryBuilder('addRule');
+            }
+          );
 
-      $ele.trigger('init.querybuilder', this);
+        $ele.trigger('init.querybuilder', this);
+      }
+
+      this._hasRunInit = true;
 
       options = $.extend({}, $ele.data(), options);
       this.options(options);
