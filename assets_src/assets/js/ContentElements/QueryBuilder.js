@@ -84,53 +84,6 @@
     return retVal;
   };
 
-  $(document).on(
-    'change', '.qb-rule .qb-key', function ()
-    {
-      var $container = $(this).closest('.qb-container'),
-        qb = $container.data(QB_DATA_NS),
-        $rule = $(this).closest('.qb-rule'),
-        qbr = $rule.data(QB_DATA_NS_RULE);
-      qbr.setKey($(this).val());
-    }
-  );
-  $(document).on(
-    'change', '.qb-rule .qb-comparator', function ()
-    {
-      var $container = $(this).closest('.qb-container'),
-        qb = $container.data(QB_DATA_NS),
-        $rule = $(this).closest('.qb-rule'),
-        qbr = $rule.data(QB_DATA_NS_RULE);
-      qbr.setComparator($(this).val());
-    }
-  );
-  /*$(document).on(
-   'change', '.qb-container .qb-value', function ()
-   {
-   var $container = $(this).closest('.qb-container'),
-   qb = $container.data(QB_DATA_NS),
-   $rule = $(this).closest('.qb-rule'),
-   qbr = $rule.data(QB_DATA_NS_RULE);
-   qbr.setValue($(this).val());
-   }
-   );*/
-  $(document).on(
-    'click', 'button.qb-remove-rule', function ()
-    {
-      var $container = $(this).closest('.qb-container'),
-        qb = $container.data(QB_DATA_NS),
-        $rule = $(this).closest('.qb-rule'),
-        qbr = $rule.data(QB_DATA_NS_RULE);
-      qb.removeRule(qbr);
-    }
-  );
-  $(document).on(
-    'click', 'button.qb-add-rule', function ()
-    {
-      $(this).closest('.qb-container').QueryBuilder('addRule');
-    }
-  );
-
   /**
    * @constructor
    */
@@ -723,9 +676,52 @@
     QueryBuilder.prototype.init = function (options)
     {
       var $ele = $(this._ele);
-      $ele.addClass('qb-container')
+      $ele
+        .addClass('qb-container')
         .html($('<div class="qb-rules"/>'))
-        .append($('<button class="qb-button qb-add-rule">+</button>'));
+        .append($('<button class="qb-button qb-add-rule">+</button>'))
+        .on(
+          'change', '.qb-rule .qb-key', function ()
+          {
+            var $rule = $(this).closest('.qb-rule'),
+              qbr = $rule.data(QB_DATA_NS_RULE);
+            qbr.setKey($(this).val());
+          }
+        )
+        .on(
+          'change', '.qb-rule .qb-comparator', function ()
+          {
+            var $rule = $(this).closest('.qb-rule'),
+              qbr = $rule.data(QB_DATA_NS_RULE);
+            qbr.setComparator($(this).val());
+          }
+        )
+        /*.on(
+         'change', '.qb-container .qb-value', function ()
+         {
+         var $container = $(this).closest('.qb-container'),
+         qb = $container.data(QB_DATA_NS),
+         $rule = $(this).closest('.qb-rule'),
+         qbr = $rule.data(QB_DATA_NS_RULE);
+         qbr.setValue($(this).val());
+         }
+         )*/
+        .on(
+          'click', 'button.qb-remove-rule', function ()
+          {
+            var $container = $(this).closest('.qb-container'),
+              qb = $container.data(QB_DATA_NS),
+              $rule = $(this).closest('.qb-rule'),
+              qbr = $rule.data(QB_DATA_NS_RULE);
+            qb.removeRule(qbr);
+          }
+        )
+        .on(
+          'click', 'button.qb-add-rule', function ()
+          {
+            $(this).closest('.qb-container').QueryBuilder('addRule');
+          }
+        );
 
       $ele.trigger('init.querybuilder', this);
 
