@@ -676,9 +676,9 @@
      */
     QueryBuilder.prototype.init = function (options)
     {
+      var $ele = $(this._ele);
       if(!this._hasRunInit)
       {
-        var $ele = $(this._ele);
         $ele
           .addClass('qb-container')
           .html($('<div class="qb-rules"/>'))
