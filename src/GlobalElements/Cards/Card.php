@@ -142,7 +142,7 @@ class Card extends UiElement implements IColours, ICardActionType
 
       if(is_string($value))
       {
-        $value = Paragraph::create($value)->addClass('value');
+        $value = Paragraph::create($value)->addClass('value')->setAttribute('title', $value);
       }
       else
       {
@@ -151,7 +151,7 @@ class Card extends UiElement implements IColours, ICardActionType
 
       if(is_string($label))
       {
-        $label = Paragraph::create($label)->addClass('label');
+        $label = Paragraph::create($label)->addClass('label')->setAttribute('title', ucwords($label));
       }
 
       $property->prependContent([$value, $label]);

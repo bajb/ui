@@ -153,18 +153,22 @@
   border-bottom: 1px solid var(--border-color);
 }
 
-.ui-card .properties .property p {
+.ui-card .properties .property .label {
   margin-bottom: 0;
 }
 
 .ui-card .properties .property .value {
-  max-width: 100%;
-  display: block;
-  overflow: hidden;
   margin-bottom: 4px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   font-size: 14px;
+}
+
+.ui-card .properties .property .label,
+.ui-card .properties .property .value {
+  display: block;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* styles for when property can be copied to clipboard */
@@ -376,10 +380,9 @@
   padding-bottom: var(--gutter);
 }
 
-.ui-cards.list .ui-card .properties .property {
+.ui-cards .ui-card .properties .property {
   min-width: var(--property-width);
   justify-content: center;
-  align-items: center;
   text-align: center;
 }
 
