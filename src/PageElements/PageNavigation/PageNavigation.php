@@ -14,7 +14,7 @@ use Packaged\Glimpse\Tags\Lists\UnorderedList;
 
 class PageNavigation extends UiElement
 {
-  protected $_items;
+  protected $_items = [];
   protected $_title;
   protected $_currentLink;
 
