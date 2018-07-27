@@ -20,75 +20,29 @@
   <title><?= $this->getData('title', 'Fortifi UI Examples'); ?></title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <?= \Packaged\Dispatch\AssetManager::generateHtmlIncludes(
-    \Packaged\Dispatch\AssetManager::TYPE_CSS
-  ); ?>
+  <?= \Packaged\Dispatch\AssetManager::generateHtmlIncludes(\Packaged\Dispatch\AssetManager::TYPE_CSS); ?>
 </head>
 <body>
-<!--[if lt IE 8]>
-<p class="browsehappy">
-  You are using an <strong>outdated</strong> browser.
-  Please <a href="http://browsehappy.com/?locale=en">upgrade your browser</a> to
-  improve your experience.</p>
-<![endif]-->
-
 <div id="title-bar">
-  <div class="content-container">
-    <ul class="menu--account title-bar-nav pull-right">
-      <li>
-        <a href="/settings/organisation" title="Settings">
-          <i class="fa fa-lg fa-cogs"></i></a>
-      </li>
-    </ul>
-
-    <ul class="title-bar-nav pull-left">
-      <li><a href="/alerts">Alerts</a></li>
-      <li><a href="/panels">Panels</a></li>
-      <li><a href="/buttons">Buttons</a></li>
-      <li><a href="/colours">Colours</a></li>
-      <li><a href="/navigation">Navigation</a></li>
-      <li><a href="/objectlist">Object Lists</a></li>
-      <li><a href="/querybuilder">Query Builder</a></li>
-      <li><a href="/flipper">Flipper</a></li>
-      <li><a href="/icons">Icons</a></li>
-      <li><a href="/cards">Cards</a></li>
-      <li><a href="/avatars">Avatars</a></li>
-    </ul>
-  </div>
+  <h1>Fortifi UI</h1>
+  <ul class="title-bar-nav">
+    <li><a href="/alerts">Alerts</a></li>
+    <li><a href="/panels">Panels</a></li>
+    <li><a href="/buttons">Buttons</a></li>
+    <li><a href="/colours">Colours</a></li>
+    <li><a href="/navigation">Navigation</a></li>
+    <li><a href="/objectlist">Object Lists</a></li>
+    <li><a href="/querybuilder">Query Builder</a></li>
+    <li><a href="/flipper">Flipper</a></li>
+    <li><a href="/icons">Icons</a></li>
+    <li><a href="/cards">Cards</a></li>
+    <li><a href="/avatars">Avatars</a></li>
+  </ul>
 </div>
 
 <div id="wrapper">
-  <div id="page-content">
-    <div id="main-content">
-      <?= $this->content(); ?>
-    </div>
-
-    <div class="clearfix"></div>
-  </div>
-
-  <div id="footer">
-    <div class="content-container">
-      <ul class="col-md-5 pull-right">
-        <li><a href="#">Footer Link</a></li>
-        <li><a href="#">Footer Link</a></li>
-        <li><a href="#">Footer Link</a></li>
-      </ul>
-
-      <a href="/" id="footer-home" class="col-md-1">
-        Fortifi Logo
-      </a>
-
-      <ul class="col-md-5 pull-left">
-        &copy; <?= date("Y"); ?> Fortifico Ltd.
-        <li><a href="#">Footer Link</a></li>
-        <li><a href="#">Footer Link</a></li>
-        <li><a href="#">Footer Link</a></li>
-      </ul>
-    </div>
-  </div>
+  <?= $this->content(); ?>
 </div>
-<?= \Packaged\Dispatch\AssetManager::generateHtmlIncludes(
-  \Packaged\Dispatch\AssetManager::TYPE_JS
-); ?>
+<?= \Packaged\Dispatch\AssetManager::generateHtmlIncludes(\Packaged\Dispatch\AssetManager::TYPE_JS); ?>
 </body>
 </html>
