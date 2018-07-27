@@ -1,0 +1,18 @@
+.f-prop-list {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.f-prop-list-inline {
+  flex-direction: row;
+}
+
+.f-prop-list strong {
+  margin-right: 5px;
+}
+
+.f-prop-list-inline li {
+  margin-right: 10px;
+}
