@@ -14,6 +14,7 @@ use Fortifi\UiExample\Views\ColoursView;
 use Fortifi\UiExample\Views\FlipperView;
 use Fortifi\UiExample\Views\IconsView;
 use Fortifi\UiExample\Views\ObjectListsView;
+use Fortifi\UiExample\Views\PageElementsView;
 use Fortifi\UiExample\Views\PageNavigationView;
 use Fortifi\UiExample\Views\PanelsView;
 use Fortifi\UiExample\Views\QueryBuilderView;
@@ -53,6 +54,8 @@ class ExampleController extends LayoutController
         return new CardsView();
       case 'avatars':
         return new AvatarView();
+      case 'page':
+        return new PageElementsView();
       default:
         return 'Coming Soon';
     }

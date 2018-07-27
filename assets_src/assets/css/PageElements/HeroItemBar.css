@@ -1,0 +1,43 @@
+.f-hero-item-bar {
+  display: flex;
+  background: rgba(0, 0, 0, 0.40);
+  height: 64px;
+  padding: 0 32px;
+  color: #FFFFFF;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+.f-hero-item-bar > div {
+  margin: 0 16px;
+  flex-grow: 1;
+}
+
+.f-hero-item-bar > div:first-of-type {
+  margin-left: 0;
+}
+
+.f-hero-item-bar > div:last-of-type {
+  margin-right: 0;
+}
+
+.f-hero-item-bar > div h1,
+.f-hero-item-bar > div p {
+  margin: 0;
+  font-weight: normal;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.f-hero-item-bar > div h1 {
+  font-size: 18px;
+  margin-top: 12px;
+  margin-bottom: 2px;
+}
+
+.f-hero-item-bar > div p {
+  font-size: 13px;
+  text-transform: uppercase;
+}

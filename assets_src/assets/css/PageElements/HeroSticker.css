@@ -1,0 +1,33 @@
+.f-hero-sticker {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 124px;
+  height: 124px;
+  border-radius: 124px;
+  border: 2px solid white;
+  box-shadow: 0 12px 16px 1px rgba(0, 0, 0, 0.14),
+  0 4px 22px 3px rgba(0, 0, 0, 0.12),
+  0 6px 7px -4px rgba(0, 0, 0, 0.4);
+  margin: 20px 30px;
+  background-color: #c72525;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  color: #FFFFFF;
+}
+
+.f-hero-sticker.f-bn {
+  border: none;
+}
+
+.f-hero-sticker-flat {
+  box-shadow: none;
+}
+
+.f-hero-sticker h1 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 20px;
+}
