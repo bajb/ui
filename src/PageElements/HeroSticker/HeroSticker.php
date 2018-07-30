@@ -8,10 +8,29 @@ use Packaged\Glimpse\Tags\Div;
 
 class HeroSticker extends UiElement
 {
+  protected $_class = [];
   protected $_content;
   protected $_hasBorder = true;
   protected $_isFlat = false;
   protected $_backgroundImage;
+
+  public function addClass($class)
+  {
+    $this->_class[$class] = $class;
+    return $this;
+  }
+
+  public function removeClass($class)
+  {
+    unset($this->_class[$class]);
+    return $this;
+  }
+
+  public function clearClasses()
+  {
+    $this->_class = [];
+    return $this;
+  }
 
   public function processIncludes(AssetManager $assetManager, $vendor = false)
   {
