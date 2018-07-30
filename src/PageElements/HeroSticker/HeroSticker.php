@@ -130,6 +130,10 @@ class HeroSticker extends UiElement
   protected function _produceHtml()
   {
     $sticker = Div::create($this->_content)->addClass('f-hero-sticker');
+    foreach($this->_class as $class)
+    {
+      $sticker->addClass($class);
+    }
     if(!$this->_hasBorder)
     {
       $sticker->addClass(Ui::BORDER_NONE);
