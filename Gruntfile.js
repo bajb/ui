@@ -1,17 +1,24 @@
-module.exports = function (grunt)
-{
+module.exports = function (grunt) {
   grunt.initConfig(
     {
       cssmin:  {
-        dist:   {
+        grouped: {
           files: {
-            'assets/css/PageElements.min.css':    ['assets_src/assets/css/PageElements/*.css'],
-            'assets/css/ContentElements.min.css': ['assets_src/assets/css/ContentElements/*.css'],
-            'assets/css/GlobalElements.min.css':  ['assets_src/assets/css/GlobalElements/*.css'],
-            'assets/css/Decorators.min.css':      ['assets_src/assets/css/Decorators/*.css']
+            'assets/css/PageElements.min.css':    [
+              'assets_src/assets/css/PageElements/**/*.css'
+            ],
+            'assets/css/ContentElements.min.css': [
+              'assets_src/assets/css/ContentElements/**/*.css'
+            ],
+            'assets/css/GlobalElements.min.css':  [
+              'assets_src/assets/css/GlobalElements/**/*.css'
+            ],
+            'assets/css/Decorators.min.css':      [
+              'assets_src/assets/css/Decorators/**/*.css'
+            ]
           }
         },
-        target: {
+        base:    {
           files: [
             {
               expand: true,
@@ -24,13 +31,36 @@ module.exports = function (grunt)
         }
       },
       uglify:  {
-        dist: {
+        grouped: {
           files: {
-            'assets/js/PageElements.min.js':    ['assets_src/assets/js/PageElements/*.js'],
-            'assets/js/ContentElements.min.js': ['assets_src/assets/js/ContentElements/*.js'],
-            'assets/js/GlobalElements.min.js':  ['assets_src/assets/js/GlobalElements/*.js'],
-            'assets/js/Decorators.min.js':      ['assets_src/assets/js/Decorators/*.js']
+            'assets/js/PageElements.min.js':    [
+              'assets_src/assets/js/PageElements/base.js',
+              'assets_src/assets/js/PageElements/**/*.js'
+            ],
+            'assets/js/ContentElements.min.js': [
+              'assets_src/assets/js/ContentElements/base.js',
+              'assets_src/assets/js/ContentElements/**/*.js'
+            ],
+            'assets/js/GlobalElements.min.js':  [
+              'assets_src/assets/js/GlobalElements/base.js',
+              'assets_src/assets/js/GlobalElements/**/*.js'
+            ],
+            'assets/js/Decorators.min.js':      [
+              'assets_src/assets/js/Decorators/base.js',
+              'assets_src/assets/js/Decorators/**/*.js'
+            ]
           }
+        },
+        base:    {
+          files: [
+            {
+              expand: true,
+              cwd:    'assets_src/assets/js/',
+              src:    ['*.js', '!*.min.js'],
+              dest:   'assets/js/',
+              ext:    '.min.js'
+            }
+          ]
         }
       },
       copy:    {
