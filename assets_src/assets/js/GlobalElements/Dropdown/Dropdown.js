@@ -33,6 +33,7 @@
     this._options = {};
     this._action = null;
     this._content = null;
+    this._isInitialised = false;
   }
 
   /**
@@ -108,26 +109,31 @@
   };
 
   Dropdown.prototype.init = function (options) {
-    var self = this;
-    options = $.extend({margin: 10}, options);
-    this._options = options;
-
-    this._action = $(this._ele).on('click', this.toggle.bind(this));
-
-    if(this._action.attr('data-content-url'))
+    if(!this._isInitialised)
     {
-      this._action.on('mouseenter', function () {
-        self.refreshContent();
-        self._action.off('mouseenter');
-      });
-      this._content = $('<div />').addClass('dropdown-content');
-    }
-    else
-    {
-      this._content = $('.dropdown-content', this._ele).detach();
-    }
+      var self = this;
+      options = $.extend({margin: 10}, options);
+      this._options = options;
 
-    dropdowns.push(this);
+      this._action = $(this._ele).on('click', this.toggle.bind(this));
+
+      if(this._action.attr('data-content-url'))
+      {
+        this._action.on('mouseenter', function () {
+          self.refreshContent();
+          self._action.off('mouseenter');
+        });
+        this._content = $('<div />').addClass('dropdown-content');
+      }
+      else
+      {
+        this._content = $('.dropdown-content', this._ele).detach();
+      }
+
+      dropdowns.push(this);
+
+      this._isInitialised = true;
+    }
   };
 
   $.fn.Dropdown = function (command, options) {
