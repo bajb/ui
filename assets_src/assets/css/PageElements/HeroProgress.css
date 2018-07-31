@@ -30,15 +30,16 @@
   width: 120px;
   text-align: center;
   right: -35px;
+  line-height: 20px;
 }
 
 .f-hero-progress-item > strong, .f-hero-progress-item > a > strong {
-  top: -20px;
+  top: -25px;
   color: #ffffff;
 }
 
 .f-hero-progress-item > span, .f-hero-progress-item > a > span {
-  bottom: -20px;
+  bottom: -25px;
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -73,12 +74,18 @@
   height: 7px;
 }
 
-.f-hero-progress-item.done::after {
+.f-hero-progress-item.done::after, .f-hero-progress-item.current::after {
   background: #fff;
   height: 3px;
   right: 47px;
   left: -3px;
   margin-top: -2px;
+}
+
+.f-hero-progress-item.current::after {
+  right: 50px;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
 }
 
 .f-hero-progress-item:first-of-type {

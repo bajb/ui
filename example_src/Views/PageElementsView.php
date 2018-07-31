@@ -116,6 +116,9 @@ class PageElementsView extends AbstractUiExampleView
         ->setClass([Ui::BG_RED, Ui::TEXT_WHITE])
         ->setLink(PageletLink::create('http://www.google.com', ''))
     );
+    $progress->addItem(
+      HeroProgressItem::i()->setIcon(FaIcon::create(FaIcon::WRENCH))->setState(HeroProgressItem::STATE_CURRENT)
+    );
     $progress->addItem(HeroProgressItem::i()->setIcon(FaIcon::create(FaIcon::CHECK)));
     return Hero::i()->setContent($progress);
   }
