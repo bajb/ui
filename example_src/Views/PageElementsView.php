@@ -1,8 +1,12 @@
 <?php
 namespace Fortifi\UiExample\Views;
 
+use Fortifi\FontAwesome\FaIcon;
+use Fortifi\Ui\ContentElements\Links\PageletLink;
 use Fortifi\Ui\PageElements\Hero\Hero;
 use Fortifi\Ui\PageElements\HeroItemBar\HeroItemBar;
+use Fortifi\Ui\PageElements\HeroProgress\HeroProgress;
+use Fortifi\Ui\PageElements\HeroProgress\HeroProgressItem;
 use Fortifi\Ui\PageElements\HeroSticker\HeroSticker;
 use Fortifi\Ui\Ui;
 use Packaged\Glimpse\Tags\Div;
@@ -88,5 +92,31 @@ class PageElementsView extends AbstractUiExampleView
       ->setSticker(HeroSticker::i()->setContent([HeadingOne::create("10/10"), Span::create("Fraud Score")]))
       ->setItemBar(HeroItemBar::i()->add("Total Paid", "$29.43"))
       ->setContent($content);
+  }
+
+  /**
+   * @group Hero
+   */
+  final public function heroProgress()
+  {
+    $progress = HeroProgress::i();
+    $progress->addItem(
+      HeroProgressItem::i()
+        ->setIcon(FaIcon::create(FaIcon::STICKY_NOTE))
+        ->setTitle("Order Created")
+        ->setInfo("6 May, 2018, 2:41pm")
+        ->setState(HeroProgressItem::STATE_DONE)
+    );
+    $progress->addItem(
+      HeroProgressItem::i()
+        ->setIcon(FaIcon::create(FaIcon::SHIELD_ALT))
+        ->setTitle("Fraud Check Failed")
+        ->setInfo("Please Review")
+        ->setState(HeroProgressItem::STATE_DONE)
+        ->setClass([Ui::BG_RED, Ui::TEXT_WHITE])
+        ->setLink(PageletLink::create('http://www.google.com', ''))
+    );
+    $progress->addItem(HeroProgressItem::i()->setIcon(FaIcon::create(FaIcon::CHECK)));
+    return Hero::i()->setContent($progress);
   }
 }
