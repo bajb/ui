@@ -11,6 +11,7 @@ use Fortifi\UiExample\Views\AlertsView;
 use Fortifi\UiExample\Views\AvatarView;
 use Fortifi\UiExample\Views\CardsView;
 use Fortifi\UiExample\Views\ColoursView;
+use Fortifi\UiExample\Views\DropdownView;
 use Fortifi\UiExample\Views\FlipperView;
 use Fortifi\UiExample\Views\IconsView;
 use Fortifi\UiExample\Views\ObjectListsView;
@@ -19,6 +20,7 @@ use Fortifi\UiExample\Views\PageNavigationView;
 use Fortifi\UiExample\Views\PanelsView;
 use Fortifi\UiExample\Views\QueryBuilderView;
 use Fortifi\UiExample\Views\TextView;
+use Packaged\Glimpse\Tags\Div;
 use Packaged\Helpers\Arrays;
 
 class ExampleController extends LayoutController
@@ -56,9 +58,30 @@ class ExampleController extends LayoutController
         return new AvatarView();
       case 'page':
         return new PageElementsView();
+      case 'dropdowns':
+        return new DropdownView();
       default:
         return 'Coming Soon';
     }
+  }
+
+  public function getRoutes()
+  {
+    return [
+      'querybuilder/definition' => 'qbDefinition',
+      'querybuilder/policy'     => 'qbPolicyData',
+      'querybuilder/browsers'   => 'qbBrowsers',
+      'querybuilder/sids'       => 'qbSids',
+
+      'dropdowns/content' => 'dropContent',
+
+      ':page' => 'defaultAction',
+    ];
+  }
+
+  public function dropContent()
+  {
+    return Div::create('this is a dropdown loaded by ajax');
   }
 
   public function qbDefinition()
@@ -238,16 +261,5 @@ class ExampleController extends LayoutController
     {
       return Arrays::ipull($values, 'text');
     }
-  }
-
-  public function getRoutes()
-  {
-    return [
-      'querybuilder/definition' => 'qbDefinition',
-      'querybuilder/policy'     => 'qbPolicyData',
-      'querybuilder/browsers'   => 'qbBrowsers',
-      'querybuilder/sids'       => 'qbSids',
-      ':page'                   => 'defaultAction',
-    ];
   }
 }

@@ -67,7 +67,7 @@ abstract class AbstractUiExampleView extends ViewModel
         $toggledCode = new Div();
         $toggledCode->appendContent(
           new HeadingFour(
-            (new Link('#', Strings::titleize($method)))
+            (new Link('#', Strings::titleize(preg_replace('/([0-9])([A-Z])/', '$1 $2', $method))))
               ->setAttribute(
                 'onclick',
                 '$(\'#code-' . $id . '\')'

@@ -1,0 +1,13 @@
+.dropdown-action .dropdown-content {
+  display: none;
+}
+
+.dropdown-content {
+  position: absolute;
+  background: white;
+  padding: 8px;
+  border-radius: 6px;
+  z-index: 1000;
+  border: 1px solid #ccc;
+  box-shadow: black 0 2px 7px -2px
+}
