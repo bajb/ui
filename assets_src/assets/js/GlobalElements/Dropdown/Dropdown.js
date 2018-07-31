@@ -129,6 +129,7 @@
       {
         this._content = $('.dropdown-content', this._ele).detach();
       }
+      this._content.data(DATA_NS, this);
 
       dropdowns.push(this);
 
