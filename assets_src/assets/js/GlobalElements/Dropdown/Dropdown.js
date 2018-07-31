@@ -165,6 +165,7 @@
     return retVal;
   };
 
-  $('.dropdown-action').Dropdown()
+  $('.dropdown-action').Dropdown();
 
+  document.dispatchEvent(new CustomEvent('ready-dropdown'));
 }(window, document, jQuery));
