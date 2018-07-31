@@ -7,7 +7,9 @@ body {
   margin-bottom: 110px;
   line-height: 1.4;
   font-size: 12px;
-  color: #8b8b8b;
+  color: #555;
+  background: #f6f6f6;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 h1, h2, h3, h4, h5 {
@@ -28,17 +30,11 @@ h1 {
   margin-bottom: 10px;
 }
 
-body {
-  background: #f6f6f6;
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-}
-
 #wrapper {
   margin: 20px 20px 20px 200px;
 }
 
 .content-container {
-  min-width: 300px;
 }
 
 .content-container:before,
@@ -56,7 +52,8 @@ body {
   bottom: 0;
   left: 0;
   z-index: 100;
-  background: #2c3646;
+  background: #2e3649;
+  color: #9ca3ab;
 }
 
 .title-bar-nav a {
