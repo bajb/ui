@@ -9,10 +9,9 @@
     // loop over all dropdowns, close any which are not in the target
     $(dropdowns).each(function () {
       var tree = $(e.target).parents().addBack();
-      if(this.isOpen() && !(
-        (tree.index(this._action) > -1)
-        || (tree.index(this._content) > -1)
-      ))
+      if(this.isOpen() && isConnected(e.target)
+        && !((tree.index(this._action) > -1) || (tree.index(this._content) > -1))
+      )
       {
         this.close();
       }
@@ -25,6 +24,10 @@
     });
   });
 
+  function isConnected(ele) {
+    return jQuery.contains(document, ele);
+  }
+
   function Dropdown(ele) {
     this._ele = ele;
     this._options = {};
@@ -32,8 +35,19 @@
     this._content = null;
   }
 
+  /**
+   * @param {string} eventName
+   * @param {CustomEventInit?} options
+   * @returns {boolean}
+   */
+  Dropdown.prototype.triggerEvent = function (eventName, options) {
+    eventName = eventName + '-dropdown';
+    options = $.extend({cancelable: false, bubbles: true, detail: {dropdown: this}}, options);
+    return this._action[0].dispatchEvent(new CustomEvent(eventName, options));
+  };
+
   Dropdown.prototype.isOpen = function () {
-    return jQuery.contains(document.documentElement, this._content[0]);
+    return isConnected(this._content[0]);
   };
 
   Dropdown.prototype.toggle = function () {
@@ -56,8 +70,12 @@
   };
 
   Dropdown.prototype.open = function () {
-    this._content.appendTo('body');
-    this.reposition();
+    if(this.triggerEvent('open', {cancelable: true}))
+    {
+      this._content.appendTo('body');
+      this.reposition();
+      this.triggerEvent('opened');
+    }
   };
 
   Dropdown.prototype.reposition = function () {
@@ -65,7 +83,6 @@
     {
       var $action = this._action;
       var $content = this._content;
-      console.log('repos', $content);
       $content.css({left: '', top: ''});
 
       var
@@ -83,7 +100,11 @@
   };
 
   Dropdown.prototype.close = function () {
-    this._content.detach();
+    if(this.triggerEvent('close', {cancelable: true}))
+    {
+      this._content.detach();
+      this.triggerEvent('closed');
+    }
   };
 
   Dropdown.prototype.init = function (options) {
