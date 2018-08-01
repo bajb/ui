@@ -14,7 +14,7 @@
     "packaged/glimpse": "~0.7",
     "nesbot/carbon": "~1.22",
     "illuminate/contracts": "~5.4",
-    "fortifi/fontawesome": "^2.0.2"
+    "fortifi/fontawesome": "^2.0.4"
   },
   "require-dev": {
     "cubex/framework": "~2.6",

@@ -5,12 +5,12 @@
   padding: 0 32px;
   color: #FFFFFF;
   flex-wrap: wrap;
-  overflow: hidden;
 }
 
 .f-hero-item-bar > div {
   margin: 0 16px;
   flex-grow: 1;
+  height: 64px;
 }
 
 .f-hero-item-bar > div:first-of-type {
