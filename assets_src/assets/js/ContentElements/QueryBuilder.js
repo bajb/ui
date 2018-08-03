@@ -1,9 +1,6 @@
-/*
- * Query Builder
- */
+/* global window, document, jQuery */
 
-(function ($, window, document, undefined)
-{
+(function ($, window, document, undefined) {
   'use strict';
 
   window.QueryBuilderConstants = window.QueryBuilderConstants || {};
@@ -47,8 +44,7 @@
   QueryBuilderConstants.COMPARATOR_BEFORE = 'before';
   QueryBuilderConstants.COMPARATOR_AFTER = 'after';
 
-  $.fn.QueryBuilder = function (command)
-  {
+  $.fn.QueryBuilder = function (command) {
     var args = Array.prototype.slice.call(arguments);
     if(!command)
     {
@@ -66,8 +62,7 @@
     args.shift();
     var retVal = $(this);
     $(this).each(
-      function ()
-      {
+      function () {
         var $this = $(this), instance = $this.data(QB_DATA_NS);
         if(!instance)
         {
@@ -87,8 +82,7 @@
   /**
    * @constructor
    */
-  function QueryBuilderDefinition(data)
-  {
+  function QueryBuilderDefinition(data) {
     this.key = '';
     this.displayName = '- SELECT -';
     this.dataType = QueryBuilderConstants.DATATYPE_STRING;
@@ -106,8 +100,7 @@
     {
       $.each(
         data,
-        function (k, v)
-        {
+        function (k, v) {
           if(self.hasOwnProperty(k))
           {
             self[k] = v;
@@ -120,10 +113,9 @@
       // convert array to object
       var newValues = {};
       $(this.values).each(
-        function (idx)
-        {
-          if(self.dataType == QueryBuilderConstants.DATATYPE_NUMBER
-            || self.dataType == QueryBuilderConstants.DATATYPE_BOOL)
+        function (idx) {
+          if(self.dataType === QueryBuilderConstants.DATATYPE_NUMBER
+            || self.dataType === QueryBuilderConstants.DATATYPE_BOOL)
           {
             newValues[idx] = self.values[idx];
           }
@@ -137,18 +129,14 @@
     }
   }
 
-  (function ()
-  {
-    QueryBuilderDefinition.prototype.hasValues = function ()
-    {
+  (function () {
+    QueryBuilderDefinition.prototype.hasValues = function () {
       return !!this.values;
     };
-    QueryBuilderDefinition.prototype.hasAjaxValues = function ()
-    {
+    QueryBuilderDefinition.prototype.hasAjaxValues = function () {
       return !!this.valuesUrl;
     };
-    QueryBuilderDefinition.prototype.isStrict = function ()
-    {
+    QueryBuilderDefinition.prototype.isStrict = function () {
       return this.strictValues && (this.values || this.valuesUrl);
     };
   })();
@@ -160,8 +148,7 @@
    * @param value
    * @constructor
    */
-  function QueryBuilderRule(queryBuilder, key, comparator, value)
-  {
+  function QueryBuilderRule(queryBuilder, key, comparator, value) {
     this._queryBuilder = queryBuilder;
     this._key = key || '';
     this._comparator = comparator || '';
@@ -189,18 +176,14 @@
     this._element = null;
   }
 
-  (function ()
-  {
-    QueryBuilderRule.prototype.constructor = QueryBuilderRule;
-
+  (function () {
     /**
      * Get an input for a specified rule/definition
      *
      * @returns {jQuery}
      * @private
      */
-    function getInput()
-    {
+    function getInput() {
       var
         inputType = this._queryBuilder.getInputTypeForRule(this),
         inputTypeFn = this._queryBuilder.getInputMethod(inputType);
@@ -212,13 +195,11 @@
       return new inputTypeFn(this);
     } // getInput
 
-    QueryBuilderRule.prototype.getValue = function ()
-    {
+    QueryBuilderRule.prototype.getValue = function () {
       return this._value;
     };
 
-    QueryBuilderRule.prototype.sanitizeValue = function (value)
-    {
+    QueryBuilderRule.prototype.sanitizeValue = function (value) {
       // process using the valueObject
       var valueObject = getInput.call(this);
       if(valueObject && valueObject.sanitize)
@@ -228,13 +209,11 @@
       return value;
     };
 
-    QueryBuilderRule.prototype.setValue = function (value)
-    {
+    QueryBuilderRule.prototype.setValue = function (value) {
       this._setValue(this.sanitizeValue(value));
     };
 
-    QueryBuilderRule.prototype._setValue = function (value)
-    {
+    QueryBuilderRule.prototype._setValue = function (value) {
       if(value === undefined)
       {
         value = null;
@@ -246,13 +225,11 @@
       }
     };
 
-    QueryBuilderRule.prototype.getComparator = function ()
-    {
+    QueryBuilderRule.prototype.getComparator = function () {
       return this._comparator;
     };
 
-    QueryBuilderRule.prototype.setComparator = function (value)
-    {
+    QueryBuilderRule.prototype.setComparator = function (value) {
       this._comparator = value;
       if(this._element && $('.qb-comparator', this._element).length)
       {
@@ -270,13 +247,11 @@
       this._queryBuilder._triggerChangeEvent();
     };
 
-    QueryBuilderRule.prototype.getKey = function ()
-    {
+    QueryBuilderRule.prototype.getKey = function () {
       return this._key;
     };
 
-    QueryBuilderRule.prototype.setKey = function (value)
-    {
+    QueryBuilderRule.prototype.setKey = function (value) {
       this._queryBuilder.changeCount(this._key, value);
       this._key = value;
       if(this._element)
@@ -296,10 +271,10 @@
       }
       this.render();
       this._queryBuilder._triggerChangeEvent();
+      this.refreshNew();
     };
 
-    QueryBuilderRule.prototype.render = function ()
-    {
+    QueryBuilderRule.prototype.render = function () {
       var self = this,
         $row = $('<div class="qb-rule"/>'),
         $propertySel = $('<select class="qb-key"/>'),
@@ -312,13 +287,7 @@
        * @type {QueryBuilderDefinition|null}
        */
       var definition = this.getDefinition();
-      if(!ruleKey)
-      {
-        $propertySel.append(
-          '<option selected="selected" value="">- SELECT -</option>'
-        );
-      }
-      if(ruleKey && !definition)
+      if(!definition)
       {
         // no definition for ruleKey
         $propertySel.append(
@@ -326,12 +295,11 @@
         );
       }
       $.each(
-        this._queryBuilder.definitions(), function (idx, def)
-        {
+        this._queryBuilder.definitions(), function (idx, def) {
           var $option = $(
             '<option value="' + def.key + '">' + this.displayName + '</option>'
           );
-          if(ruleKey == def.key)
+          if(ruleKey === def.key)
           {
             $option.prop('selected', true);
           }
@@ -362,7 +330,7 @@
           definition['comparators'] = ['eq'];
         }
         var $comparatorSel = $('<select class="qb-comparator"/>');
-        if(definition.dataType != QueryBuilderConstants.DATATYPE_BOOL)
+        if(definition.dataType !== QueryBuilderConstants.DATATYPE_BOOL)
         {
           $row.append($comparatorSel);
         }
@@ -370,9 +338,8 @@
           definition ?
             definition['comparators'] :
             [QueryBuilderConstants.COMPARATOR_EQUALS],
-          function (idx, ident)
-          {
-            var selected = (self.getComparator() == ident) ?
+          function (idx, ident) {
+            var selected = (self.getComparator() === ident) ?
               ' selected="selected"' :
               '';
             $comparatorSel.append(
@@ -426,13 +393,11 @@
       return $row;
     };
 
-    QueryBuilderRule.prototype.getDefinition = function ()
-    {
+    QueryBuilderRule.prototype.getDefinition = function () {
       return this._queryBuilder.getDefinition(this.getKey());
     };
 
-    QueryBuilderRule.prototype.getData = function ()
-    {
+    QueryBuilderRule.prototype.getData = function () {
       return {
         'key':        this.getKey(),
         'comparator': this.getComparator(),
@@ -440,16 +405,14 @@
       };
     };
 
-    QueryBuilderRule.prototype.removeElement = function ()
-    {
+    QueryBuilderRule.prototype.removeElement = function () {
       if(this._element)
       {
         this._element.remove();
       }
     };
 
-    QueryBuilderRule.prototype.getElement = function ()
-    {
+    QueryBuilderRule.prototype.getElement = function () {
       return this._element;
     };
   })();
@@ -462,8 +425,7 @@
    * @private {QueryBuilderDefinition[]} _definitions
    * @private {QueryBuilderRule[]} _rules
    */
-  function QueryBuilder(ele)
-  {
+  function QueryBuilder(ele) {
     this._ele = ele;
     this._options = {};
     this._definitions = [];
@@ -472,136 +434,85 @@
     this._inputTypeProcessors = [];
     this._inputMethods = {};
     this._comparatorNames = {};
-    this.setInputMethod(
-      QueryBuilderConstants.INPUT_TEXT, QueryBuilderTextInput
-    );
-    this.setInputMethod(
-      QueryBuilderConstants.INPUT_NUMBER, QueryBuilderNumberInput
-    );
-    this.setInputMethod(
-      QueryBuilderConstants.INPUT_DECIMAL, QueryBuilderDecimalInput
-    );
-    this.setInputMethod(
-      QueryBuilderConstants.INPUT_SELECT, QueryBuilderSelectInput
-    );
-    this.setInputMethod(
-      QueryBuilderConstants.INPUT_DATE, QueryBuilderDateInput
-    );
-    this.setInputMethod(
-      QueryBuilderConstants.INPUT_BOOL, QueryBuilderBooleanInput
-    );
-    this.setInputMethod(
-      QueryBuilderConstants.INPUT_AGE, QueryBuilderAgeInput
-    );
-    this.setInputMethod(
-      QueryBuilderConstants.INPUT_BETWEEN, QueryBuilderBetweenInput
-    );
+    this.setInputMethod(QueryBuilderConstants.INPUT_TEXT, QueryBuilderTextInput);
+    this.setInputMethod(QueryBuilderConstants.INPUT_NUMBER, QueryBuilderNumberInput);
+    this.setInputMethod(QueryBuilderConstants.INPUT_DECIMAL, QueryBuilderDecimalInput);
+    this.setInputMethod(QueryBuilderConstants.INPUT_SELECT, QueryBuilderSelectInput);
+    this.setInputMethod(QueryBuilderConstants.INPUT_DATE, QueryBuilderDateInput);
+    this.setInputMethod(QueryBuilderConstants.INPUT_BOOL, QueryBuilderBooleanInput);
+    this.setInputMethod(QueryBuilderConstants.INPUT_AGE, QueryBuilderAgeInput);
+    this.setInputMethod(QueryBuilderConstants.INPUT_BETWEEN, QueryBuilderBetweenInput);
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_EQUALS, 'Equals');
-    this.setComparatorName(
-      QueryBuilderConstants.COMPARATOR_EQUALS_INSENSITIVE,
-      'Equals (insensitive)'
-    );
-    this.setComparatorName(
-      QueryBuilderConstants.COMPARATOR_NOT_EQUALS_INSENSITIVE,
-      'Does Not Equal (insensitive)'
-    );
-    this.setComparatorName(
-      QueryBuilderConstants.COMPARATOR_NOT_EQUALS, 'Does Not Equal'
-    );
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_EQUALS_INSENSITIVE, 'Equals (insensitive)');
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_EQUALS_INSENSITIVE, 'Does Not Equal (insensitive)');
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_EQUALS, 'Does Not Equal');
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_IN, 'In');
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_IN, 'Not In');
-    this.setComparatorName(
-      QueryBuilderConstants.COMPARATOR_GREATER, 'Greater Than'
-    );
-    this.setComparatorName(
-      QueryBuilderConstants.COMPARATOR_GREATER_EQUAL, 'Greater Than or Equal to'
-    );
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_GREATER, 'Greater Than');
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_GREATER_EQUAL, 'Greater Than or Equal to');
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_LESS, 'Less Than');
-    this.setComparatorName(
-      QueryBuilderConstants.COMPARATOR_LESS_EQUAL, 'Less Than or Equal to'
-    );
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_LESS_EQUAL, 'Less Than or Equal to');
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_BETWEEN, 'Between');
-    this.setComparatorName(
-      QueryBuilderConstants.COMPARATOR_NOT_BETWEEN, 'Not Between'
-    );
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_BETWEEN, 'Not Between');
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_LIKE_IN, 'Like In');
-    this.setComparatorName(
-      QueryBuilderConstants.COMPARATOR_NOT_LIKE_IN,
-      'Not Like In'
-    );
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_LIKE_IN, 'Not Like In');
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_LIKE, 'Like');
-    this.setComparatorName(
-      QueryBuilderConstants.COMPARATOR_NOT_LIKE, 'Not Like'
-    );
-    this.setComparatorName(
-      QueryBuilderConstants.COMPARATOR_STARTS, 'Starts With'
-    );
-    this.setComparatorName(
-      QueryBuilderConstants.COMPARATOR_NOT_STARTS, 'Does Not Start With'
-    );
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_LIKE, 'Not Like');
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_STARTS, 'Starts With');
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_STARTS, 'Does Not Start With');
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_ENDS, 'Ends With');
-    this.setComparatorName(
-      QueryBuilderConstants.COMPARATOR_NOT_ENDS, 'Does Not End With'
-    );
-    this.setComparatorName(
-      QueryBuilderConstants.COMPARATOR_BEFORE, 'Was Before'
-    );
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_ENDS, 'Does Not End With');
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_BEFORE, 'Was Before');
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_AFTER, 'Was After');
 
     this.addInputTypeProcessor(
-      function (comparator, dataType)
-      {
-        if(dataType == QueryBuilderConstants.DATATYPE_NUMBER)
+      function (comparator, dataType) {
+        if(dataType === QueryBuilderConstants.DATATYPE_NUMBER)
         {
           return QueryBuilderConstants.INPUT_NUMBER;
         }
-        else if(dataType == QueryBuilderConstants.DATATYPE_DECIMAL)
+        else if(dataType === QueryBuilderConstants.DATATYPE_DECIMAL)
         {
           return QueryBuilderConstants.INPUT_DECIMAL;
         }
       }
     );
     this.addInputTypeProcessor(
-      function (comparator, dataType)
-      {
-        if(dataType == QueryBuilderConstants.DATATYPE_BOOL)
+      function (comparator, dataType) {
+        if(dataType === QueryBuilderConstants.DATATYPE_BOOL)
         {
           return QueryBuilderConstants.INPUT_BOOL;
         }
       }
     );
     this.addInputTypeProcessor(
-      function (comparator, dataType)
-      {
-        if(dataType == QueryBuilderConstants.DATATYPE_DATE)
+      function (comparator, dataType) {
+        if(dataType === QueryBuilderConstants.DATATYPE_DATE)
         {
           return QueryBuilderConstants.INPUT_DATE;
         }
       }
     );
     this.addInputTypeProcessor(
-      function (comparator, dataType)
-      {
-        if(comparator == QueryBuilderConstants.COMPARATOR_BETWEEN
-          || comparator == QueryBuilderConstants.COMPARATOR_NOT_BETWEEN)
+      function (comparator, dataType) {
+        if(comparator === QueryBuilderConstants.COMPARATOR_BETWEEN
+          || comparator === QueryBuilderConstants.COMPARATOR_NOT_BETWEEN)
         {
           return QueryBuilderConstants.INPUT_BETWEEN;
         }
       }
     );
     this.addInputTypeProcessor(
-      function (comparator, dataType)
-      {
-        if(comparator == QueryBuilderConstants.COMPARATOR_BEFORE
-          || comparator == QueryBuilderConstants.COMPARATOR_AFTER)
+      function (comparator, dataType) {
+        if(comparator === QueryBuilderConstants.COMPARATOR_BEFORE
+          || comparator === QueryBuilderConstants.COMPARATOR_AFTER)
         {
           return QueryBuilderConstants.INPUT_AGE;
         }
       }
     );
     this.addInputTypeProcessor(
-      function (comparator, dataType, rule)
-      {
+      function (comparator, dataType, rule) {
         var definition = rule.getDefinition();
         if(definition && definition.hasValues() && definition.isStrict())
         {
@@ -615,27 +526,20 @@
     this._initialisedDefinitions = false;
   }
 
-  (function ()
-  {
-    QueryBuilder.prototype.constructor = QueryBuilder;
-
-    QueryBuilder.prototype.setInputMethod = function (ident, fn)
-    {
+  (function () {
+    QueryBuilder.prototype.setInputMethod = function (ident, fn) {
       this._inputMethods[ident] = fn;
     };
 
-    QueryBuilder.prototype.getInputMethod = function (ident)
-    {
+    QueryBuilder.prototype.getInputMethod = function (ident) {
       return this._inputMethods[ident];
     };
 
-    QueryBuilder.prototype.setComparatorName = function (comparator, text)
-    {
+    QueryBuilder.prototype.setComparatorName = function (comparator, text) {
       this._comparatorNames[comparator] = text;
     };
 
-    QueryBuilder.prototype.getComparatorName = function (comparator)
-    {
+    QueryBuilder.prototype.getComparatorName = function (comparator) {
       if(this._comparatorNames[comparator])
       {
         return this._comparatorNames[comparator];
@@ -643,13 +547,11 @@
       return comparator;
     };
 
-    QueryBuilder.prototype.addInputTypeProcessor = function (fn)
-    {
+    QueryBuilder.prototype.addInputTypeProcessor = function (fn) {
       this._inputTypeProcessors.push(fn);
     };
 
-    QueryBuilder.prototype.getInputTypeForRule = function (rule)
-    {
+    QueryBuilder.prototype.getInputTypeForRule = function (rule) {
       var definition = rule.getDefinition();
       if(definition && definition.inputType)
       {
@@ -661,8 +563,7 @@
 
       var inputType = QueryBuilderConstants.INPUT_TEXT;
       $(this._inputTypeProcessors).each(
-        function ()
-        {
+        function () {
           inputType = this(rule.getComparator(), dataType, rule) || inputType;
         }
       );
@@ -674,55 +575,47 @@
      *
      * @param {Object} options
      */
-    QueryBuilder.prototype.init = function (options)
-    {
+    QueryBuilder.prototype.init = function (options) {
       var $ele = $(this._ele);
       if(!this._hasRunInit)
       {
+        var $newRow = $('<select class="qb-add-rule"></select>');
+        $newRow.append(
+          '<option selected="selected" value="">- SELECT -</option>'
+        );
+
         $ele
           .addClass('qb-container')
           .html($('<div class="qb-rules"/>'))
-          .append($('<button class="qb-button qb-add-rule">+</button>'))
+          .append($newRow)
           .on(
-            'change', '.qb-rule .qb-key', function ()
-            {
+            'change', '.qb-add-rule', function () {
+              var $container = $(this).closest('.qb-container'),
+                qb = $container.data(QB_DATA_NS);
+              qb.addRule($(this).val());
+            }
+          )
+          .on(
+            'change', '.qb-rule .qb-key', function () {
               var $rule = $(this).closest('.qb-rule'),
                 qbr = $rule.data(QB_DATA_NS_RULE);
               qbr.setKey($(this).val());
             }
           )
           .on(
-            'change', '.qb-rule .qb-comparator', function ()
-            {
+            'change', '.qb-rule .qb-comparator', function () {
               var $rule = $(this).closest('.qb-rule'),
                 qbr = $rule.data(QB_DATA_NS_RULE);
               qbr.setComparator($(this).val());
             }
           )
-          /*.on(
-           'change', '.qb-container .qb-value', function ()
-           {
-           var $container = $(this).closest('.qb-container'),
-           qb = $container.data(QB_DATA_NS),
-           $rule = $(this).closest('.qb-rule'),
-           qbr = $rule.data(QB_DATA_NS_RULE);
-           qbr.setValue($(this).val());
-           }
-           )*/
           .on(
-            'click', 'button.qb-remove-rule', function ()
-            {
+            'click', 'button.qb-remove-rule', function () {
               var $container = $(this).closest('.qb-container'),
                 qb = $container.data(QB_DATA_NS),
                 $rule = $(this).closest('.qb-rule'),
                 qbr = $rule.data(QB_DATA_NS_RULE);
               qb.removeRule(qbr);
-            }
-          )
-          .on(
-            'click', 'button.qb-add-rule', function ()
-            {
-              $(this).closest('.qb-container').QueryBuilder('addRule');
             }
           );
 
@@ -749,8 +642,7 @@
      * @param data
      * @returns {*}
      */
-    QueryBuilder.prototype.options = function (data)
-    {
+    QueryBuilder.prototype.options = function (data) {
       if(data === undefined)
       {
         return this._options;
@@ -765,8 +657,7 @@
      * @param data
      * @returns {*}
      */
-    QueryBuilder.prototype.definitions = function (data)
-    {
+    QueryBuilder.prototype.definitions = function (data) {
       var self = this;
       if(data === undefined)
       {
@@ -778,12 +669,10 @@
       if(typeof data === 'string')
       {
         $.getJSON(
-          data, {}, function (defs)
-          {
+          data, {}, function (defs) {
             self._definitions = [];
             $.each(
-              defs, function ()
-              {
+              defs, function () {
                 self._definitions.push(new QueryBuilderDefinition(this));
               }
             );
@@ -796,8 +685,7 @@
       {
         this._definitions = [];
         $.each(
-          data, function ()
-          {
+          data, function () {
             self._definitions.push(new QueryBuilderDefinition(this));
           }
         );
@@ -806,13 +694,11 @@
       }
     }; // definitions
 
-    QueryBuilder.prototype.getDefinition = function (key)
-    {
+    QueryBuilder.prototype.getDefinition = function (key) {
       var def = null;
       $.each(
-        this._definitions, function ()
-        {
-          if(this.key == key)
+        this._definitions, function () {
+          if(this.key === key)
           {
             def = this;
             return false;
@@ -826,11 +712,37 @@
      * Triggeres the event notifying of rule data
      * @private
      */
-    QueryBuilder.prototype._triggerChangeEvent = function ()
-    {
+    QueryBuilder.prototype._triggerChangeEvent = function () {
       $(this._ele).trigger(
         'change.querybuilder', [this.rules()]
       );
+    };
+
+    QueryBuilder.prototype.refreshNew = function () {
+      var self = this,
+        $newRow = $('.qb-add-rule', this._ele).empty();
+
+      $newRow.append(
+        '<option selected="selected" value="">- SELECT -</option>'
+      );
+      $.each(
+        this.definitions(), function (idx, def) {
+          var $option = $(
+            '<option value="' + def.key + '">' + this.displayName + '</option>'
+          );
+          if(def.unique)
+          {
+            console.log('def', def, self.getCount(def.key));
+            $option.addClass('unique-' + def.key);
+            if(self.getCount(def.key))
+            {
+              $option.prop('disabled', true);
+            }
+          }
+          $newRow.append($option);
+        }
+      );
+
     };
 
     /**
@@ -840,16 +752,14 @@
      * @param data
      * @returns {Array}
      */
-    QueryBuilder.prototype.rules = function (data)
-    {
+    QueryBuilder.prototype.rules = function (data) {
       var self = this;
       if(data === undefined)
       {
         // no data - return object of all rules
         var currentData = [];
         $(this._rules).each(
-          function ()
-          {
+          function () {
             var data = this.getData();
             if(data.key && data.value !== null)
             {
@@ -876,8 +786,7 @@
       else if(typeof data === 'string')
       {
         $.getJSON(
-          data, {}, function (rules)
-          {
+          data, {}, function (rules) {
             processRules.call(self, rules);
           }
         );
@@ -892,11 +801,10 @@
      * @param {String} value
      * @returns {QueryBuilderRule}
      */
-    QueryBuilder.prototype.addRule = function (key, comparator, value)
-    {
+    QueryBuilder.prototype.addRule = function (key, comparator, value) {
       this.incrementCounter(key);
       var rule = new QueryBuilderRule(this, key, comparator, value);
-      if((!key) || rule.getDefinition())
+      if(rule.getDefinition())
       {
         this._rules.push(rule);
         if(this._initialisedDefinitions)
@@ -906,13 +814,13 @@
           $(this._ele).trigger('render.querybuilder', rule);
         }
       }
+      this.refreshNew();
     };
 
     /**
      * Redraw the container
      */
-    QueryBuilder.prototype.redraw = function ()
-    {
+    QueryBuilder.prototype.redraw = function () {
       if(!(this._initialisedDefinitions))
       {
         return;
@@ -922,8 +830,7 @@
       $('.qb-rules', this._ele).empty();
 
       $.each(
-        this._rules, function ()
-        {
+        this._rules, function () {
           var $ele = this.render();
           $('.qb-rules', self._ele).append($ele);
           $(self._ele).trigger('render.querybuilder', this);
@@ -934,15 +841,13 @@
       {
         // add any required fields which are not already added
         $.each(
-          self._definitions, function ()
-          {
+          self._definitions, function () {
             if(this.required)
             {
               var def = this, found = false;
               $.each(
-                self._rules, function ()
-                {
-                  if(this.getKey() == def.key)
+                self._rules, function () {
+                  if(this.getKey() === def.key)
                   {
                     found = true;
                   }
@@ -960,49 +865,39 @@
         {
           var count = 0;
           $.each(
-            this._definitions, function ()
-            {
+            this._definitions, function () {
               if(!this.unique)
               {
                 count++;
               }
             }
           );
-          if(!count)
-          {
-            $('.qb-add-rule').hide();
-          }
         }
       }
       if(this._initialisedRules)
       {
         self._triggerChangeEvent();
       }
+      this.refreshNew();
     }; // redraw
 
-    QueryBuilder.prototype.removeRule = function (rule, noEmptyRule)
-    {
+    QueryBuilder.prototype.removeRule = function (rule) {
       var self = this, key = rule.getKey();
       this.decrementCounter(key);
       rule.removeElement();
       $.each(
-        this._rules, function (idx)
-        {
-          if(this == rule)
+        this._rules, function (idx) {
+          if(this === rule)
           {
             self._rules.splice(idx, 1);
           }
         }
       );
-      if((!$('.qb-rule', this._ele).length) && (!noEmptyRule))
-      {
-        this.addRule('', '', null);
-      }
       this._triggerChangeEvent();
+      this.refreshNew();
     }; // removeRule
 
-    QueryBuilder.prototype.getCount = function (key)
-    {
+    QueryBuilder.prototype.getCount = function (key) {
       var def = this.getDefinition(key);
       if(def)
       {
@@ -1011,18 +906,17 @@
       return 0;
     };
 
-    QueryBuilder.prototype.changeCount = function (oldKey, newKey)
-    {
+    QueryBuilder.prototype.changeCount = function (oldKey, newKey) {
       this.decrementCounter(oldKey);
       this.incrementCounter(newKey);
     };
 
-    QueryBuilder.prototype.incrementCounter = function (key)
-    {
+    QueryBuilder.prototype.incrementCounter = function (key) {
       var def = this.getDefinition(key);
       if(def)
       {
         def.count++;
+        console.log('inc', key);
         if(def.unique)
         {
           $('.qb-key .unique-' + key, this._ele).prop('disabled', true);
@@ -1030,9 +924,8 @@
         if(def.required && def.count > 1)
         {
           $.each(
-            this._rules, function ()
-            {
-              if(this.getKey() == key)
+            this._rules, function () {
+              if(this.getKey() === key)
               {
                 $('.qb-remove-rule', this.getElement()).show();
                 $('.qb-key', this.getElement()).prop('disabled', false);
@@ -1043,24 +936,22 @@
       }
     };
 
-    QueryBuilder.prototype.decrementCounter = function (key)
-    {
+    QueryBuilder.prototype.decrementCounter = function (key) {
       var def = this.getDefinition(key);
       if(def)
       {
         def.count--;
-        if(def.unique && def.count == 0)
+        if(def.unique && def.count === 0)
         {
           // allow this on all again
           $('.qb-key .unique-' + key, this._ele).prop('disabled', false);
         }
-        if(def.required && def.count == 1)
+        if(def.required && def.count === 1)
         {
           // remove the delete button
           $.each(
-            this._rules, function ()
-            {
-              if(this.getKey() == key)
+            this._rules, function () {
+              if(this.getKey() === key)
               {
                 $('.qb-remove-rule', this.getElement()).hide();
               }
@@ -1070,8 +961,7 @@
       }
     };
 
-    function processRules(data)
-    {
+    function processRules(data) {
       if(this._definitions.length > 0)
       {
         _processRules.call(this, data);
@@ -1080,8 +970,7 @@
       {
         var self = this,
           intervalId = setInterval(
-            function ()
-            {
+            function () {
               if(self._definitions.length > 0)
               {
                 _processRules.call(self, data);
@@ -1092,23 +981,21 @@
       }
     }
 
-    function _processRules(data)
-    {
+    function _processRules(data) {
       var self = this;
 
       while(this._rules.length)
       {
-        self.removeRule(this._rules[0], true);
+        self.removeRule(this._rules[0]);
       }
 
       if(data)
       {
         $.each(
-          data, function (key)
-          {
+          data, function (key) {
             var definition = self.getDefinition(key),
               defaultComparator = definition ? definition.comparators[0] : 'eq';
-            if(typeof this == 'object')
+            if(typeof this === 'object')
             {
               if(this instanceof String)
               {
@@ -1135,18 +1022,13 @@
         );
         self._initialisedRules = true;
         this.redraw();
-        if(!self._rules.length)
-        {
-          self.addRule('', '', null);
-        }
       }
     }
   })();
 
-  function drawSelect(options, value)
-  {
+  function drawSelect(options, value) {
     var $select = $('<select/>');
-    if(value && Object.keys(options).indexOf(value) == -1)
+    if(value && Object.keys(options).indexOf(value) === -1)
     {
       var $option = $('<option/>').text(value).attr('value', value);
       $option.prop('selected', true);
@@ -1154,10 +1036,9 @@
       $select.append($option);
     }
     $.each(
-      options, function (idx)
-      {
+      options, function (idx) {
         var $option = $('<option/>').text(this).attr('value', idx);
-        if(idx == value)
+        if(idx === value)
         {
           $option.prop('selected', true);
         }
@@ -1167,10 +1048,8 @@
     return $select;
   } // drawSelect
 
-  var QueryBuilderTextInput = (function ()
-  {
-    function Constructor(rule)
-    {
+  var QueryBuilderTextInput = (function () {
+    function Constructor(rule) {
       this._rule = rule;
       if(this._rule._value === null)
       {
@@ -1178,12 +1057,10 @@
       }
     }
 
-    Constructor.prototype.render = function ()
-    {
+    Constructor.prototype.render = function () {
       var self = this;
       return $('<input type="text"/>').attr('value', this._rule._value).on(
-        'change', function ()
-        {
+        'change', function () {
           self._rule._setValue($(this).val());
         }
       );
@@ -1192,10 +1069,8 @@
     return Constructor;
   })();
 
-  var QueryBuilderBooleanInput = (function ()
-  {
-    function Constructor(rule)
-    {
+  var QueryBuilderBooleanInput = (function () {
+    function Constructor(rule) {
       this._rule = rule;
       if(this._rule._value === null)
       {
@@ -1203,14 +1078,12 @@
       }
     }
 
-    Constructor.prototype.render = function ()
-    {
+    Constructor.prototype.render = function () {
       var self = this;
       return drawSelect(
         {'1': 'True', '0': 'False'}, this._rule._value
       ).on(
-        'change', function ()
-        {
+        'change', function () {
           self._rule._setValue($(this).val());
         }
       );
@@ -1219,10 +1092,8 @@
     return Constructor;
   })();
 
-  var QueryBuilderSelectInput = (function ()
-  {
-    function Constructor(rule)
-    {
+  var QueryBuilderSelectInput = (function () {
+    function Constructor(rule) {
       this._rule = rule;
       if(this._rule._value === null)
       {
@@ -1230,8 +1101,7 @@
       }
     }
 
-    Constructor.prototype.sanitize = function (value)
-    {
+    Constructor.prototype.sanitize = function (value) {
       if(typeof(value) === 'object' && value && value.length)
       {
         return value.length > 0 ? value[0] : null;
@@ -1239,14 +1109,12 @@
       return value;
     };
 
-    Constructor.prototype.render = function ()
-    {
+    Constructor.prototype.render = function () {
       var self = this;
       return drawSelect(
         this._rule.getDefinition().values, this._rule._value
       ).on(
-        'change', function ()
-        {
+        'change', function () {
           self._rule._setValue($(this).val());
         }
       );
@@ -1255,10 +1123,8 @@
     return Constructor;
   })();
 
-  var QueryBuilderDecimalInput = (function ()
-  {
-    function Constructor(rule)
-    {
+  var QueryBuilderDecimalInput = (function () {
+    function Constructor(rule) {
       this._rule = rule;
       if(this._rule._value === null)
       {
@@ -1266,14 +1132,12 @@
       }
     }
 
-    Constructor.prototype.render = function ()
-    {
+    Constructor.prototype.render = function () {
       var self = this;
       return $('<input type="number" step="0.01" />')
         .attr('value', this._rule._value)
         .on(
-          'change', function ()
-          {
+          'change', function () {
             self._rule._setValue($(this).val());
           }
         );
@@ -1282,10 +1146,8 @@
     return Constructor;
   })();
 
-  var QueryBuilderNumberInput = (function ()
-  {
-    function Constructor(rule)
-    {
+  var QueryBuilderNumberInput = (function () {
+    function Constructor(rule) {
       this._rule = rule;
       if(this._rule._value === null)
       {
@@ -1293,16 +1155,14 @@
       }
     }
 
-    Constructor.prototype.render = function ()
-    {
+    Constructor.prototype.render = function () {
       var self = this;
       return $('<input type="number" />')
         .attr(
           'value', this._rule._value
         )
         .on(
-          'change', function ()
-          {
+          'change', function () {
             self._rule._setValue($(this).val());
           }
         );
@@ -1311,10 +1171,8 @@
     return Constructor;
   })();
 
-  var QueryBuilderDateInput = (function ()
-  {
-    function Constructor(rule)
-    {
+  var QueryBuilderDateInput = (function () {
+    function Constructor(rule) {
       this._rule = rule;
       if(this._rule._value === null)
       {
@@ -1322,8 +1180,7 @@
       }
     }
 
-    function getToday()
-    {
+    function getToday() {
       var d = new Date();
       var today = d.getFullYear();
       today += '-' + ('0' + (d.getMonth() + 1)).slice(-2);
@@ -1331,14 +1188,12 @@
       return today;
     }
 
-    Constructor.prototype.render = function ()
-    {
+    Constructor.prototype.render = function () {
       var self = this;
       return $('<input type="date" />')
         .val(this._rule._value)
         .on(
-          'change', function ()
-          {
+          'change', function () {
             self._rule._setValue($(this).val());
           }
         );
@@ -1347,10 +1202,8 @@
     return Constructor;
   })();
 
-  var QueryBuilderAgeInput = (function ()
-  {
-    function Constructor(rule)
-    {
+  var QueryBuilderAgeInput = (function () {
+    function Constructor(rule) {
       this._rule = rule;
       if(this._rule._value === null)
       {
@@ -1358,8 +1211,7 @@
       }
     }
 
-    Constructor.prototype.render = function ()
-    {
+    Constructor.prototype.render = function () {
       var self = this,
         value = this._rule._value,
         unit = 1,
@@ -1385,8 +1237,7 @@
 
       // find unit and mutate value
       $.each(
-        sortedUnits.slice().reverse(), function (idx, v)
-        {
+        sortedUnits.slice().reverse(), function (idx, v) {
           if(value % v[1] === 0)
           {
             unit = v[1];
@@ -1397,8 +1248,7 @@
       );
 
       $.each(
-        sortedUnits, function (idx, v)
-        {
+        sortedUnits, function (idx, v) {
           var $option = $('<option>').val(v[1]).text(v[0]);
           if(unit === v[1])
           {
@@ -1424,8 +1274,7 @@
       // create event to set the value
       var $return = $().add($count).add($unit).add($negate);
       $return.on(
-        'change', function ()
-        {
+        'change', function () {
           self._rule._setValue($count.val() * $unit.val() * $negate.val());
         }
       );
@@ -1435,14 +1284,12 @@
     return Constructor;
   })();
 
-  var QueryBuilderBetweenInput = (function ()
-  {
-    function Constructor(rule)
-    {
+  var QueryBuilderBetweenInput = (function () {
+    function Constructor(rule) {
       this._rule = rule;
       if(this._rule._value === null)
       {
-        if(this._rule.getDefinition().dataType == QueryBuilderConstants.DATATYPE_DATE)
+        if(this._rule.getDefinition().dataType === QueryBuilderConstants.DATATYPE_DATE)
         {
           this._rule._setValue(getToday() + ',' + getToday());
         }
@@ -1453,8 +1300,7 @@
       }
     }
 
-    function getToday()
-    {
+    function getToday() {
       var d = new Date();
       var today = d.getFullYear();
       today += '-' + ('0' + (d.getMonth() + 1)).slice(-2);
@@ -1462,8 +1308,7 @@
       return today;
     }
 
-    Constructor.prototype.render = function ()
-    {
+    Constructor.prototype.render = function () {
       var self = this,
         values = this._rule._value.split(','),
         $min = $('<input class="qb-between-min">'),
@@ -1492,8 +1337,7 @@
       // create event to set the value
       var $return = $().add($min).add($max);
       $return.on(
-        'change', function ()
-        {
+        'change', function () {
           self._rule._setValue($min.val() + ',' + $max.val());
         }
       );
