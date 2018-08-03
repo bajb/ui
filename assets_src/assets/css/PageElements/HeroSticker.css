@@ -1,6 +1,7 @@
 .f-hero-sticker {
   display: flex;
   align-items: center;
+  text-align: center;
   flex-direction: column;
   justify-content: center;
   width: 124px;
