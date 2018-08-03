@@ -732,7 +732,6 @@
           );
           if(def.unique)
           {
-            console.log('def', def, self.getCount(def.key));
             $option.addClass('unique-' + def.key);
             if(self.getCount(def.key))
             {
@@ -916,7 +915,6 @@
       if(def)
       {
         def.count++;
-        console.log('inc', key);
         if(def.unique)
         {
           $('.qb-key .unique-' + key, this._ele).prop('disabled', true);
