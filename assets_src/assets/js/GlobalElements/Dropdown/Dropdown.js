@@ -10,7 +10,8 @@
     $(dropdowns).each(function () {
       var tree = $(e.target).parents().addBack();
       if(this.isOpen() && isConnected(e.target)
-        && !((tree.index(this._action) > -1) || (tree.index(this._content) > -1))
+        && (tree.index(this._action) === -1)
+        && (tree.index(this._content) === -1)
       )
       {
         this.close();
