@@ -49,7 +49,7 @@
   };
 
   Dropdown.prototype.isOpen = function () {
-    return isConnected(this._content[0]);
+    return this._content.parent().is('body');
   };
 
   Dropdown.prototype.toggle = function () {
@@ -69,6 +69,14 @@
     });
     xhr.open('GET', this._action.attr('data-content-url'));
     xhr.send();
+  };
+
+  Dropdown.prototype.close = function () {
+    if(this.triggerEvent('close', {cancelable: true}))
+    {
+      this._content.appendTo(this._action);
+      this.triggerEvent('closed');
+    }
   };
 
   Dropdown.prototype.open = function () {
@@ -101,14 +109,6 @@
     }
   };
 
-  Dropdown.prototype.close = function () {
-    if(this.triggerEvent('close', {cancelable: true}))
-    {
-      this._content.detach();
-      this.triggerEvent('closed');
-    }
-  };
-
   Dropdown.prototype.init = function (options) {
     if(!this._isInitialised)
     {
@@ -128,7 +128,7 @@
       }
       else
       {
-        this._content = $('.dropdown-content', this._ele).detach();
+        this._content = $('.dropdown-content', this._ele);
       }
       this._content.data(DATA_NS, this);
 
