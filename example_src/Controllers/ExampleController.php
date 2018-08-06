@@ -195,17 +195,20 @@ class ExampleController extends LayoutController
     $policy = [
       [
         'key'        => 'browser',
-        'comparator' => 'in',
+        'comparator' => QBD::COMPARATOR_IN,
         'value'      => ['chrome', 'firefox', 'kdsfgkjsdgohwego'],
       ],
       [
         'key'        => 'browser',
-        'comparator' => 'eq',
+        'comparator' => QBD::COMPARATOR_EQUALS,
         'value'      => '"><script>alert(\'break\')</script>',
       ],
-      ['key' => 'expiryDate', 'comparator' => 'eq', 'value' => date('Y-m-d')],
+      ['key'        => 'expiryDate',
+       'comparator' => QBD::COMPARATOR_BETWEEN,
+       'value'      => date('Y-m-d', time() - 86401) . ',' . date('Y-m-d'),
+      ],
       'sid' => ['12'],
-      ['key' => 'aaa', 'comparator' => 'eq', 'value' => 'test3'],
+      ['key' => 'aaa', 'comparator' => QBD::COMPARATOR_EQUALS, 'value' => 'test3'],
     ];
     return $policy;
   }

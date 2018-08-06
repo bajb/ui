@@ -149,9 +149,19 @@
    * @constructor
    */
   function QueryBuilderRule(queryBuilder, key, comparator, value) {
+    var definition;
+    if(key)
+    {
+      definition = queryBuilder.getDefinition(key);
+      if(definition && !comparator)
+      {
+        comparator = definition.comparators[0]
+      }
+    }
+
     this._queryBuilder = queryBuilder;
     this._key = key || '';
-    this._comparator = comparator || '';
+    this._comparator = comparator || 'eq';
 
     // normalise value to remove invalid values if array
     if(value instanceof Object)
@@ -159,7 +169,6 @@
       value = $.grep(value, function (n) { return (!!n); });
       if(value.length)
       {
-        var definition = this.getDefinition();
         if(definition && definition.values && (!definition.valuesUrl))
         {
           value = $.grep(
