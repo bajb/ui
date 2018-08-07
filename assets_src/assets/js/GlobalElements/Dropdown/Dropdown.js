@@ -60,15 +60,18 @@
     var self = this;
     var $content = this._content;
     var xhr = new XMLHttpRequest();
-    xhr.addEventListener('readystatechange', function () {
-      if(xhr.readyState === XMLHttpRequest.DONE)
-      {
-        $content.html(xhr.response);
-        self.reposition();
-      }
-    });
-    xhr.open('GET', this._action.attr('data-content-url'));
-    xhr.send();
+    if(this.triggerEvent('content-request', {cancelable: true, detail: {xhr: xhr}}))
+    {
+      xhr.addEventListener('readystatechange', function () {
+        if(xhr.readyState === XMLHttpRequest.DONE)
+        {
+          $content.html(xhr.response);
+          self.reposition();
+        }
+      });
+      xhr.open('GET', this._action.attr('data-content-url'));
+      xhr.send();
+    }
   };
 
   Dropdown.prototype.close = function () {
