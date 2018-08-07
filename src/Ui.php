@@ -282,9 +282,7 @@ final class Ui
 
     if($fontAwesome)
     {
-      $am->requireCss(
-        'assets/vendor/fonts/fontawesome/css/font-awesome.min'
-      );
+      $am->requireJs('https://use.fontawesome.com/releases/v5.0.13/js/all.js');
     }
   }
 

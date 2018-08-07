@@ -10,7 +10,6 @@ use Fortifi\Ui\Interfaces\IColours;
 use Fortifi\Ui\Traits\DataAttributesTrait;
 use Fortifi\Ui\Traits\SetIdTrait;
 use Fortifi\Ui\UiElement;
-use Packaged\Dispatch\AssetManager;
 use Packaged\Glimpse\Core\HtmlTag;
 use Packaged\Glimpse\Tags\Div;
 use Packaged\Glimpse\Tags\Link;
@@ -45,20 +44,6 @@ class Card extends UiElement implements IColours, ICardActionType
   protected $_colourBackground = false;
   /** @var int */
   protected $_maxDescription = 512;
-
-  /**
-   * Require Assets
-   *
-   * @param AssetManager $assetManager
-   * @param bool         $vendor
-   */
-  public function processIncludes(AssetManager $assetManager, $vendor = false)
-  {
-    if(!$vendor)
-    {
-      $assetManager->requireJs('https://use.fontawesome.com/releases/v5.0.13/js/all.js');
-    }
-  }
 
   /**
    * @param $content
