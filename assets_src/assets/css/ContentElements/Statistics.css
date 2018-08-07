@@ -19,6 +19,10 @@
   min-width: 180px;
 }
 
+.f-statistic:hover {
+  text-decoration: none;
+}
+
 .f-statistic-value {
   font-size: 22px;
 }
@@ -37,4 +41,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.f-statistic-append {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.f-statistic-append > div {
+  width: 100%;
+  font-size: 14px;
+}
+
+.f-statistics-panel.with-bg .f-statistic {
+  color: #FFFFFF;
+}
+
+.f-statistics-panel.with-bg .f-statistic-icon {
+  background: #FFFFFF;
 }
