@@ -27,7 +27,6 @@ class DropdownView extends AbstractUiExampleView
    */
   final public function contentDropdown()
   {
-
     $div = Div::create(
       [
         QueryBuilder::create(
@@ -51,7 +50,22 @@ class DropdownView extends AbstractUiExampleView
     );
 
     $d = Dropdown::i();
+    $d->addClass('btn', 'btn-success');
     $d->setAction('Open QueryBuilder');
+    $d->setContent($div);
+    return $d;
+  }
+
+  /**
+   * @group Dropdowns
+   */
+  final public function arrowDropdown()
+  {
+    $div = Div::create('here is some content');
+
+    $d = Dropdown::i();
+    $d->setArrow(true);
+    $d->setAction('Open with arrow');
     $d->setContent($div);
     return $d;
   }

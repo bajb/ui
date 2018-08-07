@@ -10,6 +10,8 @@ class Dropdown extends UiElement
   protected $_action;
   protected $_url;
   protected $_content;
+  protected $_arrow = false;
+  protected $_classes = [];
 
   /**
    * Require Assets
@@ -40,6 +42,29 @@ class Dropdown extends UiElement
   public function getAction()
   {
     return $this->_action;
+  }
+
+  public function setArrow($bool)
+  {
+    $this->_arrow = (bool)$bool;
+    return $this;
+  }
+
+  public function getArrow()
+  {
+    return $this->_arrow;
+  }
+
+  public function addClass(...$class)
+  {
+    $this->_classes = array_unique(array_merge($this->_classes, $class));
+    return $this;
+  }
+
+  public function removeClass(...$class)
+  {
+    $this->_classes = array_diff($this->_classes, $class);
+    return $this;
   }
 
   /**
@@ -86,6 +111,16 @@ class Dropdown extends UiElement
   protected function _produceHtml()
   {
     $action = Div::create($this->getAction())->addClass('dropdown-action');
+    if($this->getArrow())
+    {
+      $action->addClass('dropdown-arrow');
+    }
+
+    foreach($this->_classes as $class)
+    {
+      $action->addClass($class);
+    }
+
     if($this->getUrl())
     {
       $action->setAttribute('data-content-url', $this->getUrl());
