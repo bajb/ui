@@ -60,7 +60,6 @@
     var self = this;
     var $content = this._content;
     var xhr = new XMLHttpRequest();
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     if(this.triggerEvent('content-request', {cancelable: true, detail: {xhr: xhr}}))
     {
       xhr.addEventListener('readystatechange', function () {
@@ -71,6 +70,7 @@
         }
       });
       xhr.open('GET', this._action.attr('data-content-url'));
+      xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
       xhr.send();
     }
   };
