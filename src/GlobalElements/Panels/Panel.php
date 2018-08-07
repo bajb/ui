@@ -88,7 +88,6 @@ class Panel extends UiElement
    * @param $content
    *
    * @return $this
-   * @throws \Exception
    */
   public function setHeader($content)
   {
