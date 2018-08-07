@@ -10,7 +10,7 @@ class Dropdown extends UiElement
   protected $_action;
   protected $_url;
   protected $_content;
-  protected $_arrow = false;
+  protected $_arrow;
   protected $_classes = [];
 
   /**
@@ -44,9 +44,9 @@ class Dropdown extends UiElement
     return $this->_action;
   }
 
-  public function setArrow($bool)
+  public function setArrow($bool = true)
   {
-    $this->_arrow = (bool)$bool;
+    $this->_arrow = $bool;
     return $this;
   }
 
@@ -110,27 +110,28 @@ class Dropdown extends UiElement
    */
   protected function _produceHtml()
   {
-    $action = Div::create($this->getAction())->addClass('dropdown-action');
-    if($this->getArrow())
+    $action = $this->getAction();
+    $actionContainer = Div::create($action)->addClass('dropdown-action');
+    if($this->getArrow() === true || ($this->getArrow() === null && is_string($action)))
     {
-      $action->addClass('dropdown-arrow');
+      $actionContainer->addClass('dropdown-arrow');
     }
 
     foreach($this->_classes as $class)
     {
-      $action->addClass($class);
+      $actionContainer->addClass($class);
     }
 
     if($this->getUrl())
     {
-      $action->setAttribute('data-content-url', $this->getUrl());
+      $actionContainer->setAttribute('data-content-url', $this->getUrl());
     }
     else
     {
-      $action->appendContent(
+      $actionContainer->appendContent(
         Div::create($this->getContent())->addClass('dropdown-content')
       );
     }
-    return $action;
+    return $actionContainer;
   }
 }

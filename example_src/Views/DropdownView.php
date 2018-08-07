@@ -59,13 +59,12 @@ class DropdownView extends AbstractUiExampleView
   /**
    * @group Dropdowns
    */
-  final public function arrowDropdown()
+  final public function textDropdown()
   {
     $div = Div::create('here is some content');
 
     $d = Dropdown::i();
-    $d->setArrow(true);
-    $d->setAction('Open with arrow');
+    $d->setAction('Simple text dropdown');
     $d->setContent($div);
     return $d;
   }
