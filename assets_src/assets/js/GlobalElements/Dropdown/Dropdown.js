@@ -71,6 +71,7 @@
       });
       xhr.open('GET', this._action.attr('data-content-url'));
       xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+      xhr.setRequestHeader('X-Fortifi-Req-With', 'ui.dropdown');
       xhr.send();
     }
   };
