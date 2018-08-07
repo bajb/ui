@@ -374,12 +374,12 @@
       }
 
       var $removeButton = $(
-        '<button class="qb-button qb-remove-rule">x</button>'
+        '<button class="qb-button qb-remove-rule"><span class="fa fa-trash"></span></button>'
       );
       $row.append($removeButton);
       if(definition && definition.required && definition.count <= 1)
       {
-        $removeButton.hide();
+        $removeButton.prop('disabled', true);
       }
 
       if(!definition && this.getKey())
@@ -934,7 +934,7 @@
             this._rules, function () {
               if(this.getKey() === key)
               {
-                $('.qb-remove-rule', this.getElement()).show();
+                $('.qb-remove-rule', this.getElement()).prop('disabled', false);
                 $('.qb-key', this.getElement()).prop('disabled', false);
               }
             }
@@ -960,7 +960,7 @@
             this._rules, function () {
               if(this.getKey() === key)
               {
-                $('.qb-remove-rule', this.getElement()).hide();
+                $('.qb-remove-rule', this.getElement()).prop('disabled', true);
               }
             }
           );
