@@ -102,6 +102,11 @@ abstract class AbstractUiExampleView extends ViewModel
     return $output;
   }
 
+  public function getDisplayName()
+  {
+    return Strings::humanize(substr(basename(str_replace('\\', '/', get_called_class())),0,-4));
+  }
+
   /**
    * Get the source code for the method
    *

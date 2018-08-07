@@ -26,19 +26,9 @@
 <div id="title-bar">
   <h1>Fortifi UI</h1>
   <ul class="title-bar-nav">
-    <li><a href="/alerts">Alerts</a></li>
-    <li><a href="/panels">Panels</a></li>
-    <li><a href="/colours">Colours</a></li>
-    <li><a href="/navigation">Navigation</a></li>
-    <li><a href="/objectlist">Object Lists</a></li>
-    <li><a href="/querybuilder">Query Builder</a></li>
-    <li><a href="/flipper">Flipper</a></li>
-    <li><a href="/icons">Icons</a></li>
-    <li><a href="/cards">Cards</a></li>
-    <li><a href="/avatars">Avatars</a></li>
-    <li><a href="/text">Text</a></li>
-    <li><a href="/page">Page Elements</a></li>
-    <li><a href="/dropdowns">Dropdowns</a></li>
+    <?php foreach($this->getData('views') as $uri => $obj) { ?>
+      <li><a href="/<?= $uri; ?>"><?= $obj->getDisplayName(); ?></a></li>
+    <?php } ?>
   </ul>
 </div>
 

@@ -7,62 +7,40 @@ use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDataType as QBDT;
 use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDefinition as QBD;
 use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDefinitions;
 use Fortifi\Ui\ProjectSupport\FortifiUiLayout;
-use Fortifi\UiExample\Views\AlertsView;
-use Fortifi\UiExample\Views\AvatarView;
-use Fortifi\UiExample\Views\CardsView;
-use Fortifi\UiExample\Views\ColoursView;
-use Fortifi\UiExample\Views\DropdownView;
-use Fortifi\UiExample\Views\FlipperView;
-use Fortifi\UiExample\Views\IconsView;
-use Fortifi\UiExample\Views\ObjectListsView;
-use Fortifi\UiExample\Views\PageElementsView;
-use Fortifi\UiExample\Views\PageNavigationView;
-use Fortifi\UiExample\Views\PanelsView;
-use Fortifi\UiExample\Views\QueryBuilderView;
-use Fortifi\UiExample\Views\TextView;
 use Packaged\Glimpse\Tags\Div;
 use Packaged\Helpers\Arrays;
+use Packaged\Helpers\Objects;
 
 class ExampleController extends LayoutController
 {
+  protected $_views = [];
+
   protected function _init()
   {
-    $this->setLayout(new FortifiUiLayout($this));
+    $views = glob(dirname(__DIR__) . '/Views/*View.php');
+    foreach($views as $view)
+    {
+      $view = basename($view);
+      if($view == 'AbstractUiExampleView.php')
+      {
+        continue;
+      }
+      $key = strtolower(substr($view, 0, -8));
+      $obj = Objects::create('Fortifi\\UiExample\\Views\\' . substr($view, 0, -4), []);
+      $this->_views[$key] = $obj;
+    }
+    $layout = new FortifiUiLayout($this);
+    $layout->setData('views', $this->_views);
+    $this->setLayout($layout);
   }
 
   public function defaultAction($page = null)
   {
-    switch($page)
+    if(isset($this->_views[$page]))
     {
-      case 'alerts':
-        return new AlertsView();
-      case 'panels':
-        return new PanelsView();
-      case 'colours':
-        return new ColoursView();
-      case 'navigation':
-        return new PageNavigationView();
-      case 'text':
-        return new TextView();
-      case 'objectlist':
-        return new ObjectListsView();
-      case 'querybuilder':
-        return new QueryBuilderView();
-      case 'flipper':
-        return new FlipperView();
-      case 'icons':
-        return new IconsView();
-      case 'cards':
-        return new CardsView();
-      case 'avatars':
-        return new AvatarView();
-      case 'page':
-        return new PageElementsView();
-      case 'dropdowns':
-        return new DropdownView();
-      default:
-        return 'Coming Soon';
+      return $this->_views[$page];
     }
+    return 'Page Unavailable';
   }
 
   public function getRoutes()
@@ -203,9 +181,10 @@ class ExampleController extends LayoutController
         'comparator' => QBD::COMPARATOR_EQUALS,
         'value'      => '"><script>alert(\'break\')</script>',
       ],
-      ['key'        => 'expiryDate',
-       'comparator' => QBD::COMPARATOR_BETWEEN,
-       'value'      => date('Y-m-d', time() - 86401) . ',' . date('Y-m-d'),
+      [
+        'key'        => 'expiryDate',
+        'comparator' => QBD::COMPARATOR_BETWEEN,
+        'value'      => date('Y-m-d', time() - 86401) . ',' . date('Y-m-d'),
       ],
       'sid' => ['12'],
       ['key' => 'aaa', 'comparator' => QBD::COMPARATOR_EQUALS, 'value' => 'test3'],
