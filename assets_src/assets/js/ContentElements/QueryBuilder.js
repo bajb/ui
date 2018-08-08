@@ -142,10 +142,10 @@
   })();
 
   /**
-   * @param queryBuilder
-   * @param key
-   * @param comparator
-   * @param value
+   * @param {QueryBuilder} queryBuilder
+   * @param {String?} key
+   * @param {String?} comparator
+   * @param {String?} value
    * @constructor
    */
   function QueryBuilderRule(queryBuilder, key, comparator, value) {
@@ -280,7 +280,7 @@
       }
       this.render();
       this._queryBuilder._triggerChangeEvent();
-      this.refreshNew();
+      this._queryBuilder.refreshNew();
     };
 
     QueryBuilderRule.prototype.render = function () {
