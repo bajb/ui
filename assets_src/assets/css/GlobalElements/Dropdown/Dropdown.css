@@ -25,10 +25,9 @@
 .dropdown-action.dropdown-arrow:after {
   width: 0;
   height: 0;
-  border: 0 solid transparent;
-  border-left: 3.5px solid transparent;
-  border-right: 3.5px solid transparent;
-  border-top: 3.5px solid #a6b2c7;
+  border: 3px solid transparent;
+  border-top-color: #a6b2c7;
+  border-bottom-width: 0;
   content: "";
   position: absolute;
   right: 0;
