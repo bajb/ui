@@ -69,7 +69,7 @@
           self.reposition();
         }
       });
-      xhr.open('GET', this._action.attr('data-content-url'));
+      xhr.open('GET', this._options.contentUrl);
       xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
       xhr.setRequestHeader('X-Fortifi-Req-With', 'ui.dropdown');
       xhr.send();
@@ -101,16 +101,31 @@
       $content.css({left: '', top: ''});
 
       var
+        css = {},
         left = $action.offset().left,
-        right = left + $content.outerWidth(true),
-        top = $action.offset().top + $action.outerHeight(true);
+        right = left + $content.outerWidth(true);
 
       if(right > window.innerWidth - this._options.margin)
       {
-        left = Math.max(2, left - (right - window.innerWidth) - this._options.margin);
+        css.left = Math.max(2, left - (right - window.innerWidth) - this._options.margin);
+      }
+      else
+      {
+        css.left = left;
       }
 
-      $content.css({left: left, top: top});
+      switch(this._options.position)
+      {
+        case 'top':
+          css.top = $action.offset().top - $content.outerHeight(true);
+          break;
+        case 'bottom':
+        default:
+          css.top = $action.offset().top + $action.outerHeight(true);
+          break;
+      }
+
+      $content.css(css);
     }
   };
 
@@ -118,12 +133,13 @@
     if(!this._isInitialised)
     {
       var self = this;
-      options = $.extend({margin: 10}, options);
+      console.log($(this._ele).data());
+      options = $.extend({margin: 10, position: 'bottom', contentUrl: null}, $(this._ele).data(), options);
       this._options = options;
 
       this._action = $(this._ele).on('click', this.toggle.bind(this));
 
-      if(this._action.attr('data-content-url'))
+      if(this._options.contentUrl)
       {
         this._action.on('mouseenter', function () {
           self.refreshContent();

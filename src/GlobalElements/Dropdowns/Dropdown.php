@@ -11,6 +11,7 @@ class Dropdown extends UiElement
   protected $_url;
   protected $_content;
   protected $_arrow;
+  protected $_position;
   protected $_classes = [];
 
   /**
@@ -42,6 +43,17 @@ class Dropdown extends UiElement
   public function getAction()
   {
     return $this->_action;
+  }
+
+  public function setPosition($position)
+  {
+    $this->_position = $position;
+    return $this;
+  }
+
+  public function getPosition()
+  {
+    return $this->_position;
   }
 
   public function setArrow($bool = true)
@@ -120,6 +132,11 @@ class Dropdown extends UiElement
     foreach($this->_classes as $class)
     {
       $actionContainer->addClass($class);
+    }
+
+    if($this->getPosition())
+    {
+      $actionContainer->setAttribute('data-position', $this->getPosition());
     }
 
     if($this->getUrl())

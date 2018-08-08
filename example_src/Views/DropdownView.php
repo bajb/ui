@@ -68,4 +68,18 @@ class DropdownView extends AbstractUiExampleView
     $d->setContent($div);
     return $d;
   }
+
+  /**
+   * @group Dropdowns
+   */
+  final public function textDropup()
+  {
+    $div = Div::create('here is some content');
+
+    $d = Dropdown::i();
+    $d->setPosition('top');
+    $d->setAction('Simple text dropup');
+    $d->setContent($div);
+    return $d;
+  }
 }
