@@ -133,7 +133,6 @@
     if(!this._isInitialised)
     {
       var self = this;
-      console.log($(this._ele).data());
       options = $.extend({margin: 10, position: 'bottom', contentUrl: null}, $(this._ele).data(), options);
       this._options = options;
 
