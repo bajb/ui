@@ -32,5 +32,6 @@
   content: "";
   position: absolute;
   right: 0;
-  margin: 6px 0 0;
+  top: 50%;
+  margin-top: -2px;
 }
