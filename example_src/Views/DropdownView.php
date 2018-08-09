@@ -82,4 +82,12 @@ class DropdownView extends AbstractUiExampleView
     $d->setContent($div);
     return $d;
   }
+
+  public function render()
+  {
+    AssetManager::sourceType()->requireInlineJs(
+      '$(function(){$(".dropdown-action").Dropdown();})'
+    );
+    return parent::render();
+  }
 }
