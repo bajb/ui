@@ -82,6 +82,48 @@ class AvatarView extends AbstractUiExampleView
    * @group Text Avatars
    * @throws \Exception
    */
+  final public function smallTextAvatars()
+  {
+    $divs = Div::create([]);
+    $divs->appendContent(TextAvatar::create("Brooke Bryan")->setColour(TextAvatar::COLOUR_RED)->sizeSmall());
+    $divs->appendContent(TextAvatar::create("BB")->setColour(TextAvatar::COLOUR_ORANGE)->sizeSmall());
+    $divs->appendContent(TextAvatar::create("Somereallylongname")->setColour(TextAvatar::COLOUR_YELLOW)->sizeSmall());
+    $divs->appendContent(TextAvatar::create("Dave John Smith")->setColour(TextAvatar::COLOUR_GREEN)->sizeSmall());
+    $divs->appendContent(TextAvatar::create("Brooke Bryan")->setColour(TextAvatar::COLOUR_SKY)->sizeSmall());
+    $divs->appendContent(TextAvatar::create("BB")->setColour(TextAvatar::COLOUR_BLUE)->sizeSmall());
+    $divs->appendContent(TextAvatar::create("Somereallylongname")->setColour(TextAvatar::COLOUR_INDIGO)->sizeSmall());
+    $divs->appendContent(TextAvatar::create("Dave John Smith")->setColour(TextAvatar::COLOUR_PINK)->sizeSmall());
+    $divs->appendContent(TextAvatar::create("Brooke Bryan")->setColour(TextAvatar::COLOUR_GREY)->sizeSmall());
+    $divs->appendContent(TextAvatar::create("BB")->setColour(TextAvatar::COLOUR_BLACK)->sizeSmall());
+    $divs->appendContent(TextAvatar::create("Somereallylongname")->setColour(TextAvatar::COLOUR_DEFAULT)->sizeSmall());
+    return $divs;
+  }
+
+  /**
+   * @group Text Avatars
+   * @throws \Exception
+   */
+  final public function mediumTextAvatars()
+  {
+    $divs = Div::create([]);
+    $divs->appendContent(TextAvatar::create("Brooke Bryan")->setColour(TextAvatar::COLOUR_RED)->sizeMedium());
+    $divs->appendContent(TextAvatar::create("BB")->setColour(TextAvatar::COLOUR_ORANGE)->sizeMedium());
+    $divs->appendContent(TextAvatar::create("Somereallylongname")->setColour(TextAvatar::COLOUR_YELLOW)->sizeMedium());
+    $divs->appendContent(TextAvatar::create("Dave John Smith")->setColour(TextAvatar::COLOUR_GREEN)->sizeMedium());
+    $divs->appendContent(TextAvatar::create("Brooke Bryan")->setColour(TextAvatar::COLOUR_SKY)->sizeMedium());
+    $divs->appendContent(TextAvatar::create("BB")->setColour(TextAvatar::COLOUR_BLUE)->sizeMedium());
+    $divs->appendContent(TextAvatar::create("Somereallylongname")->setColour(TextAvatar::COLOUR_INDIGO)->sizeMedium());
+    $divs->appendContent(TextAvatar::create("Dave John Smith")->setColour(TextAvatar::COLOUR_PINK)->sizeMedium());
+    $divs->appendContent(TextAvatar::create("Brooke Bryan")->setColour(TextAvatar::COLOUR_GREY)->sizeMedium());
+    $divs->appendContent(TextAvatar::create("BB")->setColour(TextAvatar::COLOUR_BLACK)->sizeMedium());
+    $divs->appendContent(TextAvatar::create("Somereallylongname")->setColour(TextAvatar::COLOUR_DEFAULT)->sizeMedium());
+    return $divs;
+  }
+
+  /**
+   * @group Text Avatars
+   * @throws \Exception
+   */
   final public function largeTextAvatars()
   {
     $divs = Div::create([]);

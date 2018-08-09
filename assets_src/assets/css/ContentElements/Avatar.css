@@ -42,10 +42,22 @@
   height: 22px !important;
   line-height: 21px;
   font-size: 15px;
+  letter-spacing: 1px;
+}
+
+.favatar.x05 {
+  width: 32px !important;
+  height: 32px !important;
+  line-height: 30px;
+  font-size: 15px;
 }
 
 .favatar.x0.text-avatar {
-  font-size: 15px;
+  font-size: 13px;
+}
+
+.favatar.x05.text-avatar {
+  letter-spacing: 1px;
 }
 
 .favatar.default {
