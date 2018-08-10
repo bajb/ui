@@ -110,8 +110,10 @@
       var p = $parent.get(0);
       do
       {
-        console.log(p, p.offsetWidth, p.clientWidth);
-        scrollOffset += p.offsetWidth - p.clientWidth;
+        if(p.clientWidth > 0)
+        {
+          scrollOffset += p.offsetWidth - p.clientWidth;
+        }
       }
       while(p = p.parentElement);
       scrollOffset += this._options.margin;
