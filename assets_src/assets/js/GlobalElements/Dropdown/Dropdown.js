@@ -109,7 +109,7 @@
       var offsetTop = 0;
       if(!$parent.is($action))
       {
-        offsetTop = $action.offset().top;
+        offsetTop = $action.offset().top + document.body.scrollTop;
         offsetLeft = $action.offset().left;
       }
 
