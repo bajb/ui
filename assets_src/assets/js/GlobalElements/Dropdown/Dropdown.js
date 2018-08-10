@@ -117,7 +117,7 @@
         css = {},
         offsetRight = offsetLeft + $content.outerWidth(true);
 
-      if(offsetRight > window.innerWidth - this._options.margin)
+      if(offsetRight > document.body.clientWidth - this._options.margin)
       {
         css.left = Math.max(2, offsetLeft - (offsetRight - $parent[0].clientWidth) - this._options.margin);
       }
