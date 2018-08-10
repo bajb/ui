@@ -153,7 +153,9 @@
 
       this._options = options;
 
-      this._action = $(this._ele).on('click', this.toggle.bind(this));
+      this._action = $(this._ele)
+        .addClass('dropdown-action')
+        .on('click', this.toggle.bind(this));
       this._content = $('.dropdown-content', this._ele);
       if(!this._content.length)
       {
