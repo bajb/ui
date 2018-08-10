@@ -105,6 +105,17 @@
       var $parent = this._content.parent();
       $content.css({left: 0, top: 0});
 
+      // iterate parents to find scrollbar offset :  += offsetWidth - clientWidth
+      var scrollOffset = 0;
+      var p = $parent.get(0);
+      do
+      {
+        console.log(p, p.offsetWidth, p.clientWidth);
+        scrollOffset += p.offsetWidth - p.clientWidth;
+      }
+      while(p = p.parentElement);
+      scrollOffset += this._options.margin;
+
       var offsetLeft = 0;
       var offsetTop = 0;
       if(!$parent.is($action))
@@ -117,11 +128,11 @@
         css = {},
         offsetRight = $content.offset().left + $content.outerWidth(true);
 
-      if(offsetRight > document.body.clientWidth - this._options.margin)
+      if(offsetRight > document.body.clientWidth - scrollOffset)
       {
         css.left = Math.max(
-          document.body.clientWidth - offsetRight - this._options.margin,
-          ($content.offset().left - this._options.margin) * -1
+          document.body.clientWidth - offsetRight - scrollOffset,
+          ($content.offset().left - scrollOffset) * -1
         );
       }
       else
