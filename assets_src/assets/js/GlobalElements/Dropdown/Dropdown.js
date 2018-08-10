@@ -103,7 +103,7 @@
       var $action = this._action;
       var $content = this._content;
       var $parent = this._content.parent();
-      $content.css({left: '', top: ''});
+      $content.css({left: 0, top: 0});
 
       var offsetLeft = 0;
       var offsetTop = 0;
@@ -115,11 +115,14 @@
 
       var
         css = {},
-        offsetRight = offsetLeft + $content.outerWidth(true);
+        offsetRight = $content.offset().left + $content.outerWidth(true);
 
       if(offsetRight > document.body.clientWidth - this._options.margin)
       {
-        css.left = Math.max(2, offsetLeft - (offsetRight - $parent[0].clientWidth) - this._options.margin);
+        css.left = Math.max(
+          document.body.clientWidth - offsetRight - this._options.margin,
+          ($content.offset().left - this._options.margin) * -1
+        );
       }
       else
       {
