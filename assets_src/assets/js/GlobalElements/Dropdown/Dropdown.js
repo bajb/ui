@@ -49,7 +49,7 @@
   };
 
   Dropdown.prototype.isOpen = function () {
-    return this._content.parent().is('body');
+    return this._content.is('.dropdown-open');
   };
 
   Dropdown.prototype.toggle = function () {
@@ -79,7 +79,7 @@
   Dropdown.prototype.close = function () {
     if(this.triggerEvent('close', {cancelable: true}))
     {
-      this._content.appendTo(this._action);
+      this._content.appendTo(this._action).removeClass('dropdown-open');
       this.triggerEvent('closed');
     }
   };
@@ -87,7 +87,11 @@
   Dropdown.prototype.open = function () {
     if(this.triggerEvent('open', {cancelable: true}))
     {
-      this._content.appendTo('body');
+      if(this._options.attachTo)
+      {
+        this._content.appendTo(this._options.attachTo)
+      }
+      this._content.addClass('dropdown-open');
       this.reposition();
       this.triggerEvent('opened');
     }
@@ -98,30 +102,54 @@
     {
       var $action = this._action;
       var $content = this._content;
-      $content.css({left: '', top: ''});
+      var $parent = this._content.parent();
+      $content.css({left: 0, top: 0});
+
+      // iterate parents to find scrollbar offset :  += offsetWidth - clientWidth
+      var scrollOffset = 0;
+      var p = $parent.get(0);
+      do
+      {
+        if(p.clientWidth > 0)
+        {
+          scrollOffset += p.offsetWidth - p.clientWidth;
+        }
+      }
+      while(p = p.parentElement);
+      scrollOffset += this._options.margin;
+
+      var offsetLeft = 0;
+      var offsetTop = 0;
+      if(!$parent.is($action))
+      {
+        offsetTop = $action.offset().top + document.body.scrollTop;
+        offsetLeft = $action.offset().left;
+      }
 
       var
         css = {},
-        left = $action.offset().left,
-        right = left + $content.outerWidth(true);
+        offsetRight = $content.offset().left + $content.outerWidth(true);
 
-      if(right > window.innerWidth - this._options.margin)
+      if(offsetRight > document.body.clientWidth - scrollOffset)
       {
-        css.left = Math.max(2, left - (right - window.innerWidth) - this._options.margin);
+        css.left = Math.max(
+          document.body.clientWidth - offsetRight - scrollOffset,
+          ($content.offset().left - scrollOffset) * -1
+        );
       }
       else
       {
-        css.left = left;
+        css.left = offsetLeft;
       }
 
       switch(this._options.position)
       {
         case 'top':
-          css.top = $action.offset().top - $content.outerHeight(true);
+          css.top = offsetTop - $content.outerHeight(true);
           break;
         case 'bottom':
         default:
-          css.top = $action.offset().top + $action.outerHeight(true);
+          css.top = offsetTop + $action.outerHeight(true);
           break;
       }
 
@@ -133,10 +161,22 @@
     if(!this._isInitialised)
     {
       var self = this;
-      options = $.extend({margin: 10, position: 'bottom', contentUrl: null}, $(this._ele).data(), options);
+      options = $.extend(
+        {margin: 10, position: 'bottom', contentUrl: null, attachTo: null},
+        $(this._ele).data(),
+        options
+      );
+
       this._options = options;
 
-      this._action = $(this._ele).on('click', this.toggle.bind(this));
+      this._action = $(this._ele)
+        .addClass('dropdown-action')
+        .on('click', this.toggle.bind(this));
+      this._content = $('.dropdown-content', this._ele);
+      if(!this._content.length)
+      {
+        this._content = $('<div />').addClass('dropdown-content').appendTo(this._action);
+      }
 
       if(this._options.contentUrl)
       {
@@ -144,12 +184,8 @@
           self.refreshContent();
           self._action.off('mouseenter');
         });
-        this._content = $('<div />').addClass('dropdown-content');
       }
-      else
-      {
-        this._content = $('.dropdown-content', this._ele);
-      }
+
       this._content.data(DATA_NS, this);
 
       dropdowns.push(this);
@@ -192,8 +228,6 @@
     );
     return retVal;
   };
-
-  $('.dropdown-action').Dropdown();
 
   document.dispatchEvent(new CustomEvent('ready-dropdown'));
 }(window, document, jQuery));
