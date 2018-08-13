@@ -5,21 +5,41 @@
   var DATA_NS = 'jq.dropdown';
   var dropdowns = [];
 
-  $(document).on('click', function (e) {
-    // loop over all dropdowns, close any which are not in the target
+  /**
+   * loop over all dropdowns, close any which are not in the target
+   */
+  function _closeAll(sender) {
     $(dropdowns).each(function () {
-      var tree = $(e.target).parents().addBack();
-      if(this.isOpen() && isConnected(e.target)
-        && (tree.index(this._action) === -1)
-        && (tree.index(this._content) === -1)
-      )
+      if(this.isOpen())
       {
-        this.close();
+        var canClose = true;
+        if(sender)
+        {
+          var tree = $(sender).parents().addBack();
+          canClose = isConnected(sender)
+            && (tree.index(this._action) === -1)
+            && (tree.index(this._content) === -1);
+        }
+        if(canClose)
+        {
+          this.close();
+        }
       }
     });
+  }
+
+  function _toggleEvent(e) {
+    if($(e.target).parents().addBack().index(this._content) === -1)
+    {
+      this.toggle();
+    }
+  }
+
+  $(document).on('click', function (e) {
+    _closeAll(e.target);
   });
 
-  $(window).on('resize', function (e) {
+  $(window).on('resize', function () {
     $(dropdowns).each(function () {
       this.reposition();
     });
@@ -87,6 +107,7 @@
   Dropdown.prototype.open = function () {
     if(this.triggerEvent('open', {cancelable: true}))
     {
+      _closeAll();
       if(this._options.attachTo)
       {
         this._content.appendTo(this._options.attachTo)
@@ -171,7 +192,7 @@
 
       this._action = $(this._ele)
         .addClass('dropdown-action')
-        .on('click', this.toggle.bind(this));
+        .on('click', _toggleEvent.bind(this));
       this._content = $('.dropdown-content', this._ele);
       if(!this._content.length)
       {

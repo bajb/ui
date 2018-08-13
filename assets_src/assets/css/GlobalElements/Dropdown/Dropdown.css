@@ -9,7 +9,8 @@
   border-radius: 6px;
   z-index: 1000;
   border: 1px solid #ccc;
-  box-shadow: black 0 2px 7px -2px
+  box-shadow: black 0 2px 7px -2px;
+  cursor: initial;
 }
 
 .dropdown-content.dropdown-open {
