@@ -29,7 +29,7 @@
   }
 
   function _toggleEvent(e) {
-    if($(e.target).parents().addBack().index(this._content) === -1)
+    if(isConnected(e.target) && $(e.target).parents().addBack().index(this._content) === -1)
     {
       this.toggle();
     }
