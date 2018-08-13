@@ -619,12 +619,13 @@
             }
           )
           .on(
-            'click', 'button.qb-remove-rule', function () {
+            'click', '.qb-rule .qb-remove-rule', function (e) {
               var $container = $(this).closest('.qb-container'),
                 qb = $container.data(QB_DATA_NS),
                 $rule = $(this).closest('.qb-rule'),
                 qbr = $rule.data(QB_DATA_NS_RULE);
               qb.removeRule(qbr);
+              e.stopPropagation();
             }
           );
 
@@ -745,6 +746,10 @@
             if(self.getCount(def.key))
             {
               $option.prop('disabled', true);
+            }
+            else
+            {
+              $option.prop('disabled', false);
             }
           }
           $newRow.append($option);
