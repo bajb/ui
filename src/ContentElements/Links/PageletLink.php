@@ -16,7 +16,6 @@ class PageletLink extends Link
   public function __construct($uri, $content = null, $selector = '#pagelet-data')
   {
     parent::__construct($uri, $content);
-    $this->_tag = 'a';
     $this->setAttribute('data-uri', $uri);
     if(!Strings::containsAny($selector, ['#', '.', ' ']))
     {
