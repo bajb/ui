@@ -2,17 +2,23 @@
 .query-builder .qb-rule {
   position: relative;
   width: 100%;
-  padding: 1px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 }
 
+.query-builder .qb-add-rule,
 .query-builder .qb-rule > * {
   flex-grow: 1;
   flex-shrink: 1;
-  margin: 2px 0 2px 5px;
+  margin: 0 0 3px 5px;
 }
 
+.query-builder .qb-add-rule,
+.query-builder .qb-rule > :first-child {
+  margin-left: 0;
+}
+
+.query-builder .qb-add-rule,
 .query-builder .qb-rule .qb-key,
 .query-builder .qb-rule .qb-comparator,
 .query-builder .qb-rule .qb-remove-rule {
@@ -23,6 +29,7 @@
   width: 140px;
 }
 
+.query-builder .qb-add-rule,
 .query-builder .qb-rule input,
 .query-builder .qb-rule select,
 .query-builder .qb-rule .qb-input {
@@ -36,10 +43,6 @@
   border-radius: 5px;
   background: white;
   vertical-align: top;
-}
-
-.query-builder .qb-rule > :first-child {
-  margin-left: 0;
 }
 
 .query-builder .qb-button {
@@ -77,18 +80,3 @@
   opacity: 0.3;
   color: #949494 !important;
 }
-
-.query-builder .qb-add-rule {
-  position: relative;
-  display: inline-block;
-  height: 32px;
-  padding: 6px 12px;
-  font-size: 13px;
-  color: #555;
-  border: 1px solid #d6d6d6;
-  border-radius: 5px;
-  margin: 2px 5px 2px 0;
-  background: white;
-  vertical-align: top;
-}
-

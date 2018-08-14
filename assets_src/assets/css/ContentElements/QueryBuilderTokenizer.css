@@ -1,13 +1,12 @@
 
 .qb-tokenizer + .tokenize {
   display: inline-block;
-  margin-top: 2px;
 }
 
 .qb-tokenizer + .tokenize > .tokens-container {
   padding: 0 0 3px 3px;
   min-height: 0;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .qb-tokenizer + .tokenize > .tokens-container > .token-search {
@@ -16,5 +15,5 @@
 
 .qb-tokenizer + .tokenize > .tokens-container > .token-search > input {
   height: 20px;
-  width: auto;
+  /*width: auto;*/
 }
