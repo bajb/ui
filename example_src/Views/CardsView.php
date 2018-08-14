@@ -488,8 +488,7 @@ Pellentesque elementum velit sed nulla rutrum, eget porttitor orci efficitur. Do
     $card->addIcon($this->_getInsecureIcon());
     $card->setLabel("Label Here");
     $card->setDescription(
-      '{"event":"purchase.created","sig":"4c6909f9691bfcdc5e0107a3a95cf360","uuid":"whp-b3ea015b7172a1a7ef03.86828014","rqid":"1-whr-b3ea015b7172a1a7ef61.55725332","timestamp":1534161569,"data":{"offerFid":"","uniqueReference":"AE8M-U16Q-GHXN-SAIF-DP43-1813","amount":119.95,"setupAmount":0,"totalAmount":143.94,"taxAmount":23.99,"nextRenewalAmount":143.94,"discount":0,"setupDiscount":0,"cycleTerm":1,"cycleExact":"","cycleType":4,"quantity":1,"createdTime":1534161569,"nextRenewDate":1565654400,"customerFid":"FID:CST:1534161442:VteKttoxLICjB","productFid":"FID:PROD:1476810780:B5A9w26sOHu7","priceFid":"FID:PROD:PRCE:1485946791:FajsIRm","currency":"GBP","totalAmountUsd":183.54702947772,"exchangeRate":1.2751634672622,"fid":"FID:PCHS:SUBS:1534161569:8LSppuj","id":1487831,"displayName":"Pro
-Antivirus","description":"3PROD2"}}'
+      '{"event":"purchase.created","sig":"dfjklkyrdcvb,kyrsxcvbnmkurdv","uuid":"whp-b3ea015b717ekjgfkjgf3.86828014","rqid":"1-whr-b3ea015b717wefwegwegwf61.55725332","timestamp":1534161569,"data":{"offerFid":"","uniqueReference":"AE8M-WEKH-GHXN-SAIF-WEKH-1813","amount":119.95,"setupAmount":0,"totalAmount":143.94,"taxAmount":23.99,"nextRenewalAmount":143.94,"discount":0,"setupDiscount":0,"cycleTerm":1,"cycleExact":"","cycleType":4,"quantity":1,"createdTime":1534161569,"nextRenewDate":1565654400,"customerFid":"FID:CST:31651321656:VtefwlrICjB","productFid":"FID:PROD:32165161981:B5A9w26sOHu7","priceFid":"FID:PROD:PRCE:34634634634:FajsIRm","currency":"GBP","totalAmountUsd":183.54702947772,"exchangeRate":1.2751634672622,"fid":"FID:PCHS:SUBS:63126151912151:8LSppuj","id":1487831,"displayName":"Pro Plus","description":"3PROD2"}}'
     );
 
     return $cards;
