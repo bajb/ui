@@ -50,6 +50,13 @@
   position: relative;
   background: #fff;
   display: flex;
+  flex-direction: column;
+}
+
+.ui-card .ui-c-head {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 }
 
 .ui-card > .primary .text {
@@ -96,6 +103,11 @@
 
 .ui-card > .primary .description {
   margin-top: 3px;
+  overflow-wrap: break-word;
+}
+
+.ui-card.content-card > .primary .description {
+  padding-top: 3px;
 }
 
 /**/

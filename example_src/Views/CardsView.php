@@ -276,6 +276,7 @@ class CardsView extends AbstractUiExampleView
     $card->setAvatar($this->_getAvatar());
     $card->addIcon($this->_getInsecureIcon());
     $card->addIcon($this->_getArchivedUserIcon());
+    $card->setDescription("Job Role Description");
 
     $card->addProperty('role', $this->_getRandomJobTitle());
     $card->addProperty('email address', $this->_getRandomEmail(), true);
@@ -327,6 +328,7 @@ class CardsView extends AbstractUiExampleView
     while(count($items) < 5)
     {
       $card = $this->_createQuickCard($this->_getRandomJobTitle());
+      $card->setDescription("Lorem Ipsum is simply dummy text of the printing and typesetting industry.");
       $card->addProperty('email address', $this->_getRandomEmail(), true);
       $this->_addRandomActions($card, 1);
 
@@ -382,6 +384,7 @@ class CardsView extends AbstractUiExampleView
       );
       $card->setColour(Card::COLOUR_RED);
       $card->setColourBackground(true);
+      $card->setDescription("Lorem Ipsum is simply dummy text of the printing and typesetting industry.");
       $card->addProperty('type', $type[(mt_rand(0, count($type) - 1))]);
       $card->addProperty('type', $type[(mt_rand(0, count($type) - 1))]);
       $card->addProperty('type', $type[(mt_rand(0, count($type) - 1))]);
@@ -459,23 +462,36 @@ Pellentesque elementum velit sed nulla rutrum, eget porttitor orci efficitur. Do
     $card = Card::i();
     $card->setAvatar($this->_getAvatar());
     $card->setLabel("Label Here");
-    $card->setTitle("This is a title");
+    $card->setTitle("This is a standard card");
     $cards->addCard($card);
     $card->setDescription($longDesc);
     $card->addProperty("ABC", "DESHDKHF ");
     $card->addProperty("ABC", "DESHDKHF ");
     $card->addIcon($this->_getArchivedUserIcon());
     $this->_addRandomActions($card);
+
     $card = ContentCard::i();
     $cards->addCard($card);
     $card->setAvatar($this->_getAvatar());
     $card->addIcon($this->_getInsecureIcon());
     $card->setLabel("Label Here");
-    $card->setTitle("This is a title");
+    $card->setTitle("This is a content card");
     $card->setDescription($longDesc);
     $card->addProperty("ABC", "DESHDKHFF ");
     $card->addProperty("ABC", "DESHDKHFF ");
     $this->_addRandomActions($card);
+
+    $card = ContentCard::i();
+    $cards->addCard($card);
+    $card->setTitle('Non spaced content');
+    $card->setAvatar(TextAvatar::create("Brooke Bryan")->setColour(TextAvatar::COLOUR_GREEN)->sizeMedium());
+    $card->addIcon($this->_getInsecureIcon());
+    $card->setLabel("Label Here");
+    $card->setDescription(
+      '{"event":"purchase.created","sig":"4c6909f9691bfcdc5e0107a3a95cf360","uuid":"whp-b3ea015b7172a1a7ef03.86828014","rqid":"1-whr-b3ea015b7172a1a7ef61.55725332","timestamp":1534161569,"data":{"offerFid":"","uniqueReference":"AE8M-U16Q-GHXN-SAIF-DP43-1813","amount":119.95,"setupAmount":0,"totalAmount":143.94,"taxAmount":23.99,"nextRenewalAmount":143.94,"discount":0,"setupDiscount":0,"cycleTerm":1,"cycleExact":"","cycleType":4,"quantity":1,"createdTime":1534161569,"nextRenewDate":1565654400,"customerFid":"FID:CST:1534161442:VteKttoxLICjB","productFid":"FID:PROD:1476810780:B5A9w26sOHu7","priceFid":"FID:PROD:PRCE:1485946791:FajsIRm","currency":"GBP","totalAmountUsd":183.54702947772,"exchangeRate":1.2751634672622,"fid":"FID:PCHS:SUBS:1534161569:8LSppuj","id":1487831,"displayName":"Pro
+Antivirus","description":"3PROD2"}}'
+    );
+
     return $cards;
   }
 }

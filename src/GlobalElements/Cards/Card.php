@@ -342,14 +342,15 @@ class Card extends UiElement implements IColours, ICardActionType
 
     // Avatar, Label, Title and Description
     $primary = Div::create()->addClass('primary');
+    $card->appendContent($primary);
 
-    // Title, Label, Description content
-    $text = Div::create()->addClass('text');
-
+    $heading = Div::create()->addClass('ui-c-head');
+    $primary->appendContent($heading);
+    //Avatar
     if($this->_avatar)
     {
       $avatar = Div::create($this->_avatar)->addClass('avatar');
-      $primary->appendContent($avatar);
+      $heading->appendContent($avatar);
 
       $card->addClass('has-avatar');
     }
@@ -357,6 +358,10 @@ class Card extends UiElement implements IColours, ICardActionType
     {
       $card->addClass('no-avatar');
     }
+
+    // Title, Label, Description content
+    $text = Div::create()->addClass('text');
+    $heading->appendContent($text);
 
     // add icons to Card
     $this->_applyIcons($text, $card);
@@ -383,10 +388,8 @@ class Card extends UiElement implements IColours, ICardActionType
 
     if($this->_description)
     {
-      $description = Div::create(
-        $this->_produceDescription()
-      )->addClass('description');
-      $text->appendContent($description);
+      $description = Div::create($this->_produceDescription())->addClass('description');
+      $this->_setDescription($description, $primary, $heading, $text);
 
       $card->addClass('has-description');
     }
@@ -394,10 +397,6 @@ class Card extends UiElement implements IColours, ICardActionType
     {
       $card->addClass('no-description');
     }
-
-    // Add Label, Title, Description and Icons.
-    $primary->appendContent($text);
-    $card->appendContent($primary);
 
     // add border colour class
     if(Colour::isValid($this->_colour))
@@ -438,6 +437,12 @@ class Card extends UiElement implements IColours, ICardActionType
     $this->_applyId($card);
 
     return $card;
+  }
+
+  protected function _setDescription(HtmlTag $description, HtmlTag $primary, HtmlTag $heading, HtmlTag $text)
+  {
+    $text->appendContent($description);
+    return $this;
   }
 
   /**
