@@ -134,19 +134,18 @@ class Dropdown extends UiElement
       $actionContainer->addClass($class);
     }
 
-    if($this->getPosition())
+    if($pos = $this->getPosition())
     {
-      $actionContainer->setAttribute('data-position', $this->getPosition());
+      $actionContainer->setAttribute('data-position', $pos);
     }
-
-    if($this->getUrl())
+    if($url = $this->getUrl())
     {
-      $actionContainer->setAttribute('data-content-url', $this->getUrl());
+      $actionContainer->setAttribute('data-content-url', $url);
     }
-    else
+    if($content = $this->getContent())
     {
       $actionContainer->appendContent(
-        Div::create($this->getContent())->addClass('dropdown-content')
+        Div::create($content)->addClass('dropdown-content')
       );
     }
     return $actionContainer;
