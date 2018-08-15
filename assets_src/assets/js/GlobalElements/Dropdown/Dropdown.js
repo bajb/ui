@@ -5,6 +5,17 @@
   var DATA_NS = 'jq.dropdown';
   var dropdowns = [];
 
+  var _firstLoadEvents = ['mouseenter', 'open-dropdown'];
+
+  /**
+   * This event is added to [data-url] dropdowns and removed on first load
+   * @private
+   */
+  function _firstLoadContent() {
+    this.refreshContent();
+    this._action.off(_firstLoadEvents.join(' '));
+  }
+
   /**
    * loop over all dropdowns, close any which are not in the target
    */
@@ -207,10 +218,7 @@
 
       if(this._options.contentUrl)
       {
-        this._action.on('mouseenter', function () {
-          self.refreshContent();
-          self._action.off('mouseenter');
-        });
+        this._action.on(_firstLoadEvents.join(' '), _firstLoadContent.bind(this));
       }
       else
       {
