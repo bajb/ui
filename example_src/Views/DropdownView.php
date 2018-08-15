@@ -38,7 +38,7 @@ class DropdownView extends AbstractUiExampleView
     );
     AssetManager::sourceType()->requireInlineJs(
       "
-        $(document).on('opened-dropdown', function() {
+        $(document).on('update-dropdown', function() {
           $('.query-builder').QueryBuilder();
         });
         $(document).on('change.querybuilder', function(e, data) {

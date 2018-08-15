@@ -1,5 +1,5 @@
 .dropdown-content {
-  display: none;
+  visibility: hidden;
 }
 
 .dropdown-content {
@@ -14,7 +14,7 @@
 }
 
 .dropdown-content.dropdown-open {
-  display: block;
+  visibility: initial;
 }
 
 .dropdown-action {

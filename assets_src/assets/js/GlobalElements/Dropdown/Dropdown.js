@@ -76,23 +76,31 @@
     this.isOpen() ? this.close() : this.open();
   };
 
+  Dropdown.prototype.updateContent = function (html) {
+    var $content = this._content;
+    $content.html(html);
+    this.reposition();
+    this.triggerEvent('update');
+  };
+
   Dropdown.prototype.refreshContent = function () {
     var self = this;
-    var $content = this._content;
-    var xhr = new XMLHttpRequest();
-    if(this.triggerEvent('content-request', {cancelable: true, detail: {xhr: xhr}}))
+    if(this._options.contentUrl)
     {
-      xhr.addEventListener('readystatechange', function () {
-        if(xhr.readyState === XMLHttpRequest.DONE)
-        {
-          $content.html(xhr.response);
-          self.reposition();
-        }
-      });
-      xhr.open('GET', this._options.contentUrl);
-      xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-      xhr.setRequestHeader('X-Fortifi-Req-With', 'ui.dropdown');
-      xhr.send();
+      var xhr = new XMLHttpRequest();
+      if(this.triggerEvent('content-request', {cancelable: true, detail: {xhr: xhr}}))
+      {
+        xhr.addEventListener('readystatechange', function () {
+          if(xhr.readyState === XMLHttpRequest.DONE)
+          {
+            self.updateContent(xhr.response);
+          }
+        });
+        xhr.open('GET', this._options.contentUrl);
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhr.setRequestHeader('X-Fortifi-Req-With', 'ui.dropdown');
+        xhr.send();
+      }
     }
   };
 
@@ -119,63 +127,61 @@
   };
 
   Dropdown.prototype.reposition = function () {
-    if(this.isOpen())
+    var $action = this._action;
+    var $content = this._content;
+    var $parent = this._content.parent();
+
+    $content.css({left: 0, top: 0});
+
+    // iterate parents to find scrollbar offset :  += offsetWidth - clientWidth
+    var scrollOffset = 0;
+    var p = $parent.get(0);
+    do
     {
-      var $action = this._action;
-      var $content = this._content;
-      var $parent = this._content.parent();
-      $content.css({left: 0, top: 0});
-
-      // iterate parents to find scrollbar offset :  += offsetWidth - clientWidth
-      var scrollOffset = 0;
-      var p = $parent.get(0);
-      do
+      if(p.clientWidth > 0)
       {
-        if(p.clientWidth > 0)
-        {
-          scrollOffset += p.offsetWidth - p.clientWidth;
-        }
+        scrollOffset += p.offsetWidth - p.clientWidth;
       }
-      while(p = p.parentElement);
-      scrollOffset += this._options.margin;
-
-      var offsetLeft = 0;
-      var offsetTop = 0;
-      if(!$parent.is($action))
-      {
-        offsetTop = $action.offset().top + document.body.scrollTop;
-        offsetLeft = $action.offset().left;
-      }
-
-      var
-        css = {},
-        offsetRight = $content.offset().left + $content.outerWidth(true);
-
-      if(offsetRight > document.body.clientWidth - scrollOffset)
-      {
-        css.left = Math.max(
-          document.body.clientWidth - offsetRight - scrollOffset,
-          ($content.offset().left - scrollOffset) * -1
-        );
-      }
-      else
-      {
-        css.left = offsetLeft;
-      }
-
-      switch(this._options.position)
-      {
-        case 'top':
-          css.top = offsetTop - $content.outerHeight(true);
-          break;
-        case 'bottom':
-        default:
-          css.top = offsetTop + $action.outerHeight(true);
-          break;
-      }
-
-      $content.css(css);
     }
+    while(p = p.parentElement);
+    scrollOffset += this._options.margin;
+
+    var offsetLeft = 0;
+    var offsetTop = 0;
+    if(!$parent.is($action))
+    {
+      offsetTop = $action.offset().top + document.body.scrollTop;
+      offsetLeft = $action.offset().left;
+    }
+
+    var
+      css = {},
+      offsetRight = $content.offset().left + $content.outerWidth(true);
+
+    if(offsetRight > document.body.clientWidth - scrollOffset)
+    {
+      css.left = Math.max(
+        document.body.clientWidth - offsetRight - scrollOffset,
+        ($content.offset().left - scrollOffset) * -1
+      );
+    }
+    else
+    {
+      css.left = offsetLeft;
+    }
+
+    switch(this._options.position)
+    {
+      case 'top':
+        css.top = offsetTop - $content.outerHeight(true);
+        break;
+      case 'bottom':
+      default:
+        css.top = offsetTop + $action.outerHeight(true);
+        break;
+    }
+
+    $content.css(css);
   };
 
   Dropdown.prototype.init = function (options) {
@@ -205,6 +211,10 @@
           self.refreshContent();
           self._action.off('mouseenter');
         });
+      }
+      else
+      {
+        self.triggerEvent('update');
       }
 
       this._content.data(DATA_NS, this);
