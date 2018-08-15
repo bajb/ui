@@ -2,6 +2,10 @@
   visibility: hidden;
 }
 
+.dropdown-content:not(.dropdown-open) {
+  left: -9999px !important;
+}
+
 .dropdown-content {
   position: absolute;
   background: white;
