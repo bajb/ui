@@ -3,6 +3,7 @@
 }
 
 .dropdown-content:not(.dropdown-open) {
+  top: -9999px !important;
   left: -9999px !important;
 }
 
