@@ -17,7 +17,7 @@ class DropdownView extends AbstractUiExampleView
   {
     $d = Dropdown::i();
     $d->setAction(FontIcon::create(FontIcon::SETTINGS));
-    //$d->setAction('test');
+    $d->setContent('placeholder');
     $d->setUrl('/dropdowns/content');
     return $d;
   }
