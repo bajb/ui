@@ -42,12 +42,9 @@
     $(dropdowns).each(function () {
       if(this.isOpen())
       {
-        var canClose = true;
-        if(sender)
-        {
-          canClose = isConnected(sender) && ($(tree).filter($().add(this._action).add(this._content)).length === 0);
-        }
-        if(canClose)
+        var me = $().add(this._action).add(this._content);
+        if((!sender)
+          || ((isConnected(sender) && ($(tree).filter(me).length === 0))))
         {
           this.close();
         }
