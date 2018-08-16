@@ -89,17 +89,29 @@ class DropdownView extends AbstractUiExampleView
   final public function textRight()
   {
     $d = Dropdown::i();
-    $d->addClass('dd-right');
-    $d->setAction('Simple text dropup');
+    $d->addClass('dd-body');
+    $d->setAction('Simple text dropdown');
     $d->setContent(Div::create('here is some content'));
     return Div::create($d)->setAttribute('style', 'position:absolute;right:0;height:5000px');
+  }
+
+  /**
+   * @group Dropdowns
+   */
+  final public function nested()
+  {
+    $d = Dropdown::i();
+    $d->addClass('dd-body');
+    $d->setAction('Dropdown');
+    $d->setContent(Dropdown::i()->addClass('dd-body')->setAction('nested action')->setContent('nested content'));
+    return $d;
   }
 
   public function render()
   {
     AssetManager::sourceType()->requireInlineJs(
       '
-      $(function(){$(".dd-right").Dropdown({attachTo:"body"});});
+      $(function(){$(".dd-body").Dropdown({attachTo:"body"});});
       $(function(){$(".dropdown-action").Dropdown();});
       '
     );

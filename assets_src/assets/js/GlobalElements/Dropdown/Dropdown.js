@@ -16,20 +16,36 @@
     this._action.off(_firstLoadEvents.join(' '));
   }
 
+  function _toggleEvent(e) {
+    if(isConnected(e.target) && $(e.target).parents().addBack().index(this._content) === -1)
+    {
+      this.toggle();
+    }
+  }
+
+  function _getContentTree(element) {
+    var parent = element.closest('.dropdown-content');
+    if(parent.length > 0)
+    {
+      parent = parent.add(_getContentTree($(parent).Dropdown()._action));
+    }
+    return parent;
+  }
+
   /**
    * loop over all dropdowns, close any which are not in the target
    */
   function _closeAll(sender) {
+    var tree = _getContentTree($(sender))
+      .add(sender.closest('.dropdown-action')); // add closest action
+
     $(dropdowns).each(function () {
       if(this.isOpen())
       {
         var canClose = true;
         if(sender)
         {
-          var tree = $(sender).parents().addBack();
-          canClose = isConnected(sender)
-            && (tree.index(this._action) === -1)
-            && (tree.index(this._content) === -1);
+          canClose = isConnected(sender) && ($(tree).filter($().add(this._action).add(this._content)).length === 0);
         }
         if(canClose)
         {
@@ -37,13 +53,6 @@
         }
       }
     });
-  }
-
-  function _toggleEvent(e) {
-    if(isConnected(e.target) && $(e.target).parents().addBack().index(this._content) === -1)
-    {
-      this.toggle();
-    }
   }
 
   $(document).on('click', function (e) {
@@ -126,7 +135,7 @@
   Dropdown.prototype.open = function () {
     if(this.triggerEvent('open', {cancelable: true}))
     {
-      _closeAll();
+      _closeAll(this._action);
       if(this._options.attachTo)
       {
         this._content.appendTo(this._options.attachTo)
@@ -210,7 +219,7 @@
       this._action = $(this._ele)
         .addClass('dropdown-action')
         .on('click', _toggleEvent.bind(this));
-      this._content = $('.dropdown-content', this._ele);
+      this._content = $('> .dropdown-content', this._ele);
       if(!this._content.length)
       {
         this._content = $('<div />').addClass('dropdown-content').appendTo(this._action);
@@ -231,6 +240,7 @@
 
       this._isInitialised = true;
     }
+    return this;
   };
 
   $.fn.Dropdown = function (command, options) {
