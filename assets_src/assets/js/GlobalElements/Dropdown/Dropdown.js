@@ -27,7 +27,11 @@
     var parent = element.closest('.dropdown-content');
     if(parent.length > 0)
     {
-      parent = parent.add(_getContentTree($(parent).Dropdown()._action));
+      var parentTree = _getContentTree($(parent).Dropdown()._action);
+      if(parentTree)
+      {
+        parent = parent.add();
+      }
     }
     return parent;
   }
