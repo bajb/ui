@@ -128,7 +128,7 @@
   Dropdown.prototype.close = function () {
     if(this.triggerEvent('close', {cancelable: true}))
     {
-      this._content.appendTo(this._action).removeClass('dropdown-open');
+      this._content.insertAfter(this._action).removeClass('dropdown-open');
       this.triggerEvent('closed');
     }
   };
@@ -220,10 +220,10 @@
       this._action = $(this._ele)
         .addClass('dropdown-action')
         .on('click', _toggleEvent.bind(this));
-      this._content = $('> .dropdown-content', this._ele);
+      this._content = $('~ .dropdown-content', this._ele);
       if(!this._content.length)
       {
-        this._content = $('<div />').addClass('dropdown-content').appendTo(this._action);
+        this._content = $('<div />').addClass('dropdown-content').insertAfter(this._action);
       }
 
       if(this._options.contentUrl)

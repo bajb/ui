@@ -142,12 +142,12 @@ class Dropdown extends UiElement
     {
       $actionContainer->setAttribute('data-content-url', $url);
     }
+
+    $output = [$actionContainer];
     if($content = $this->getContent())
     {
-      $actionContainer->appendContent(
-        Div::create($content)->addClass('dropdown-content')
-      );
+      $output[] = Div::create($content)->addClass('dropdown-content');
     }
-    return $actionContainer;
+    return $output;
   }
 }
