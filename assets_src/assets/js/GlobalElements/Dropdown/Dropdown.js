@@ -81,7 +81,7 @@
    */
   Dropdown.prototype.triggerEvent = function (eventName, options) {
     eventName = eventName + '-dropdown';
-    options = $.extend({cancelable: false, bubbles: true, target: this._ele}, options);
+    options = $.extend({cancelable: false, bubbles: true, target: this._ele, detail: {dropdown: this}}, options);
     return this._action[0].dispatchEvent(new CustomEvent(eventName, options));
   };
 
