@@ -30,7 +30,7 @@
       var parentTree = _getContentTree($(parent).Dropdown()._action);
       if(parentTree)
       {
-        parent = parent.add();
+        parent = parent.add(parentTree);
       }
     }
     return parent;
