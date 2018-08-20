@@ -137,9 +137,9 @@
     if(this.triggerEvent('open', {cancelable: true}))
     {
       _closeAll(this._action);
-      if(this._options.attachTo)
+      if(this._options.attachToBody)
       {
-        this._content.appendTo(this._options.attachTo)
+        this._content.appendTo('body')
       }
       this._content.addClass('dropdown-open');
       this.reposition();
@@ -149,41 +149,44 @@
 
   Dropdown.prototype.reposition = function () {
     var $action = this._action;
-    var $content = this._content;
-    var $parent = this._content.parent();
+    var $content = this._content.css({left: 0, top: 0});
 
-    $content.css({left: 0, top: 0});
+    var offsetTop = 0;
+    var offsetLeft = 0;
 
-    // iterate parents to find scrollbar offset :  += offsetWidth - clientWidth
-    var scrollOffset = 0;
-    var p = $parent.get(0);
-    do
+    var scrollBarOffset = 0;
+    var scrollCheckParent = $action.get(0);
+    do // this block detects the width of scrollbars, also includes scroll position in top offset until the first relative parent
     {
-      if(p.clientWidth > 0)
+      if(scrollCheckParent.clientWidth > 0)
       {
-        scrollOffset += p.offsetWidth - p.clientWidth;
+        scrollBarOffset += scrollCheckParent.offsetWidth - scrollCheckParent.clientWidth;
       }
     }
-    while(p = p.parentElement);
-    scrollOffset += this._options.margin;
+    while(scrollCheckParent = scrollCheckParent.parentElement);
 
-    var offsetLeft = 0;
-    var offsetTop = 0;
-    if(!$parent.is($action))
+    if(this._options.attachToBody)
     {
-      offsetTop = $action.offset().top + document.body.scrollTop;
-      offsetLeft = $action.offset().left;
+      offsetTop += $action.offset().top;
+      offsetLeft += $action.offset().left;
     }
+    else
+    {
+      offsetTop = $action.get(0).offsetTop;
+      offsetLeft = $action.get(0).offsetLeft;
+    }
+
+    scrollBarOffset += this._options.margin;
 
     var
       css = {},
       offsetRight = $content.offset().left + $content.outerWidth(true);
 
-    if(offsetRight > document.body.clientWidth - scrollOffset)
+    if(offsetRight > document.body.clientWidth - scrollBarOffset)
     {
       css.left = Math.max(
-        document.body.clientWidth - offsetRight - scrollOffset,
-        ($content.offset().left - scrollOffset) * -1
+        document.body.clientWidth - offsetRight - scrollBarOffset,
+        ($content.offset().left - scrollBarOffset) * -1
       );
     }
     else
@@ -210,7 +213,7 @@
     {
       var self = this;
       options = $.extend(
-        {margin: 10, position: 'bottom', contentUrl: null, attachTo: null},
+        {margin: 10, position: 'bottom', contentUrl: null, attachToBody: false},
         $(this._ele).data(),
         options
       );
