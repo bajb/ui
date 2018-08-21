@@ -224,7 +224,7 @@
       this._action = $(this._ele)
         .addClass('dropdown-action')
         .on('click', _toggleEvent.bind(this));
-      this._content = $('~ .dropdown-content', this._ele);
+      this._content = $('+ .dropdown-content', this._ele);
       if(!this._content.length)
       {
         this._content = $('<div />').addClass('dropdown-content').insertAfter(this._action);

@@ -95,6 +95,23 @@ class DropdownView extends AbstractUiExampleView
     return Div::create($largeContainer)->setAttribute('style', 'height:200px;overflow:auto');
   }
 
+  /**
+   * @group Dropdowns
+   */
+  final public function multiple()
+  {
+    $d1 = Dropdown::i();
+    $d1->setAction('Dropdown 1');
+    $d1->setContent('content 1');
+    $d2 = Dropdown::i();
+    $d2->setAction('Dropdown 2');
+    $d2->setContent('content 2');
+    $d3 = Dropdown::i();
+    $d3->setAction('Dropdown 3');
+    $d3->setContent('content 3');
+    return [$d1, $d2, $d3];
+  }
+
   public function render()
   {
     AssetManager::sourceType()->requireInlineJs(
