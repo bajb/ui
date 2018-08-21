@@ -187,7 +187,7 @@
     {
       css.left = Math.max(
         offsetLeft + (docWidth - offsetRight), // keep moving left until:
-        this._options.margin // it hits the left side of the screen
+        ($content.offset().left - scrollBarOffset) * -1 // it hits the left side of the screen
       );
     }
     else
