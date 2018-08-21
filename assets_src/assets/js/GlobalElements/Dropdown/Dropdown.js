@@ -180,13 +180,14 @@
 
     var
       css = {},
-      offsetRight = $content.offset().left + $content.outerWidth(true);
+      offsetRight = $action.offset().left + $content.outerWidth(true),
+      docWidth = document.body.clientWidth - scrollBarOffset;
 
-    if(offsetRight > document.body.clientWidth - scrollBarOffset)
+    if(offsetRight > docWidth)
     {
       css.left = Math.max(
-        document.body.clientWidth - offsetRight - scrollBarOffset,
-        ($content.offset().left - scrollBarOffset) * -1
+        offsetLeft + (docWidth - offsetRight), // keep moving left until:
+        this._options.margin // it hits the left side of the screen
       );
     }
     else
