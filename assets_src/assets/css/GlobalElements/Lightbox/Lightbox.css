@@ -1,0 +1,46 @@
+.lightbox-content {
+  visibility: hidden;
+}
+
+.lightbox-content:not(.lightbox-open) {
+  top: -9999px !important;
+  left: -9999px !important;
+}
+
+.lightbox-content {
+  position: absolute;
+  background: white;
+  padding: 8px;
+  border-radius: 6px;
+  z-index: 1000;
+  border: 1px solid #ccc;
+  box-shadow: black 0 2px 7px -2px;
+  cursor: initial;
+}
+
+.lightbox-content.lightbox-open {
+  visibility: initial;
+}
+
+.lightbox-action {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+
+.lightbox-action.lightbox-arrow {
+  padding-right: 12px;
+}
+
+.lightbox-action.lightbox-arrow:after {
+  width: 0;
+  height: 0;
+  border: 3px solid transparent;
+  border-top-color: #a6b2c7;
+  border-bottom-width: 0;
+  content: "";
+  position: absolute;
+  right: 3px;
+  top: 50%;
+  margin-top: -2px;
+}
