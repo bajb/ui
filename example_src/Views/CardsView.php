@@ -520,6 +520,7 @@ Pellentesque elementum velit sed nulla rutrum, eget porttitor orci efficitur. Do
     $card2->setDescription($longDesc);
     $card2->addProperty("ABC", "DESHDKHFF ");
     $card2->addProperty("ABC", "DESHDKHFF ");
+    $card2->setColour('#2B80FF');
     $this->_addRandomActions($card2);
 
     return [$card1, LineBreak::create(), $card2];

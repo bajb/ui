@@ -418,6 +418,10 @@ class Card extends UiElement implements IColours, ICardActionType
     {
       $card->addClass($this->_colour);
     }
+    else
+    {
+      $card->setAttribute('style', '--card-color: ' . $this->_colour . ';');
+    }
 
     // append properties
     if($this->_properties)

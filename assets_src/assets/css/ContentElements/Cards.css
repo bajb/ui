@@ -3,6 +3,7 @@
   --property-width: 125px;
   --gutter: 5px;
   --border-color: #ccc;
+  --card-color: #C7CCD9;
 }
 
 .ui-cards {
@@ -220,7 +221,7 @@
   left: 0;
   bottom: 0;
   z-index: 2;
-  background-color: #C7CCD9;
+  background-color: var(--card-color);
 }
 
 .ui-card.stacked:before {
