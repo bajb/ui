@@ -48,7 +48,7 @@
       {
         var me = $().add(this._action).add(this._content);
         if(((!sender) || ((isConnected(sender) && ($(tree).filter(me).length === 0))))
-          && this.triggerEvent('autoclose', {cancelable: true}))
+          && this.triggerEvent('autoclose', {cancelable: true, detail: {sender: sender}}))
         {
           this.close();
         }
