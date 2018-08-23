@@ -21,6 +21,7 @@ class Chip extends UiElement
   protected $_name;
   protected $_value;
   protected $_color;
+  protected $_borderColor;
 
   public function processIncludes(AssetManager $assetManager, $vendor = false)
   {
@@ -129,6 +130,25 @@ class Chip extends UiElement
     return $this;
   }
 
+  /**
+   * @return mixed
+   */
+  public function getBorderColor()
+  {
+    return $this->_borderColor;
+  }
+
+  /**
+   * @param mixed $borderColor
+   *
+   * @return Chip
+   */
+  public function setBorderColor($borderColor)
+  {
+    $this->_borderColor = $borderColor;
+    return $this;
+  }
+
   protected function _produceHtml()
   {
     $content = [
@@ -139,9 +159,21 @@ class Chip extends UiElement
     ];
     $chip = Div::create(array_filter($content))->addClass('f-chip');
 
+    $style = '';
+
     if($this->_color)
     {
-      $chip->setAttribute('style', '--chip-color: ' . $this->_color);
+      $style .= '--chip-color: ' . $this->_color . ';';
+    }
+
+    if($this->_borderColor)
+    {
+      $style .= '--chip-border-color: ' . $this->_borderColor . ';';
+    }
+
+    if($style)
+    {
+      $chip->setAttribute('style', $style);
     }
     return $chip;
   }

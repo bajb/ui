@@ -1,5 +1,6 @@
 :root {
-  --chip-color: #e0e0e0;
+  --chip-color: #ececec;
+  --chip-border-color: rgba(0, 0, 0, 0.1);
 }
 
 .f-chip {
@@ -8,15 +9,19 @@
   padding: 0 10px;
   line-height: 28px;
   border-radius: 28px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--chip-border-color);
 }
 
 .f-chip .name {
   font-weight: 500;
 }
 
-.f-chip .value {
-  margin-left: 3px;
+.f-chip .value ::before {
+  content: ':';
+  position: relative;
+  width: 8px;
+  display: inline-block;
+  text-align: center;
 }
 
 .f-chip .f-chip-icon {
