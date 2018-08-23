@@ -351,6 +351,7 @@
   border-right: 1px solid var(--border-color);
   margin-top: -1px;
   margin-left: -1px;
+  border-bottom: none;
   border-radius: 0 !important;
   color: #4B4D51;
 }
