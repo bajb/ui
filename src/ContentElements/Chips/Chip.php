@@ -1,0 +1,149 @@
+<?php
+namespace Fortifi\Ui\ContentElements\Chips;
+
+use Fortifi\FontAwesome\FaIcon;
+use Fortifi\Ui\UiElement;
+use Packaged\Dispatch\AssetManager;
+use Packaged\Glimpse\Tags\Div;
+use Packaged\Glimpse\Tags\Link;
+use Packaged\Glimpse\Tags\Span;
+
+class Chip extends UiElement
+{
+  /**
+   * @var FaIcon
+   */
+  protected $_icon;
+  /**
+   * @var Link
+   */
+  protected $_action;
+  protected $_name;
+  protected $_value;
+  protected $_color;
+
+  public function processIncludes(AssetManager $assetManager, $vendor = false)
+  {
+    if($vendor)
+    {
+      $assetManager->requireCss('assets/css/ContentElements');
+    }
+    else
+    {
+      $assetManager->requireCss('assets/css/ContentElements/Chip');
+    }
+  }
+
+  /**
+   * @return FaIcon
+   */
+  public function getIcon()
+  {
+    return $this->_icon;
+  }
+
+  /**
+   * @param FaIcon $icon
+   *
+   * @return Chip
+   */
+  public function setIcon(FaIcon $icon)
+  {
+    $this->_icon = $icon;
+    return $this;
+  }
+
+  /**
+   * @return Link
+   */
+  public function getAction()
+  {
+    return $this->_action;
+  }
+
+  /**
+   * @param Link $action
+   *
+   * @return Chip
+   */
+  public function setAction(Link $action)
+  {
+    $this->_action = $action;
+    return $this;
+  }
+
+  /**
+   * @return string
+   */
+  public function getName()
+  {
+    return $this->_name;
+  }
+
+  /**
+   * @param string $name
+   *
+   * @return Chip
+   */
+  public function setName($name)
+  {
+    $this->_name = $name;
+    return $this;
+  }
+
+  /**
+   * @return string
+   */
+  public function getValue()
+  {
+    return $this->_value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return Chip
+   */
+  public function setValue($value)
+  {
+    $this->_value = $value;
+    return $this;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getColor()
+  {
+    return $this->_color;
+  }
+
+  /**
+   * @param mixed $color
+   *
+   * @return Chip
+   */
+  public function setColor($color)
+  {
+    $this->_color = $color;
+    return $this;
+  }
+
+  protected function _produceHtml()
+  {
+    $content = [
+      $this->_icon ? Span::create($this->_icon)->addClass('f-chip-icon') : null,
+      Span::create($this->_name)->addClass('name'),
+      $this->_value ? Span::create($this->_value)->addClass('value') : null,
+      $this->_action ? $this->_action->addClass('f-chip-action') : null,
+    ];
+    $chip = Div::create(array_filter($content))->addClass('f-chip');
+
+    if($this->_color)
+    {
+      $chip->setAttribute('style', '--chip-color: ' . $this->_color);
+    }
+    return $chip;
+  }
+
+}
