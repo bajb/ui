@@ -32,7 +32,6 @@ class CardsView extends AbstractUiExampleView
    * @param Card $card
    *
    * @return Card
-   * @throws \Exception
    */
   protected function _addCardProperties(Card $card)
   {
@@ -165,7 +164,6 @@ class CardsView extends AbstractUiExampleView
    * @param int  $qty
    *
    * @return Card
-   * @throws \Exception
    */
   protected function _addRandomActions(Card $card, $qty = 3)
   {
@@ -191,7 +189,6 @@ class CardsView extends AbstractUiExampleView
 
   /**
    * @return Card
-   * @throws \Exception
    */
   protected function _getCard()
   {
@@ -255,7 +252,6 @@ class CardsView extends AbstractUiExampleView
 
   /**
    * @return Card[]
-   * @throws \Exception
    */
   protected function _getCards()
   {
@@ -269,7 +265,6 @@ class CardsView extends AbstractUiExampleView
 
   /**
    * @return Card
-   * @throws \Exception
    */
   protected function _createEmployeeCard()
   {
@@ -284,7 +279,7 @@ class CardsView extends AbstractUiExampleView
     $card->addProperty('email address', $this->_getRandomEmail(), true);
     $card->addProperty('email address', $this->_getRandomEmail(), true);
 
-    $this->_addRandomActions($card);
+    $this->_addRandomActions($card, 5);
 
     return $card;
   }
@@ -300,7 +295,6 @@ class CardsView extends AbstractUiExampleView
   /**
    * @group Cards
    * @return Cards
-   * @throws \Exception
    */
   final public function noPropertiesCards()
   {
@@ -321,7 +315,6 @@ class CardsView extends AbstractUiExampleView
   /**
    * @group Cards
    * @return Cards
-   * @throws \Exception
    */
   final public function employeeRolesCards()
   {
@@ -343,7 +336,6 @@ class CardsView extends AbstractUiExampleView
 
   /**
    * @group Cards
-   * @throws \Exception
    */
   final public function departmentQueueCards()
   {
@@ -370,7 +362,6 @@ class CardsView extends AbstractUiExampleView
 
   /**
    * @group Cards
-   * @throws \Exception
    */
   final public function eventManagementCards()
   {
@@ -402,7 +393,6 @@ class CardsView extends AbstractUiExampleView
 
   /**
    * @group Cards
-   * @throws \Exception
    */
   final public function employeeCards()
   {
@@ -420,7 +410,6 @@ class CardsView extends AbstractUiExampleView
 
   /**
    * @group Cards
-   * @throws \Exception
    */
   final public function paymentMethodCards()
   {
@@ -447,7 +436,6 @@ class CardsView extends AbstractUiExampleView
 
   /**
    * @group Cards
-   * @throws \Exception
    */
   final public function contentCards()
   {
@@ -497,7 +485,6 @@ Pellentesque elementum velit sed nulla rutrum, eget porttitor orci efficitur. Do
 
   /**
    * @group Cards
-   * @throws \Exception
    */
   final public function standaloneCards()
   {
