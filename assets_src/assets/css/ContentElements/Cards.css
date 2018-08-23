@@ -12,6 +12,8 @@
 
 .ui-card {
   height: 100%;
+  width: 100%;
+  margin-bottom: 0;
   display: flex;
   position: relative;
 }
@@ -51,6 +53,10 @@
   background: #fff;
   display: flex;
   flex-direction: column;
+}
+
+.ui-card.has-properties > .primary {
+  border-right: 0;
 }
 
 .ui-card .ui-c-head {
@@ -135,10 +141,6 @@
   z-index: 1;
 }
 
-.ui-cards.list .ui-card > .properties {
-  margin-left: -1px;
-}
-
 /* =secondary */
 .ui-card .properties {
   display: flex;
@@ -216,7 +218,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  bottom: var(--gutter);
+  bottom: 0;
   z-index: 2;
   background-color: #C7CCD9;
 }
@@ -388,22 +390,25 @@
 
 /* =.list */
 .ui-cards.list .ui-card {
-  width: 100%;
-  padding-bottom: var(--gutter);
+  margin-bottom: var(--gutter);
 }
 
-.ui-cards .ui-card .properties .property {
+.ui-card .properties .property {
   min-width: var(--property-width);
   justify-content: center;
   text-align: center;
 }
 
-/* =.list */
+/* =.grid */
 .ui-cards.grid .ui-card {
   flex-direction: column;
   flex-basis: auto;
   flex-grow: 1;
   width: 33%;
+}
+
+.ui-cards.grid {
+  margin-right: calc(var(--gutter) * -1);
 }
 
 .ui-cards.grid.fullwidth .ui-card {
@@ -412,7 +417,7 @@
 
 .ui-cards.grid .ui-card {
   padding-right: var(--gutter);
-  padding-bottom: var(--gutter);
+  margin-bottom: var(--gutter);
 }
 
 /* =stacked */

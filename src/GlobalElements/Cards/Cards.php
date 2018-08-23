@@ -106,7 +106,6 @@ class Cards extends UiElement implements ILayout
     else
     {
       $assetManager->requireCss('assets/css/ContentElements/Cards');
-      $assetManager->requireJs('assets/js/GlobalElements/copy-to-clipboard');
     }
   }
 

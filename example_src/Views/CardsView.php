@@ -13,6 +13,7 @@ use Fortifi\Ui\GlobalElements\Cards\Cards;
 use Fortifi\Ui\GlobalElements\Cards\ContentCard;
 use Fortifi\Ui\GlobalElements\Icons\FontIcon;
 use Fortifi\Ui\Ui;
+use Packaged\Glimpse\Elements\LineBreak;
 use Packaged\Glimpse\Tags\Span;
 use Packaged\Helpers\Arrays;
 
@@ -492,5 +493,35 @@ Pellentesque elementum velit sed nulla rutrum, eget porttitor orci efficitur. Do
     );
 
     return $cards;
+  }
+
+  /**
+   * @group Cards
+   * @throws \Exception
+   */
+  final public function standaloneCards()
+  {
+    $longDesc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque suscipit tortor ut leo pharetra dignissim. Fusce nunc nibh, dictum nec neque in, interdum iaculis quam. Vestibulum finibus, quam quis euismod sollicitudin, dui velit tempus felis, sit amet consequat nunc lacus sit amet ante. Aenean vitae justo interdum quam consequat mollis sed at lectus. Cras auctor a metus eget ultricies. Vestibulum ut mattis quam. Mauris hendrerit facilisis purus, et maximus quam dapibus vel. Sed hendrerit, magna sit amet tempus sagittis, purus velit finibus neque, non aliquet tortor ipsum eu risus. Donec dapibus massa odio, eget rutrum neque euismod eget. Sed vitae dui justo. Pellentesque ac felis dictum, tempor magna in, pulvinar est. Nulla at purus ligula.";
+    $card1 = Card::i();
+    $card1->setAvatar($this->_getAvatar());
+    $card1->setLabel("Label Here");
+    $card1->setTitle("This is a standard card");
+    $card1->setDescription($longDesc);
+    $card1->addProperty("ABC", "DESHDKHF ");
+    $card1->addProperty("ABC", "DESHDKHF ");
+    $card1->addIcon($this->_getArchivedUserIcon());
+    $this->_addRandomActions($card1);
+
+    $card2 = ContentCard::i();
+    $card2->setAvatar($this->_getAvatar());
+    $card2->addIcon($this->_getInsecureIcon());
+    $card2->setLabel("Label Here");
+    $card2->setTitle("This is a content card");
+    $card2->setDescription($longDesc);
+    $card2->addProperty("ABC", "DESHDKHFF ");
+    $card2->addProperty("ABC", "DESHDKHFF ");
+    $this->_addRandomActions($card2);
+
+    return [$card1, LineBreak::create(), $card2];
   }
 }
