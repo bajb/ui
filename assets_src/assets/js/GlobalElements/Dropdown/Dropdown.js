@@ -47,8 +47,8 @@
       if(this.isOpen())
       {
         var me = $().add(this._action).add(this._content);
-        if((!sender)
-          || ((isConnected(sender) && ($(tree).filter(me).length === 0))))
+        if(((!sender) || ((isConnected(sender) && ($(tree).filter(me).length === 0))))
+          && this.triggerEvent('autoclose', {cancelable: true}))
         {
           this.close();
         }
