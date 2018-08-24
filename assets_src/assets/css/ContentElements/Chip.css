@@ -10,6 +10,9 @@
   line-height: 28px;
   border-radius: 28px;
   border: 1px solid var(--chip-border-color);
+  white-space: nowrap;
+  flex-shrink: 0;
+  flex-grow: 0;
 }
 
 .f-chip .name {
@@ -45,4 +48,16 @@
 
 .f-chip .f-chip-action:hover {
   background: rgba(0, 0, 0, 0.15);
+}
+
+.f-chips {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -5px;
+  margin-top: -5px;
+}
+
+.f-chips > .f-chip {
+  margin-right: 5px;
+  margin-top: 5px;
 }
