@@ -1,6 +1,5 @@
 :root {
   --chip-color: #ececec;
-  --chip-text-color: rgba(0, 0, 0, 0.8);
   --chip-border-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -14,14 +13,21 @@
   white-space: nowrap;
   flex-shrink: 0;
   flex-grow: 0;
-  color: var(--chip-text-color);
+}
+
+.f-chip.f-chip-dt, .f-chip.f-chip-dt a {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.f-chip.f-chip-lt, .f-chip.f-chip-lt a {
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .f-chip .name {
   font-weight: 500;
 }
 
-.f-chip .value{
+.f-chip .value {
   font-weight: 400;
 }
 
@@ -54,6 +60,22 @@
 
 .f-chip .f-chip-action:hover {
   background: rgba(0, 0, 0, 0.15);
+}
+
+.f-chip.f-chip-lt .f-chip-action{
+  background: rgba(255,255,255, 0.15);
+}
+
+.f-chip.f-chip-lt .f-chip-action:hover{
+  background: rgba(255,255,255, 0.25);
+}
+
+.f-chip a {
+  opacity: 0.8;
+}
+
+.f-chip a:hover {
+  opacity: 1;
 }
 
 .f-chips {

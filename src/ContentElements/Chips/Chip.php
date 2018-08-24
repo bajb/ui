@@ -23,7 +23,7 @@ class Chip extends UiElement
   protected $_value;
   protected $_color;
   protected $_borderColor;
-  protected $_textColor;
+  protected $_textColor = 'f-chip-dt';
 
   public function processIncludes(AssetManager $assetManager, $vendor = false)
   {
@@ -131,10 +131,7 @@ class Chip extends UiElement
     $this->_color = $color;
     if(ColourHelper::hexToRgb($color) !== false)
     {
-      if(ColourHelper::contrastText($color) == 'white')
-      {
-        $this->_textColor = 'rgba(255,255,255,0.9)';
-      }
+      $this->_textColor = 'f-chip-' . (ColourHelper::contrastText($color) == 'white' ? 'lt' : 'dt');
     }
     return $this;
   }
@@ -168,13 +165,12 @@ class Chip extends UiElement
     ];
     $chip = Div::create(array_filter($content))->addClass('f-chip');
 
-    $style = '';
-
     if($this->_textColor)
     {
-      $style .= '--chip-text-color: ' . $this->_textColor . ';';
+      $chip->addClass($this->_textColor);
     }
 
+    $style = '';
     if($this->_color)
     {
       $style .= '--chip-color: ' . $this->_color . ';';
