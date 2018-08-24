@@ -2,6 +2,7 @@
 namespace Fortifi\Ui\ContentElements\Chips;
 
 use Fortifi\FontAwesome\FaIcon;
+use Fortifi\Ui\Helpers\ColourHelper;
 use Fortifi\Ui\UiElement;
 use Packaged\Dispatch\AssetManager;
 use Packaged\Glimpse\Tags\Div;
@@ -22,6 +23,7 @@ class Chip extends UiElement
   protected $_value;
   protected $_color;
   protected $_borderColor;
+  protected $_textColor;
 
   public function processIncludes(AssetManager $assetManager, $vendor = false)
   {
@@ -127,6 +129,13 @@ class Chip extends UiElement
   public function setColor($color)
   {
     $this->_color = $color;
+    if(ColourHelper::hexToRgb($color) !== false)
+    {
+      if(ColourHelper::contrastText($color) == 'white')
+      {
+        $this->_textColor = 'rgba(255,255,255,0.9)';
+      }
+    }
     return $this;
   }
 
@@ -160,6 +169,11 @@ class Chip extends UiElement
     $chip = Div::create(array_filter($content))->addClass('f-chip');
 
     $style = '';
+
+    if($this->_textColor)
+    {
+      $style .= '--chip-text-color: ' . $this->_textColor . ';';
+    }
 
     if($this->_color)
     {

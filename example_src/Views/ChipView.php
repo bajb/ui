@@ -39,8 +39,8 @@ class ChipView extends AbstractUiExampleView
           Chip::i()->setName('My Chip')->setAction(PageLink::create('', FaIcon::create(FaIcon::TIMES))),
           Chip::i()->setName('Second Chip')->setIcon(FaIcon::create(FaIcon::MAP_MARKER_ALT)),
           Chip::i()->setName('Second Chip')->setColor('#c3dff7'),
-          Chip::i()->setName('Version')->setValue('1.2.21')->setColor('#f3c06e'),
-          Chip::i()->setName('Version')->setValue('1.2.21')->setBorderColor('#f3c06e'),
+          Chip::i()->setName('Version')->setValue('1.2.21')->setColor('#a03a3a'),
+          Chip::i()->setName('Version')->setValue('1.2.21')->setBorderColor('#a03a3a'),
         ]
       )
     )->setAttribute('style', 'width:360px; border:1px solid #CCC;');

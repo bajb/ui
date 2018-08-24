@@ -1,5 +1,6 @@
 :root {
   --chip-color: #ececec;
+  --chip-text-color: rgba(0, 0, 0, 0.8);
   --chip-border-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -13,10 +14,15 @@
   white-space: nowrap;
   flex-shrink: 0;
   flex-grow: 0;
+  color: var(--chip-text-color);
 }
 
 .f-chip .name {
   font-weight: 500;
+}
+
+.f-chip .value{
+  font-weight: 400;
 }
 
 .f-chip .value::before {
