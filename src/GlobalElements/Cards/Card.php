@@ -161,6 +161,12 @@ class Card extends UiElement implements IColours, ICardActionType
     return $this;
   }
 
+  public function addCustomProperty($property)
+  {
+    $this->_properties[] = Div::create($property)->addClass('property');
+    return $this;
+  }
+
   /**
    * @param string    $type
    * @param Link|null $link

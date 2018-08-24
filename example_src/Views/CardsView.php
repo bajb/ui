@@ -5,6 +5,8 @@ use Carbon\Carbon;
 use Fortifi\FontAwesome\FaIcon;
 use Fortifi\Ui\ContentElements\Avatar\Avatar;
 use Fortifi\Ui\ContentElements\Avatar\TextAvatar;
+use Fortifi\Ui\ContentElements\Chips\Chip;
+use Fortifi\Ui\ContentElements\Chips\Chips;
 use Fortifi\Ui\ContentElements\Links\PageletLink;
 use Fortifi\Ui\Enums\Cards\CardActionType;
 use Fortifi\Ui\Enums\Colour;
@@ -511,5 +513,29 @@ Pellentesque elementum velit sed nulla rutrum, eget porttitor orci efficitur. Do
     $this->_addRandomActions($card2);
 
     return [$card1, LineBreak::create(), $card2];
+  }
+
+  /**
+   * @group Cards
+   */
+  final public function customProperty()
+  {
+    $card1 = Card::i();
+    $card1->setAvatar($this->_getAvatar());
+    $card1->setLabel("Label Here");
+    $card1->setTitle("This is a standard card");
+    $card1->addCustomProperty(
+      Chips::i()->setChips(
+        [
+          Chip::i()->setName("My Chip"),
+          Chip::i()->setName("Second Chip")->setColor('#B20000'),
+          Chip::i()->setName("Third Chip")->setColor('#5A0BB5'),
+        ]
+      )
+    );
+    $card1->addIcon($this->_getArchivedUserIcon());
+    $this->_addRandomActions($card1);
+
+    return $card1;
   }
 }
