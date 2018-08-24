@@ -19,7 +19,7 @@
   font-weight: 500;
 }
 
-.f-chip .value ::before {
+.f-chip .value::before {
   content: ':';
   position: relative;
   width: 8px;
