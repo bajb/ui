@@ -5,6 +5,7 @@
   padding: 0 32px;
   color: #FFFFFF;
   flex-wrap: wrap;
+  overflow: hidden;
 }
 
 .f-hero-item-bar > div {
@@ -25,7 +26,6 @@
 .f-hero-item-bar > div p {
   margin: 0;
   font-weight: normal;
-
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
