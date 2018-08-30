@@ -538,4 +538,69 @@ Pellentesque elementum velit sed nulla rutrum, eget porttitor orci efficitur. Do
 
     return $card1;
   }
+
+  /**
+   * @group Cards
+   */
+  final public function noCards()
+  {
+    $i = 0;
+    $items = [];
+    while(count($items) < 5)
+    {
+      $card = Card::i()->setTitle('Card ' . ++$i);
+      if($i < 4)
+      {
+        $card->addProperty('label', 'value');
+      }
+      $items[] = $card;
+    }
+
+    return $items;
+  }
+
+  /**
+   * @group Cards
+   */
+  final public function listCards()
+  {
+    $i = 0;
+    $items = [];
+    while(count($items) < 5)
+    {
+      $card = Card::i()->setTitle('Card ' . ++$i);
+      if($i < 4)
+      {
+        $card->addProperty('label', 'value');
+      }
+      $items[] = $card;
+    }
+
+    $cards = Cards::i();
+    $cards->addCards($items);
+    return $cards;
+  }
+
+  /**
+   * @group Cards
+   */
+  final public function gridCards()
+  {
+    $i = 0;
+    $items = [];
+    while(count($items) < 5)
+    {
+      $card = Card::i()->setTitle('Card ' . ++$i);
+      if($i < 4)
+      {
+        $card->addProperty('label', 'value');
+      }
+      $items[] = $card;
+    }
+
+    $cards = Cards::i();
+    $cards->setLayout($cards::LAYOUT_GRID);
+    $cards->addCards($items);
+    return $cards;
+  }
 }

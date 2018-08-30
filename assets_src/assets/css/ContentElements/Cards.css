@@ -57,7 +57,8 @@
   flex-direction: column;
 }
 
-.ui-cards.grid .ui-card.has-properties > .primary {
+.ui-card.no-properties > .primary,
+.ui-cards.grid .ui-card > .primary {
   border-right: 1px solid var(--border-color);
 }
 
