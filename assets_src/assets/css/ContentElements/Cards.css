@@ -407,8 +407,7 @@
 .ui-cards.grid .ui-card {
   flex-direction: column;
   flex-basis: auto;
-  flex-grow: 1;
-  width: 33%;
+  width: 33.33%;
 }
 
 .ui-cards.grid {
