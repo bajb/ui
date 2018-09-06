@@ -428,6 +428,6 @@
 .ui-cards.stacked .ui-card:before,
 .ui-cards.stacked .ui-card {
   bottom: 0;
-  padding-bottom: 0;
+  margin-bottom: 0;
   padding-right: 0;
 }
