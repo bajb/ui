@@ -3,7 +3,7 @@
   height: 48px !important;
   box-sizing: content-box;
   overflow: hidden;
-  border: 1px solid;
+  border: 0px solid;
   border-radius: 50%;
   display: inline-block;
   background-position: center;
@@ -22,15 +22,18 @@
 
 .text-avatar {
   font-size: 20px;
-  letter-spacing: 2px;
-  padding-left: 2px;
+  letter-spacing: 0;
 }
 
 .favatar.x2 {
   width: 64px !important;
   height: 64px !important;
   line-height: 64px;
-  font-size: 45px;
+  font-size: 35px;
+}
+
+.favatar.x1 {
+  font-size: 22px;
 }
 
 .favatar.x2.text-avatar {
@@ -41,8 +44,11 @@
   width: 22px !important;
   height: 22px !important;
   line-height: 21px;
-  font-size: 15px;
-  letter-spacing: 1px;
+  font-size: 12px;
+}
+
+.favatar.x0.text-avatar {
+  font-size: 12px;
 }
 
 .favatar.x05 {
@@ -50,14 +56,6 @@
   height: 32px !important;
   line-height: 30px;
   font-size: 15px;
-}
-
-.favatar.x0.text-avatar {
-  font-size: 13px;
-}
-
-.favatar.x05.text-avatar {
-  letter-spacing: 1px;
 }
 
 .favatar.default {
