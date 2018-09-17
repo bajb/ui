@@ -5,6 +5,7 @@ use Fortifi\Ui\GlobalElements\Icons\FontIcon;
 use Fortifi\Ui\Ui;
 use Fortifi\Ui\UiElement;
 use Packaged\Glimpse\Core\HtmlTag;
+use Packaged\Glimpse\Core\ISafeHtmlProducer;
 use Packaged\Glimpse\Tags\Div;
 use Packaged\Glimpse\Tags\Link;
 use Packaged\Glimpse\Tags\Span;
@@ -45,12 +46,23 @@ class PanelHeader extends UiElement
    * Add singular action to PanelHeading
    *
    * @param HtmlTag $action
+   * @param string  $withClass if HTML Tag
    *
    * @return $this
    */
-  public function addAction(HtmlTag $action)
+  public function addAction(HtmlTag $action, $withClass = Ui::MARGIN_MEDIUM_LEFT)
   {
-    $this->_actions[] = $action->addClass(Ui::MARGIN_MEDIUM_LEFT);
+    if($withClass)
+    {
+      $action->addClass($withClass);
+    }
+    $this->addCustomAction($action);
+    return $this;
+  }
+
+  public function addCustomAction(ISafeHtmlProducer $action)
+  {
+    $this->_actions[] = $action;
     return $this;
   }
 
@@ -66,13 +78,13 @@ class PanelHeader extends UiElement
   {
     foreach($actions as $action)
     {
-      if($action instanceof HtmlTag)
+      if($action instanceof ISafeHtmlProducer)
       {
         $this->addAction($action);
       }
       else
       {
-        throw new \Exception('addActions() array must contain Link() objects');
+        throw new \Exception('setActions() array must contain ISafeHtmlProducer objects');
       }
     }
     return $this;
@@ -185,7 +197,7 @@ class PanelHeader extends UiElement
         $this->getIcon(),
         $this->_renderTitle(),
         $this->_renderActions(),
-        $this->getStatus()
+        $this->getStatus(),
       ]
     )->addClass(
       'f-panel-heading',
