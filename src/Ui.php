@@ -282,7 +282,7 @@ final class Ui
 
     if($fontAwesome)
     {
-      $am->requireJs('https://use.fontawesome.com/releases/v5.0.13/js/all.js');
+      AssetManager::vendorType('fortifi', 'fontawesome')->requireCss('assets/css/all.min');
     }
   }
 

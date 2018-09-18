@@ -1,7 +1,6 @@
 <?php
 namespace Fortifi\Ui\GlobalElements\Cards;
 
-use Fortifi\Ui\Enums\Cards\CardMaxProperties;
 use Fortifi\Ui\Interfaces\ILayout;
 use Fortifi\Ui\Traits\DataAttributesTrait;
 use Fortifi\Ui\Traits\SetIdTrait;

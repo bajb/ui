@@ -11,10 +11,10 @@
   ],
   "require": {
     "packaged/dispatch": "~1.6",
-    "packaged/glimpse": "~0.7",
+    "packaged/glimpse": "~0.8",
     "nesbot/carbon": "~1.22",
-    "illuminate/contracts": "~5.4",
-    "fortifi/fontawesome": "^2.0.4"
+    "illuminate/contracts": "~5.5",
+    "fortifi/fontawesome": "3.0.0"
   },
   "require-dev": {
     "cubex/framework": "~2.6",
