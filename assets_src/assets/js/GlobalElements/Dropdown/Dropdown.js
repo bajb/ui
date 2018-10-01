@@ -178,6 +178,15 @@
 
     scrollBarOffset += this._options.margin;
 
+    var leftClip = ($content.offset().left - scrollBarOffset) * -1; // left offset when positioned at left edge of screen
+    if(this._options.position.indexOf('left') > -1)
+    {
+      offsetLeft = Math.max(
+        offsetLeft - $content.outerWidth(true) + $action.outerWidth(true),
+        leftClip
+      );
+    }
+
     var
       css = {},
       offsetRight = $action.offset().left + $content.outerWidth(true),
@@ -186,8 +195,8 @@
     if(offsetRight > docWidth)
     {
       css.left = Math.max(
-        offsetLeft + (docWidth - offsetRight), // keep moving left until:
-        ($content.offset().left - scrollBarOffset) * -1 // it hits the left side of the screen
+        offsetLeft + (docWidth - offsetRight), // move left until:
+        leftClip // it hits the left side of the screen
       );
     }
     else
@@ -195,15 +204,13 @@
       css.left = offsetLeft;
     }
 
-    switch(this._options.position)
+    if(this._options.position.indexOf('top') > -1)
     {
-      case 'top':
-        css.top = offsetTop - $content.outerHeight(true);
-        break;
-      case 'bottom':
-      default:
-        css.top = offsetTop + $action.outerHeight(true);
-        break;
+      css.top = offsetTop - $content.outerHeight(true);
+    }
+    else
+    {
+      css.top = offsetTop + $action.outerHeight(true);
     }
 
     $content.css(css);

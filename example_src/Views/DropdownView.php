@@ -89,7 +89,7 @@ class DropdownView extends AbstractUiExampleView
   final public function nested()
   {
     $d = Dropdown::i();
-    $d->setAction('Dropdown');
+    $d->setAction('Dropdown')->setPosition('top left');
     $d->setContent(Dropdown::i()->addClass('dd-body')->setAction('nested action')->setContent('nested content'));
     $largeContainer = Div::create($d)->setAttribute('style', 'height:5000px;margin-top:50px;position:relative');
     return Div::create($largeContainer)->setAttribute('style', 'height:200px;overflow:auto');
