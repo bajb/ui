@@ -178,19 +178,20 @@
 
     scrollBarOffset += this._options.margin;
 
+    var
+      css = {},
+      offsetRight = $action.offset().left + $content.outerWidth(true),
+      docWidth = document.body.clientWidth - scrollBarOffset;
+
     var leftClip = ($content.offset().left - scrollBarOffset) * -1; // left offset when positioned at left edge of screen
     if(this._options.position.indexOf('left') > -1)
     {
+      offsetRight = $action.offset().left + $action.outerWidth(true);
       offsetLeft = Math.max(
         offsetLeft - $content.outerWidth(true) + $action.outerWidth(true),
         leftClip
       );
     }
-
-    var
-      css = {},
-      offsetRight = $action.offset().left + $content.outerWidth(true),
-      docWidth = document.body.clientWidth - scrollBarOffset;
 
     if(offsetRight > docWidth)
     {
