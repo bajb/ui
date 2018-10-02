@@ -251,10 +251,7 @@ final class Ui
   const BG_WHITE = 'f-bg-white';
   const BG_NONE = 'f-bg-none';
 
-  public static function boot(
-    AssetManager $am = null, $bootstrap = true, $jquery = true,
-    $fontAwesome = true
-  )
+  public static function boot(AssetManager $am = null, $bootstrap = true, $jquery = true, $fontAwesome = true)
   {
     if($am === null)
     {

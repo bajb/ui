@@ -76,9 +76,9 @@ class CardsView extends AbstractUiExampleView
    */
   protected function _getInsecureIcon()
   {
-    return FaIcon::layers(
-      FaIcon::create(FaIcon::LOCK),
-      FaIcon::create(FaIcon::CIRCLE_NOTCH)->grow(16)->addClass(Ui::TEXT_ORANGE)
+    return FaIcon::stack(
+      FaIcon::create(FaIcon::CIRCLE_NOTCH)->grow(16)->addClass(Ui::TEXT_ORANGE),
+      FaIcon::create(FaIcon::LOCK)
     )->addClass(Ui::MARGIN_MEDIUM_LEFT);
   }
 
@@ -87,9 +87,9 @@ class CardsView extends AbstractUiExampleView
    */
   protected function _getArchivedUserIcon()
   {
-    return FaIcon::layers(
-      FaIcon::create(FaIcon::USER),
-      FaIcon::create(FaIcon::BAN)->grow(16)->addClass(Ui::TEXT_RED)
+    return FaIcon::stack(
+      FaIcon::create(FaIcon::BAN)->grow(16)->addClass(Ui::TEXT_RED),
+      FaIcon::create(FaIcon::USER)
     )->addClass(Ui::MARGIN_MEDIUM_LEFT);
   }
 

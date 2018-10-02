@@ -18,7 +18,8 @@
   },
   "require-dev": {
     "cubex/framework": "~2.6",
-    "stack/builder": "~1.0"
+    "stack/builder": "~1.0",
+    "packaged/helpers": "~1.16"
   },
   "autoload": {
     "psr-4": {

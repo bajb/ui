@@ -3,6 +3,7 @@ namespace Fortifi\UiExample\Views;
 
 use Fortifi\FontAwesome\FaIcon;
 use Fortifi\FontAwesome\Interfaces\Icons\FaIcons;
+use Packaged\Helpers\Arrays;
 
 class FontAwesomeView extends AbstractUiExampleView
 {
@@ -13,7 +14,7 @@ class FontAwesomeView extends AbstractUiExampleView
   final public function AllIcons()
   {
     $icons = [];
-    foreach(FaIcon::getValues() as $icon)
+    foreach(Arrays::random(FaIcon::getValues(), 20) as $icon)
     {
       $icons[] = FaIcon::create($icon)->sizeX2();
     }
@@ -26,7 +27,7 @@ class FontAwesomeView extends AbstractUiExampleView
   final public function RegularIcons()
   {
     $icons = [];
-    foreach(FaIcon::getValues() as $icon)
+    foreach(Arrays::random(FaIcon::getValues(), 20) as $icon)
     {
       $icons[] = FaIcon::create($icon)->styleRegular()->sizeX2();
     }
@@ -39,7 +40,7 @@ class FontAwesomeView extends AbstractUiExampleView
   final public function LightIcons()
   {
     $icons = [];
-    foreach(FaIcon::getValues() as $icon)
+    foreach(Arrays::random(FaIcon::getValues(), 20) as $icon)
     {
       $icons[] = FaIcon::create($icon)->styleLight()->sizeX2();
     }
@@ -52,10 +53,23 @@ class FontAwesomeView extends AbstractUiExampleView
   final public function BrandIcons()
   {
     $icons = [];
-    foreach(FaIcons::__BRAND_ICONS as $icon)
+    foreach(Arrays::random(FaIcons::__BRAND_ICONS, 20) as $icon)
     {
       $icons[] = FaIcon::create($icon)->styleLight()->sizeX2();
     }
+    return $icons;
+  }
+
+  /**
+   * @group Effects
+   */
+  final public function StackedIcon()
+  {
+    $icons = [];
+    $icons[] = FaIcon::stack(
+      FaIcon::create(FaIcon::CIRCLE)->styleRegular(),
+      FaIcon::create(FaIcon::USER)
+    );
     return $icons;
   }
 }
