@@ -14,7 +14,6 @@ use Packaged\Dispatch\AssetManager;
 use Packaged\Glimpse\Core\HtmlTag;
 use Packaged\Glimpse\Tags\Div;
 use Packaged\Glimpse\Tags\Link;
-use Packaged\Glimpse\Tags\Span;
 use Packaged\Glimpse\Tags\Text\Paragraph;
 use Packaged\Helpers\Strings;
 
@@ -210,6 +209,10 @@ class Card extends UiElement implements IColours, ICardActionType
    */
   public function addIcon($icon)
   {
+    if(is_string($icon) && UiIcon::isValid($icon))
+    {
+      $icon = FaIcon::create($icon);
+    }
     $this->_icons[] = $icon;
     return $this;
   }
@@ -318,28 +321,7 @@ class Card extends UiElement implements IColours, ICardActionType
   {
     if($this->_icons)
     {
-      $icons = Div::create()->addClass('icons');
-      foreach($this->_icons as $icon)
-      {
-        // if is HtmlTag object and $tag is 'i', we can assume that this should be considered an icon
-        if(($icon instanceof FaIcon) || (($icon instanceof HtmlTag) && $icon->getTag() === 'i'))
-        {
-          $icons->appendContent($icon);
-        }
-        // is it a layered icon?
-        else if(($icon instanceof Span) && ($icon->hasClass('fa-layers')))
-        {
-          $icons->appendContent($icon);
-        }
-        else if(is_string($icon) && UiIcon::isValid($icon))
-        {
-          $icons->appendContent(
-            FaIcon::create($icon)
-          );
-        }
-      }
-      $container->appendContent($icons);
-
+      $container->appendContent(Div::create($this->_icons)->addClass('icons'));
       $card->addClass('has-icons');
     }
 
