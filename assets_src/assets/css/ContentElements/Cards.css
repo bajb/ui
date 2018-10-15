@@ -408,6 +408,8 @@
   flex-direction: column;
   flex-basis: auto;
   width: 33.33%;
+  min-width: 260px;
+  flex-grow: 1;
 }
 
 .ui-cards.grid {
