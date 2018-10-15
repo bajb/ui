@@ -1,8 +1,10 @@
 .f-cprogress {
-  font-size: 40px;
-  width: 40px;
-  height: 40px;
   --bar-color: #307bbb;
+  --circle-size: 50px;
+
+  font-size: var(--circle-size);
+  width: var(--circle-size);
+  height: var(--circle-size);
 }
 
 .f-cprogress .c {
