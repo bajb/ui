@@ -44,6 +44,15 @@
   QueryBuilderConstants.COMPARATOR_NOT_ENDS = 'nends';
   QueryBuilderConstants.COMPARATOR_BEFORE = 'before';
   QueryBuilderConstants.COMPARATOR_AFTER = 'after';
+  QueryBuilderConstants.COMPARATOR_MATCH = 'match';
+  QueryBuilderConstants.COMPARATOR_NOT_MATCH = 'nmatch';
+  QueryBuilderConstants.COMPARATOR_MATCH_PHRASE = 'matchphrase';
+  QueryBuilderConstants.COMPARATOR_NOT_MATCH_PHRASE = 'nmatchphrase';
+  QueryBuilderConstants.COMPARATOR_WILDCARD = 'wild';
+  QueryBuilderConstants.COMPARATOR_NOT_WILDCARD = 'nwild';
+  QueryBuilderConstants.COMPARATOR_FUZZY = 'fuzzy';
+  QueryBuilderConstants.COMPARATOR_NOT_FUZZY = 'nfuzzy';
+
 
   $.fn.QueryBuilder = function (command) {
     var args = Array.prototype.slice.call(arguments);
@@ -473,6 +482,14 @@
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_ENDS, 'Does Not End With');
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_BEFORE, 'Was Before');
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_AFTER, 'Was After');
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_MATCH, 'Match With');
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_MATCH, 'Does Not Match With');
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_MATCH_PHRASE, 'Matches Phrase');
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_MATCH_PHRASE, 'Does Not Match Phrase');
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_WILDCARD, 'Wildcard Match');
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_WILDCARD, 'Does Not Wildcard Match');
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_FUZZY, 'Fuzzy Match With');
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_FUZZY, 'Does Not Fuzzy Match With');
 
     QueryBuilder.addInputTypeProcessor(
       function (comparator, definition) {

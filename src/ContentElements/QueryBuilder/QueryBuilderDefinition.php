@@ -26,6 +26,16 @@ class QueryBuilderDefinition
   const COMPARATOR_BEFORE = 'before';
   const COMPARATOR_AFTER = 'after';
 
+  //elastic specific search comparators
+  const COMPARATOR_MATCH = 'match';
+  const COMPARATOR_NOT_MATCH = 'nmatch';
+  const COMPARATOR_MATCH_PHRASE = 'matchphrase';
+  const COMPARATOR_NOT_MATCH_PHRASE = 'nmatchphrase';
+  const COMPARATOR_WILDCARD = 'wild';
+  const COMPARATOR_NOT_WILDCARD = 'nwild';
+  const COMPARATOR_FUZZY = 'fuzzy';
+  const COMPARATOR_NOT_FUZZY = 'nfuzzy';
+
   protected $_key = '';
   protected $_displayName = '';
   protected $_dataType = QueryBuilderDataType::STRING;
@@ -165,6 +175,44 @@ class QueryBuilderDefinition
   {
     return [
       QueryBuilderDefinition::COMPARATOR_EQUALS,
+    ];
+  }
+
+  public static function textSearchComparators()
+  {
+    return [
+      QueryBuilderDefinition::COMPARATOR_EQUALS,
+      QueryBuilderDefinition::COMPARATOR_NOT_EQUALS,
+      QueryBuilderDefinition::COMPARATOR_MATCH,
+      QueryBuilderDefinition::COMPARATOR_NOT_MATCH,
+      QueryBuilderDefinition::COMPARATOR_STARTS,
+      QueryBuilderDefinition::COMPARATOR_NOT_STARTS,
+      QueryBuilderDefinition::COMPARATOR_WILDCARD,
+      QueryBuilderDefinition::COMPARATOR_NOT_WILDCARD,
+      QueryBuilderDefinition::COMPARATOR_FUZZY,
+      QueryBuilderDefinition::COMPARATOR_NOT_FUZZY,
+    ];
+  }
+
+  public static function idComparators()
+  {
+    return [
+      QueryBuilderDefinition::COMPARATOR_EQUALS,
+      QueryBuilderDefinition::COMPARATOR_NOT_EQUALS,
+      QueryBuilderDefinition::COMPARATOR_STARTS,
+      QueryBuilderDefinition::COMPARATOR_NOT_STARTS,
+    ];
+  }
+
+  public static function emailComparators()
+  {
+    return [
+      QueryBuilderDefinition::COMPARATOR_EQUALS,
+      QueryBuilderDefinition::COMPARATOR_NOT_EQUALS,
+      QueryBuilderDefinition::COMPARATOR_STARTS,
+      QueryBuilderDefinition::COMPARATOR_NOT_STARTS,
+      QueryBuilderDefinition::COMPARATOR_WILDCARD,
+      QueryBuilderDefinition::COMPARATOR_NOT_WILDCARD,
     ];
   }
 
