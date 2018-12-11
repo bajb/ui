@@ -48,6 +48,8 @@
   QueryBuilderConstants.COMPARATOR_NOT_MATCH = 'nmatch';
   QueryBuilderConstants.COMPARATOR_MATCH_PHRASE = 'matchphrase';
   QueryBuilderConstants.COMPARATOR_NOT_MATCH_PHRASE = 'nmatchphrase';
+  QueryBuilderConstants.COMPARATOR_MATCH_PHRASE_PREFIX = 'matchphrasepre';
+  QueryBuilderConstants.COMPARATOR_NOT_MATCH_PHRASE_PREFIX = 'nmatchphrasepre';
   QueryBuilderConstants.COMPARATOR_WILDCARD = 'wild';
   QueryBuilderConstants.COMPARATOR_NOT_WILDCARD = 'nwild';
   QueryBuilderConstants.COMPARATOR_FUZZY = 'fuzzy';
@@ -482,10 +484,12 @@
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_ENDS, 'Does Not End With');
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_BEFORE, 'Was Before');
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_AFTER, 'Was After');
-    this.setComparatorName(QueryBuilderConstants.COMPARATOR_MATCH, 'Match With');
-    this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_MATCH, 'Does Not Match With');
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_MATCH, 'Match Any');
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_MATCH, 'Does Not Match Any');
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_MATCH_PHRASE, 'Matches Phrase');
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_MATCH_PHRASE, 'Does Not Match Phrase');
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_MATCH_PHRASE_PREFIX, 'Matches Phrase Prefix');
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_MATCH_PHRASE_PREFIX, 'Does Not Match Phrase Prefix');
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_WILDCARD, 'Wildcard Match');
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_WILDCARD, 'Does Not Wildcard Match');
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_FUZZY, 'Fuzzy Match With');
