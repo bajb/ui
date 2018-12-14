@@ -358,7 +358,7 @@
           definition['comparators'] = ['eq'];
         }
         var $comparatorSel = $('<select class="qb-comparator"/>');
-        if(definition.dataType !== QueryBuilderConstants.DATATYPE_BOOL && definition.count > 1)
+        if(definition.dataType !== QueryBuilderConstants.DATATYPE_BOOL && definition.comparators.count() > 1)
         {
           $row.append($comparatorSel);
         }
