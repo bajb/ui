@@ -507,6 +507,15 @@
     );
     QueryBuilder.addInputTypeProcessor(
       function (comparator, definition) {
+        var dataType = definition ? definition.getDataType() : QueryBuilderConstants.DATATYPE_TIMESTAMP_DAY;
+        if(dataType === QueryBuilderConstants.DATATYPE_TIMESTAMP_DAY)
+        {
+          return QueryBuilderTimestampInput;
+        }
+      }
+    );
+    QueryBuilder.addInputTypeProcessor(
+      function (comparator, definition) {
         if(comparator === QueryBuilderConstants.COMPARATOR_BETWEEN
           || comparator === QueryBuilderConstants.COMPARATOR_NOT_BETWEEN)
         {
