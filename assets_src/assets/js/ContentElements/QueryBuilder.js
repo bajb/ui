@@ -816,6 +816,12 @@
         this._rules.push(rule);
         if(this._initialisedDefinitions)
         {
+          if(!rule.getValue())
+          {
+            var it = this.getInputTypeForRule(rule);
+            rule.setValue(it.defaultValue())
+          }
+
           var $ele = rule.render();
           $('.qb-rules', this._ele).append($ele);
           $(this._ele).trigger('render.querybuilder', rule);
