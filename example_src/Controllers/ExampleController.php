@@ -98,7 +98,7 @@ class ExampleController extends LayoutController
     );
     $definitions->addDefinition($between);
 
-    $between = new QBD('between_date', 'Between Test (Date)', QBDT::DATE);
+    $between = new QBD('between_date', 'Between Test (Date)', QBDT::TIMESTAMP_DAY);
     $between->setComparators(
       [
         QBD::COMPARATOR_BETWEEN,
