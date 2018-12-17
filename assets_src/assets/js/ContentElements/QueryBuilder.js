@@ -819,7 +819,7 @@
           if(!rule.getValue())
           {
             var it = this.getInputTypeForRule(rule);
-            rule.setValue(it.defaultValue())
+            rule.setValue(it.defaultValue(rule.getDefinition()))
           }
 
           var $ele = rule.render();
