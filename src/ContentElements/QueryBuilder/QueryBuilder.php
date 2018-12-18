@@ -48,6 +48,7 @@ class QueryBuilder extends UiElement
       $assetManager->requireCss('assets/css/ContentElements/QueryBuilder');
       $assetManager->requireJs('assets/js/ContentElements/QueryBuilderTokenizer');
       $assetManager->requireCss('assets/css/ContentElements/QueryBuilderTokenizer');
+      $assetManager->requireJs('assets/js/ContentElements/QueryBuilderElastic');
     }
   }
 

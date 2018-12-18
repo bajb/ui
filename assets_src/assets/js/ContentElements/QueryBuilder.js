@@ -88,6 +88,7 @@
     this.displayName = '- SELECT -';
     this.dataType = QueryBuilderConstants.DATATYPE_STRING;
     this.comparators = [QueryBuilderConstants.COMPARATOR_EQUALS];
+    this.showSingleComparator = null;
     this.inputType = null;
     this.required = false;
     this.unique = false;
@@ -334,38 +335,49 @@
 
       if(definition)
       {
-        if(definition && definition.required && definition.count <= 1)
+        if(definition.required && definition.count <= 1)
         {
           $propertySel.prop('disabled', true);
         }
-        if(definition && !definition.dataType)
+        if(!definition.dataType)
         {
           definition.dataType = 'string';
         }
-        if(definition && !definition['comparators'])
+        if(!definition['comparators'])
         {
           definition['comparators'] = ['eq'];
         }
-        var $comparatorSel = $('<select class="qb-comparator"/>');
-        if(definition.dataType !== QueryBuilderConstants.DATATYPE_BOOL)
+
+        var showComparators = (definition.comparators.length > 1);
+        // if showSingle is null, hide comparators if equals
+        if(definition.comparators.length === 1)
         {
+          if(definition.showSingleComparator === null)
+          {
+            showComparators = (definition.comparators[0] !== QueryBuilderConstants.COMPARATOR_EQUALS);
+          }
+          else
+          {
+            showComparators = definition.showSingleComparator;
+          }
+        }
+
+        if(showComparators)
+        {
+          var $comparatorSel = $('<select class="qb-comparator"/>');
+          $.each(
+            definition ? definition['comparators'] : [QueryBuilderConstants.COMPARATOR_EQUALS],
+            function (idx, ident) {
+              var selected = (self.getComparator() === ident) ? ' selected="selected"' : '';
+              $comparatorSel.append(
+                '<option' + selected + ' value="' + ident + '">'
+                + self._queryBuilder.getComparatorName(ident)
+                + '</option>'
+              );
+            }
+          );
           $row.append($comparatorSel);
         }
-        $.each(
-          definition ?
-            definition['comparators'] :
-            [QueryBuilderConstants.COMPARATOR_EQUALS],
-          function (idx, ident) {
-            var selected = (self.getComparator() === ident) ?
-              ' selected="selected"' :
-              '';
-            $comparatorSel.append(
-              '<option' + selected + ' value="' + ident + '">'
-              + self._queryBuilder.getComparatorName(ident)
-              + '</option>'
-            );
-          }
-        );
         var valueObject = getInput.call(this),
           $value = valueObject.render();
         if((this.getValue() === null)
