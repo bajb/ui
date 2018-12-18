@@ -44,17 +44,6 @@
   QueryBuilderConstants.COMPARATOR_NOT_ENDS = 'nends';
   QueryBuilderConstants.COMPARATOR_BEFORE = 'before';
   QueryBuilderConstants.COMPARATOR_AFTER = 'after';
-  QueryBuilderConstants.COMPARATOR_MATCH = 'match';
-  QueryBuilderConstants.COMPARATOR_NOT_MATCH = 'nmatch';
-  QueryBuilderConstants.COMPARATOR_MATCH_PHRASE = 'matchphrase';
-  QueryBuilderConstants.COMPARATOR_NOT_MATCH_PHRASE = 'nmatchphrase';
-  QueryBuilderConstants.COMPARATOR_MATCH_PHRASE_PREFIX = 'matchphrasepre';
-  QueryBuilderConstants.COMPARATOR_NOT_MATCH_PHRASE_PREFIX = 'nmatchphrasepre';
-  QueryBuilderConstants.COMPARATOR_WILDCARD = 'wild';
-  QueryBuilderConstants.COMPARATOR_NOT_WILDCARD = 'nwild';
-  QueryBuilderConstants.COMPARATOR_FUZZY = 'fuzzy';
-  QueryBuilderConstants.COMPARATOR_NOT_FUZZY = 'nfuzzy';
-
 
   $.fn.QueryBuilder = function (command) {
     var args = Array.prototype.slice.call(arguments);
@@ -99,6 +88,7 @@
     this.displayName = '- SELECT -';
     this.dataType = QueryBuilderConstants.DATATYPE_STRING;
     this.comparators = [QueryBuilderConstants.COMPARATOR_EQUALS];
+    this.showSingleComparator = null;
     this.inputType = null;
     this.required = false;
     this.unique = false;
@@ -345,38 +335,49 @@
 
       if(definition)
       {
-        if(definition && definition.required && definition.count <= 1)
+        if(definition.required && definition.count <= 1)
         {
           $propertySel.prop('disabled', true);
         }
-        if(definition && !definition.dataType)
+        if(!definition.dataType)
         {
           definition.dataType = 'string';
         }
-        if(definition && !definition['comparators'])
+        if(!definition['comparators'])
         {
           definition['comparators'] = ['eq'];
         }
-        var $comparatorSel = $('<select class="qb-comparator"/>');
-        if(definition.dataType !== QueryBuilderConstants.DATATYPE_BOOL && definition.comparators.count() > 1)
+
+        var showComparators = (definition.comparators.length > 1);
+        // if showSingle is null, hide comparators if equals
+        if(definition.comparators.length === 1)
         {
+          if(definition.showSingleComparator === null)
+          {
+            showComparators = (definition.comparators[0] !== QueryBuilderConstants.COMPARATOR_EQUALS);
+          }
+          else
+          {
+            showComparators = definition.showSingleComparator;
+          }
+        }
+
+        if(showComparators)
+        {
+          var $comparatorSel = $('<select class="qb-comparator"/>');
+          $.each(
+            definition ? definition['comparators'] : [QueryBuilderConstants.COMPARATOR_EQUALS],
+            function (idx, ident) {
+              var selected = (self.getComparator() === ident) ? ' selected="selected"' : '';
+              $comparatorSel.append(
+                '<option' + selected + ' value="' + ident + '">'
+                + self._queryBuilder.getComparatorName(ident)
+                + '</option>'
+              );
+            }
+          );
           $row.append($comparatorSel);
         }
-        $.each(
-          definition ?
-            definition['comparators'] :
-            [QueryBuilderConstants.COMPARATOR_EQUALS],
-          function (idx, ident) {
-            var selected = (self.getComparator() === ident) ?
-              ' selected="selected"' :
-              '';
-            $comparatorSel.append(
-              '<option' + selected + ' value="' + ident + '">'
-              + self._queryBuilder.getComparatorName(ident)
-              + '</option>'
-            );
-          }
-        );
         var valueObject = getInput.call(this),
           $value = valueObject.render();
         if((this.getValue() === null)
@@ -484,16 +485,6 @@
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_ENDS, 'Does Not End With');
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_BEFORE, 'Was Before');
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_AFTER, 'Was After');
-    this.setComparatorName(QueryBuilderConstants.COMPARATOR_MATCH, 'Match Any');
-    this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_MATCH, 'Does Not Match Any');
-    this.setComparatorName(QueryBuilderConstants.COMPARATOR_MATCH_PHRASE, 'Matches Phrase');
-    this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_MATCH_PHRASE, 'Does Not Match Phrase');
-    this.setComparatorName(QueryBuilderConstants.COMPARATOR_MATCH_PHRASE_PREFIX, 'Matches Phrase Prefix');
-    this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_MATCH_PHRASE_PREFIX, 'Does Not Match Phrase Prefix');
-    this.setComparatorName(QueryBuilderConstants.COMPARATOR_WILDCARD, 'Wildcard Match');
-    this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_WILDCARD, 'Does Not Wildcard Match');
-    this.setComparatorName(QueryBuilderConstants.COMPARATOR_FUZZY, 'Fuzzy Match With');
-    this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_FUZZY, 'Does Not Fuzzy Match With');
 
     QueryBuilder.addInputTypeProcessor(
       function (comparator, definition) {

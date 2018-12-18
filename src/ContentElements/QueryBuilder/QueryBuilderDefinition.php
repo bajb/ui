@@ -42,6 +42,7 @@ class QueryBuilderDefinition
   protected $_displayName = '';
   protected $_dataType = QueryBuilderDataType::STRING;
   protected $_inputType = null;
+  protected $_showSingleComparator = null;
   protected $_comparators = [self::COMPARATOR_EQUALS];
   protected $_required = false;
   protected $_unique = false;
@@ -56,13 +57,20 @@ class QueryBuilderDefinition
     $this->_dataType = $dataType;
   }
 
-  public function setComparators(array $comparators)
+  public function showSingleComparator($showSingleComparator = null)
+  {
+    $this->_showSingleComparator = $showSingleComparator;
+    return $this;
+  }
+
+  public function setComparators(array $comparators, $showSingleComparator = null)
   {
     $this->_comparators = [];
     foreach($comparators as $comparator)
     {
       $this->addComparator($comparator);
     }
+    $this->_showSingleComparator = $showSingleComparator;
     return $this;
   }
 
@@ -141,16 +149,17 @@ class QueryBuilderDefinition
   public function toArray()
   {
     return [
-      'key'          => $this->_key,
-      'displayName'  => $this->_displayName,
-      'comparators'  => array_values($this->_comparators),
-      'dataType'     => $this->_dataType,
-      'inputType'    => $this->_inputType,
-      'required'     => $this->_required,
-      'unique'       => $this->_unique,
-      'values'       => $this->_values,
-      'valuesUrl'    => $this->_valuesUrl,
-      'strictValues' => $this->_strictValues,
+      'key'                  => $this->_key,
+      'displayName'          => $this->_displayName,
+      'comparators'          => array_values($this->_comparators),
+      'showSingleComparator' => $this->_showSingleComparator,
+      'dataType'             => $this->_dataType,
+      'inputType'            => $this->_inputType,
+      'required'             => $this->_required,
+      'unique'               => $this->_unique,
+      'values'               => $this->_values,
+      'valuesUrl'            => $this->_valuesUrl,
+      'strictValues'         => $this->_strictValues,
     ];
   }
 
