@@ -1087,6 +1087,7 @@
       this._definition = definition;
       this._changeCb = changeCb;
       this._value = value === null ? Constructor.defaultValue(definition) : value;
+      this._changeCb(this._value);
     }
 
     Constructor.defaultValue = function (definition) {
@@ -1111,6 +1112,7 @@
       this._definition = definition;
       this._changeCb = changeCb;
       this._value = value === null ? Constructor.defaultValue(definition) : value;
+      this._changeCb(this._value);
     }
 
     Constructor.defaultValue = function (definition) {
@@ -1137,6 +1139,7 @@
       this._definition = definition;
       this._changeCb = changeCb;
       this._value = value === null ? Constructor.defaultValue(definition) : value;
+      this._changeCb(this._value);
     }
 
     Constructor.defaultValue = function (definition) {
@@ -1171,6 +1174,7 @@
       this._definition = definition;
       this._changeCb = changeCb;
       this._value = value === null ? Constructor.defaultValue(definition) : value;
+      this._changeCb(this._value);
     }
 
     Constructor.defaultValue = function (definition) {
@@ -1197,6 +1201,7 @@
       this._definition = definition;
       this._changeCb = changeCb;
       this._value = value === null ? Constructor.defaultValue(definition) : value;
+      this._changeCb(this._value);
     }
 
     Constructor.defaultValue = function (definition) {
@@ -1225,6 +1230,7 @@
       this._definition = definition;
       this._changeCb = changeCb;
       this._value = value === null || parseInt(value) === 0 ? Constructor.defaultValue(definition) : value;
+      this._changeCb(this._value);
     }
 
     Constructor.defaultValue = function (definition) {
@@ -1258,7 +1264,9 @@
       this._comparator = comparator;
       this._definition = definition;
       this._changeCb = changeCb;
-      this._value = value === null || parseInt(value) === 0 ? Constructor.defaultValue(definition) : value;
+      value = (!value) || parseInt(value) === 0 ? Constructor.defaultValue(definition) : parseInt(value);
+      this._value = _getTime(new Date(value * 1000), this._comparator);
+      this._changeCb(this._value);
     }
 
     Constructor.defaultValue = function (definition) {
@@ -1271,11 +1279,7 @@
       var self = this;
       return $('<input type="date" />')
         .val(_getFormatted(d))
-        .on(
-          'change', function () {
-            self._changeCb(_getTime(new Date($(this).val())));
-          }
-        );
+        .on('change', function () {self._changeCb(_getTime(new Date($(this).val()), self._comparator));});
     };
 
     function _getFormatted(d) {
@@ -1285,9 +1289,14 @@
       return today;
     }
 
-    function _getTime(d) {
+    function _getTime(d, comparator) {
       var t = Math.floor(d.getTime() / 1000);
-      return t - (t % 86400);
+      t = t - (t % 86400);
+      if(comparator === QueryBuilderConstants.COMPARATOR_LESS_EQUAL)
+      {
+        t += 86399;
+      }
+      return t;
     }
 
     return Constructor;
@@ -1299,6 +1308,7 @@
       this._definition = definition;
       this._changeCb = changeCb;
       this._value = value === null ? Constructor.defaultValue(definition) : value;
+      this._changeCb(this._value);
     }
 
     Constructor.defaultValue = function (definition) {
@@ -1383,11 +1393,13 @@
       this._comparator = comparator;
       this._definition = definition;
       this._changeCb = changeCb;
-      this._value = value === null || value === undefined ? Constructor.defaultValue(definition) : value;
+      value = value === null || value === undefined || String(value).indexOf(',') === -1
+        ? Constructor.defaultValue(definition) : value;
 
-      var values = this._value.split(',');
+      var values = value.split(',');
       this._minVal = values[0];
       this._maxVal = values[1];
+      this._value = this._minVal + ',' + this._maxVal;
       this._changeCb(this._value);
     }
 
@@ -1423,33 +1435,33 @@
     };
 
     Constructor.prototype.render = function () {
+      var _minUp = this._minUp.bind(this);
+      var _maxUp = this._maxUp.bind(this);
       var values = this._value.split(',');
       var $min, $max;
 
       switch(this._definition.dataType)
       {
         case QueryBuilderConstants.DATATYPE_DECIMAL:
-          $min = (new QueryBuilderDecimalInput(this._definition, this._comparator, values[0], this._minUp)).render();
-          $max = (new QueryBuilderDecimalInput(this._definition, this._comparator, values[1], this._maxUp)).render();
+          $min = (new QueryBuilderDecimalInput(this._definition, this._comparator, values[0], _minUp)).render();
+          $max = (new QueryBuilderDecimalInput(this._definition, this._comparator, values[1], _maxUp)).render();
           break;
         case QueryBuilderConstants.DATATYPE_NUMBER:
-          $min = (new QueryBuilderNumberInput(this._definition, this._comparator, values[0], this._minUp)).render();
-          $max = (new QueryBuilderNumberInput(this._definition, this._comparator, values[1], this._maxUp)).render();
+          $min = (new QueryBuilderNumberInput(this._definition, this._comparator, values[0], _minUp)).render();
+          $max = (new QueryBuilderNumberInput(this._definition, this._comparator, values[1], _maxUp)).render();
           break;
         case QueryBuilderConstants.DATATYPE_TIMESTAMP_DAY:
-          $min = (new QueryBuilderTimestampInput(this._definition, this._comparator, values[0], this._minUp)).render();
-          $max = (new QueryBuilderTimestampInput(
-            this._definition, this._comparator, values[1],
-            function (value) {this._maxUp(value + 86399);}.bind(this)
-          )).render();
+          var cl = QueryBuilderConstants.COMPARATOR_LESS_EQUAL;
+          $min = (new QueryBuilderTimestampInput(this._definition, this._comparator, values[0], _minUp)).render();
+          $max = (new QueryBuilderTimestampInput(this._definition, cl, values[1], _maxUp)).render();
           break;
         case QueryBuilderConstants.DATATYPE_DATE:
-          $min = (new QueryBuilderDateInput(this._definition, this._comparator, values[0], this._minUp)).render();
-          $max = (new QueryBuilderDateInput(this._definition, this._comparator, values[1], this._maxUp)).render();
+          $min = (new QueryBuilderDateInput(this._definition, this._comparator, values[0], _minUp)).render();
+          $max = (new QueryBuilderDateInput(this._definition, this._comparator, values[1], _maxUp)).render();
           break;
         default:
-          $min = (new QueryBuilderTextInput(this._definition, this._comparator, values[0], this._minUp)).render();
-          $max = (new QueryBuilderTextInput(this._definition, this._comparator, values[1], this._maxUp)).render();
+          $min = (new QueryBuilderTextInput(this._definition, this._comparator, values[0], _minUp)).render();
+          $max = (new QueryBuilderTextInput(this._definition, this._comparator, values[1], _maxUp)).render();
           break;
       }
 
