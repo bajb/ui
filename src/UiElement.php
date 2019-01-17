@@ -4,8 +4,8 @@ namespace Fortifi\Ui;
 use Illuminate\Contracts\Support\Renderable;
 use Packaged\Dispatch\AssetManager;
 use Packaged\Dispatch\DirectoryMapper;
-use Packaged\Glimpse\Core\ISafeHtmlProducer;
-use Packaged\Glimpse\Core\SafeHtml;
+use Packaged\SafeHtml\ISafeHtmlProducer;
+use Packaged\SafeHtml\SafeHtml;
 
 abstract class UiElement implements ISafeHtmlProducer, Renderable
 {

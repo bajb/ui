@@ -6,11 +6,11 @@ use Fortifi\Ui\GlobalElements\Panels\PanelHeader;
 use Fortifi\Ui\UiElement;
 use Packaged\Dispatch\AssetManager;
 use Packaged\Glimpse\Core\HtmlTag;
-use Packaged\Glimpse\Core\ISafeHtmlProducer;
-use Packaged\Glimpse\Core\SafeHtml;
 use Packaged\Glimpse\Tags\Div;
 use Packaged\Glimpse\Tags\Lists\ListItem;
 use Packaged\Glimpse\Tags\Lists\UnorderedList;
+use Packaged\SafeHtml\ISafeHtmlProducer;
+use Packaged\SafeHtml\SafeHtml;
 
 class PageNavigation extends UiElement
 {

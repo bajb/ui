@@ -6,12 +6,12 @@ use Fortifi\Ui\Traits\DataAttributesTrait;
 use Fortifi\Ui\Traits\SetIdTrait;
 use Fortifi\Ui\UiElement;
 use Packaged\Dispatch\AssetManager;
-use Packaged\Glimpse\Core\SafeHtml;
 use Packaged\Glimpse\Tags\Div;
 use Packaged\Glimpse\Tags\Link;
 use Packaged\Glimpse\Tags\Lists\ListItem;
 use Packaged\Glimpse\Tags\Lists\UnorderedList;
 use Packaged\Glimpse\Tags\Span;
+use Packaged\SafeHtml\SafeHtml;
 
 class ObjectListCard extends UiElement
 {

@@ -2,7 +2,7 @@
 namespace Fortifi\Ui\GlobalElements\Cards;
 
 use Packaged\Glimpse\Core\HtmlTag;
-use Packaged\Glimpse\Elements\LineBreak;
+use Packaged\Glimpse\Tags\LineBreak;
 
 class ContentCard extends Card
 {

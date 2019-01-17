@@ -5,11 +5,11 @@ use Fortifi\Ui\GlobalElements\Icons\FontIcon;
 use Fortifi\Ui\Ui;
 use Fortifi\Ui\UiElement;
 use Packaged\Glimpse\Core\HtmlTag;
-use Packaged\Glimpse\Core\ISafeHtmlProducer;
 use Packaged\Glimpse\Tags\Div;
 use Packaged\Glimpse\Tags\Link;
 use Packaged\Glimpse\Tags\Span;
 use Packaged\Glimpse\Tags\Text\HeadingTwo;
+use Packaged\SafeHtml\ISafeHtmlProducer;
 
 class PanelHeader extends UiElement
 {
@@ -31,7 +31,7 @@ class PanelHeader extends UiElement
 
   public static function create($title = null)
   {
-    $heading = new static;
+    $heading = new static();
     $heading->_title = $title;
     return $heading;
   }

@@ -5,6 +5,7 @@ use Fortifi\Ui\Interfaces\IColours;
 use Fortifi\Ui\UiElement;
 use Packaged\Dispatch\AssetManager;
 use Packaged\Glimpse\Tags\Div;
+use Packaged\SafeHtml\SafeHtml;
 
 class Avatar extends UiElement implements IColours
 {
@@ -26,7 +27,7 @@ class Avatar extends UiElement implements IColours
   }
 
   /**
-   * @return \Packaged\Glimpse\Core\SafeHtml|\Packaged\Glimpse\Core\SafeHtml[]|Div
+   * @return SafeHtml|SafeHtml[]|Div
    */
   protected function _produceHtml()
   {

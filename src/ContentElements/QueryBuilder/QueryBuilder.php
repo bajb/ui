@@ -3,8 +3,8 @@ namespace Fortifi\Ui\ContentElements\QueryBuilder;
 
 use Fortifi\Ui\UiElement;
 use Packaged\Dispatch\AssetManager;
-use Packaged\Glimpse\Core\SafeHtml;
 use Packaged\Glimpse\Tags\Div;
+use Packaged\SafeHtml\SafeHtml;
 
 class QueryBuilder extends UiElement
 {
@@ -14,7 +14,7 @@ class QueryBuilder extends UiElement
 
   public static function create($definitionsUrl = null, $rulesUrl = null)
   {
-    $qb = new static;
+    $qb = new static();
     $qb->_definitionsUrl = $definitionsUrl;
     $qb->_rulesUrl = $rulesUrl;
     return $qb;

@@ -5,9 +5,9 @@ use Fortifi\Ui\Traits\DataAttributesTrait;
 use Fortifi\Ui\Traits\SetIdTrait;
 use Fortifi\Ui\UiElement;
 use Packaged\Dispatch\AssetManager;
-use Packaged\Glimpse\Core\SafeHtml;
 use Packaged\Glimpse\Tags\Lists\UnorderedList;
 use Packaged\Helpers\Objects;
+use Packaged\SafeHtml\SafeHtml;
 
 class ObjectList extends UiElement
 {

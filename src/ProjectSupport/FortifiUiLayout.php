@@ -3,7 +3,7 @@ namespace Fortifi\Ui\ProjectSupport;
 
 use Cubex\View\Layout;
 use Illuminate\Contracts\Support\Renderable;
-use Packaged\Glimpse\Core\ISafeHtmlProducer;
+use Packaged\SafeHtml\ISafeHtmlProducer;
 
 class FortifiUiLayout extends Layout
 {

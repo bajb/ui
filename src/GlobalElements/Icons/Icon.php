@@ -4,6 +4,7 @@ namespace Fortifi\Ui\GlobalElements\Icons;
 use Fortifi\Ui\UiElement;
 use Packaged\Dispatch\AssetManager;
 use Packaged\Glimpse\Core\HtmlTag;
+use Packaged\Glimpse\Tags\Text\ItalicText;
 
 abstract class Icon extends UiElement
 {
@@ -13,7 +14,7 @@ abstract class Icon extends UiElement
 
   public static function create($icon)
   {
-    $icn = new static;
+    $icn = new static();
     $icn->_icon = $icon;
     return $icn;
   }
@@ -49,7 +50,7 @@ abstract class Icon extends UiElement
    */
   protected function _produceHtml()
   {
-    $icon = HtmlTag::createTag('i');
+    $icon = ItalicText::create();
     $icon->addClass($this->_icon);
     foreach($this->_classes as $class)
     {

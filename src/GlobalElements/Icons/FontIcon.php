@@ -4,6 +4,7 @@ namespace Fortifi\Ui\GlobalElements\Icons;
 use Fortifi\Ui\Interfaces\IIcons;
 use Packaged\Dispatch\AssetManager;
 use Packaged\Glimpse\Core\HtmlTag;
+use Packaged\Glimpse\Tags\Text\ItalicText;
 
 class FontIcon extends Icon implements IIcons
 {
@@ -33,6 +34,6 @@ class FontIcon extends Icon implements IIcons
     {
       $icon->addClass('fa-stack-' . ($k == 0 ? 1 : 2) . 'x');
     }
-    return HtmlTag::createTag('i', ['class' => ['fa-stack', 'fa']], $icons);
+    return ItalicText::create($icons)->addClass('fa', 'fa-stack');
   }
 }
