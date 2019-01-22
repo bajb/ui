@@ -1,4 +1,5 @@
 <?php
+
 namespace Fortifi\Ui\PageElements\Hero;
 
 use Fortifi\Ui\PageElements\HeroItemBar\HeroItemBar;
@@ -12,6 +13,7 @@ class Hero extends UiElement
   protected $_sticker;
   protected $_itemBar;
   protected $_content;
+  protected $_classes = [];
 
   public function processIncludes(AssetManager $assetManager, $vendor = false)
   {
@@ -82,6 +84,14 @@ class Hero extends UiElement
     return $this;
   }
 
+  /**
+   * @param $class
+   */
+  public function addClass($class)
+  {
+    $this->_class[] = $class;
+  }
+
   protected function _produceHtml()
   {
     $wrap = Div::create();
@@ -95,6 +105,10 @@ class Hero extends UiElement
     {
       $wrap->appendContent($this->_itemBar);
       $hero->addClass('with-item-bar');
+    }
+    foreach($this->_classes as $class)
+    {
+      $hero->addClass($class);
     }
     $wrap->appendContent($this->_content);
     return $hero;
