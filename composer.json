@@ -11,15 +11,15 @@
   ],
   "require": {
     "packaged/dispatch": "~1.6",
-    "packaged/glimpse": "~0.8||~2.0",
+    "packaged/glimpse": "^0.8||^1.0||^2.0",
     "nesbot/carbon": "~1.22",
     "illuminate/contracts": "~5.5",
-    "fortifi/fontawesome": "~3.0"
+    "fortifi/fontawesome": "^3.0"
   },
   "require-dev": {
     "cubex/framework": "~2.6",
     "stack/builder": "~1.0",
-    "packaged/helpers": "~1.16"
+    "packaged/helpers": "~1.16||^2.0"
   },
   "autoload": {
     "psr-4": {
