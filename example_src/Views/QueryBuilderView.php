@@ -3,8 +3,8 @@ namespace Fortifi\UiExample\Views;
 
 use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilder;
 use Fortifi\Ui\Ui;
-use Packaged\Dispatch\AssetManager;
-use Packaged\Glimpse\Core\HtmlTag;
+use Packaged\Dispatch\ResourceManager;
+use Packaged\Glimpse\Core\CustomHtmlTag;
 use Packaged\Glimpse\Tags\Div;
 
 class QueryBuilderView extends AbstractUiExampleView
@@ -20,10 +20,10 @@ class QueryBuilderView extends AbstractUiExampleView
           '/querybuilder/definition',
           '/querybuilder/policy'
         ),
-        HtmlTag::create()->setTag('pre')->setId('values'),
+        CustomHtmlTag::build('pre')->setId('values'),
       ]
     )->addClass(Ui::BG_INFO, Ui::PADDING_LARGE);
-    AssetManager::sourceType()->requireInlineJs(
+    ResourceManager::inline()->requireJs(
       "
         $('.query-builder').QueryBuilder();
         $(document).on('change.querybuilder', function(e, data) {

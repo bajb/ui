@@ -1,13 +1,13 @@
 <?php
 namespace Fortifi\Ui;
 
-use Illuminate\Contracts\Support\Renderable;
-use Packaged\Dispatch\AssetManager;
-use Packaged\Dispatch\DirectoryMapper;
-use Packaged\SafeHtml\ISafeHtmlProducer;
+use Packaged\Dispatch\ResourceManager;
 use Packaged\SafeHtml\SafeHtml;
 
-abstract class UiElement implements ISafeHtmlProducer, Renderable
+/**
+ * Extension of cubex UiElement with Dispatch helpers and includes
+ */
+abstract class UiElement extends \Cubex\Ui\UiElement
 {
   protected $_processedIncludes = false;
 
@@ -39,11 +39,8 @@ abstract class UiElement implements ISafeHtmlProducer, Renderable
   {
     if(!$this->_processedIncludes || $force)
     {
-      $am = Ui::getAssetManager();
-      $this->processIncludes(
-        $am,
-        $am->getMapType() == DirectoryMapper::MAP_VENDOR
-      );
+      $am = Ui::getResourceManager();
+      $this->processIncludes($am, $am->getMapType() == ResourceManager::MAP_VENDOR);
     }
     $this->_processedIncludes = true;
   }
@@ -51,36 +48,26 @@ abstract class UiElement implements ISafeHtmlProducer, Renderable
   /**
    * Require Assets
    *
-   * @param AssetManager $assetManager
-   * @param bool         $vendor
+   * @param ResourceManager $resourceManager
+   * @param bool            $vendor
    */
-  public function processIncludes(AssetManager $assetManager, $vendor = false)
+  public function processIncludes(ResourceManager $resourceManager, $vendor = false)
   {
   }
 
   /**
-   * @return SafeHtml|SafeHtml[]
+   * @return SafeHtml
    */
-  final public function produceSafeHTML()
+  public function render(): string
   {
     $this->_processIncludes();
-    return $this->_produceHtml();
+    return SafeHtml::escape($this->_produceHtml());
   }
 
   /**
-   * @return SafeHtml|SafeHtml[]
+   * @return mixed
    */
   abstract protected function _produceHtml();
-
-  /**
-   * Get the evaluated contents of the object.
-   *
-   * @return string
-   */
-  final public function render()
-  {
-    return (string)$this->produceSafeHTML();
-  }
 
   public function __toString()
   {

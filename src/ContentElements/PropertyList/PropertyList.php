@@ -2,7 +2,7 @@
 namespace Fortifi\Ui\ContentElements\PropertyList;
 
 use Fortifi\Ui\UiElement;
-use Packaged\Dispatch\AssetManager;
+use Packaged\Dispatch\ResourceManager;
 use Packaged\Glimpse\Tags\Lists\UnorderedList;
 use Packaged\Glimpse\Tags\Span;
 use Packaged\Glimpse\Tags\Text\StrongText;
@@ -31,15 +31,15 @@ class PropertyList extends UiElement
     return $this;
   }
 
-  public function processIncludes(AssetManager $assetManager, $vendor = false)
+  public function processIncludes(ResourceManager $resourceManager, $vendor = false)
   {
     if($vendor)
     {
-      $assetManager->requireCss('assets/css/ContentElements');
+      $resourceManager->requireCss('assets/css/ContentElements.min.css');
     }
     else
     {
-      $assetManager->requireCss('assets/css/ContentElements/PropertyList');
+      $resourceManager->requireCss('assets/css/ContentElements/PropertyList.css');
     }
   }
 

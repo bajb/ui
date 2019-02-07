@@ -2,7 +2,7 @@
 namespace Fortifi\Ui\GlobalElements\Alerts;
 
 use Fortifi\Ui\UiElement;
-use Packaged\Dispatch\AssetManager;
+use Packaged\Dispatch\ResourceManager;
 use Packaged\Glimpse\Tags\Div;
 
 class AlertBox extends UiElement
@@ -35,18 +35,18 @@ class AlertBox extends UiElement
   /**
    * Require Assets
    *
-   * @param AssetManager $assetManager
-   * @param bool         $vendor
+   * @param ResourceManager $resourceManager
+   * @param bool            $vendor
    */
-  public function processIncludes(AssetManager $assetManager, $vendor = false)
+  public function processIncludes(ResourceManager $resourceManager, $vendor = false)
   {
     if($vendor)
     {
-      $assetManager->requireCss('assets/css/GlobalElements');
+      $resourceManager->requireCss('assets/css/GlobalElements.min.css');
     }
     else
     {
-      $assetManager->requireCss('assets/css/GlobalElements/Alerts');
+      $resourceManager->requireCss('assets/css/GlobalElements/Alerts.css');
     }
   }
 

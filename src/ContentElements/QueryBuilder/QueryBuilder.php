@@ -2,7 +2,7 @@
 namespace Fortifi\Ui\ContentElements\QueryBuilder;
 
 use Fortifi\Ui\UiElement;
-use Packaged\Dispatch\AssetManager;
+use Packaged\Dispatch\ResourceManager;
 use Packaged\Glimpse\Tags\Div;
 use Packaged\SafeHtml\SafeHtml;
 
@@ -32,23 +32,23 @@ class QueryBuilder extends UiElement
     return $this;
   }
 
-  public function processIncludes(AssetManager $assetManager, $vendor = false)
+  public function processIncludes(ResourceManager $resourceManager, $vendor = false)
   {
-    $assetManager->requireJs('assets/vendor/params/params');
-    $assetManager->requireJs('assets/vendor/tokenize2/tokenize2');
-    $assetManager->requireCss('assets/vendor/tokenize2/tokenize2');
+    $resourceManager->requireJs('assets/vendor/params/params.js');
+    $resourceManager->requireJs('assets/vendor/tokenize2/tokenize2.js');
+    $resourceManager->requireCss('assets/vendor/tokenize2/tokenize2.css');
     if($vendor)
     {
-      $assetManager->requireJs('assets/js/ContentElements');
-      $assetManager->requireCss('assets/css/ContentElements');
+      $resourceManager->requireJs('assets/js/ContentElements.min.js');
+      $resourceManager->requireCss('assets/css/ContentElements.min.css');
     }
     else
     {
-      $assetManager->requireJs('assets/js/ContentElements/QueryBuilder');
-      $assetManager->requireCss('assets/css/ContentElements/QueryBuilder');
-      $assetManager->requireJs('assets/js/ContentElements/QueryBuilderTokenizer');
-      $assetManager->requireCss('assets/css/ContentElements/QueryBuilderTokenizer');
-      $assetManager->requireJs('assets/js/ContentElements/QueryBuilderElastic');
+      $resourceManager->requireJs('assets/js/ContentElements/QueryBuilder.js');
+      $resourceManager->requireCss('assets/css/ContentElements/QueryBuilder.css');
+      $resourceManager->requireJs('assets/js/ContentElements/QueryBuilderTokenizer.js');
+      $resourceManager->requireCss('assets/css/ContentElements/QueryBuilderTokenizer.css');
+      $resourceManager->requireJs('assets/js/ContentElements/QueryBuilderElastic.js');
     }
   }
 

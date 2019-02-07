@@ -2,7 +2,7 @@
 namespace Fortifi\Ui\ContentElements\Progress;
 
 use Fortifi\Ui\UiElement;
-use Packaged\Dispatch\AssetManager;
+use Packaged\Dispatch\ResourceManager;
 use Packaged\Glimpse\Tags\Div;
 
 class CircleProgress extends UiElement
@@ -10,15 +10,15 @@ class CircleProgress extends UiElement
   protected $_percent = 0;
   protected $_content;
 
-  public function processIncludes(AssetManager $assetManager, $vendor = false)
+  public function processIncludes(ResourceManager $resourceManager, $vendor = false)
   {
     if($vendor)
     {
-      $assetManager->requireCss('assets/css/ContentElements');
+      $resourceManager->requireCss('assets/css/ContentElements.min.css');
     }
     else
     {
-      $assetManager->requireCss('assets/css/ContentElements/CircleProgress');
+      $resourceManager->requireCss('assets/css/ContentElements/CircleProgress.css');
     }
   }
 

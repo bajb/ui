@@ -4,7 +4,7 @@ namespace Fortifi\Ui\ContentElements\ObjectLists;
 use Fortifi\Ui\Traits\DataAttributesTrait;
 use Fortifi\Ui\Traits\SetIdTrait;
 use Fortifi\Ui\UiElement;
-use Packaged\Dispatch\AssetManager;
+use Packaged\Dispatch\ResourceManager;
 use Packaged\Glimpse\Tags\Lists\UnorderedList;
 use Packaged\Helpers\Objects;
 use Packaged\SafeHtml\SafeHtml;
@@ -24,15 +24,15 @@ class ObjectList extends UiElement
 
   protected $_alignActions = false;
 
-  public function processIncludes(AssetManager $assetManager, $vendor = false)
+  public function processIncludes(ResourceManager $resourceManager, $vendor = false)
   {
     if($vendor)
     {
-      $assetManager->requireCss('assets/css/ContentElements');
+      $resourceManager->requireCss('assets/css/ContentElements.min.css');
     }
     else
     {
-      $assetManager->requireCss('assets/css/ContentElements/ObjectLists');
+      $resourceManager->requireCss('assets/css/ContentElements/ObjectLists.css');
     }
   }
 

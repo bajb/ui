@@ -2,22 +2,22 @@
 namespace Fortifi\Ui\ContentElements\Chips;
 
 use Fortifi\Ui\UiElement;
-use Packaged\Dispatch\AssetManager;
+use Packaged\Dispatch\ResourceManager;
 use Packaged\Glimpse\Tags\Div;
 
 class Chips extends UiElement
 {
   protected $_chips;
 
-  public function processIncludes(AssetManager $assetManager, $vendor = false)
+  public function processIncludes(ResourceManager $resourceManager, $vendor = false)
   {
     if($vendor)
     {
-      $assetManager->requireCss('assets/css/ContentElements');
+      $resourceManager->requireCss('assets/css/ContentElements.min.css');
     }
     else
     {
-      $assetManager->requireCss('assets/css/ContentElements/Chip');
+      $resourceManager->requireCss('assets/css/ContentElements/Chip.css');
     }
   }
 

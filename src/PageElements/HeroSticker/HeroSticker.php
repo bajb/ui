@@ -3,7 +3,7 @@ namespace Fortifi\Ui\PageElements\HeroSticker;
 
 use Fortifi\Ui\Ui;
 use Fortifi\Ui\UiElement;
-use Packaged\Dispatch\AssetManager;
+use Packaged\Dispatch\ResourceManager;
 use Packaged\Glimpse\Tags\Div;
 
 class HeroSticker extends UiElement
@@ -32,15 +32,15 @@ class HeroSticker extends UiElement
     return $this;
   }
 
-  public function processIncludes(AssetManager $assetManager, $vendor = false)
+  public function processIncludes(ResourceManager $resourceManager, $vendor = false)
   {
     if($vendor)
     {
-      $assetManager->requireCss('assets/css/PageElements');
+      $resourceManager->requireCss('assets/css/PageElements.min.css');
     }
     else
     {
-      $assetManager->requireCss('assets/css/PageElements/HeroSticker');
+      $resourceManager->requireCss('assets/css/PageElements/HeroSticker.css');
     }
   }
 

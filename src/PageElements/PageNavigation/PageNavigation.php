@@ -4,7 +4,7 @@ namespace Fortifi\Ui\PageElements\PageNavigation;
 use Fortifi\Ui\GlobalElements\Panels\Panel;
 use Fortifi\Ui\GlobalElements\Panels\PanelHeader;
 use Fortifi\Ui\UiElement;
-use Packaged\Dispatch\AssetManager;
+use Packaged\Dispatch\ResourceManager;
 use Packaged\Glimpse\Core\HtmlTag;
 use Packaged\Glimpse\Tags\Div;
 use Packaged\Glimpse\Tags\Lists\ListItem;
@@ -40,18 +40,18 @@ class PageNavigation extends UiElement
   /**
    * Require Assets
    *
-   * @param AssetManager $assetManager
-   * @param bool         $vendor
+   * @param ResourceManager $resourceManager
+   * @param bool            $vendor
    */
-  public function processIncludes(AssetManager $assetManager, $vendor = false)
+  public function processIncludes(ResourceManager $resourceManager, $vendor = false)
   {
     if($vendor)
     {
-      $assetManager->requireCss('assets/css/PageElements');
+      $resourceManager->requireCss('assets/css/PageElements.min.css');
     }
     else
     {
-      $assetManager->requireCss('assets/css/PageElements/PageNavigation');
+      $resourceManager->requireCss('assets/css/PageElements/PageNavigation.css');
     }
   }
 

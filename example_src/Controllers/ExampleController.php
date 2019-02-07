@@ -1,21 +1,34 @@
 <?php
 namespace Fortifi\UiExample\Controllers;
 
-use Cubex\Http\Response;
-use Cubex\View\LayoutController;
+use Cubex\Controller\Controller;
 use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDataType as QBDT;
 use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDefinition as QBD;
 use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilderDefinitions;
-use Fortifi\Ui\ProjectSupport\FortifiUiLayout;
+use Fortifi\UiExample\Layouts\ExampleLayout;
 use Packaged\Glimpse\Tags\Div;
 use Packaged\Helpers\Arrays;
-use Packaged\Helpers\Objects;
+use Packaged\Http\Responses\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
-class ExampleController extends LayoutController
+class ExampleController extends Controller
 {
   protected $_views = [];
 
-  protected function _init()
+  public function getRoutes()
+  {
+    yield self::route('querybuilder/definition', 'qbDefinition');
+    yield self::route('querybuilder/policy', 'qbPolicyData');
+    yield self::route('querybuilder/browsers', 'qbBrowsers');
+    yield self::route('querybuilder/sids', 'qbSids');
+
+    yield self::route('dropdowns/content', 'dropContent');
+
+    yield self::route('{page}', 'default');
+    yield self::route('', 'default');
+  }
+
+  public function getDefault()
   {
     $views = glob(dirname(__DIR__) . '/Views/*View.php');
     foreach($views as $view)
@@ -26,43 +39,27 @@ class ExampleController extends LayoutController
         continue;
       }
       $key = strtolower(substr($view, 0, -8));
-      $obj = Objects::create('Fortifi\\UiExample\\Views\\' . substr($view, 0, -4), []);
+      $objClass = '\\Fortifi\\UiExample\\Views\\' . substr($view, 0, -4);
+      $obj = $objClass::i();
       $this->_views[$key] = $obj;
     }
-    $layout = new FortifiUiLayout($this);
-    $layout->setData('views', $this->_views);
-    $this->setLayout($layout);
-  }
 
-  public function defaultAction($page = null)
-  {
+    $layout = new ExampleLayout();
+    $layout->views = $this->_views;
+    $page = $this->getContext()->routeData()->get('page');
     if(isset($this->_views[$page]))
     {
-      return $this->_views[$page];
+      $layout->content = $this->_views[$page]->render();
     }
-    return 'Page Unavailable';
+    return $layout;
   }
 
-  public function getRoutes()
-  {
-    return [
-      'querybuilder/definition' => 'qbDefinition',
-      'querybuilder/policy'     => 'qbPolicyData',
-      'querybuilder/browsers'   => 'qbBrowsers',
-      'querybuilder/sids'       => 'qbSids',
-
-      'dropdowns/content' => 'dropContent',
-
-      ':page' => 'defaultAction',
-    ];
-  }
-
-  public function dropContent()
+  public function getDropContent()
   {
     return Div::create('this is a dropdown loaded by ajax');
   }
 
-  public function qbDefinition()
+  public function getQbDefinition()
   {
     $definitions = new QueryBuilderDefinitions();
 
@@ -115,7 +112,7 @@ class ExampleController extends LayoutController
       'Sub ID',
       QBDT::STRING
     );
-    $sidDefinition->setValues($this->qbSids());
+    $sidDefinition->setValues($this->getQbSids());
     $sidDefinition->setStrict(false);
     $sidDefinition->setComparators(
       [
@@ -170,7 +167,7 @@ class ExampleController extends LayoutController
     return new Response(json_encode($definitions->forOutput()));
   }
 
-  public function qbPolicyData()
+  public function getQbPolicyData()
   {
     $policy = [
       [
@@ -191,12 +188,12 @@ class ExampleController extends LayoutController
       'sid' => ['12'],
       ['key' => 'aaa', 'comparator' => QBD::COMPARATOR_EQUALS, 'value' => 'test3'],
     ];
-    return $policy;
+    return JsonResponse::create($policy);
   }
 
-  public function qbBrowsers()
+  public function getQbBrowsers()
   {
-    $query = $this->_getRequest()->query->get('search');
+    $query = $this->getRequest()->query->get('search');
     $values = [
       ['value' => '', 'text' => 'No Browser'],
       ['value' => 'chrome', 'text' => 'Chrome'],
@@ -218,7 +215,7 @@ class ExampleController extends LayoutController
     );
   }
 
-  public function qbSids()
+  public function getQbSids()
   {
     $values = [
       ['value' => 'malware15IT', 'text' => 'malware15IT'],
@@ -230,7 +227,7 @@ class ExampleController extends LayoutController
       ['value' => 'spyware16', 'text' => 'spyware16'],
     ];
 
-    $query = $this->_getRequest()->query->get('search');
+    $query = $this->getRequest()->query->get('search');
     if($query)
     {
       return array_filter(

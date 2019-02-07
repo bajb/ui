@@ -2,7 +2,7 @@
 namespace Fortifi\Ui\GlobalElements\Icons;
 
 use Fortifi\Ui\UiElement;
-use Packaged\Dispatch\AssetManager;
+use Packaged\Dispatch\ResourceManager;
 use Packaged\Glimpse\Core\HtmlTag;
 use Packaged\Glimpse\Tags\Text\ItalicText;
 
@@ -19,17 +19,17 @@ abstract class Icon extends UiElement
     return $icn;
   }
 
-  abstract protected function _processIconIncludes(AssetManager $assetManager);
+  abstract protected function _processIconIncludes(ResourceManager $resourceManager);
 
-  public function processIncludes(AssetManager $assetManager, $vendor = false)
+  public function processIncludes(ResourceManager $resourceManager, $vendor = false)
   {
     if($vendor)
     {
-      $assetManager->requireCss('assets/css/GlobalElements');
+      $resourceManager->requireCss('assets/css/GlobalElements.css');
     }
     else
     {
-      $this->_processIconIncludes($assetManager);
+      $this->_processIconIncludes($resourceManager);
     }
   }
 

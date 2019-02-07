@@ -1,12 +1,12 @@
 <?php
 namespace Fortifi\Ui;
 
-use Packaged\Dispatch\AssetManager;
+use Packaged\Dispatch\ResourceManager;
 
 final class Ui
 {
   /**
-   * @var AssetManager
+   * @var ResourceManager
    */
   private static $assetManager;
 
@@ -251,44 +251,44 @@ final class Ui
   const BG_WHITE = 'f-bg-white';
   const BG_NONE = 'f-bg-none';
 
-  public static function boot(AssetManager $am = null, $bootstrap = true, $jquery = true, $fontAwesome = true)
+  public static function boot(ResourceManager $am = null, $bootstrap = true, $jquery = true, $fontAwesome = true)
   {
     if($am === null)
     {
-      $am = AssetManager::vendorType('fortifi', 'ui');
+      $am = ResourceManager::vendor('fortifi', 'ui');
     }
 
     static::$assetManager = $am;
 
     //Require Base UI
-    $am->requireCss('assets/css/ui-base');
-    $am->requireJs('assets/js/ui-base');
+    $am->requireCss('assets/css/ui-base.css');
+    $am->requireJs('assets/js/ui-base.js');
 
     if($jquery)
     {
       // Require JQuery
-      $am->requireJs('assets/vendor/jquery/3.3.1.min');
+      $am->requireJs('assets/vendor/jquery/3.3.1.min.js');
     }
 
     if($bootstrap)
     {
       // Require Bootstrap
-      $am->requireCss('assets/vendor/bootstrap/3.3.4.min');
-      $am->requireJs('assets/vendor/bootstrap/3.3.4.min');
+      $am->requireCss('assets/vendor/bootstrap/3.3.4.min.css');
+      $am->requireJs('assets/vendor/bootstrap/3.3.4.min.js');
     }
 
     if($fontAwesome)
     {
-      AssetManager::vendorType('fortifi', 'fontawesome')->requireCss('assets/css/all.min');
+      ResourceManager::vendor('fortifi', 'fontawesome')->requireCss('assets/css/all.min.css');
     }
   }
 
   /**
    * Obtain the asset manager for the fortifi Ui
    *
-   * @return AssetManager
+   * @return ResourceManager
    */
-  public static function getAssetManager()
+  public static function getResourceManager()
   {
     return static::$assetManager;
   }

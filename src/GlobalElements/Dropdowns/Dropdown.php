@@ -2,7 +2,7 @@
 namespace Fortifi\Ui\GlobalElements\Dropdowns;
 
 use Fortifi\Ui\UiElement;
-use Packaged\Dispatch\AssetManager;
+use Packaged\Dispatch\ResourceManager;
 use Packaged\Glimpse\Tags\Div;
 
 class Dropdown extends UiElement
@@ -17,20 +17,20 @@ class Dropdown extends UiElement
   /**
    * Require Assets
    *
-   * @param AssetManager $assetManager
-   * @param bool         $vendor
+   * @param ResourceManager $resourceManager
+   * @param bool            $vendor
    */
-  public function processIncludes(AssetManager $assetManager, $vendor = false)
+  public function processIncludes(ResourceManager $resourceManager, $vendor = false)
   {
     if($vendor)
     {
-      $assetManager->requireJs('assets/js/GlobalElements');
-      $assetManager->requireCss('assets/css/GlobalElements');
+      $resourceManager->requireJs('assets/js/GlobalElements.min.js');
+      $resourceManager->requireCss('assets/css/GlobalElements.min.css');
     }
     else
     {
-      $assetManager->requireJs('assets/js/GlobalElements/Dropdown/Dropdown');
-      $assetManager->requireCss('assets/css/GlobalElements/Dropdown/Dropdown');
+      $resourceManager->requireJs('assets/js/GlobalElements/Dropdown/Dropdown.js');
+      $resourceManager->requireCss('assets/css/GlobalElements/Dropdown/Dropdown.css');
     }
   }
 

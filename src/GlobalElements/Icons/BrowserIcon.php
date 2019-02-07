@@ -1,7 +1,7 @@
 <?php
 namespace Fortifi\Ui\GlobalElements\Icons;
 
-use Packaged\Dispatch\AssetManager;
+use Packaged\Dispatch\ResourceManager;
 use Packaged\Glimpse\Core\HtmlTag;
 
 class BrowserIcon extends Icon
@@ -91,7 +91,7 @@ class BrowserIcon extends Icon
     if(!defined('self::' . str_replace('-', '_', strtoupper($browser))))
     {
       throw new \Exception(
-        'The browser "'. $browser .'" is not supported by BrowserIcon'
+        'The browser "' . $browser . '" is not supported by BrowserIcon'
       );
     }
 
@@ -101,16 +101,12 @@ class BrowserIcon extends Icon
     return $icn;
   }
 
-  protected function _processIconIncludes(AssetManager $assetManager)
+  protected function _processIconIncludes(ResourceManager $resourceManager)
   {
-    $assetManager->requireCss(
-      [
-        'assets/css/GlobalElements/Browsers/browsers16',
-        'assets/css/GlobalElements/Browsers/browsers32',
-        'assets/css/GlobalElements/Browsers/browsers64',
-        'assets/css/GlobalElements/Browsers/browsers128',
-      ]
-    );
+    $resourceManager->requireCss('assets/css/GlobalElements/Browsers/browsers16.css');
+    $resourceManager->requireCss('assets/css/GlobalElements/Browsers/browsers32.css');
+    $resourceManager->requireCss('assets/css/GlobalElements/Browsers/browsers64.css');
+    $resourceManager->requireCss('assets/css/GlobalElements/Browsers/browsers128.css');
   }
 
   /**
