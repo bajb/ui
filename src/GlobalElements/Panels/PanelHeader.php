@@ -104,8 +104,7 @@ class PanelHeader extends UiElement
   public function addIcon($icon = FontIcon::EDIT)
   {
     $this->_icon = FontIcon::create($icon)
-      ->addClass('panel-heading-icon')
-      ->addClass(Ui::FLOAT_LEFT)
+      ->addClass('f-panel-heading-icon')
       ->addClass(Ui::MARGIN_SMALL_TOP);
     return $this;
   }
@@ -139,8 +138,7 @@ class PanelHeader extends UiElement
     $status = $url ? new Link($url, $text) : Span::create($text);
 
     $status->addClass(
-      'heading-status',
-      Ui::FLOAT_RIGHT,
+      'f-panel-heading-status',
       Ui::MARGIN_MEDIUM_LEFT,
       'label ' . $style . ' ' . Ui::LABEL_AS_BADGE
     );
@@ -151,13 +149,13 @@ class PanelHeader extends UiElement
   protected function _renderTitle()
   {
     return HeadingTwo::create($this->getTitle())
-      ->addClass('heading-text', Ui::FLOAT_LEFT, Ui::MARGIN_NONE);
+      ->addClass('f-panel-heading-text', Ui::MARGIN_NONE);
   }
 
   protected function _renderActions()
   {
     return Div::create($this->getActions())
-      ->addClass('heading-action', Ui::FLOAT_RIGHT, Ui::MARGIN_MEDIUM_LEFT);
+      ->addClass('f-panel-heading-action', Ui::MARGIN_MEDIUM_LEFT);
   }
 
   public function getTitle()
@@ -201,7 +199,6 @@ class PanelHeader extends UiElement
       ]
     )->addClass(
       'f-panel-heading',
-      'panel-heading',
       $this->getBgColour(),
       Ui::CLEARFIX
     );
