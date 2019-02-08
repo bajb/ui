@@ -1,20 +1,19 @@
 <?php
 namespace Fortifi\UiExample\Views;
 
-use Cubex\View\ViewModel;
 use Fortifi\Ui\Ui;
+use Fortifi\Ui\UiElement;
 use Packaged\DocBlock\DocBlockParser;
-use Packaged\Glimpse\Core\HtmlTag;
-use Packaged\Glimpse\Core\ISafeHtmlProducer;
-use Packaged\Glimpse\Core\SafeHtml;
+use Packaged\Glimpse\Core\CustomHtmlTag;
 use Packaged\Glimpse\Tags\Div;
 use Packaged\Glimpse\Tags\Link;
 use Packaged\Glimpse\Tags\Text\HeadingFour;
 use Packaged\Glimpse\Tags\Text\HeadingOne;
 use Packaged\Glimpse\Tags\Text\Paragraph;
 use Packaged\Helpers\Strings;
+use Packaged\SafeHtml\SafeHtml;
 
-abstract class AbstractUiExampleView extends ViewModel
+abstract class AbstractUiExampleView extends UiElement
 {
   /**
    * Automatically build the available UI parts based on methods in the class
@@ -44,9 +43,10 @@ abstract class AbstractUiExampleView extends ViewModel
   }
 
   /**
-   * @return ISafeHtmlProducer
+   * @return SafeHtml
+   * @throws \ReflectionException
    */
-  public function render()
+  protected function _produceHtml(): SafeHtml
   {
     $output = new Div();
     $groups = $this->getMethods();
@@ -60,7 +60,7 @@ abstract class AbstractUiExampleView extends ViewModel
       foreach($methods as $method)
       {
         $reflect = new \ReflectionMethod($this, $method);
-        $parsed = DocBlockParser::fromMethod($this, $method);
+        $parsed = new DocBlockParser($reflect->getDocComment());
         $code = $this->_getCode($reflect);
 
         $id = Strings::randomString(4);
@@ -85,7 +85,7 @@ abstract class AbstractUiExampleView extends ViewModel
         );
         $toggledCode->appendContent(
           Div::create()
-            ->appendContent(HtmlTag::createTag('pre', [], $code))
+            ->appendContent(CustomHtmlTag::build('pre', [], $code))
             ->addClass(Ui::HIDE)
             ->setId('code-' . $id)
         );
@@ -99,12 +99,12 @@ abstract class AbstractUiExampleView extends ViewModel
         $output->appendContent($methRow);
       }
     }
-    return $output;
+    return SafeHtml::escape($output);
   }
 
   public function getDisplayName()
   {
-    return Strings::titleize(substr(basename(str_replace('\\', '/', get_called_class())),0,-4));
+    return Strings::titleize(substr(basename(str_replace('\\', '/', get_called_class())), 0, -4));
   }
 
   /**

@@ -4,7 +4,7 @@ namespace Fortifi\Ui\PageElements\Hero;
 use Fortifi\Ui\PageElements\HeroItemBar\HeroItemBar;
 use Fortifi\Ui\PageElements\HeroSticker\HeroSticker;
 use Fortifi\Ui\UiElement;
-use Packaged\Dispatch\AssetManager;
+use Packaged\Dispatch\ResourceManager;
 use Packaged\Glimpse\Tags\Div;
 
 class Hero extends UiElement
@@ -13,15 +13,15 @@ class Hero extends UiElement
   protected $_itemBar;
   protected $_content;
 
-  public function processIncludes(AssetManager $assetManager, $vendor = false)
+  public function processIncludes(ResourceManager $resourceManager, $vendor = false)
   {
     if($vendor)
     {
-      $assetManager->requireCss('assets/css/PageElements');
+      $resourceManager->requireCss('assets/css/PageElements.min.css');
     }
     else
     {
-      $assetManager->requireCss('assets/css/PageElements/Hero');
+      $resourceManager->requireCss('assets/css/PageElements/Hero.css');
     }
   }
 

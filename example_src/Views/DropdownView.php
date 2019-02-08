@@ -4,9 +4,10 @@ namespace Fortifi\UiExample\Views;
 use Fortifi\Ui\ContentElements\QueryBuilder\QueryBuilder;
 use Fortifi\Ui\GlobalElements\Dropdowns\Dropdown;
 use Fortifi\Ui\GlobalElements\Icons\FontIcon;
-use Packaged\Dispatch\AssetManager;
-use Packaged\Glimpse\Core\HtmlTag;
+use Packaged\Dispatch\ResourceManager;
+use Packaged\Glimpse\Core\CustomHtmlTag;
 use Packaged\Glimpse\Tags\Div;
+use Packaged\SafeHtml\SafeHtml;
 
 class DropdownView extends AbstractUiExampleView
 {
@@ -33,10 +34,10 @@ class DropdownView extends AbstractUiExampleView
           '/querybuilder/definition',
           '/querybuilder/policy'
         ),
-        HtmlTag::create()->setTag('pre')->setId('values'),
+        CustomHtmlTag::build('pre')->setId('values'),
       ]
     );
-    AssetManager::sourceType()->requireInlineJs(
+    ResourceManager::inline()->requireJs(
       "
         $(document).on('update-dropdown', function() {
           $('.query-builder').QueryBuilder();
@@ -112,14 +113,18 @@ class DropdownView extends AbstractUiExampleView
     return [$d1, $d2, $d3];
   }
 
-  public function render()
+  /**
+   * @return SafeHtml
+   * @throws \ReflectionException
+   */
+  protected function _produceHtml(): SafeHtml
   {
-    AssetManager::sourceType()->requireInlineJs(
+    ResourceManager::inline()->requireJs(
       '
       $(function(){$(".dd-body").Dropdown({attachToBody:true});});
       $(function(){$(".dropdown-action").Dropdown();});
       '
     );
-    return parent::render();
+    return parent::_produceHtml();
   }
 }

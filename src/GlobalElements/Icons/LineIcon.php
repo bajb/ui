@@ -1,7 +1,7 @@
 <?php
 namespace Fortifi\Ui\GlobalElements\Icons;
 
-use Packaged\Dispatch\AssetManager;
+use Packaged\Dispatch\ResourceManager;
 use Packaged\Glimpse\Core\HtmlTag;
 
 class LineIcon extends Icon
@@ -2026,9 +2026,9 @@ class LineIcon extends Icon
     return $icn;
   }
 
-  protected function _processIconIncludes(AssetManager $assetManager)
+  protected function _processIconIncludes(ResourceManager $resourceManager)
   {
-    $assetManager->requireCss('assets/css/GlobalElements/LineIcons');
+    $resourceManager->requireCss('assets/css/GlobalElements/LineIcons.css');
   }
 
   /**

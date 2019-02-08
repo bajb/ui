@@ -5,7 +5,7 @@ use Fortifi\Ui\ContentElements\ObjectLists\ObjectList;
 use Fortifi\Ui\ContentElements\ObjectLists\ObjectListCard;
 use Fortifi\Ui\GlobalElements\Icons\FontIcon;
 use Fortifi\Ui\Ui;
-use Packaged\Glimpse\Elements\LineBreak;
+use Packaged\Glimpse\Tags\LineBreak;
 use Packaged\Glimpse\Tags\Link;
 
 class ObjectListsView extends AbstractUiExampleView

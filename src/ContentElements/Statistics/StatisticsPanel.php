@@ -3,22 +3,22 @@ namespace Fortifi\Ui\ContentElements\Statistics;
 
 use Fortifi\Ui\GlobalElements\Panels\ContentPanel;
 use Fortifi\Ui\UiElement;
-use Packaged\Dispatch\AssetManager;
+use Packaged\Dispatch\ResourceManager;
 
 class StatisticsPanel extends UiElement
 {
   protected $_statistics = [];
   protected $_background;
 
-  public function processIncludes(AssetManager $assetManager, $vendor = false)
+  public function processIncludes(ResourceManager $resourceManager, $vendor = false)
   {
     if($vendor)
     {
-      $assetManager->requireCss('assets/css/ContentElements');
+      $resourceManager->requireCss('assets/css/ContentElements.min.css');
     }
     else
     {
-      $assetManager->requireCss('assets/css/ContentElements/Statistics');
+      $resourceManager->requireCss('assets/css/ContentElements/Statistics.css');
     }
   }
 

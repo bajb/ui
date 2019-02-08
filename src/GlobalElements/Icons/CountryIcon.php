@@ -1,7 +1,7 @@
 <?php
 namespace Fortifi\Ui\GlobalElements\Icons;
 
-use Packaged\Dispatch\AssetManager;
+use Packaged\Dispatch\ResourceManager;
 use Packaged\Glimpse\Core\HtmlTag;
 
 class CountryIcon extends Icon
@@ -273,9 +273,9 @@ class CountryIcon extends Icon
     return $icn;
   }
 
-  protected function _processIconIncludes(AssetManager $assetManager)
+  protected function _processIconIncludes(ResourceManager $resourceManager)
   {
-    $assetManager->requireCss('assets/css/GlobalElements/CountryIcons');
+    $resourceManager->requireCss('assets/css/GlobalElements/CountryIcons.css');
   }
 
   /**

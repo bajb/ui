@@ -4,7 +4,7 @@ namespace Fortifi\Ui\ContentElements\Chips;
 use Fortifi\FontAwesome\FaIcon;
 use Fortifi\Ui\Helpers\ColourHelper;
 use Fortifi\Ui\UiElement;
-use Packaged\Dispatch\AssetManager;
+use Packaged\Dispatch\ResourceManager;
 use Packaged\Glimpse\Tags\Div;
 use Packaged\Glimpse\Tags\Link;
 use Packaged\Glimpse\Tags\Span;
@@ -25,15 +25,15 @@ class Chip extends UiElement
   protected $_borderColor;
   protected $_textColor = 'f-chip-dt';
 
-  public function processIncludes(AssetManager $assetManager, $vendor = false)
+  public function processIncludes(ResourceManager $resourceManager, $vendor = false)
   {
     if($vendor)
     {
-      $assetManager->requireCss('assets/css/ContentElements');
+      $resourceManager->requireCss('assets/css/ContentElements.min.css');
     }
     else
     {
-      $assetManager->requireCss('assets/css/ContentElements/Chip');
+      $resourceManager->requireCss('assets/css/ContentElements/Chip.css');
     }
   }
 

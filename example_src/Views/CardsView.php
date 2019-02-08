@@ -15,7 +15,7 @@ use Fortifi\Ui\GlobalElements\Cards\Cards;
 use Fortifi\Ui\GlobalElements\Cards\ContentCard;
 use Fortifi\Ui\GlobalElements\Icons\FontIcon;
 use Fortifi\Ui\Ui;
-use Packaged\Glimpse\Elements\LineBreak;
+use Packaged\Glimpse\Tags\LineBreak;
 use Packaged\Glimpse\Tags\Span;
 use Packaged\Helpers\Arrays;
 

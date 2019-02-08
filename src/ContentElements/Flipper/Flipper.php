@@ -2,7 +2,7 @@
 namespace Fortifi\Ui\ContentElements\Flipper;
 
 use Fortifi\Ui\UiElement;
-use Packaged\Dispatch\AssetManager;
+use Packaged\Dispatch\ResourceManager;
 use Packaged\Glimpse\Tags\Div;
 
 class Flipper extends UiElement
@@ -13,15 +13,15 @@ class Flipper extends UiElement
   protected $_backContent;
   protected $_vertical = false;
 
-  public function processIncludes(AssetManager $assetManager, $vendor = false)
+  public function processIncludes(ResourceManager $resourceManager, $vendor = false)
   {
     if($vendor)
     {
-      $assetManager->requireCss('assets/css/ContentElements');
+      $resourceManager->requireCss('assets/css/ContentElements.min.css');
     }
     else
     {
-      $assetManager->requireCss('assets/css/ContentElements/flipper');
+      $resourceManager->requireCss('assets/css/ContentElements/flipper.css');
     }
   }
 

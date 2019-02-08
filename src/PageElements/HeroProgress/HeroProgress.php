@@ -2,23 +2,23 @@
 namespace Fortifi\Ui\PageElements\HeroProgress;
 
 use Fortifi\Ui\UiElement;
-use Packaged\Dispatch\AssetManager;
+use Packaged\Dispatch\ResourceManager;
 use Packaged\Glimpse\Tags\Div;
 
 class HeroProgress extends UiElement
 {
   protected $_items = [];
 
-  public function processIncludes(AssetManager $assetManager, $vendor = false)
+  public function processIncludes(ResourceManager $resourceManager, $vendor = false)
   {
     if($vendor)
     {
-      $assetManager->requireCss('assets/css/PageElements');
+      $resourceManager->requireCss('assets/css/PageElements.min.css');
     }
     else
     {
-      $assetManager->requireCss('assets/css/PageElements/HeroProgress');
-      $assetManager->requireJs('https://use.fontawesome.com/releases/v5.0.13/js/all.js');
+      $resourceManager->requireCss('assets/css/PageElements/HeroProgress.css');
+      $resourceManager->requireJs('https://use.fontawesome.com/releases/v5.0.13/js/all.js');
     }
   }
 

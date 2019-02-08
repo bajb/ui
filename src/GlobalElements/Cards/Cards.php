@@ -5,7 +5,7 @@ use Fortifi\Ui\Interfaces\ILayout;
 use Fortifi\Ui\Traits\DataAttributesTrait;
 use Fortifi\Ui\Traits\SetIdTrait;
 use Fortifi\Ui\UiElement;
-use Packaged\Dispatch\AssetManager;
+use Packaged\Dispatch\ResourceManager;
 use Packaged\Glimpse\Tags\Div;
 
 class Cards extends UiElement implements ILayout
@@ -95,16 +95,16 @@ class Cards extends UiElement implements ILayout
     return $this;
   }
 
-  public function processIncludes(AssetManager $assetManager, $vendor = false)
+  public function processIncludes(ResourceManager $resourceManager, $vendor = false)
   {
     if($vendor)
     {
-      $assetManager->requireCss('assets/css/ContentElements');
-      $assetManager->requireJs('assets/js/GlobalElements');
+      $resourceManager->requireCss('assets/css/ContentElements.min.css');
+      $resourceManager->requireJs('assets/js/GlobalElements.min.js');
     }
     else
     {
-      $assetManager->requireCss('assets/css/ContentElements/Cards');
+      $resourceManager->requireCss('assets/css/ContentElements/Cards.css');
     }
   }
 

@@ -3,7 +3,7 @@ namespace Fortifi\Ui\ContentElements\Text;
 
 use Fortifi\Ui\Ui;
 use Fortifi\Ui\UiElement;
-use Packaged\Dispatch\AssetManager;
+use Packaged\Dispatch\ResourceManager;
 use Packaged\Glimpse\Tags\Div;
 use Packaged\Glimpse\Tags\Span;
 use Packaged\Helpers\Strings;
@@ -14,15 +14,15 @@ class AutoCompleteText extends UiElement
   protected $_complete;
   protected $_remaining;
 
-  public function processIncludes(AssetManager $assetManager, $vendor = false)
+  public function processIncludes(ResourceManager $resourceManager, $vendor = false)
   {
     if($vendor)
     {
-      $assetManager->requireCss('assets/css/ContentElements');
+      $resourceManager->requireCss('assets/css/ContentElements.min.css');
     }
     else
     {
-      $assetManager->requireCss('assets/css/ContentElements/AutoCompleteText');
+      $resourceManager->requireCss('assets/css/ContentElements/AutoCompleteText.css');
     }
   }
 

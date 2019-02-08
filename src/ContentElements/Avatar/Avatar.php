@@ -3,9 +3,8 @@ namespace Fortifi\Ui\ContentElements\Avatar;
 
 use Fortifi\Ui\Interfaces\IColours;
 use Fortifi\Ui\UiElement;
-use Packaged\Dispatch\AssetManager;
+use Packaged\Dispatch\ResourceManager;
 use Packaged\Glimpse\Tags\Div;
-use Packaged\SafeHtml\SafeHtml;
 
 class Avatar extends UiElement implements IColours
 {
@@ -14,20 +13,21 @@ class Avatar extends UiElement implements IColours
   protected $_style = [];
   protected $_size = "x1";
 
-  public function processIncludes(AssetManager $assetManager, $vendor = false)
+  public function processIncludes(ResourceManager $resourceManager, $vendor = false)
   {
     if($vendor)
     {
-      $assetManager->requireCss('assets/css/ContentElements');
+      $resourceManager->requireCss('assets/css/ContentElements.min.css');
     }
     else
     {
-      $assetManager->requireCss('assets/css/ContentElements/Avatar');
+      $resourceManager->requireCss('assets/css/ContentElements/Avatar.css');
     }
   }
 
   /**
-   * @return SafeHtml|SafeHtml[]|Div
+   * @return mixed
+   * @throws \Exception
    */
   protected function _produceHtml()
   {
