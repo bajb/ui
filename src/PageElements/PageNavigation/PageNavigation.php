@@ -2,7 +2,6 @@
 namespace Fortifi\Ui\PageElements\PageNavigation;
 
 use Fortifi\Ui\GlobalElements\Panels\Panel;
-use Fortifi\Ui\GlobalElements\Panels\PanelHeader;
 use Fortifi\Ui\UiElement;
 use Packaged\Dispatch\ResourceManager;
 use Packaged\Glimpse\Core\HtmlTag;
@@ -94,9 +93,7 @@ class PageNavigation extends UiElement
     /** @var Div $header */
     if(!empty($this->getTitle()))
     {
-      $header = PanelHeader::create($this->getTitle())->produceSafeHTML();
-      $header->removeClass('f-panel-heading');
-      $menu->prependContent($header);
+      $menu->prependContent(Div::create($this->getTitle()));
     }
     return $menu;
   }
