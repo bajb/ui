@@ -63,7 +63,11 @@ class AlertBox extends UiElement
 
   public function setContent($content)
   {
-    $this->_content = (array)$content;
+    if(!is_array($content))
+    {
+      $content = [$content];
+    }
+    $this->_content = $content;
     return $this;
   }
 
