@@ -382,7 +382,7 @@ class Card extends UiElement implements IColours, ICardActionType
       $card->addClass('has-title');
     }
 
-    if($this->_description !== null)
+    if($this->_description !== null && $this->_description !== '')
     {
       $description = Div::create($this->_produceDescription())->addClass('description');
       $this->_setDescription($description, $primary, $heading, $text);
