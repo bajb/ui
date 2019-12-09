@@ -3,10 +3,14 @@
  * @var $this ExampleLayout
  */
 
+use Fortifi\Ui\Ui;
 use Fortifi\UiExample\Layouts\ExampleLayout;
 use Packaged\Dispatch\Dispatch;
+use Packaged\Dispatch\ResourceManager;
 
 $r = Dispatch::instance()->store();
+Ui::boot(ResourceManager::alias('root'));
+ResourceManager::alias('esrc')->requireCss('css/theme.css');
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>

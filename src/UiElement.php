@@ -3,11 +3,12 @@ namespace Fortifi\Ui;
 
 use Packaged\Dispatch\ResourceManager;
 use Packaged\SafeHtml\SafeHtml;
+use Packaged\Ui\Element;
 
 /**
  * Extension of cubex UiElement with Dispatch helpers and includes
  */
-abstract class UiElement extends \Cubex\Ui\UiElement
+abstract class UiElement extends Element
 {
   protected $_processedIncludes = false;
 

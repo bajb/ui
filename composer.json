@@ -18,7 +18,7 @@
     "fortifi/fontawesome": "^3.0"
   },
   "require-dev": {
-    "cubex/framework": "dev-docblock",
+    "cubex/framework": "~4.0",
     "packaged/docblock": "^1.0",
     "phpunit/phpunit": "^3.0"
   },

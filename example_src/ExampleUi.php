@@ -1,25 +1,28 @@
 <?php
 namespace Fortifi\UiExample;
 
-use Cubex\Controller\Controller;
-use Fortifi\Ui\Ui;
+use Cubex\Application\Application;
+use Cubex\Cubex;
 use Fortifi\UiExample\Controllers\ExampleController;
-use Packaged\Dispatch\ResourceManager;
+use Packaged\Dispatch\Dispatch;
+use Packaged\Routing\Handler\Handler;
 
-class ExampleUi extends Controller
+class ExampleUi extends Application
 {
-  public function getRoutes()
+  public function __construct(Cubex $cubex)
   {
-    return 'default';
+    parent::__construct($cubex);
   }
 
-  public function __construct()
+  protected function _initialize()
   {
-    Ui::boot(ResourceManager::alias('root'));
-    ResourceManager::alias('esrc')->requireCss('css/theme.css');
+    $dispatch = new Dispatch($this->getCubex()->getContext()->getProjectRoot(), '_r');
+    $dispatch->addAlias('root', 'assets_src');
+    $dispatch->addAlias('esrc', 'example_src');
+    Dispatch::bind($dispatch);
   }
 
-  public function getDefault()
+  protected function _defaultHandler(): Handler
   {
     return new ExampleController();
   }

@@ -15,17 +15,17 @@ class ExampleController extends Controller
 {
   protected $_views = [];
 
-  public function getRoutes()
+  protected function _generateRoutes()
   {
-    yield self::route('querybuilder/definition', 'qbDefinition');
-    yield self::route('querybuilder/policy', 'qbPolicyData');
-    yield self::route('querybuilder/browsers', 'qbBrowsers');
-    yield self::route('querybuilder/sids', 'qbSids');
+    yield self::_route('querybuilder/definition', 'qbDefinition');
+    yield self::_route('querybuilder/policy', 'qbPolicyData');
+    yield self::_route('querybuilder/browsers', 'qbBrowsers');
+    yield self::_route('querybuilder/sids', 'qbSids');
 
-    yield self::route('dropdowns/content', 'dropContent');
+    yield self::_route('dropdowns/content', 'dropContent');
 
-    yield self::route('{page}', 'default');
-    yield self::route('', 'default');
+    yield self::_route('{page}', 'default');
+    yield self::_route('', 'default');
   }
 
   public function getDefault()
