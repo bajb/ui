@@ -170,6 +170,10 @@
   border-bottom: 1px solid var(--border-color);
 }
 
+.ui-card.grid.fullwidth .properties .property {
+  flex-basis: 200px;
+}
+
 .ui-card .properties .property .label {
   margin-bottom: 0;
 }
