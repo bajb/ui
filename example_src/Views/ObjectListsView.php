@@ -194,6 +194,26 @@ class ObjectListsView extends AbstractUiExampleView
   }
 
   /**
+   * @group rowedCards
+   */
+  final public function rowedCards()
+  {
+    $result = [];
+
+    $card = ObjectListCard::i();
+    $card->setTitle('One Action');
+    $card->setSubTitle('Secondary Title');
+    $card->addAction(new Link('#'), FontIcon::create(FontIcon::EDIT));
+    $card->setRightContent(
+      FontIcon::create(FontIcon::CURRENT_DEFAULT)->addClass(Ui::TEXT_ORANGE)
+    );
+    $card->appendRow("This is another row on the card");
+    $result[] = $card;
+
+    return $result;
+  }
+
+  /**
    * @group ListStyles
    */
   final public function stackedList()
