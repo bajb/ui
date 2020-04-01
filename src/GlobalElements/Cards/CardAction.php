@@ -90,6 +90,10 @@ class CardAction extends UiElement implements ICardActionType
         $this->_icon = FaIcon::create(FaIcon::EYE);
         $this->_tooltip = CardActionTooltip::VIEW;
         break;
+      case self::ACTION_TYPE_DOWNLOAD:
+        $this->_icon = FaIcon::create(FaIcon::DOWNLOAD);
+        $this->_tooltip = CardActionTooltip::DOWNLOAD;
+        break;
       case self::ACTION_TYPE_DELETE:
         $this->_icon = FaIcon::create(FaIcon::TRASH);
         $this->_tooltip = CardActionTooltip::DELETE;
