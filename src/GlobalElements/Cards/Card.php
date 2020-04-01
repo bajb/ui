@@ -263,7 +263,8 @@ class Card extends UiElement implements IColours, ICardActionType
     $sorted = [];
     $sortOrder = [
       self::ACTION_TYPE_VIEW         => 1,
-      self::ACTION_TYPE_EDIT         => 2,
+      self::ACTION_TYPE_DOWNLOAD     => 2,
+      self::ACTION_TYPE_EDIT         => 3,
       // custom actions can appear after here
       self::ACTION_TYPE_IS_DEFAULT   => 100,
       self::ACTION_TYPE_MAKE_DEFAULT => 110,
