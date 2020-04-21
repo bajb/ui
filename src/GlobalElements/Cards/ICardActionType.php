@@ -27,4 +27,5 @@ interface ICardActionType
   const ACTION_TYPE_PAUSE = 'pause';
   const ACTION_TYPE_RESUME = 'resume';
   const ACTION_TYPE_COMPLETE = 'complete';
+  const ACTION_TYPE_DROP = 'drop';
 }
