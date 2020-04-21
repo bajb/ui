@@ -9,6 +9,7 @@ class CardActionTooltip extends AbstractUiEnum
   const ADD = 'Add';
   const EDIT = 'Edit';
   const DELETE = 'Delete';
+  const COMPLETE = 'Complete';
   const REMOVE = 'Remove';
   const RESTORE = 'Restore';
   const VIEW = 'View';
