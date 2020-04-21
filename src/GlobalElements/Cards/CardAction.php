@@ -98,6 +98,10 @@ class CardAction extends UiElement implements ICardActionType
         $this->_icon = FaIcon::create(FaIcon::TRASH);
         $this->_tooltip = CardActionTooltip::DELETE;
         break;
+      case self::ACTION_TYPE_COMPLETE:
+        $this->_icon = FaIcon::create(FaIcon::CHECK_CIRCLE);
+        $this->_tooltip = CardActionTooltip::COMPLETE;
+        break;
       case self::ACTION_TYPE_RESTORE:
         $this->_icon = FaIcon::create(FaIcon::CHECK);
         $this->_tooltip = CardActionTooltip::RESTORE;
