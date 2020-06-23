@@ -9,6 +9,8 @@ class QueryBuilderDefinition
   const COMPARATOR_NOT_EQUALS_INSENSITIVE = 'neqi';
   const COMPARATOR_IN = 'in';
   const COMPARATOR_NOT_IN = 'nin';
+  const COMPARATOR_CONTAINS = 'contains';
+  const COMPARATOR_DOES_NOT_CONTAIN = 'dncontain';
   const COMPARATOR_GREATER_THAN = 'gt';
   const COMPARATOR_GREATER_OR_EQUAL = 'gte';
   const COMPARATOR_LESS_THAN = 'lt';
@@ -186,6 +188,14 @@ class QueryBuilderDefinition
   {
     return [
       QueryBuilderDefinition::COMPARATOR_EQUALS,
+    ];
+  }
+
+  public static function containsComparators()
+  {
+    return [
+      QueryBuilderDefinition::COMPARATOR_CONTAINS,
+      QueryBuilderDefinition::COMPARATOR_DOES_NOT_CONTAIN,
     ];
   }
 
