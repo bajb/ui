@@ -28,6 +28,8 @@
   QueryBuilderConstants.COMPARATOR_NOT_EQUALS_INSENSITIVE = 'neqi';
   QueryBuilderConstants.COMPARATOR_IN = 'in';
   QueryBuilderConstants.COMPARATOR_NOT_IN = 'nin';
+  QueryBuilderConstants.COMPARATOR_CONTAINS = 'contains';
+  QueryBuilderConstants.COMPARATOR_DOES_NOT_CONTAIN = 'dncontain';
   QueryBuilderConstants.COMPARATOR_GREATER = 'gt';
   QueryBuilderConstants.COMPARATOR_GREATER_EQUAL = 'gte';
   QueryBuilderConstants.COMPARATOR_LESS = 'lt';
@@ -469,6 +471,8 @@
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_EQUALS, 'Does Not Equal');
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_IN, 'In');
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_NOT_IN, 'Not In');
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_CONTAINS, 'Contains');
+    this.setComparatorName(QueryBuilderConstants.COMPARATOR_DOES_NOT_CONTAIN, 'Does Not Contain');
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_GREATER, 'Greater Than');
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_GREATER_EQUAL, 'Greater Than or Equal to');
     this.setComparatorName(QueryBuilderConstants.COMPARATOR_LESS, 'Less Than');
