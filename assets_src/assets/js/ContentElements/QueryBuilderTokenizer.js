@@ -131,7 +131,7 @@
       /* ADD VALUES */
       $.each(
         vals, function (idx, val) {
-          if(val !== null)
+          if(val !== null && (val !== 0 && val !== ""))
           {
             self._selectBox.trigger(
               'tokenize:dropdown:itemAdd',
