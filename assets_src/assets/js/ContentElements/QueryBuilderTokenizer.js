@@ -130,9 +130,12 @@
 
       /* ADD VALUES */
       $.each(
-        vals, function (idx, val) {
-          if(val !== null && (val !== 0 && val !== ""))
+        vals, function (idx, val){
+          if(val !== null)
           {
+            if((MULTI_INPUT_COMPARATORS.indexOf(self._comparator) !== -1 && val !== "")) {
+              return;
+            }
             self._selectBox.trigger(
               'tokenize:dropdown:itemAdd',
               {value: val, text: val}
