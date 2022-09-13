@@ -126,6 +126,7 @@ class QueryBuilderDefinition
     return $this;
   }
 
+  // Values get converted to an object to stop [0=>'Zero', 1=>'One'] in PHP becoming ['Zero', 'One'] in JSON
   public function setValues(array $values)
   {
     if(empty($values))
