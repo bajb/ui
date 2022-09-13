@@ -126,14 +126,16 @@ class QueryBuilderDefinition
     return $this;
   }
 
-  // setValues accepts an array or an object
-  public function setValues($values)
+  public function setValues(array $values)
   {
     if(empty($values))
     {
-      $values = null;
+      $this->_values = null;
     }
-    $this->_values = $values;
+    else
+    {
+      $this->_values = (object)$values;
+    }
     return $this;
   }
 
