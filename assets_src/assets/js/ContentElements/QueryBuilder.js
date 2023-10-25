@@ -1243,9 +1243,9 @@
 
     function getToday() {
       var d = new Date();
-      var today = d.getFullYear();
-      today += '-' + ('0' + (d.getMonth() + 1)).slice(-2);
-      today += '-' + ('0' + d.getDate()).slice(-2);
+      var today = d.getUTCFullYear();
+      today += '-' + ('0' + (d.getUTCMonth() + 1)).slice(-2);
+      today += '-' + ('0' + d.getUTCDate()).slice(-2);
       return today;
     }
 
@@ -1287,9 +1287,9 @@
     };
 
     function _getFormatted(d) {
-      var today = d.getFullYear();
-      today += '-' + ('0' + (d.getMonth() + 1)).slice(-2);
-      today += '-' + ('0' + d.getDate()).slice(-2);
+      var today = d.getUTCFullYear();
+      today += '-' + ('0' + (d.getUTCMonth() + 1)).slice(-2);
+      today += '-' + ('0' + d.getUTCDate()).slice(-2);
       return today;
     }
 
